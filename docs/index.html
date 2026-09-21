@@ -9,15 +9,15 @@
   <meta name="apple-mobile-web-app-title" content="米国株">
   <title>米国株 投資チェック</title>
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
-  <link rel="icon" href="./icons/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="./icons/us-stock-icon.png">
+  <link rel="icon" href="./icons/us-stock-icon.png" type="image/png">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
   <main class="app">
     <header class="hero">
       <div class="hero-row">
-        <img class="app-icon" src="./icons/icon-192.png" alt="米国株アプリ">
+        <img class="app-icon" src="./icons/us-stock-icon.png" alt="米国株アプリ">
         <div>
           <div class="eyebrow">US STOCK CHECK</div>
           <h1>米国株 投資チェック</h1>
@@ -31,27 +31,10 @@
       </div>
       <p id="statusMessage" class="status-message">Shadow構築中です。</p>
     </header>
-
-    <section>
-      <h2>今日の総合状況</h2>
-      <div id="summary" class="card muted">データ接続前です。</div>
-    </section>
-
-    <section>
-      <h2>主要4銘柄</h2>
-      <div id="stocks" class="cards"></div>
-    </section>
-
-    <section>
-      <h2>市場環境</h2>
-      <div id="market" class="cards compact"></div>
-    </section>
-
-    <section>
-      <h2>データ品質</h2>
-      <div id="quality" class="card"></div>
-    </section>
-
+    <section><h2>今日の総合状況</h2><div id="summary" class="card muted">データ接続前です。</div></section>
+    <section><h2>主要4銘柄</h2><div id="stocks" class="cards"></div></section>
+    <section><h2>市場環境</h2><div id="market" class="cards compact"></div></section>
+    <section><h2>データ品質</h2><div id="quality" class="card"></div></section>
     <footer>Shadow mode / 自動売買なし</footer>
   </main>
   <script src="./app.js" defer></script>
