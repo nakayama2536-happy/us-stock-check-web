@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b2a53">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="米国株">
+  <title>米国株 投資チェック</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <link rel="icon" href="./icons/favicon.png" type="image/png">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <div class="hero-row">
+        <img class="app-icon" src="./icons/icon-192.png" alt="米国株アプリ">
+        <div>
+          <div class="eyebrow">US STOCK CHECK</div>
+          <h1>米国株 投資チェック</h1>
+          <div id="version" class="version">v0.1.0</div>
+        </div>
+      </div>
+      <div class="status-grid">
+        <div><span>状態</span><strong id="appState">準備中</strong></div>
+        <div><span>米国取引日</span><strong id="tradeDate">—</strong></div>
+        <div><span>更新</span><strong id="updatedAt">—</strong></div>
+      </div>
+      <p id="statusMessage" class="status-message">Shadow構築中です。</p>
+    </header>
+
+    <section>
+      <h2>今日の総合状況</h2>
+      <div id="summary" class="card muted">データ接続前です。</div>
+    </section>
+
+    <section>
+      <h2>主要4銘柄</h2>
+      <div id="stocks" class="cards"></div>
+    </section>
+
+    <section>
+      <h2>市場環境</h2>
+      <div id="market" class="cards compact"></div>
+    </section>
+
+    <section>
+      <h2>データ品質</h2>
+      <div id="quality" class="card"></div>
+    </section>
+
+    <footer>Shadow mode / 自動売買なし</footer>
+  </main>
+  <script src="./app.js" defer></script>
+</body>
+</html>

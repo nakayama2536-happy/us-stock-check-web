@@ -1,0 +1,21 @@
+name: Public Repository Safety Check
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject likely secrets or private investment fields
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -RInE --exclude-dir=.git --exclude='security-check.yml' '(OPENAI_API_KEY|TWELVEDATA_API_KEY|github_pat_|sk-[A-Za-z0-9_-]{20,}|取得単価|保有数量|position_size|cost_basis)' .; then
+            echo "Potential private/sensitive field found in public repository."
+            exit 1
+          fi
+          echo "Public safety scan passed."

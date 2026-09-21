@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1",
+  "summary": "Shadow構築中。市場データはまだ接続していません。",
+  "stocks": [
+    {"ticker":"PLTR","name":"Palantir Technologies","close":null,"change_pct":null,"trend":null,"macd_state":null,"rsi14":null,"ma_state":null,"signal":"SETUP"},
+    {"ticker":"LLY","name":"Eli Lilly","close":null,"change_pct":null,"trend":null,"macd_state":null,"rsi14":null,"ma_state":null,"signal":"SETUP"},
+    {"ticker":"BSY","name":"Bentley Systems","close":null,"change_pct":null,"trend":null,"macd_state":null,"rsi14":null,"ma_state":null,"signal":"SETUP"},
+    {"ticker":"SOXL","name":"Direxion Daily Semiconductor Bull 3X","close":null,"change_pct":null,"trend":null,"macd_state":null,"rsi14":null,"ma_state":null,"signal":"SETUP"}
+  ],
+  "market_environment": [
+    {"symbol":"S&P 500","name":"SPX","value":null,"change_pct":null},
+    {"symbol":"NASDAQ","name":"NASDAQ Composite","value":null,"change_pct":null},
+    {"symbol":"SOX","name":"PHLX Semiconductor","value":null,"change_pct":null},
+    {"symbol":"VIX","name":"Volatility Index","value":null,"change_pct":null},
+    {"symbol":"US10Y","name":"米10年金利","value":null,"change_pct":null}
+  ]
+}

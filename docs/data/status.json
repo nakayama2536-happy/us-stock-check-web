@@ -1,0 +1,15 @@
+{
+  "schema_version": "0.1",
+  "app_version": "0.1.0",
+  "app_state": "SETUP",
+  "app_state_ja": "準備中",
+  "run_state": null,
+  "us_trade_date": null,
+  "generated_at_jst": null,
+  "message": "Private側のShadow処理接続前です。",
+  "quality": {
+    "qc": "NOT_RUN",
+    "session": "NOT_RUN",
+    "completeness": "NOT_RUN"
+  }
+}
