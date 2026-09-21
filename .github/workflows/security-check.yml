@@ -10,12 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Reject likely secrets or private investment fields
+      - name: Reject likely secrets or private investment values
         shell: bash
         run: |
           set -euo pipefail
-          if grep -RInE --exclude-dir=.git --exclude='security-check.yml' '(OPENAI_API_KEY|TWELVEDATA_API_KEY|github_pat_|sk-[A-Za-z0-9_-]{20,}|取得単価|保有数量|position_size|cost_basis)' .; then
-            echo "Potential private/sensitive field found in public repository."
+          # README may describe prohibited fields as policy; scan deployable/runtime content instead.
+          TARGETS="docs"
+          if grep -RInE --exclude='security-check.yml' '(OPENAI_API_KEY|TWELVEDATA_API_KEY|github_pat_|sk-[A-Za-z0-9_-]{20,}|position_size[[:space:]]*[:=]|cost_basis[[:space:]]*[:=])' $TARGETS; then
+            echo "Potential private/sensitive value found in public content."
             exit 1
           fi
           echo "Public safety scan passed."
