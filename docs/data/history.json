@@ -1,1 +1,6 @@
-{"schema_version":"0.1","records":[]}
+{
+  "schema_version": "0.2",
+  "records": [
+    {"generated_at_jst":"2026-09-22T07:11:46+09:00","us_trade_date":"2026-09-21","run_state":"NORMAL","errors":[]}
+  ]
+}

@@ -1,15 +1,17 @@
 {
-  "schema_version": "0.1",
-  "app_version": "0.1.0",
-  "app_state": "SETUP",
-  "app_state_ja": "準備中",
-  "run_state": null,
-  "us_trade_date": null,
-  "generated_at_jst": null,
-  "message": "Private側のShadow処理接続前です。",
+  "schema_version": "0.2",
+  "app_version": "0.2.0",
+  "app_state": "SHADOW",
+  "app_state_ja": "Shadow検証中",
+  "run_state": "NORMAL",
+  "us_trade_date": "2026-09-21",
+  "generated_at_jst": "2026-09-22T07:11:46+09:00",
+  "message": "Shadowデータ取得・計算を実行しました。",
   "quality": {
-    "qc": "NOT_RUN",
-    "session": "NOT_RUN",
-    "completeness": "NOT_RUN"
-  }
+    "qc": "PASS",
+    "session": "REGULAR",
+    "completeness": "4/4",
+    "source_crosscheck": "PASS"
+  },
+  "errors": []
 }
