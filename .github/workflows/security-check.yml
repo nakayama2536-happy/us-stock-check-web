@@ -33,7 +33,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          patterns='(ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|AKIA[0-9A-Z]{16}|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----|sk-[A-Za-z0-9_-]{20,}|OPENAI_API_KEY|TWELVEDATA_API_KEY|position_size[[:space:]]*[:=]|cost_basis[[:space:]]*[:=])'
+          patterns='(ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|AKIA[0-9A-Z]{16}|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----|sk-[A-Za-z0-9_-]{20,}|OPENAI_API_KEY|TWELVEDATA_API_KEY|(shares|quantity|position_size|average_cost|cost_basis|purchase_price|account_type|position_id|planned_total_shares|stage_size|completed_stages|max_stages|opened_at|closed_at)[[:space:]]*["'\\]*[:=])'
           if git grep -nEI "$patterns" -- docs ':!*.png' ':!*.jpg' ':!*.jpeg' ':!*.webp' ':!*.ico'; then
             echo "Potential private or sensitive value found in public content."
             exit 1
