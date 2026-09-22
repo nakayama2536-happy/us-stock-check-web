@@ -29,18 +29,63 @@
       },
       "structural_growth": {
         "ticker": "PLTR",
-        "status": "確認不能",
-        "score": null,
-        "data_completeness_pct": 15,
+        "status": "算定可能",
+        "score": 88.2,
+        "data_completeness_pct": 85,
         "required_completeness_pct": 70,
-        "available_weight": 15,
+        "available_weight": 85,
+        "earned_points_on_available_axes": 75.0,
+        "axes": {
+          "structural_growth_5_10y": {
+            "weight": 20,
+            "score_pct": 100,
+            "revenue_cagr_pct": 30.52,
+            "positive_revenue_growth_years": 4,
+            "basis": "FY2021→FY2025 revenue CAGR and annual growth consistency"
+          },
+          "financial_growth_quality": {
+            "weight": 25,
+            "score_pct": 100,
+            "revenue_growth_ttm_pct": 78.92,
+            "eps_growth_ttm_pct": 287.57,
+            "fcf_growth_ttm_pct": 96.54,
+            "operating_margin_ttm_pct": 42.8
+          },
+          "competitive_advantage": {
+            "weight": 15,
+            "score_pct": null,
+            "basis": "Narrative/market-share evidence not connected"
+          },
+          "business_acceleration": {
+            "weight": 15,
+            "score_pct": 100,
+            "positive_signals": 4,
+            "available_signals": 4
+          },
+          "valuation_reasonableness": {
+            "weight": 10,
+            "score_pct": 50,
+            "forward_pe": 96.81,
+            "peg_ratio": 1.81
+          },
+          "price_confirmation": {
+            "weight": 10,
+            "score_pct": 100
+          },
+          "volume_confirmation": {
+            "weight": 5,
+            "score_pct": 0
+          }
+        },
         "price_confirmation": {
           "weight": 10,
+          "score_pct": 100,
           "trend": "上昇",
           "distance_to_52w_high_pct": 13.34
         },
         "volume_confirmation": {
           "weight": 5,
+          "score_pct": 0,
           "volume_ratio20": 0.76
         },
         "new_high_health": {
@@ -48,7 +93,17 @@
           "distance_to_52w_high_pct": 13.34,
           "basis": "52週高値から5%超離れており、新高値局面ではない"
         },
-        "note": "財務成長・競争優位・業績加速・バリュエーションの自動取得未接続のため、総合スコアは確定しない。"
+        "fundamentals": {
+          "revenue_growth_ttm_pct": 78.92,
+          "eps_growth_ttm_pct": 287.57,
+          "fcf_growth_ttm_pct": 96.54,
+          "operating_margin_ttm_pct": 42.8,
+          "forward_pe": 96.81,
+          "peg_ratio": 1.81
+        },
+        "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
+        "fundamental_last_updated": "Aug 4, 2026",
+        "note": "競争優位性15点は未確認のまま除外し、確認済み軸を100点換算した定量スコア。"
       },
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
@@ -83,18 +138,63 @@
       },
       "structural_growth": {
         "ticker": "LLY",
-        "status": "確認不能",
-        "score": null,
-        "data_completeness_pct": 15,
+        "status": "算定可能",
+        "score": 85.3,
+        "data_completeness_pct": 85,
         "required_completeness_pct": 70,
-        "available_weight": 15,
+        "available_weight": 85,
+        "earned_points_on_available_axes": 72.5,
+        "axes": {
+          "structural_growth_5_10y": {
+            "weight": 20,
+            "score_pct": 100,
+            "revenue_cagr_pct": 23.17,
+            "positive_revenue_growth_years": 4,
+            "basis": "FY2021→FY2025 revenue CAGR and annual growth consistency"
+          },
+          "financial_growth_quality": {
+            "weight": 25,
+            "score_pct": 100,
+            "revenue_growth_ttm_pct": 49.58,
+            "eps_growth_ttm_pct": 94.8,
+            "fcf_growth_ttm_pct": 272.37,
+            "operating_margin_ttm_pct": 49.72
+          },
+          "competitive_advantage": {
+            "weight": 15,
+            "score_pct": null,
+            "basis": "Narrative/market-share evidence not connected"
+          },
+          "business_acceleration": {
+            "weight": 15,
+            "score_pct": 75,
+            "positive_signals": 3,
+            "available_signals": 4
+          },
+          "valuation_reasonableness": {
+            "weight": 10,
+            "score_pct": 100,
+            "forward_pe": 28.55,
+            "peg_ratio": 1.33
+          },
+          "price_confirmation": {
+            "weight": 10,
+            "score_pct": 50
+          },
+          "volume_confirmation": {
+            "weight": 5,
+            "score_pct": 25
+          }
+        },
         "price_confirmation": {
           "weight": 10,
+          "score_pct": 50,
           "trend": "混在",
           "distance_to_52w_high_pct": 10.97
         },
         "volume_confirmation": {
           "weight": 5,
+          "score_pct": 25,
           "volume_ratio20": 0.93
         },
         "new_high_health": {
@@ -102,7 +202,17 @@
           "distance_to_52w_high_pct": 10.97,
           "basis": "52週高値から5%超離れており、新高値局面ではない"
         },
-        "note": "財務成長・競争優位・業績加速・バリュエーションの自動取得未接続のため、総合スコアは確定しない。"
+        "fundamentals": {
+          "revenue_growth_ttm_pct": 49.58,
+          "eps_growth_ttm_pct": 94.8,
+          "fcf_growth_ttm_pct": 272.37,
+          "operating_margin_ttm_pct": 49.72,
+          "forward_pe": 28.55,
+          "peg_ratio": 1.33
+        },
+        "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
+        "fundamental_last_updated": "Aug 5, 2026",
+        "note": "競争優位性15点は未確認のまま除外し、確認済み軸を100点換算した定量スコア。"
       },
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
@@ -137,18 +247,63 @@
       },
       "structural_growth": {
         "ticker": "BSY",
-        "status": "確認不能",
-        "score": null,
-        "data_completeness_pct": 15,
+        "status": "算定可能",
+        "score": 58.8,
+        "data_completeness_pct": 85,
         "required_completeness_pct": 70,
-        "available_weight": 15,
+        "available_weight": 85,
+        "earned_points_on_available_axes": 50.0,
+        "axes": {
+          "structural_growth_5_10y": {
+            "weight": 20,
+            "score_pct": 75,
+            "revenue_cagr_pct": 11.69,
+            "positive_revenue_growth_years": 4,
+            "basis": "FY2021→FY2025 revenue CAGR and annual growth consistency"
+          },
+          "financial_growth_quality": {
+            "weight": 25,
+            "score_pct": 75,
+            "revenue_growth_ttm_pct": 12.85,
+            "eps_growth_ttm_pct": 15.5,
+            "fcf_growth_ttm_pct": 14.93,
+            "operating_margin_ttm_pct": 25.19
+          },
+          "competitive_advantage": {
+            "weight": 15,
+            "score_pct": null,
+            "basis": "Narrative/market-share evidence not connected"
+          },
+          "business_acceleration": {
+            "weight": 15,
+            "score_pct": 25,
+            "positive_signals": 1,
+            "available_signals": 4
+          },
+          "valuation_reasonableness": {
+            "weight": 10,
+            "score_pct": 100,
+            "forward_pe": 22.01,
+            "peg_ratio": 1.66
+          },
+          "price_confirmation": {
+            "weight": 10,
+            "score_pct": 0
+          },
+          "volume_confirmation": {
+            "weight": 5,
+            "score_pct": 50
+          }
+        },
         "price_confirmation": {
           "weight": 10,
+          "score_pct": 0,
           "trend": "下降",
           "distance_to_52w_high_pct": 79.13
         },
         "volume_confirmation": {
           "weight": 5,
+          "score_pct": 50,
           "volume_ratio20": 1.18
         },
         "new_high_health": {
@@ -156,7 +311,17 @@
           "distance_to_52w_high_pct": 79.13,
           "basis": "52週高値から5%超離れており、新高値局面ではない"
         },
-        "note": "財務成長・競争優位・業績加速・バリュエーションの自動取得未接続のため、総合スコアは確定しない。"
+        "fundamentals": {
+          "revenue_growth_ttm_pct": 12.85,
+          "eps_growth_ttm_pct": 15.5,
+          "fcf_growth_ttm_pct": 14.93,
+          "operating_margin_ttm_pct": 25.19,
+          "forward_pe": 22.01,
+          "peg_ratio": 1.66
+        },
+        "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
+        "fundamental_last_updated": "Aug 6, 2026",
+        "note": "競争優位性15点は未確認のまま除外し、確認済み軸を100点換算した定量スコア。"
       },
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
