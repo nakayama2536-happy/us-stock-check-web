@@ -5,18 +5,20 @@
   "app_state_ja": "Shadow検証中",
   "run_state": "HOLD",
   "us_trade_date": "2026-09-21",
-  "generated_at_jst": "2026-09-22T09:48:24+09:00",
+  "generated_at_jst": "2026-09-22T09:52:32+09:00",
   "message": "Shadow検証で確認事項があります。",
   "quality": {
-    "qc": "PASS",
+    "qc": "FAIL",
     "session": "REGULAR",
-    "completeness": "0/4",
-    "source_crosscheck": "PASS"
+    "completeness": "3/4",
+    "source_crosscheck": "FAIL"
   },
+  "warnings": [
+    "LLY: independent close is not published for 2026-09-21; technical calculation uses the confirmed primary close.",
+    "BSY: independent close is not published for 2026-09-21; technical calculation uses the confirmed primary close.",
+    "SOXL: independent close is not published for 2026-09-21; technical calculation uses the confirmed primary close."
+  ],
   "errors": [
-    "PLTR: RuntimeError: Yahoo has no row for StockAnalysis date 2026-09-21",
-    "LLY: RuntimeError: Yahoo has no row for StockAnalysis date 2026-09-21",
-    "BSY: RuntimeError: Yahoo has no row for StockAnalysis date 2026-09-21",
-    "SOXL: RuntimeError: Yahoo has no row for StockAnalysis date 2026-09-21"
+    "PLTR: YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
   ]
 }

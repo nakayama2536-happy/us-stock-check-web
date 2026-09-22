@@ -45,6 +45,20 @@
         "BSY: RuntimeError: Yahoo has no row for StockAnalysis date 2026-09-21",
         "SOXL: RuntimeError: Yahoo has no row for StockAnalysis date 2026-09-21"
       ]
+    },
+    {
+      "generated_at_jst": "2026-09-22T09:52:32+09:00",
+      "us_trade_date": "2026-09-21",
+      "run_state": "HOLD",
+      "source_crosscheck": "FAIL",
+      "warnings": [
+        "LLY: independent close is not published for 2026-09-21; technical calculation uses the confirmed primary close.",
+        "BSY: independent close is not published for 2026-09-21; technical calculation uses the confirmed primary close.",
+        "SOXL: independent close is not published for 2026-09-21; technical calculation uses the confirmed primary close."
+      ],
+      "errors": [
+        "PLTR: YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+      ]
     }
   ]
 }
