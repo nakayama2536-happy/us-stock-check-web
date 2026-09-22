@@ -1,23 +1,41 @@
 name: Public Repository Safety Check
+
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+  pull_request:
+
 permissions:
   contents: read
+
 jobs:
-  scan:
+  public-safety:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-      - name: Reject likely secrets or private investment values
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Reject tracked secret files
         shell: bash
         run: |
           set -euo pipefail
-          # README may describe prohibited fields as policy; scan deployable/runtime content instead.
-          TARGETS="docs"
-          if grep -RInE --exclude='security-check.yml' '(OPENAI_API_KEY|TWELVEDATA_API_KEY|github_pat_|sk-[A-Za-z0-9_-]{20,}|position_size[[:space:]]*[:=]|cost_basis[[:space:]]*[:=])' $TARGETS; then
-            echo "Potential private/sensitive value found in public content."
+          bad_files="$(git ls-files | grep -E '(^|/)(\.env($|\.)|.*\.(pem|key|p12|pfx)$)' || true)"
+          if [ -n "$bad_files" ]; then
+            echo "Potential secret files are tracked:"
+            echo "$bad_files"
+            exit 1
+          fi
+
+      - name: Reject credentials or private investment values
+        shell: bash
+        run: |
+          set -euo pipefail
+          patterns='(ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|AKIA[0-9A-Z]{16}|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----|sk-[A-Za-z0-9_-]{20,}|OPENAI_API_KEY|TWELVEDATA_API_KEY|position_size[[:space:]]*[:=]|cost_basis[[:space:]]*[:=])'
+          if git grep -nEI "$patterns" -- docs ':!*.png' ':!*.jpg' ':!*.jpeg' ':!*.webp' ':!*.ico'; then
+            echo "Potential private or sensitive value found in public content."
             exit 1
           fi
           echo "Public safety scan passed."
