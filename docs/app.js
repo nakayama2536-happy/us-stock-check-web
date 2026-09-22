@@ -91,18 +91,43 @@ function growthPanel(s){
   if(!g)return "";
   const health=g.new_high_health||{};
   const completion=clamp(Number(g.data_completeness_pct||0),0,100);
-  const score=g.score==null?"確認不能":Number(g.score).toFixed(0);
+  const score=g.score==null?"確認不能":Number(g.score).toFixed(1)+"/100";
+  const f=g.fundamentals||{};
+  const axes=g.axes||{};
 
-  return `<details class="expand-panel">
+  const axisNames={
+    structural_growth_5_10y:"長期構造成長",
+    financial_growth_quality:"財務成長・質",
+    competitive_advantage:"競争優位性",
+    business_acceleration:"業績加速",
+    valuation_reasonableness:"バリュエーション",
+    price_confirmation:"株価確認",
+    volume_confirmation:"出来高確認"
+  };
+
+  const axisRows=Object.entries(axisNames).map(([key,label])=>{
+    const a=axes[key]||{};
+    const scoreText=a.score_pct==null?"未確認":Number(a.score_pct).toFixed(0);
+    const cls=a.score_pct==null?"axis-score axis-unverified":"axis-score";
+    return `<div class="axis-row">
+      <span class="axis-name">${label}（${fmt(a.weight)}点）</span>
+      <span class="${cls}">${scoreText}</span>
+    </div>`;
+  }).join("");
+
+  return `<details class="expand-panel" open>
     <summary>構造的成長</summary>
+
     <div class="growth-grid">
       <div class="growth-item">
-        <span class="label">構造的成長スコア</span>
-        <div class="growth-value">${score}</div>
+        <span class="label">定量スコア</span>
+        <div class="score-big">${score}</div>
+        <div class="score-sub">未確認軸は0点扱いせず除外</div>
       </div>
       <div class="growth-item">
         <span class="label">データ充足率</span>
         <div class="growth-value">${fmt(g.data_completeness_pct)}%</div>
+        <div class="score-sub">確定基準 ${fmt(g.required_completeness_pct)}%</div>
       </div>
       <div class="growth-item">
         <span class="label">新高値の健全性</span>
@@ -112,17 +137,25 @@ function growthPanel(s){
         <span class="label">52週高値まで</span>
         <div class="growth-value">${health.distance_to_52w_high_pct==null?"—":Number(health.distance_to_52w_high_pct).toFixed(2)+"%"}</div>
       </div>
-      <div class="growth-item">
-        <span class="label">20日出来高比</span>
-        <div class="growth-value">${g.volume_confirmation?.volume_ratio20==null?"—":Number(g.volume_confirmation.volume_ratio20).toFixed(2)+"x"}</div>
-      </div>
-      <div class="growth-item">
-        <span class="label">確定基準</span>
-        <div class="growth-value">${fmt(g.required_completeness_pct)}%</div>
-      </div>
     </div>
+
     <div class="completeness-track">
       <div class="completeness-fill" style="width:${completion}%"></div>
+    </div>
+
+    <div class="fund-grid">
+      <div class="fund-item"><span class="label">売上成長 TTM</span><div class="fund-value">${pct(f.revenue_growth_ttm_pct)}</div></div>
+      <div class="fund-item"><span class="label">EPS成長 TTM</span><div class="fund-value">${pct(f.eps_growth_ttm_pct)}</div></div>
+      <div class="fund-item"><span class="label">FCF成長 TTM</span><div class="fund-value">${pct(f.fcf_growth_ttm_pct)}</div></div>
+      <div class="fund-item"><span class="label">営業利益率 TTM</span><div class="fund-value">${f.operating_margin_ttm_pct==null?"—":Number(f.operating_margin_ttm_pct).toFixed(2)+"%"}</div></div>
+      <div class="fund-item"><span class="label">Forward PE</span><div class="fund-value">${f.forward_pe==null?"—":Number(f.forward_pe).toFixed(2)}</div></div>
+      <div class="fund-item"><span class="label">PEG</span><div class="fund-value">${f.peg_ratio==null?"—":Number(f.peg_ratio).toFixed(2)}</div></div>
+    </div>
+
+    <div class="axis-list">${axisRows}</div>
+
+    <div class="source-note">
+      Fundamental: ${fmt(g.fundamental_source)} ／ Updated ${fmt(g.fundamental_last_updated)}
     </div>
     <div class="panel-note">${fmt(g.note)}</div>
   </details>`;
@@ -261,7 +294,7 @@ main();
 
 if("serviceWorker" in navigator){
   window.addEventListener("load",async()=>{
-    const reg=await navigator.serviceWorker.register("./sw.js?v=0.5.0",{updateViaCache:"none"});
+    const reg=await navigator.serviceWorker.register("./sw.js?v=0.6.0",{updateViaCache:"none"});
     reg.update();
   });
 }
