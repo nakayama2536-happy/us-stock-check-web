@@ -1,6 +1,6 @@
 {
   "schema_version": "0.2",
-  "summary": "2026-09-21 の確定値を維持しています。新しい米国取引日データはありません。 独立終値照合は一部確認待ちです。",
+  "summary": "2026-09-21 の確定値を維持しています。新しい米国取引日データはありません。",
   "stocks": [
     {
       "ticker": "PLTR",
@@ -18,9 +18,9 @@
       "macd_signal": 4.4231,
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
-      "shadow_source": "Independent close pending",
-      "shadow_close_diff_usd": null,
-      "shadow_close_diff_pct": null
+      "shadow_source": "Yahoo Finance",
+      "shadow_close_diff_usd": 0.0,
+      "shadow_close_diff_pct": 0.0
     },
     {
       "ticker": "LLY",
@@ -38,9 +38,9 @@
       "macd_signal": -13.0608,
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
-      "shadow_source": "Independent close pending",
-      "shadow_close_diff_usd": null,
-      "shadow_close_diff_pct": null
+      "shadow_source": "Yahoo Finance",
+      "shadow_close_diff_usd": 0.0,
+      "shadow_close_diff_pct": 0.0
     },
     {
       "ticker": "BSY",
@@ -58,9 +58,9 @@
       "macd_signal": -0.7181,
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
-      "shadow_source": "Independent close pending",
-      "shadow_close_diff_usd": null,
-      "shadow_close_diff_pct": null
+      "shadow_source": "Yahoo Finance",
+      "shadow_close_diff_usd": 0.0,
+      "shadow_close_diff_pct": 0.0
     },
     {
       "ticker": "SOXL",
@@ -78,9 +78,9 @@
       "macd_signal": -6.3616,
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
-      "shadow_source": "Independent close pending",
-      "shadow_close_diff_usd": null,
-      "shadow_close_diff_pct": null
+      "shadow_source": "Yahoo Finance",
+      "shadow_close_diff_usd": 0.0,
+      "shadow_close_diff_pct": 0.0
     }
   ],
   "market_environment": [

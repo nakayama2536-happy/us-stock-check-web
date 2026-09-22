@@ -1,23 +1,18 @@
 {
   "schema_version": "0.2",
-  "app_version": "0.2.0",
+  "app_version": "0.3.0",
   "app_state": "SHADOW",
   "app_state_ja": "Shadow検証中",
   "run_state": "NO_CHANGE",
   "us_trade_date": "2026-09-21",
-  "generated_at_jst": "2026-09-22T09:56:18+09:00",
-  "message": "新しい米国取引日の確定データはありません。 独立終値の一部は確認待ちです。",
+  "generated_at_jst": "2026-09-22T11:02:52+09:00",
+  "message": "新しい米国取引日の確定データはありません。",
   "quality": {
     "qc": "PASS",
     "session": "REGULAR",
     "completeness": "4/4",
-    "source_crosscheck": "PENDING"
+    "source_crosscheck": "PASS"
   },
-  "warnings": [
-    "PLTR: independent close is not published for 2026-09-21.",
-    "LLY: independent close is not published for 2026-09-21.",
-    "BSY: independent close is not published for 2026-09-21.",
-    "SOXL: independent close is not published for 2026-09-21."
-  ],
+  "warnings": [],
   "errors": []
 }
