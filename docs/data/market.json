@@ -467,9 +467,12 @@
       },
       "point_in_time_validation": {
         "ticker": "PLTR",
-        "records": 2,
-        "first_available_from": "2025-02-03",
-        "last_available_from": "2026-02-02",
+        "records": 11,
+        "quantified_records": 1,
+        "target_records": 12,
+        "coverage_pct": 91.7,
+        "first_available_from": "2024-02-05",
+        "last_available_from": "2026-08-03",
         "point_in_time_ready": false,
         "status": "BUILDING"
       }
@@ -939,9 +942,12 @@
       },
       "point_in_time_validation": {
         "ticker": "LLY",
-        "records": 1,
-        "first_available_from": "2025-02-06",
-        "last_available_from": "2025-02-06",
+        "records": 10,
+        "quantified_records": 1,
+        "target_records": 12,
+        "coverage_pct": 83.3,
+        "first_available_from": "2024-05-01",
+        "last_available_from": "2026-08-06",
         "point_in_time_ready": false,
         "status": "BUILDING"
       }
@@ -1411,9 +1417,12 @@
       },
       "point_in_time_validation": {
         "ticker": "BSY",
-        "records": 2,
-        "first_available_from": "2025-02-26",
-        "last_available_from": "2026-02-26",
+        "records": 10,
+        "quantified_records": 3,
+        "target_records": 12,
+        "coverage_pct": 83.3,
+        "first_available_from": "2024-05-07",
+        "last_available_from": "2026-08-05",
         "point_in_time_ready": false,
         "status": "BUILDING"
       }
