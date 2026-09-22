@@ -228,6 +228,48 @@ function marketCard(m){
   </article>`;
 }
 
+function modelValidationPanel(v){
+  if(!v||v.status!=="DIAGNOSTIC")return '<div class="muted">Point-in-Time検証データ待ちです。</div>';
+  const corr=v.pooled_correlation||{};
+  const cell=h=>{
+    const x=corr[h]||{};
+    return `<div class="validation-item">
+      <span class="label">${h} Spearman</span>
+      <div class="validation-value">${x.spearman_rho==null?"—":Number(x.spearman_rho).toFixed(3)}</div>
+      <div class="score-sub">n=${fmt(x.n)}</div>
+    </div>`;
+  };
+  const tickerRows=Object.entries(v.per_ticker_correlation||{}).map(([ticker,x])=>{
+    const r=x["126d"]||{};
+    return `<div class="validation-row">
+      <strong>${ticker}</strong>
+      <span>126日 ρ ${r.spearman_rho==null?"—":Number(r.spearman_rho).toFixed(3)}</span>
+      <span>n=${fmt(r.n)}</span>
+    </div>`;
+  }).join("");
+  return `
+    <div class="validation-head">
+      <div>
+        <span class="stage-pill validation-pill">POINT-IN-TIME V2</span>
+        <div class="validation-title">将来情報を使わない診断検証</div>
+      </div>
+      <div class="validation-events">${fmt(v.total_events)} events</div>
+    </div>
+    <div class="validation-grid">
+      ${cell("63d")}${cell("126d")}${cell("252d")}
+    </div>
+    <div class="validation-note">
+      現時点では、スコアが高いほど将来リターンが高いという関係は確認できていません。
+      このスコアは企業の成長・事業モメンタムを定量監視するもので、単独の買いタイミング指標ではありません。
+    </div>
+    <details class="expand-panel">
+      <summary>銘柄別検証</summary>
+      <div class="validation-list">${tickerRows}</div>
+      <div class="panel-note">四半期イベントの観測期間は重複しており、3銘柄・各約12イベントの小標本です。相関は因果関係や予測精度を示しません。</div>
+    </details>
+  `;
+}
+
 function renderNotices(status){
   const warnings=status.warnings||[];
   const errors=status.errors||[];
@@ -283,6 +325,9 @@ async function main(){
         <div class="quality-item"><span class="label">Source check</span><div class="quality-value">${qualityPill(q.source_crosscheck)}</div></div>
       </div>`;
 
+    $("modelValidation").classList.remove("muted");
+    $("modelValidation").innerHTML=modelValidationPanel(market.model_validation);
+
     renderNotices(status);
 
   }catch(e){
@@ -295,7 +340,7 @@ main();
 
 if("serviceWorker" in navigator){
   window.addEventListener("load",async()=>{
-    const reg=await navigator.serviceWorker.register("./sw.js?v=0.7.0",{updateViaCache:"none"});
+    const reg=await navigator.serviceWorker.register("./sw.js?v=0.8.0",{updateViaCache:"none"});
     reg.update();
   });
 }
