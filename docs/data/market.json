@@ -474,7 +474,8 @@
         "first_available_from": "2024-02-05",
         "last_available_from": "2026-08-03",
         "point_in_time_ready": false,
-        "status": "BUILDING"
+        "status": "BUILDING",
+        "score_series": []
       }
     },
     {
@@ -949,7 +950,8 @@
         "first_available_from": "2024-05-01",
         "last_available_from": "2026-08-06",
         "point_in_time_ready": false,
-        "status": "BUILDING"
+        "status": "BUILDING",
+        "score_series": []
       }
     },
     {
@@ -1418,13 +1420,75 @@
       "point_in_time_validation": {
         "ticker": "BSY",
         "records": 10,
-        "quantified_records": 3,
+        "quantified_records": 10,
         "target_records": 12,
         "coverage_pct": 83.3,
         "first_available_from": "2024-05-07",
         "last_available_from": "2026-08-05",
         "point_in_time_ready": false,
-        "status": "BUILDING"
+        "status": "BUILDING",
+        "score_series": [
+          {
+            "score_pct": 75,
+            "available_from": "2024-05-07",
+            "period": "2024-Q1",
+            "components": 5
+          },
+          {
+            "score_pct": 75,
+            "available_from": "2024-08-06",
+            "period": "2024-Q2",
+            "components": 5
+          },
+          {
+            "score_pct": 75,
+            "available_from": "2024-11-07",
+            "period": "2024-Q3",
+            "components": 5
+          },
+          {
+            "score_pct": 75,
+            "available_from": "2025-02-26",
+            "period": "2024-Q4",
+            "components": 2
+          },
+          {
+            "score_pct": 75,
+            "available_from": "2025-05-07",
+            "period": "2025-Q1",
+            "components": 5
+          },
+          {
+            "score_pct": 75,
+            "available_from": "2025-08-06",
+            "period": "2025-Q2",
+            "components": 5
+          },
+          {
+            "score_pct": 75,
+            "available_from": "2025-11-05",
+            "period": "2025-Q3",
+            "components": 5
+          },
+          {
+            "score_pct": 75,
+            "available_from": "2026-02-26",
+            "period": "2025-Q4",
+            "components": 4
+          },
+          {
+            "score_pct": 75,
+            "available_from": "2026-05-06",
+            "period": "2026-Q1",
+            "components": 5
+          },
+          {
+            "score_pct": 75,
+            "available_from": "2026-08-05",
+            "period": "2026-Q2",
+            "components": 5
+          }
+        ]
       }
     },
     {
