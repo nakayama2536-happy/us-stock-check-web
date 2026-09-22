@@ -5,20 +5,19 @@
   "app_state_ja": "Shadow検証中",
   "run_state": "HOLD",
   "us_trade_date": "2026-09-21",
-  "generated_at_jst": "2026-09-22T09:52:32+09:00",
+  "generated_at_jst": "2026-09-22T09:54:05+09:00",
   "message": "Shadow検証で確認事項があります。",
   "quality": {
     "qc": "FAIL",
     "session": "REGULAR",
-    "completeness": "3/4",
+    "completeness": "0/4",
     "source_crosscheck": "FAIL"
   },
-  "warnings": [
-    "LLY: independent close is not published for 2026-09-21; technical calculation uses the confirmed primary close.",
-    "BSY: independent close is not published for 2026-09-21; technical calculation uses the confirmed primary close.",
-    "SOXL: independent close is not published for 2026-09-21; technical calculation uses the confirmed primary close."
-  ],
+  "warnings": [],
   "errors": [
-    "PLTR: YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
+    "PLTR: RuntimeError: primary technical history too short: 50",
+    "LLY: RuntimeError: primary technical history too short: 50",
+    "BSY: RuntimeError: primary technical history too short: 50",
+    "SOXL: RuntimeError: primary technical history too short: 50"
   ]
 }
