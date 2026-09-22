@@ -821,8 +821,8 @@
           "valuation_reasonableness": {
             "weight": 10,
             "score_pct": 100,
-            "forward_pe": 28.55,
-            "peg_ratio": 1.33
+            "forward_pe": 27.97,
+            "peg_ratio": 1.29
           },
           "price_confirmation": {
             "weight": 10,
@@ -854,8 +854,8 @@
           "eps_growth_ttm_pct": 94.8,
           "fcf_growth_ttm_pct": 272.37,
           "operating_margin_ttm_pct": 49.72,
-          "forward_pe": 28.55,
-          "peg_ratio": 1.33
+          "forward_pe": 27.97,
+          "peg_ratio": 1.29
         },
         "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
         "fundamental_last_updated": "Aug 5, 2026",
@@ -2298,8 +2298,8 @@
       "symbol": "VIX",
       "name": "Volatility Index",
       "trade_date": "2026-09-22",
-      "value": 14.8,
-      "change_pct": -0.47,
+      "value": 14.67,
+      "change_pct": -1.34,
       "source": "Yahoo Finance"
     },
     {
