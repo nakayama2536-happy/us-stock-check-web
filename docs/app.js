@@ -153,6 +153,7 @@ function growthPanel(s){
     </div>
 
     <div class="axis-list">${axisRows}</div>
+    <div class="source-note">競争優位性: ${fmt(g.competitive_advantage?.source)} ／ 基準日 ${fmt(g.competitive_advantage?.as_of)}</div>
 
     <div class="source-note">
       Fundamental: ${fmt(g.fundamental_source)} ／ Updated ${fmt(g.fundamental_last_updated)}
@@ -294,7 +295,7 @@ main();
 
 if("serviceWorker" in navigator){
   window.addEventListener("load",async()=>{
-    const reg=await navigator.serviceWorker.register("./sw.js?v=0.6.0",{updateViaCache:"none"});
+    const reg=await navigator.serviceWorker.register("./sw.js?v=0.7.0",{updateViaCache:"none"});
     reg.update();
   });
 }
