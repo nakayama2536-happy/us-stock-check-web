@@ -1,9 +1,9 @@
-const CACHE="us-stock-check-v0.3.0";
+const CACHE="us-stock-check-v0.4.0";
 const STATIC=[
   "./",
   "./index.html",
-  "./style.css",
-  "./app.js",
+  "./style.css?v=0.4.0",
+  "./app.js?v=0.4.0",
   "./manifest.webmanifest",
   "./icons/us-stock-icon.png"
 ];
@@ -36,7 +36,7 @@ self.addEventListener("fetch",event=>{
   }
 
   event.respondWith(
-    fetch(event.request)
+    fetch(event.request,{cache:"no-cache"})
       .then(response=>{
         const copy=response.clone();
         caches.open(CACHE).then(cache=>cache.put(event.request,copy));

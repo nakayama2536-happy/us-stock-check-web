@@ -1,7 +1,7 @@
 const $=id=>document.getElementById(id);
-
 const fmt=v=>v===null||v===undefined||v===""?"—":v;
 const pct=v=>v===null||v===undefined?"—":`${v>0?"+":""}${Number(v).toFixed(2)}%`;
+const money=v=>v===null||v===undefined?"—":"$"+Number(v).toFixed(2);
 
 const dateOnly=v=>{
   if(!v)return "—";
@@ -54,10 +54,65 @@ function deltaClass(v){
   return "flat";
 }
 
+function clamp(v,min,max){
+  return Math.max(min,Math.min(max,v));
+}
+
 async function getJSON(path){
   const r=await fetch(path+`?t=${Date.now()}`,{cache:"no-store"});
   if(!r.ok)throw new Error(`${path}: HTTP ${r.status}`);
   return r.json();
+}
+
+function levelPanel(s){
+  const l=s.levels;
+  if(!l)return "";
+
+  const pos=l.range_position_pct==null?0:clamp(Number(l.range_position_pct),0,100);
+
+  return `<details class="levels">
+    <summary>テクニカル監視ライン</summary>
+    <div class="level-grid">
+      <div class="level-item">
+        <span class="label">20日支持線</span>
+        <div class="level-value">${money(l.support20)}</div>
+      </div>
+      <div class="level-item">
+        <span class="label">20日抵抗線</span>
+        <div class="level-value">${money(l.resistance20)}</div>
+      </div>
+      <div class="level-item">
+        <span class="label">50MA</span>
+        <div class="level-value">${money(l.ma50)}</div>
+      </div>
+      <div class="level-item">
+        <span class="label">200MA</span>
+        <div class="level-value">${money(l.ma200)}</div>
+      </div>
+      <div class="level-item">
+        <span class="label">52週安値</span>
+        <div class="level-value">${money(l.low52)}</div>
+      </div>
+      <div class="level-item">
+        <span class="label">52週高値</span>
+        <div class="level-value">${money(l.high52)}</div>
+      </div>
+    </div>
+    <div class="range-wrap">
+      <div class="range-labels">
+        <span>支持線</span>
+        <span>抵抗線</span>
+      </div>
+      <div class="range-track">
+        <div class="range-fill" style="width:${pos}%"></div>
+      </div>
+      <div class="range-note">
+        20日レンジ位置 ${fmt(l.range_position_pct)}% ／
+        支持線から ${pct(l.support_distance_pct)} ／
+        抵抗線まで ${pct(l.resistance_distance_pct)}
+      </div>
+    </div>
+  </details>`;
 }
 
 function stockCard(s){
@@ -69,7 +124,7 @@ function stockCard(s){
       </div>
       ${badge(s.signal)}
     </div>
-    <div class="price">${s.close==null?"—":"$"+Number(s.close).toFixed(2)}</div>
+    <div class="price">${money(s.close)}</div>
     <div class="delta ${deltaClass(s.change_pct)}">${pct(s.change_pct)}</div>
     <div class="meta">
       <div><span class="label">Trend</span>${fmt(s.trend)}</div>
@@ -77,6 +132,7 @@ function stockCard(s){
       <div><span class="label">RSI14</span>${fmt(s.rsi14)}</div>
       <div><span class="label">50 / 200MA</span>${fmt(s.ma_state)}</div>
     </div>
+    ${levelPanel(s)}
   </article>`;
 }
 
@@ -176,5 +232,8 @@ async function main(){
 main();
 
 if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js"));
+  window.addEventListener("load",async()=>{
+    const reg=await navigator.serviceWorker.register("./sw.js?v=0.4.0",{updateViaCache:"none"});
+    reg.update();
+  });
 }
