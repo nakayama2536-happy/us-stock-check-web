@@ -1,9 +1,9 @@
-const CACHE="us-stock-check-v0.4.0";
+const CACHE="us-stock-check-v0.5.0";
 const STATIC=[
   "./",
   "./index.html",
-  "./style.css?v=0.4.0",
-  "./app.js?v=0.4.0",
+  "./style.css?v=0.5.0",
+  "./app.js?v=0.5.0",
   "./manifest.webmanifest",
   "./icons/us-stock-icon.png"
 ];
@@ -26,15 +26,10 @@ self.addEventListener("activate",event=>{
 
 self.addEventListener("fetch",event=>{
   const url=new URL(event.request.url);
-
   if(url.pathname.includes("/data/")){
-    event.respondWith(
-      fetch(event.request,{cache:"no-store"})
-        .catch(()=>caches.match(event.request))
-    );
+    event.respondWith(fetch(event.request,{cache:"no-store"}).catch(()=>caches.match(event.request)));
     return;
   }
-
   event.respondWith(
     fetch(event.request,{cache:"no-cache"})
       .then(response=>{
