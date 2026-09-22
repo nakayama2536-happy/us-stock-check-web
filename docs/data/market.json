@@ -1419,15 +1419,27 @@
       },
       "point_in_time_validation": {
         "ticker": "BSY",
-        "records": 10,
-        "quantified_records": 10,
+        "records": 12,
+        "quantified_records": 12,
         "target_records": 12,
-        "coverage_pct": 83.3,
-        "first_available_from": "2024-05-07",
+        "coverage_pct": 100.0,
+        "first_available_from": "2023-11-07",
         "last_available_from": "2026-08-05",
-        "point_in_time_ready": false,
-        "status": "BUILDING",
+        "point_in_time_ready": true,
+        "status": "READY",
         "score_series": [
+          {
+            "score_pct": 75,
+            "available_from": "2023-11-07",
+            "period": "2023-Q3",
+            "components": 5
+          },
+          {
+            "score_pct": 75,
+            "available_from": "2024-02-27",
+            "period": "2023-Q4",
+            "components": 4
+          },
           {
             "score_pct": 75,
             "available_from": "2024-05-07",
@@ -1487,6 +1499,171 @@
             "available_from": "2026-08-05",
             "period": "2026-Q2",
             "components": 5
+          }
+        ]
+      },
+      "point_in_time_backtest": {
+        "status": "POINT_IN_TIME_V2",
+        "ticker": "BSY",
+        "lookahead_bias": false,
+        "method": "Score fixed from fields verified as public on each release date; return window begins on the first trading day on/after release.",
+        "summary": {
+          "observations": 12,
+          "avg_forward_63d_pct": -3.25,
+          "positive_rate_63d_pct": 54.5,
+          "completed_63d": 11,
+          "avg_forward_126d_pct": -5.19,
+          "positive_rate_126d_pct": 50.0,
+          "completed_126d": 10,
+          "avg_forward_252d_pct": -13.91,
+          "positive_rate_252d_pct": 12.5,
+          "completed_252d": 8,
+          "avg_max_drawdown_126d_pct": -18.93
+        },
+        "records": [
+          {
+            "period": "2023-Q3",
+            "available_from": "2023-11-07",
+            "trade_date": "2023-11-07",
+            "pit_score": 75,
+            "forward_returns_pct": {
+              "63d": 0.58,
+              "126d": 5.73,
+              "252d": -1.81
+            },
+            "max_drawdown_126d_pct": -10.94
+          },
+          {
+            "period": "2023-Q4",
+            "available_from": "2024-02-27",
+            "trade_date": "2024-02-27",
+            "pit_score": 75,
+            "forward_returns_pct": {
+              "63d": 6.59,
+              "126d": 5.03,
+              "252d": -11.24
+            },
+            "max_drawdown_126d_pct": -11.4
+          },
+          {
+            "period": "2024-Q1",
+            "available_from": "2024-05-07",
+            "trade_date": "2024-05-07",
+            "pit_score": 75,
+            "forward_returns_pct": {
+              "63d": -14.69,
+              "126d": -9.78,
+              "252d": -15.18
+            },
+            "max_drawdown_126d_pct": -20.23
+          },
+          {
+            "period": "2024-Q2",
+            "available_from": "2024-08-06",
+            "trade_date": "2024-08-06",
+            "pit_score": 75,
+            "forward_returns_pct": {
+              "63d": 3.09,
+              "126d": -1.77,
+              "252d": 12.42
+            },
+            "max_drawdown_126d_pct": -5.74
+          },
+          {
+            "period": "2024-Q3",
+            "available_from": "2024-11-07",
+            "trade_date": "2024-11-07",
+            "pit_score": 75,
+            "forward_returns_pct": {
+              "63d": -8.73,
+              "126d": -5.77,
+              "252d": -11.98
+            },
+            "max_drawdown_126d_pct": -28.54
+          },
+          {
+            "period": "2024-Q4",
+            "available_from": "2025-02-26",
+            "trade_date": "2025-02-26",
+            "pit_score": 75,
+            "forward_returns_pct": {
+              "63d": 7.42,
+              "126d": 22.75,
+              "252d": -18.09
+            },
+            "max_drawdown_126d_pct": -18.18
+          },
+          {
+            "period": "2025-Q1",
+            "available_from": "2025-05-07",
+            "trade_date": "2025-05-07",
+            "pit_score": 75,
+            "forward_returns_pct": {
+              "63d": 15.74,
+              "126d": 4.84,
+              "252d": -29.15
+            },
+            "max_drawdown_126d_pct": -0.06
+          },
+          {
+            "period": "2025-Q2",
+            "available_from": "2025-08-06",
+            "trade_date": "2025-08-06",
+            "pit_score": 75,
+            "forward_returns_pct": {
+              "63d": -11.35,
+              "126d": -42.03,
+              "252d": -36.24
+            },
+            "max_drawdown_126d_pct": -43.92
+          },
+          {
+            "period": "2025-Q3",
+            "available_from": "2025-11-05",
+            "trade_date": "2025-11-05",
+            "pit_score": 75,
+            "forward_returns_pct": {
+              "63d": -31.58,
+              "126d": -32.43,
+              "252d": null
+            },
+            "max_drawdown_126d_pct": -36.41
+          },
+          {
+            "period": "2025-Q4",
+            "available_from": "2026-02-26",
+            "trade_date": "2026-02-26",
+            "pit_score": 75,
+            "forward_returns_pct": {
+              "63d": -13.07,
+              "126d": 1.54,
+              "252d": null
+            },
+            "max_drawdown_126d_pct": -24.2
+          },
+          {
+            "period": "2026-Q1",
+            "available_from": "2026-05-06",
+            "trade_date": "2026-05-06",
+            "pit_score": 75,
+            "forward_returns_pct": {
+              "63d": 10.26,
+              "126d": null,
+              "252d": null
+            },
+            "max_drawdown_126d_pct": -12.45
+          },
+          {
+            "period": "2026-Q2",
+            "available_from": "2026-08-05",
+            "trade_date": "2026-08-05",
+            "pit_score": 75,
+            "forward_returns_pct": {
+              "63d": null,
+              "126d": null,
+              "252d": null
+            },
+            "max_drawdown_126d_pct": -15.07
           }
         ]
       }
