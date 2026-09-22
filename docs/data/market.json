@@ -1429,76 +1429,88 @@
         "status": "READY",
         "score_series": [
           {
-            "score_pct": 75,
+            "score_pct": 91.3,
             "available_from": "2023-11-07",
             "period": "2023-Q3",
-            "components": 5
+            "components": 5,
+            "scoring": "continuous_v2"
           },
           {
-            "score_pct": 75,
+            "score_pct": 74.6,
             "available_from": "2024-02-27",
             "period": "2023-Q4",
-            "components": 4
+            "components": 4,
+            "scoring": "continuous_v2"
           },
           {
-            "score_pct": 75,
+            "score_pct": 77.9,
             "available_from": "2024-05-07",
             "period": "2024-Q1",
-            "components": 5
+            "components": 5,
+            "scoring": "continuous_v2"
           },
           {
-            "score_pct": 75,
+            "score_pct": 85.7,
             "available_from": "2024-08-06",
             "period": "2024-Q2",
-            "components": 5
+            "components": 5,
+            "scoring": "continuous_v2"
           },
           {
-            "score_pct": 75,
+            "score_pct": 80.2,
             "available_from": "2024-11-07",
             "period": "2024-Q3",
-            "components": 5
+            "components": 5,
+            "scoring": "continuous_v2"
           },
           {
-            "score_pct": 75,
+            "score_pct": 86.2,
             "available_from": "2025-02-26",
             "period": "2024-Q4",
-            "components": 2
+            "components": 2,
+            "scoring": "continuous_v2"
           },
           {
-            "score_pct": 75,
+            "score_pct": 85.6,
             "available_from": "2025-05-07",
             "period": "2025-Q1",
-            "components": 5
+            "components": 5,
+            "scoring": "continuous_v2"
           },
           {
-            "score_pct": 75,
+            "score_pct": 82.4,
             "available_from": "2025-08-06",
             "period": "2025-Q2",
-            "components": 5
+            "components": 5,
+            "scoring": "continuous_v2"
           },
           {
-            "score_pct": 75,
+            "score_pct": 84.2,
             "available_from": "2025-11-05",
             "period": "2025-Q3",
-            "components": 5
+            "components": 5,
+            "scoring": "continuous_v2"
           },
           {
-            "score_pct": 75,
+            "score_pct": 85.5,
             "available_from": "2026-02-26",
             "period": "2025-Q4",
-            "components": 4
+            "components": 4,
+            "scoring": "continuous_v2"
           },
           {
-            "score_pct": 75,
+            "score_pct": 92.6,
             "available_from": "2026-05-06",
             "period": "2026-Q1",
-            "components": 5
+            "components": 5,
+            "scoring": "continuous_v2"
           },
           {
-            "score_pct": 75,
+            "score_pct": 86.2,
             "available_from": "2026-08-05",
             "period": "2026-Q2",
-            "components": 5
+            "components": 5,
+            "scoring": "continuous_v2"
           }
         ]
       },
@@ -1525,7 +1537,7 @@
             "period": "2023-Q3",
             "available_from": "2023-11-07",
             "trade_date": "2023-11-07",
-            "pit_score": 75,
+            "pit_score": 91.3,
             "forward_returns_pct": {
               "63d": 0.58,
               "126d": 5.73,
@@ -1537,7 +1549,7 @@
             "period": "2023-Q4",
             "available_from": "2024-02-27",
             "trade_date": "2024-02-27",
-            "pit_score": 75,
+            "pit_score": 74.6,
             "forward_returns_pct": {
               "63d": 6.59,
               "126d": 5.03,
@@ -1549,7 +1561,7 @@
             "period": "2024-Q1",
             "available_from": "2024-05-07",
             "trade_date": "2024-05-07",
-            "pit_score": 75,
+            "pit_score": 77.9,
             "forward_returns_pct": {
               "63d": -14.69,
               "126d": -9.78,
@@ -1561,7 +1573,7 @@
             "period": "2024-Q2",
             "available_from": "2024-08-06",
             "trade_date": "2024-08-06",
-            "pit_score": 75,
+            "pit_score": 85.7,
             "forward_returns_pct": {
               "63d": 3.09,
               "126d": -1.77,
@@ -1573,7 +1585,7 @@
             "period": "2024-Q3",
             "available_from": "2024-11-07",
             "trade_date": "2024-11-07",
-            "pit_score": 75,
+            "pit_score": 80.2,
             "forward_returns_pct": {
               "63d": -8.73,
               "126d": -5.77,
@@ -1585,7 +1597,7 @@
             "period": "2024-Q4",
             "available_from": "2025-02-26",
             "trade_date": "2025-02-26",
-            "pit_score": 75,
+            "pit_score": 86.2,
             "forward_returns_pct": {
               "63d": 7.42,
               "126d": 22.75,
@@ -1597,7 +1609,7 @@
             "period": "2025-Q1",
             "available_from": "2025-05-07",
             "trade_date": "2025-05-07",
-            "pit_score": 75,
+            "pit_score": 85.6,
             "forward_returns_pct": {
               "63d": 15.74,
               "126d": 4.84,
@@ -1609,7 +1621,7 @@
             "period": "2025-Q2",
             "available_from": "2025-08-06",
             "trade_date": "2025-08-06",
-            "pit_score": 75,
+            "pit_score": 82.4,
             "forward_returns_pct": {
               "63d": -11.35,
               "126d": -42.03,
@@ -1621,7 +1633,7 @@
             "period": "2025-Q3",
             "available_from": "2025-11-05",
             "trade_date": "2025-11-05",
-            "pit_score": 75,
+            "pit_score": 84.2,
             "forward_returns_pct": {
               "63d": -31.58,
               "126d": -32.43,
@@ -1633,7 +1645,7 @@
             "period": "2025-Q4",
             "available_from": "2026-02-26",
             "trade_date": "2026-02-26",
-            "pit_score": 75,
+            "pit_score": 85.5,
             "forward_returns_pct": {
               "63d": -13.07,
               "126d": 1.54,
@@ -1645,7 +1657,7 @@
             "period": "2026-Q1",
             "available_from": "2026-05-06",
             "trade_date": "2026-05-06",
-            "pit_score": 75,
+            "pit_score": 92.6,
             "forward_returns_pct": {
               "63d": 10.26,
               "126d": null,
@@ -1657,7 +1669,7 @@
             "period": "2026-Q2",
             "available_from": "2026-08-05",
             "trade_date": "2026-08-05",
-            "pit_score": 75,
+            "pit_score": 86.2,
             "forward_returns_pct": {
               "63d": null,
               "126d": null,
