@@ -36,12 +36,12 @@
         "available_weight": 100,
         "earned_points_on_available_axes": 90.0,
         "axes": {
-          "structural_growth_5_10y": {
+          "structural_growth_4y": {
             "weight": 20,
             "score_pct": 100,
             "revenue_cagr_pct": 30.52,
             "positive_revenue_growth_years": 4,
-            "basis": "FY2021→FY2025 revenue CAGR and annual growth consistency"
+            "basis": "4-year revenue CAGR (latest FY vs four FY earlier) and annual growth consistency"
           },
           "financial_growth_quality": {
             "weight": 25,
@@ -560,7 +560,16 @@
             "components": 5,
             "scoring": "continuous_v2"
           }
-        ]
+        ],
+        "freshness": {
+          "ticker": "PLTR",
+          "status": "CURRENT",
+          "latest_period": "2026-Q2",
+          "latest_available_from": "2026-08-03",
+          "days_since_latest": 50,
+          "review_after_days": 100,
+          "review_due": false
+        }
       },
       "point_in_time_backtest": {
         "status": "POINT_IN_TIME_V2",
@@ -762,12 +771,12 @@
         "available_weight": 100,
         "earned_points_on_available_axes": 87.5,
         "axes": {
-          "structural_growth_5_10y": {
+          "structural_growth_4y": {
             "weight": 20,
             "score_pct": 100,
             "revenue_cagr_pct": 23.17,
             "positive_revenue_growth_years": 4,
-            "basis": "FY2021→FY2025 revenue CAGR and annual growth consistency"
+            "basis": "4-year revenue CAGR (latest FY vs four FY earlier) and annual growth consistency"
           },
           "financial_growth_quality": {
             "weight": 25,
@@ -1298,7 +1307,16 @@
             "scoring": "continuous_v2",
             "one_time_event_flag": false
           }
-        ]
+        ],
+        "freshness": {
+          "ticker": "LLY",
+          "status": "CURRENT",
+          "latest_period": "2026-Q2",
+          "latest_available_from": "2026-08-05",
+          "days_since_latest": 48,
+          "review_after_days": 100,
+          "review_due": false
+        }
       },
       "point_in_time_backtest": {
         "status": "POINT_IN_TIME_V2",
@@ -1500,12 +1518,12 @@
         "available_weight": 100,
         "earned_points_on_available_axes": 61.25,
         "axes": {
-          "structural_growth_5_10y": {
+          "structural_growth_4y": {
             "weight": 20,
             "score_pct": 75,
             "revenue_cagr_pct": 11.69,
             "positive_revenue_growth_years": 4,
-            "basis": "FY2021→FY2025 revenue CAGR and annual growth consistency"
+            "basis": "4-year revenue CAGR (latest FY vs four FY earlier) and annual growth consistency"
           },
           "financial_growth_quality": {
             "weight": 25,
@@ -2024,7 +2042,16 @@
             "components": 5,
             "scoring": "continuous_v2"
           }
-        ]
+        ],
+        "freshness": {
+          "ticker": "BSY",
+          "status": "CURRENT",
+          "latest_period": "2026-Q2",
+          "latest_available_from": "2026-08-05",
+          "days_since_latest": 48,
+          "review_after_days": 100,
+          "review_due": false
+        }
       },
       "point_in_time_backtest": {
         "status": "POINT_IN_TIME_V2",
@@ -2309,6 +2336,16 @@
       "PLTR"
     ],
     "total_events": 36,
+    "maturity": {
+      "status": "BUILDING",
+      "completed_126d_by_ticker": {
+        "PLTR": 10,
+        "LLY": 10,
+        "BSY": 10
+      },
+      "target_completed_126d_per_ticker": 20,
+      "note": "Heuristic review gate only; reaching the target does not establish statistical validity."
+    },
     "per_ticker_correlation": {
       "PLTR": {
         "63d": {
