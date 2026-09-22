@@ -467,15 +467,265 @@
       },
       "point_in_time_validation": {
         "ticker": "PLTR",
-        "records": 11,
-        "quantified_records": 1,
+        "records": 12,
+        "quantified_records": 12,
         "target_records": 12,
-        "coverage_pct": 91.7,
-        "first_available_from": "2024-02-05",
+        "coverage_pct": 100.0,
+        "first_available_from": "2023-11-02",
         "last_available_from": "2026-08-03",
-        "point_in_time_ready": false,
-        "status": "BUILDING",
-        "score_series": []
+        "point_in_time_ready": true,
+        "status": "READY",
+        "score_series": [
+          {
+            "score_pct": 55.3,
+            "available_from": "2023-11-02",
+            "period": "2023-Q3",
+            "components": 3,
+            "scoring": "continuous_v2"
+          },
+          {
+            "score_pct": 70.0,
+            "available_from": "2024-02-05",
+            "period": "2023-Q4",
+            "components": 3,
+            "scoring": "continuous_v2"
+          },
+          {
+            "score_pct": 67.9,
+            "available_from": "2024-05-06",
+            "period": "2024-Q1",
+            "components": 3,
+            "scoring": "continuous_v2"
+          },
+          {
+            "score_pct": 74.7,
+            "available_from": "2024-08-05",
+            "period": "2024-Q2",
+            "components": 4,
+            "scoring": "continuous_v2"
+          },
+          {
+            "score_pct": 80.1,
+            "available_from": "2024-11-04",
+            "period": "2024-Q3",
+            "components": 4,
+            "scoring": "continuous_v2"
+          },
+          {
+            "score_pct": 87.1,
+            "available_from": "2025-02-03",
+            "period": "2024-Q4",
+            "components": 2,
+            "scoring": "continuous_v2"
+          },
+          {
+            "score_pct": 89.2,
+            "available_from": "2025-05-05",
+            "period": "2025-Q1",
+            "components": 5,
+            "scoring": "continuous_v2"
+          },
+          {
+            "score_pct": 94.2,
+            "available_from": "2025-08-04",
+            "period": "2025-Q2",
+            "components": 5,
+            "scoring": "continuous_v2"
+          },
+          {
+            "score_pct": 97.9,
+            "available_from": "2025-11-03",
+            "period": "2025-Q3",
+            "components": 5,
+            "scoring": "continuous_v2"
+          },
+          {
+            "score_pct": 100.0,
+            "available_from": "2026-02-02",
+            "period": "2025-Q4",
+            "components": 5,
+            "scoring": "continuous_v2"
+          },
+          {
+            "score_pct": 99.4,
+            "available_from": "2026-05-04",
+            "period": "2026-Q1",
+            "components": 5,
+            "scoring": "continuous_v2"
+          },
+          {
+            "score_pct": 100.0,
+            "available_from": "2026-08-03",
+            "period": "2026-Q2",
+            "components": 5,
+            "scoring": "continuous_v2"
+          }
+        ]
+      },
+      "point_in_time_backtest": {
+        "status": "POINT_IN_TIME_V2",
+        "ticker": "PLTR",
+        "lookahead_bias": false,
+        "method": "Score fixed from fields verified as public on each release date; return window begins on the first trading day on/after release.",
+        "summary": {
+          "observations": 12,
+          "avg_forward_63d_pct": 34.74,
+          "positive_rate_63d_pct": 72.7,
+          "completed_63d": 11,
+          "avg_forward_126d_pct": 81.93,
+          "positive_rate_126d_pct": 80.0,
+          "completed_126d": 10,
+          "avg_forward_252d_pct": 265.13,
+          "positive_rate_252d_pct": 87.5,
+          "completed_252d": 8,
+          "avg_max_drawdown_126d_pct": -10.28
+        },
+        "records": [
+          {
+            "period": "2023-Q3",
+            "available_from": "2023-11-02",
+            "trade_date": "2023-11-02",
+            "pit_score": 55.3,
+            "forward_returns_pct": {
+              "63d": -6.96,
+              "126d": 40.29,
+              "252d": 130.44
+            },
+            "max_drawdown_126d_pct": -12.83
+          },
+          {
+            "period": "2023-Q4",
+            "available_from": "2024-02-05",
+            "trade_date": "2024-02-05",
+            "pit_score": 70.0,
+            "forward_returns_pct": {
+              "63d": 50.78,
+              "126d": 59.03,
+              "252d": 565.55
+            },
+            "max_drawdown_126d_pct": 18.18
+          },
+          {
+            "period": "2024-Q1",
+            "available_from": "2024-05-06",
+            "trade_date": "2024-05-06",
+            "pit_score": 67.9,
+            "forward_returns_pct": {
+              "63d": 5.47,
+              "126d": 64.26,
+              "252d": 372.63
+            },
+            "max_drawdown_126d_pct": -18.68
+          },
+          {
+            "period": "2024-Q2",
+            "available_from": "2024-08-05",
+            "trade_date": "2024-08-05",
+            "pit_score": 74.7,
+            "forward_returns_pct": {
+              "63d": 74.01,
+              "126d": 320.76,
+              "252d": 656.33
+            },
+            "max_drawdown_126d_pct": 6.14
+          },
+          {
+            "period": "2024-Q3",
+            "available_from": "2024-11-04",
+            "trade_date": "2024-11-04",
+            "pit_score": 80.1,
+            "forward_returns_pct": {
+              "63d": 168.73,
+              "126d": 187.73,
+              "252d": 322.72
+            },
+            "max_drawdown_126d_pct": 13.16
+          },
+          {
+            "period": "2024-Q4",
+            "available_from": "2025-02-03",
+            "trade_date": "2025-02-03",
+            "pit_score": 87.1,
+            "forward_returns_pct": {
+              "63d": 47.8,
+              "126d": 106.91,
+              "252d": 66.63
+            },
+            "max_drawdown_126d_pct": -21.04
+          },
+          {
+            "period": "2025-Q1",
+            "available_from": "2025-05-05",
+            "trade_date": "2025-05-05",
+            "pit_score": 89.2,
+            "forward_returns_pct": {
+              "63d": 39.99,
+              "126d": 67.39,
+              "252d": 8.1
+            },
+            "max_drawdown_126d_pct": -14.91
+          },
+          {
+            "period": "2025-Q2",
+            "available_from": "2025-08-04",
+            "trade_date": "2025-08-04",
+            "pit_score": 94.2,
+            "forward_returns_pct": {
+              "63d": 24.78,
+              "126d": -1.73,
+              "252d": -1.39
+            },
+            "max_drawdown_126d_pct": -11.4
+          },
+          {
+            "period": "2025-Q3",
+            "available_from": "2025-11-03",
+            "trade_date": "2025-11-03",
+            "pit_score": 97.9,
+            "forward_returns_pct": {
+              "63d": -32.65,
+              "126d": -35.42,
+              "252d": null
+            },
+            "max_drawdown_126d_pct": -40.79
+          },
+          {
+            "period": "2025-Q4",
+            "available_from": "2026-02-02",
+            "trade_date": "2026-02-02",
+            "pit_score": 100.0,
+            "forward_returns_pct": {
+              "63d": -1.17,
+              "126d": 10.08,
+              "252d": null
+            },
+            "max_drawdown_126d_pct": -28.01
+          },
+          {
+            "period": "2026-Q1",
+            "available_from": "2026-05-04",
+            "trade_date": "2026-05-04",
+            "pit_score": 99.4,
+            "forward_returns_pct": {
+              "63d": 11.39,
+              "126d": null,
+              "252d": null
+            },
+            "max_drawdown_126d_pct": -27.16
+          },
+          {
+            "period": "2026-Q2",
+            "available_from": "2026-08-03",
+            "trade_date": "2026-08-03",
+            "pit_score": 100.0,
+            "forward_returns_pct": {
+              "63d": null,
+              "126d": null,
+              "252d": null
+            },
+            "max_drawdown_126d_pct": 14.03
+          }
+        ]
       }
     },
     {
