@@ -96,7 +96,7 @@ function growthPanel(s){
   const axes=g.axes||{};
 
   const axisNames={
-    structural_growth_5_10y:"長期構造成長",
+    structural_growth_4y:"中期構造成長（4年CAGR）",
     financial_growth_quality:"財務成長・質",
     competitive_advantage:"競争優位性",
     business_acceleration:"業績加速",
@@ -231,6 +231,7 @@ function marketCard(m){
 function modelValidationPanel(v){
   if(!v||v.status!=="DIAGNOSTIC")return '<div class="muted">Point-in-Time検証データ待ちです。</div>';
   const corr=v.pooled_correlation||{};
+  const maturity=v.maturity||{};
   const cell=h=>{
     const x=corr[h]||{};
     return `<div class="validation-item">
@@ -253,10 +254,14 @@ function modelValidationPanel(v){
         <span class="stage-pill validation-pill">POINT-IN-TIME V2</span>
         <div class="validation-title">将来情報を使わない診断検証</div>
       </div>
-      <div class="validation-events">${fmt(v.total_events)} events</div>
+      <div class="validation-events">${fmt(v.total_events)} events<br><span class="maturity-text">${fmt(maturity.status)}</span></div>
     </div>
     <div class="validation-grid">
       ${cell("63d")}${cell("126d")}${cell("252d")}
+    </div>
+    <div class="maturity-box">
+      126日完了観測: PLTR ${fmt(maturity.completed_126d_by_ticker?.PLTR)} / LLY ${fmt(maturity.completed_126d_by_ticker?.LLY)} / BSY ${fmt(maturity.completed_126d_by_ticker?.BSY)}
+      <br>レビュー目安: 各 ${fmt(maturity.target_completed_126d_per_ticker)} 件
     </div>
     <div class="validation-note">
       現時点では、スコアが高いほど将来リターンが高いという関係は確認できていません。
@@ -340,7 +345,7 @@ main();
 
 if("serviceWorker" in navigator){
   window.addEventListener("load",async()=>{
-    const reg=await navigator.serviceWorker.register("./sw.js?v=0.8.0",{updateViaCache:"none"});
+    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.0",{updateViaCache:"none"});
     reg.update();
   });
 }
