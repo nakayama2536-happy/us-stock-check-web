@@ -72,6 +72,19 @@
         "BSY: RuntimeError: primary technical history too short: 50",
         "SOXL: RuntimeError: primary technical history too short: 50"
       ]
+    },
+    {
+      "generated_at_jst": "2026-09-22T09:55:51+09:00",
+      "us_trade_date": "2026-09-21",
+      "run_state": "HOLD",
+      "source_crosscheck": "FAIL",
+      "warnings": [],
+      "errors": [
+        "PLTR: RuntimeError: primary technical history too short: 50",
+        "LLY: RuntimeError: primary technical history too short: 50",
+        "BSY: RuntimeError: primary technical history too short: 50",
+        "SOXL: RuntimeError: primary technical history too short: 50"
+      ]
     }
   ]
 }
