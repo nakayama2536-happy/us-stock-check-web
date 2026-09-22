@@ -228,9 +228,14 @@ function marketCard(m){
   </article>`;
 }
 
-function modelValidationPanel(v){
+function modelValidationPanel(v,stocks){
   if(!v||v.status!=="DIAGNOSTIC")return '<div class="muted">Point-in-Time検証データ待ちです。</div>';
   const corr=v.pooled_correlation||{};
+  const freshness=(stocks||[]).filter(s=>["PLTR","LLY","BSY"].includes(s.ticker)).map(s=>{
+    const f=s.point_in_time_validation?.freshness||{};
+    const cls=f.review_due?"freshness-due":"freshness-current";
+    return `<span class="freshness-chip ${cls}">${s.ticker} ${fmt(f.status)} / ${fmt(f.days_since_latest)}日</span>`;
+  }).join("");
   const maturity=v.maturity||{};
   const cell=h=>{
     const x=corr[h]||{};
@@ -256,6 +261,7 @@ function modelValidationPanel(v){
       </div>
       <div class="validation-events">${fmt(v.total_events)} events<br><span class="maturity-text">${fmt(maturity.status)}</span></div>
     </div>
+    <div class="freshness-row">${freshness}</div>
     <div class="validation-grid">
       ${cell("63d")}${cell("126d")}${cell("252d")}
     </div>
@@ -331,7 +337,7 @@ async function main(){
       </div>`;
 
     $("modelValidation").classList.remove("muted");
-    $("modelValidation").innerHTML=modelValidationPanel(market.model_validation);
+    $("modelValidation").innerHTML=modelValidationPanel(market.model_validation,market.stocks);
 
     renderNotices(status);
 
