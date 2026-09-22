@@ -464,6 +464,14 @@
             "max_drawdown_63d_pct": -4.64
           }
         ]
+      },
+      "point_in_time_validation": {
+        "ticker": "PLTR",
+        "records": 2,
+        "first_available_from": "2025-02-03",
+        "last_available_from": "2026-02-02",
+        "point_in_time_ready": false,
+        "status": "BUILDING"
       }
     },
     {
@@ -928,6 +936,14 @@
             "max_drawdown_63d_pct": -5.91
           }
         ]
+      },
+      "point_in_time_validation": {
+        "ticker": "LLY",
+        "records": 1,
+        "first_available_from": "2025-02-06",
+        "last_available_from": "2025-02-06",
+        "point_in_time_ready": false,
+        "status": "BUILDING"
       }
     },
     {
@@ -1392,6 +1408,14 @@
             "max_drawdown_63d_pct": -11.89
           }
         ]
+      },
+      "point_in_time_validation": {
+        "ticker": "BSY",
+        "records": 2,
+        "first_available_from": "2025-02-26",
+        "last_available_from": "2026-02-26",
+        "point_in_time_ready": false,
+        "status": "BUILDING"
       }
     },
     {
