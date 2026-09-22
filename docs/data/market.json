@@ -30,11 +30,11 @@
       "structural_growth": {
         "ticker": "PLTR",
         "status": "算定可能",
-        "score": 88.2,
-        "data_completeness_pct": 85,
+        "score": 90.0,
+        "data_completeness_pct": 100,
         "required_completeness_pct": 70,
-        "available_weight": 85,
-        "earned_points_on_available_axes": 75.0,
+        "available_weight": 100,
+        "earned_points_on_available_axes": 90.0,
         "axes": {
           "structural_growth_5_10y": {
             "weight": 20,
@@ -53,8 +53,29 @@
           },
           "competitive_advantage": {
             "weight": 15,
-            "score_pct": null,
-            "basis": "Narrative/market-share evidence not connected"
+            "score_pct": 100,
+            "as_of": "2026-06-30",
+            "source": "Palantir Q2 2026 Business Update",
+            "source_url": "https://investors.palantir.com/files/Palantir%20-%20Q2%202026%20Business%20Update.pdf",
+            "evidence": [
+              {
+                "metric": "US commercial growth",
+                "value": 149.0,
+                "score_pct": 100
+              },
+              {
+                "metric": "US government growth",
+                "value": 90.0,
+                "score_pct": 100
+              },
+              {
+                "metric": "US commercial RDV growth",
+                "value": 124.0,
+                "score_pct": 100
+              }
+            ],
+            "basis": "Commercial/government expansion and remaining-deal-value growth provide quantitative evidence of customer demand and contract depth.",
+            "scope_note": "Quantitative proxy for competitive advantage; not a claim that a permanent economic moat is proven."
           },
           "business_acceleration": {
             "weight": 15,
@@ -103,7 +124,33 @@
         },
         "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
         "fundamental_last_updated": "Aug 4, 2026",
-        "note": "競争優位性15点は未確認のまま除外し、確認済み軸を100点換算した定量スコア。"
+        "competitive_advantage": {
+          "weight": 15,
+          "score_pct": 100,
+          "as_of": "2026-06-30",
+          "source": "Palantir Q2 2026 Business Update",
+          "source_url": "https://investors.palantir.com/files/Palantir%20-%20Q2%202026%20Business%20Update.pdf",
+          "evidence": [
+            {
+              "metric": "US commercial growth",
+              "value": 149.0,
+              "score_pct": 100
+            },
+            {
+              "metric": "US government growth",
+              "value": 90.0,
+              "score_pct": 100
+            },
+            {
+              "metric": "US commercial RDV growth",
+              "value": 124.0,
+              "score_pct": 100
+            }
+          ],
+          "basis": "Commercial/government expansion and remaining-deal-value growth provide quantitative evidence of customer demand and contract depth.",
+          "scope_note": "Quantitative proxy for competitive advantage; not a claim that a permanent economic moat is proven."
+        },
+        "note": "競争優位性は企業固有KPIの定量代理評価を使用し、確認済み軸を統合した定量スコア。"
       },
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
@@ -139,11 +186,11 @@
       "structural_growth": {
         "ticker": "LLY",
         "status": "算定可能",
-        "score": 85.3,
-        "data_completeness_pct": 85,
+        "score": 87.5,
+        "data_completeness_pct": 100,
         "required_completeness_pct": 70,
-        "available_weight": 85,
-        "earned_points_on_available_axes": 72.5,
+        "available_weight": 100,
+        "earned_points_on_available_axes": 87.5,
         "axes": {
           "structural_growth_5_10y": {
             "weight": 20,
@@ -162,8 +209,29 @@
           },
           "competitive_advantage": {
             "weight": 15,
-            "score_pct": null,
-            "basis": "Narrative/market-share evidence not connected"
+            "score_pct": 100,
+            "as_of": "2026-06-30",
+            "source": "Eli Lilly Q2 2026 Financial Results",
+            "source_url": "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-second-quarter-2026-financial-results-raises-full",
+            "evidence": [
+              {
+                "metric": "Revenue growth",
+                "value": 48.0,
+                "score_pct": 100
+              },
+              {
+                "metric": "Volume growth",
+                "value": 60.0,
+                "score_pct": 100
+              },
+              {
+                "metric": "Next-generation pipeline milestones",
+                "value": null,
+                "score_pct": 100
+              }
+            ],
+            "basis": "High volume-led growth plus late-stage next-generation obesity/diabetes pipeline milestones support franchise depth; competitive intensity remains an external risk.",
+            "scope_note": "Quantitative proxy for competitive advantage; not a claim that a permanent economic moat is proven."
           },
           "business_acceleration": {
             "weight": 15,
@@ -212,7 +280,33 @@
         },
         "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
         "fundamental_last_updated": "Aug 5, 2026",
-        "note": "競争優位性15点は未確認のまま除外し、確認済み軸を100点換算した定量スコア。"
+        "competitive_advantage": {
+          "weight": 15,
+          "score_pct": 100,
+          "as_of": "2026-06-30",
+          "source": "Eli Lilly Q2 2026 Financial Results",
+          "source_url": "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-second-quarter-2026-financial-results-raises-full",
+          "evidence": [
+            {
+              "metric": "Revenue growth",
+              "value": 48.0,
+              "score_pct": 100
+            },
+            {
+              "metric": "Volume growth",
+              "value": 60.0,
+              "score_pct": 100
+            },
+            {
+              "metric": "Next-generation pipeline milestones",
+              "value": null,
+              "score_pct": 100
+            }
+          ],
+          "basis": "High volume-led growth plus late-stage next-generation obesity/diabetes pipeline milestones support franchise depth; competitive intensity remains an external risk.",
+          "scope_note": "Quantitative proxy for competitive advantage; not a claim that a permanent economic moat is proven."
+        },
+        "note": "競争優位性は企業固有KPIの定量代理評価を使用し、確認済み軸を統合した定量スコア。"
       },
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
@@ -248,11 +342,11 @@
       "structural_growth": {
         "ticker": "BSY",
         "status": "算定可能",
-        "score": 58.8,
-        "data_completeness_pct": 85,
+        "score": 61.3,
+        "data_completeness_pct": 100,
         "required_completeness_pct": 70,
-        "available_weight": 85,
-        "earned_points_on_available_axes": 50.0,
+        "available_weight": 100,
+        "earned_points_on_available_axes": 61.25,
         "axes": {
           "structural_growth_5_10y": {
             "weight": 20,
@@ -271,8 +365,29 @@
           },
           "competitive_advantage": {
             "weight": 15,
-            "score_pct": null,
-            "basis": "Narrative/market-share evidence not connected"
+            "score_pct": 75,
+            "as_of": "2026-06-30",
+            "source": "Bentley Systems Q2 2026 Results",
+            "source_url": "https://investors.bentley.com/news-releases/news-release-details/bentley-systems-announces-second-quarter-2026-results/",
+            "evidence": [
+              {
+                "metric": "ARR growth (constant currency)",
+                "value": 12.0,
+                "score_pct": 75
+              },
+              {
+                "metric": "Dollar-based net retention",
+                "value": 109.0,
+                "score_pct": 75
+              },
+              {
+                "metric": "Subscription revenue share",
+                "value": 92.2,
+                "score_pct": 100
+              }
+            ],
+            "basis": "Recurring subscription mix, ARR growth and net retention provide quantitative evidence of embedded infrastructure-software usage and customer persistence.",
+            "scope_note": "Quantitative proxy for competitive advantage; not a claim that a permanent economic moat is proven."
           },
           "business_acceleration": {
             "weight": 15,
@@ -321,7 +436,33 @@
         },
         "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
         "fundamental_last_updated": "Aug 6, 2026",
-        "note": "競争優位性15点は未確認のまま除外し、確認済み軸を100点換算した定量スコア。"
+        "competitive_advantage": {
+          "weight": 15,
+          "score_pct": 75,
+          "as_of": "2026-06-30",
+          "source": "Bentley Systems Q2 2026 Results",
+          "source_url": "https://investors.bentley.com/news-releases/news-release-details/bentley-systems-announces-second-quarter-2026-results/",
+          "evidence": [
+            {
+              "metric": "ARR growth (constant currency)",
+              "value": 12.0,
+              "score_pct": 75
+            },
+            {
+              "metric": "Dollar-based net retention",
+              "value": 109.0,
+              "score_pct": 75
+            },
+            {
+              "metric": "Subscription revenue share",
+              "value": 92.2,
+              "score_pct": 100
+            }
+          ],
+          "basis": "Recurring subscription mix, ARR growth and net retention provide quantitative evidence of embedded infrastructure-software usage and customer persistence.",
+          "scope_note": "Quantitative proxy for competitive advantage; not a claim that a permanent economic moat is proven."
+        },
+        "note": "競争優位性は企業固有KPIの定量代理評価を使用し、確認済み軸を統合した定量スコア。"
       },
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
