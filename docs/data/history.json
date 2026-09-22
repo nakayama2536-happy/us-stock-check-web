@@ -1,6 +1,28 @@
 {
   "schema_version": "0.2",
   "records": [
-    {"generated_at_jst":"2026-09-22T07:11:46+09:00","us_trade_date":"2026-09-21","run_state":"NORMAL","errors":[]}
+    {
+      "generated_at_jst": "2026-09-22T07:13:09+09:00",
+      "us_trade_date": "2026-09-21",
+      "run_state": "NORMAL",
+      "errors": []
+    },
+    {
+      "generated_at_jst": "2026-09-22T07:19:44+09:00",
+      "us_trade_date": "2026-09-21",
+      "run_state": "NO_CHANGE",
+      "errors": []
+    },
+    {
+      "generated_at_jst": "2026-09-22T09:44:21+09:00",
+      "us_trade_date": "2026-09-21",
+      "run_state": "HOLD",
+      "errors": [
+        "PLTR: RuntimeError: Yahoo has no row for StockAnalysis date 2026-09-21",
+        "LLY: RuntimeError: Yahoo has no row for StockAnalysis date 2026-09-21",
+        "BSY: RuntimeError: Yahoo has no row for StockAnalysis date 2026-09-21",
+        "SOXL: RuntimeError: Yahoo has no row for StockAnalysis date 2026-09-21"
+      ]
+    }
   ]
 }
