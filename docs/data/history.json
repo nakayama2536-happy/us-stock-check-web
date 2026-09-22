@@ -23,6 +23,17 @@
         "BSY: RuntimeError: Yahoo has no row for StockAnalysis date 2026-09-21",
         "SOXL: RuntimeError: Yahoo has no row for StockAnalysis date 2026-09-21"
       ]
+    },
+    {
+      "generated_at_jst": "2026-09-22T09:47:11+09:00",
+      "us_trade_date": "2026-09-21",
+      "run_state": "HOLD",
+      "errors": [
+        "PLTR: RuntimeError: Yahoo has no row for StockAnalysis date 2026-09-21",
+        "LLY: RuntimeError: Yahoo has no row for StockAnalysis date 2026-09-21",
+        "BSY: RuntimeError: Yahoo has no row for StockAnalysis date 2026-09-21",
+        "SOXL: RuntimeError: Yahoo has no row for StockAnalysis date 2026-09-21"
+      ]
     }
   ]
 }
