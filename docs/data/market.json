@@ -2297,9 +2297,9 @@
     {
       "symbol": "VIX",
       "name": "Volatility Index",
-      "trade_date": "2026-09-21",
-      "value": 14.87,
-      "change_pct": 0.41,
+      "trade_date": "2026-09-22",
+      "value": 14.8,
+      "change_pct": -0.47,
       "source": "Yahoo Finance"
     },
     {
