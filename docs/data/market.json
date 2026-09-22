@@ -2299,5 +2299,133 @@
       "change_pct": 4.02,
       "source": "Yahoo Finance"
     }
-  ]
+  ],
+  "model_validation": {
+    "status": "DIAGNOSTIC",
+    "model": "POINT_IN_TIME_V2",
+    "tickers": [
+      "BSY",
+      "LLY",
+      "PLTR"
+    ],
+    "total_events": 36,
+    "per_ticker_correlation": {
+      "PLTR": {
+        "63d": {
+          "n": 11,
+          "pearson_r": -0.232,
+          "spearman_rho": -0.309
+        },
+        "126d": {
+          "n": 10,
+          "pearson_r": -0.338,
+          "spearman_rho": -0.552
+        },
+        "252d": {
+          "n": 8,
+          "pearson_r": -0.558,
+          "spearman_rho": -0.667
+        }
+      },
+      "LLY": {
+        "63d": {
+          "n": 11,
+          "pearson_r": 0.085,
+          "spearman_rho": 0.068
+        },
+        "126d": {
+          "n": 10,
+          "pearson_r": 0.102,
+          "spearman_rho": 0.006
+        },
+        "252d": {
+          "n": 8,
+          "pearson_r": 0.317,
+          "spearman_rho": 0.476
+        }
+      },
+      "BSY": {
+        "63d": {
+          "n": 11,
+          "pearson_r": 0.278,
+          "spearman_rho": 0.536
+        },
+        "126d": {
+          "n": 10,
+          "pearson_r": 0.254,
+          "spearman_rho": 0.455
+        },
+        "252d": {
+          "n": 8,
+          "pearson_r": 0.192,
+          "spearman_rho": 0.357
+        }
+      }
+    },
+    "pooled_correlation": {
+      "63d": {
+        "n": 33,
+        "pearson_r": -0.068,
+        "spearman_rho": -0.088
+      },
+      "126d": {
+        "n": 30,
+        "pearson_r": -0.128,
+        "spearman_rho": -0.168
+      },
+      "252d": {
+        "n": 24,
+        "pearson_r": -0.202,
+        "spearman_rho": -0.177
+      }
+    },
+    "score_buckets": {
+      "LOW": {
+        "observations": 5,
+        "completed_63d": 5,
+        "avg_forward_63d_pct": 10.47,
+        "positive_rate_63d_pct": 80.0,
+        "completed_126d": 5,
+        "avg_forward_126d_pct": 34.24,
+        "positive_rate_126d_pct": 80.0,
+        "completed_252d": 5,
+        "avg_forward_252d_pct": 130.73,
+        "positive_rate_252d_pct": 100.0
+      },
+      "MID": {
+        "observations": 18,
+        "completed_63d": 17,
+        "avg_forward_63d_pct": 16.1,
+        "positive_rate_63d_pct": 58.8,
+        "completed_126d": 17,
+        "avg_forward_126d_pct": 39.0,
+        "positive_rate_126d_pct": 52.9,
+        "completed_252d": 15,
+        "avg_forward_252d_pct": 87.84,
+        "positive_rate_252d_pct": 53.3
+      },
+      "HIGH": {
+        "observations": 13,
+        "completed_63d": 11,
+        "avg_forward_63d_pct": 0.29,
+        "positive_rate_63d_pct": 54.5,
+        "completed_126d": 8,
+        "avg_forward_126d_pct": -3.93,
+        "positive_rate_126d_pct": 62.5,
+        "completed_252d": 4,
+        "avg_forward_252d_pct": 5.33,
+        "positive_rate_252d_pct": 50.0
+      }
+    },
+    "decision": {
+      "retune_weights_now": false,
+      "reason": "Sample is small, horizons overlap, and ticker-specific KPI score scales are not directly interchangeable. Preserve current weights until more independent observations accumulate."
+    },
+    "limitations": [
+      "Quarterly event windows overlap, so observations are not statistically independent.",
+      "Only three companies are included and each has about twelve events.",
+      "Absolute PIT scores use company-specific KPI definitions; pooled score buckets are descriptive only.",
+      "Correlation measures association, not causation or forecast reliability."
+    ]
+  }
 }
