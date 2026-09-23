@@ -282,6 +282,19 @@
       "source_crosscheck": "PASS",
       "warnings": [],
       "errors": []
+    },
+    {
+      "generated_at_jst": "2026-09-23T09:53:35+09:00",
+      "us_trade_date": "2026-09-22",
+      "run_state": "NORMAL",
+      "source_crosscheck": "PENDING",
+      "warnings": [
+        "PLTR: independent close is not published for 2026-09-22.",
+        "LLY: independent close is not published for 2026-09-22.",
+        "BSY: independent close is not published for 2026-09-22.",
+        "SOXL: independent close is not published for 2026-09-22."
+      ],
+      "errors": []
     }
   ]
 }
