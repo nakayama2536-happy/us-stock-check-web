@@ -2258,10 +2258,10 @@
           "positive": 4,
           "available": 4,
           "symbols": {
-            "SOX": 2.06,
+            "SOX": 4.29,
             "SOXX": 4.93,
             "SMH": 4.02,
-            "NASDAQ": 0.45
+            "NASDAQ": 2.26
           }
         },
         "high_warning": true,
@@ -2273,41 +2273,41 @@
     {
       "symbol": "SPX",
       "name": "S&P 500",
-      "trade_date": "2026-09-22",
-      "value": 7764.64,
-      "change_pct": -0.0,
+      "trade_date": "2026-09-21",
+      "value": 7764.7,
+      "change_pct": 1.49,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "NASDAQ",
       "name": "NASDAQ Composite",
-      "trade_date": "2026-09-22",
-      "value": 27244.28,
-      "change_pct": 0.45,
+      "trade_date": "2026-09-21",
+      "value": 27122.09,
+      "change_pct": 2.26,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "SOX",
       "name": "PHLX Semiconductor",
-      "trade_date": "2026-09-22",
-      "value": 12689.82,
-      "change_pct": 2.06,
+      "trade_date": "2026-09-21",
+      "value": 12433.17,
+      "change_pct": 4.29,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "VIX",
       "name": "Volatility Index",
-      "trade_date": "2026-09-22",
-      "value": 14.21,
-      "change_pct": -4.44,
+      "trade_date": "2026-09-23",
+      "value": 14.16,
+      "change_pct": -4.77,
       "source": "Yahoo Finance"
     },
     {
       "symbol": "US10Y",
       "name": "米10年金利",
-      "trade_date": "2026-09-22",
-      "value": 4.968,
-      "change_pct": 0.1,
+      "trade_date": "2026-09-21",
+      "value": 4.963,
+      "change_pct": -0.7,
       "source": "Yahoo Finance"
     },
     {
