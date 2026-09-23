@@ -29,13 +29,24 @@ jobs:
             exit 1
           fi
 
-      - name: Reject credentials or private investment values
+      - name: Scan repository for common credential patterns
         shell: bash
         run: |
           set -euo pipefail
-          patterns='(ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|AKIA[0-9A-Z]{16}|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----|sk-[A-Za-z0-9_-]{20,}|OPENAI_API_KEY|TWELVEDATA_API_KEY|"(shares|quantity|position_size|average_cost|cost_basis|purchase_price|account_type|position_id|planned_total_shares|stage_size|completed_stages|max_stages|opened_at|closed_at)"[[:space:]]*:)'
-          if git grep -nEI "$patterns" -- docs ':!*.png' ':!*.jpg' ':!*.jpeg' ':!*.webp' ':!*.ico'; then
-            echo "Potential private or sensitive value found in public content."
+          patterns='(ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|gh[pousr]_[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----|sk-[A-Za-z0-9_-]{20,})'
+          if git grep -nEI "$patterns" -- . ':!*.png' ':!*.jpg' ':!*.jpeg' ':!*.webp' ':!*.ico'; then
+            echo "Potential credential detected in public repository."
             exit 1
           fi
-          echo "Public safety scan passed."
+          echo "No common credential patterns detected."
+
+      - name: Reject private portfolio fields from public data
+        shell: bash
+        run: |
+          set -euo pipefail
+          private_fields='"(shares|quantity|position_size|average_cost|cost_basis|purchase_price|account_type|position_id|planned_total_shares|stage_size|completed_stages|max_stages|opened_at|closed_at|brokerage_account|brokerage_account_id|portfolio_id)"[[:space:]]*:'
+          if grep -R -nEI "$private_fields" docs/data; then
+            echo "Private portfolio/account field detected in public data."
+            exit 1
+          fi
+          echo "No private portfolio/account fields detected in public data."
