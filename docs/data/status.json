@@ -1,11 +1,11 @@
 {
   "schema_version": "0.2",
-  "app_version": "0.9.0",
+  "app_version": "0.9.1",
   "app_state": "SHADOW",
   "app_state_ja": "Shadow検証中",
   "run_state": "NORMAL",
-  "us_trade_date": "2026-09-23",
-  "generated_at_jst": "2026-09-24T17:06:59+09:00",
+  "us_trade_date": "2026-09-24",
+  "generated_at_jst": "2026-09-25T07:30:21+09:00",
   "message": "Shadowデータ取得・計算を実行しました。",
   "quality": {
     "qc": "PASS",
