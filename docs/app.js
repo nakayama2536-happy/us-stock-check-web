@@ -75,6 +75,12 @@ function digestPanel(status,market){
     </div>`;
   }).join("");
   const q=status.quality||{};
+  const state=(status.run_state||"").toUpperCase();
+  const stateNote=state==="NO_CHANGE"
+    ? '<div class="digest-state digest-state-neutral">前営業日の確定データを継続表示</div>'
+    : state==="HOLD"
+      ? `<div class="digest-state digest-state-warn">${fmt(status.message)}</div>`
+      : "";
   const up=stocks.filter(s=>Number(s.change_pct)>0).length;
   const down=stocks.filter(s=>Number(s.change_pct)<0).length;
   return `
@@ -88,6 +94,7 @@ function digestPanel(status,market){
         <span class="quality-labeled"><small>SOURCE</small>${qualityPill(q.source_crosscheck)}</span>
       </div>
     </div>
+    ${stateNote}
     <div class="digest-stocks">${items}</div>
     <div class="digest-foot"><span>更新 ${jst(status.generated_at_jst)}</span><strong>${fmt(q.completeness)}銘柄</strong></div>
   `;
@@ -355,10 +362,8 @@ async function main(options={}){
 
     $("tradeDate").textContent=dateOnly(status.us_trade_date);
     $("updatedAt").textContent=jst(status.generated_at_jst);
-    $("statusMessage").textContent=fmt(status.message);
     $("digest").classList.remove("muted");
     $("digest").innerHTML=digestPanel(status,market);
-    $("summary").textContent=market.summary||"データ待ちです.";
 
     $("stocks").innerHTML=
       (market.stocks||[]).map(stockCard).join("")||
@@ -386,7 +391,7 @@ async function main(options={}){
 
   }catch(e){
     $("appState").textContent="読込エラー";
-    $("statusMessage").textContent=e.message;
+    if(note) note.textContent=e.message;
     $("quality").textContent="JSONの取得に失敗しました。";
     if(options.manual&&note) note.textContent="取得に失敗しました。通信状態を確認してください。";
   }finally{
@@ -401,7 +406,7 @@ main();
 
 if("serviceWorker" in navigator){
   window.addEventListener("load",async()=>{
-    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.2",{updateViaCache:"none"});
+    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.3",{updateViaCache:"none"});
     reg.update();
   });
 }
