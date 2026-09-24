@@ -66,7 +66,7 @@ function digestPanel(status,market){
     const growth=s.structural_growth;
     const sub=s.ticker==="SOXL"
       ? `局面 ${fmt(s.soxl_stage?.phase)}`
-      : `成長 ${growth?.score==null?"—":Number(growth.score).toFixed(1)}`;
+      : `成長スコア ${growth?.score==null?"—":Number(growth.score).toFixed(1)}`;
     return `<div class="digest-stock">
       <div class="digest-ticker">${fmt(s.ticker)}</div>
       <div class="digest-price">${money(s.close)}</div>
@@ -75,13 +75,21 @@ function digestPanel(status,market){
     </div>`;
   }).join("");
   const q=status.quality||{};
+  const up=stocks.filter(s=>Number(s.change_pct)>0).length;
+  const down=stocks.filter(s=>Number(s.change_pct)<0).length;
   return `
     <div class="digest-head">
-      <div><strong>${dateOnly(status.us_trade_date)}</strong><span> 米国取引日</span></div>
-      <div>${qualityPill(q.qc)} ${qualityPill(q.source_crosscheck)}</div>
+      <div>
+        <div class="digest-date">${dateOnly(status.us_trade_date)}</div>
+        <div class="digest-market-count"><span class="up-dot"></span>上昇 ${up}　<span class="down-dot"></span>下落 ${down}</div>
+      </div>
+      <div class="digest-quality">
+        <span class="quality-labeled"><small>QC</small>${qualityPill(q.qc)}</span>
+        <span class="quality-labeled"><small>SOURCE</small>${qualityPill(q.source_crosscheck)}</span>
+      </div>
     </div>
     <div class="digest-stocks">${items}</div>
-    <div class="digest-foot">更新 ${jst(status.generated_at_jst)} ／ ${fmt(q.completeness)}銘柄</div>
+    <div class="digest-foot"><span>更新 ${jst(status.generated_at_jst)}</span><strong>${fmt(q.completeness)}銘柄</strong></div>
   `;
 }
 
@@ -393,7 +401,7 @@ main();
 
 if("serviceWorker" in navigator){
   window.addEventListener("load",async()=>{
-    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.1",{updateViaCache:"none"});
+    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.2",{updateViaCache:"none"});
     reg.update();
   });
 }
