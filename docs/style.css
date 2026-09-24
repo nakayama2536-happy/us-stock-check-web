@@ -204,3 +204,31 @@ footer{margin-top:24px;text-align:center;color:#7b8798;font-size:11px}
   .digest-sub{font-size:9px;margin-top:6px}
   .digest-foot{margin-top:10px;padding-top:8px;border-top:1px solid #edf1f5}
 }
+
+/* v0.9.3 first-screen optimization */
+.status-compact{margin-top:13px}
+.status-primary{padding:9px 11px}
+.status-meta{display:grid;grid-template-columns:1fr 1.35fr;gap:7px;margin-top:7px}
+.status-meta>div{background:rgba(255,255,255,.10);border-radius:11px;padding:8px 10px;min-width:0}
+.status-meta span{display:block;font-size:8px;opacity:.72;margin-bottom:2px}
+.status-meta strong{display:block;font-size:10px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.digest-state{margin-top:9px;padding:7px 9px;border-radius:9px;font-size:9px;font-weight:700}
+.digest-state-neutral{background:#f3f6f9;color:#627187}
+.digest-state-warn{background:#fff5d9;color:#7d6413}
+@media(max-width:600px){
+  .hero{padding:13px 14px 12px}
+  .hero-row{gap:10px}
+  .app-icon{width:52px;height:52px;border-radius:14px}
+  h1{font-size:19px}
+  .status-compact{margin-top:11px}
+  .status-primary{padding:8px 10px;border-radius:11px}
+  .status-primary span{font-size:8px;margin-bottom:1px}
+  .status-primary strong{font-size:11px}
+  .status-meta{margin-top:6px;gap:6px}
+  .status-meta>div{padding:7px 9px}
+  .refresh-button{margin-top:8px;padding:9px 12px}
+  .refresh-note{margin-top:3px}
+  section{margin-top:15px}
+  h2{font-size:17px;margin-bottom:7px}
+  .digest-state{margin-top:8px}
+}
