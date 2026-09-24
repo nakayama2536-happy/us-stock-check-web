@@ -143,3 +143,22 @@ footer{margin-top:24px;text-align:center;color:#7b8798;font-size:11px}
 .freshness-chip{font-size:9px;font-weight:700;padding:5px 8px;border-radius:999px}
 .freshness-current{background:#e8f5ee;color:#1c6b40}
 .freshness-due{background:#fff5d9;color:#7d6413}
+
+.refresh-button{width:100%;margin-top:14px;border:0;border-radius:13px;padding:11px 14px;background:#fff;color:#123b6c;font-weight:800;font-size:13px;box-shadow:0 3px 12px rgba(0,0,0,.12)}
+.refresh-button:active{transform:translateY(1px)}
+.refresh-button:disabled{opacity:.65}
+.refresh-icon{display:inline-block;font-size:16px;margin-right:5px;vertical-align:-1px}
+.refreshing .refresh-icon{animation:refresh-spin .8s linear infinite}
+@keyframes refresh-spin{to{transform:rotate(360deg)}}
+.refresh-note{text-align:center;font-size:9px;opacity:.72;margin-top:6px}
+.digest-head{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;color:#64748b}
+.digest-head strong{font-size:13px;color:#10233f}
+.digest-stocks{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:11px}
+.digest-stock{background:#f2f6fa;border-radius:12px;padding:9px;min-width:0}
+.digest-ticker{font-size:12px;font-weight:800}
+.digest-price{font-size:13px;font-weight:750;margin-top:4px}
+.digest-change{font-size:10px;margin-top:2px}
+.digest-change.up{color:#a62b2b}.digest-change.down{color:#1968a6}.digest-change.flat{color:#66758a}
+.digest-sub{font-size:9px;color:#718096;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.digest-foot{font-size:9px;color:#7b8798;margin-top:9px}
+@media(max-width:600px){.digest-stocks{grid-template-columns:repeat(2,1fr)}}
