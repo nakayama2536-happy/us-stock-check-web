@@ -11,7 +11,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./icons/us-stock-icon.png">
   <link rel="icon" href="./icons/us-stock-icon.png" type="image/png">
-  <link rel="stylesheet" href="./style.css?v=0.9.2">
+  <link rel="stylesheet" href="./style.css?v=0.9.3">
 </head>
 <body>
   <main class="app">
@@ -21,26 +21,21 @@
         <div class="hero-title">
           <div class="eyebrow">US STOCK CHECK</div>
           <h1>米国株 投資チェック</h1>
-          <div id="version" class="version">v0.9.2</div>
+          <div id="version" class="version">v0.9.3</div>
         </div>
       </div>
 
-      <div class="status-grid">
-        <div id="stateBox" class="status-box">
+      <div class="status-compact">
+        <div id="stateBox" class="status-box status-primary">
           <span>状態</span>
           <strong id="appState">準備中</strong>
         </div>
-        <div class="status-box">
-          <span>米国取引日</span>
-          <strong id="tradeDate">—</strong>
-        </div>
-        <div class="status-box">
-          <span>更新</span>
-          <strong id="updatedAt">—</strong>
+        <div class="status-meta">
+          <div><span>取引日</span><strong id="tradeDate">—</strong></div>
+          <div><span>更新</span><strong id="updatedAt">—</strong></div>
         </div>
       </div>
 
-      <p id="statusMessage" class="status-message">Shadow構築中です。</p>
       <button id="refreshButton" class="refresh-button" type="button">
         <span class="refresh-icon">↻</span> 最新データ取得
       </button>
@@ -50,11 +45,6 @@
     <section>
       <h2>ダイジェスト</h2>
       <div id="digest" class="card muted">最新データを読み込み中です。</div>
-    </section>
-
-    <section>
-      <h2>今日の総合状況</h2>
-      <div id="summary" class="card muted">データ接続前です。</div>
     </section>
 
     <section>
@@ -93,6 +83,6 @@
     </footer>
   </main>
 
-  <script src="./app.js?v=0.9.2" defer></script>
+  <script src="./app.js?v=0.9.3" defer></script>
 </body>
 </html>
