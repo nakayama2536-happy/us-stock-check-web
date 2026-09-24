@@ -60,6 +60,31 @@ async function getJSON(path){
   return r.json();
 }
 
+function digestPanel(status,market){
+  const stocks=market.stocks||[];
+  const items=stocks.map(s=>{
+    const growth=s.structural_growth;
+    const sub=s.ticker==="SOXL"
+      ? `局面 ${fmt(s.soxl_stage?.phase)}`
+      : `成長 ${growth?.score==null?"—":Number(growth.score).toFixed(1)}`;
+    return `<div class="digest-stock">
+      <div class="digest-ticker">${fmt(s.ticker)}</div>
+      <div class="digest-price">${money(s.close)}</div>
+      <div class="digest-change ${deltaClass(s.change_pct)}">${pct(s.change_pct)}</div>
+      <div class="digest-sub">${sub}</div>
+    </div>`;
+  }).join("");
+  const q=status.quality||{};
+  return `
+    <div class="digest-head">
+      <div><strong>${dateOnly(status.us_trade_date)}</strong><span> 米国取引日</span></div>
+      <div>${qualityPill(q.qc)} ${qualityPill(q.source_crosscheck)}</div>
+    </div>
+    <div class="digest-stocks">${items}</div>
+    <div class="digest-foot">更新 ${jst(status.generated_at_jst)} ／ ${fmt(q.completeness)}銘柄</div>
+  `;
+}
+
 function levelPanel(s){
   const l=s.levels;
   if(!l)return "";
@@ -299,7 +324,14 @@ function renderNotices(status){
   section.classList.remove("hidden");
 }
 
-async function main(){
+async function main(options={}){
+  const button=$("refreshButton");
+  const note=$("refreshNote");
+  if(options.manual&&button){
+    button.disabled=true;
+    button.classList.add("refreshing");
+    note.textContent="最新の公開データを確認しています…";
+  }
   try{
     const [status,market]=await Promise.all([
       getJSON("./data/status.json"),
@@ -316,7 +348,9 @@ async function main(){
     $("tradeDate").textContent=dateOnly(status.us_trade_date);
     $("updatedAt").textContent=jst(status.generated_at_jst);
     $("statusMessage").textContent=fmt(status.message);
-    $("summary").textContent=market.summary||"データ待ちです。";
+    $("digest").classList.remove("muted");
+    $("digest").innerHTML=digestPanel(status,market);
+    $("summary").textContent=market.summary||"データ待ちです.";
 
     $("stocks").innerHTML=
       (market.stocks||[]).map(stockCard).join("")||
@@ -340,18 +374,26 @@ async function main(){
     $("modelValidation").innerHTML=modelValidationPanel(market.model_validation,market.stocks);
 
     renderNotices(status);
+    if(options.manual&&note) note.textContent=`取得完了：${jst(status.generated_at_jst)} の公開データ`;
 
   }catch(e){
     $("appState").textContent="読込エラー";
     $("statusMessage").textContent=e.message;
     $("quality").textContent="JSONの取得に失敗しました。";
+    if(options.manual&&note) note.textContent="取得に失敗しました。通信状態を確認してください。";
+  }finally{
+    if(options.manual&&button){
+      button.disabled=false;
+      button.classList.remove("refreshing");
+    }
   }
 }
+$("refreshButton")?.addEventListener("click",()=>main({manual:true}));
 main();
 
 if("serviceWorker" in navigator){
   window.addEventListener("load",async()=>{
-    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.0",{updateViaCache:"none"});
+    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.1",{updateViaCache:"none"});
     reg.update();
   });
 }
