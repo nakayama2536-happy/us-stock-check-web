@@ -1488,8 +1488,8 @@
       "ticker": "BSY",
       "name": "Bentley Systems",
       "trade_date": "2026-09-24",
-      "close": 31.91,
-      "change_pct": -2.48,
+      "close": 31.9,
+      "change_pct": -2.51,
       "trend": "下降",
       "macd_state": "弱気",
       "rsi14": 42.0,
@@ -1505,9 +1505,9 @@
         "ma200": 34.89,
         "low52": 28.08,
         "high52": 57.25,
-        "support_distance_pct": 4.25,
-        "resistance_distance_pct": 20.43,
-        "range_position_pct": 16.6
+        "support_distance_pct": 4.21,
+        "resistance_distance_pct": 20.47,
+        "range_position_pct": 16.5
       },
       "structural_growth": {
         "ticker": "BSY",
@@ -1584,7 +1584,7 @@
           "weight": 10,
           "score_pct": 0,
           "trend": "下降",
-          "distance_to_52w_high_pct": 79.41
+          "distance_to_52w_high_pct": 79.47
         },
         "volume_confirmation": {
           "weight": 5,
@@ -1593,7 +1593,7 @@
         },
         "new_high_health": {
           "grade": "N/A",
-          "distance_to_52w_high_pct": 79.41,
+          "distance_to_52w_high_pct": 79.47,
           "basis": "52週高値から5%超離れており、新高値局面ではない"
         },
         "fundamentals": {
@@ -1637,8 +1637,8 @@
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
       "shadow_source": "Yahoo Finance",
-      "shadow_close_diff_usd": 0.01,
-      "shadow_close_diff_pct": 0.0313,
+      "shadow_close_diff_usd": 0.0,
+      "shadow_close_diff_pct": 0.0,
       "structural_backtest": {
         "status": "PROXY_V1",
         "ticker": "BSY",
