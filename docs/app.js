@@ -80,7 +80,7 @@ function scorePoints(scorePct,weight){
   const earned=Number(weight)*Number(scorePct)/100;
   return `${compactNumber(earned)}/${compactNumber(weight)}点`;
 }
-function decisionSummary(s){
+function decisionState(s){
   const trend=String(s.trend||"");
   const macd=String(s.macd_state||"");
   const ma=String(s.ma_state||"");
@@ -103,11 +103,21 @@ function decisionSummary(s){
     else if(rsi<=30)heat="売られ過ぎ";
     else if(rsi<=40)heat="やや低め";
   }
-
+  return {shortTerm,midTerm,heat};
+}
+function signalTone(value){
+  const v=String(value||"");
+  if(v.includes("上昇")||v==="上向き")return "signal-positive";
+  if(v.includes("過熱")||v.includes("高め"))return "signal-caution";
+  if(v.includes("下降")||v.includes("売られ")||v.includes("低め"))return "signal-negative";
+  return "signal-neutral";
+}
+function decisionSummary(s){
+  const d=decisionState(s);
   return `<div class="signal-summary">
-    <div class="signal-item"><span class="signal-label">短期</span><strong>${shortTerm}</strong></div>
-    <div class="signal-item"><span class="signal-label">中長期</span><strong>${midTerm}</strong></div>
-    <div class="signal-item"><span class="signal-label">過熱度</span><strong>${heat}</strong></div>
+    <div class="signal-item ${signalTone(d.shortTerm)}"><span class="signal-label">短期</span><strong>${d.shortTerm}</strong></div>
+    <div class="signal-item ${signalTone(d.midTerm)}"><span class="signal-label">中長期</span><strong>${d.midTerm}</strong></div>
+    <div class="signal-item ${signalTone(d.heat)}"><span class="signal-label">過熱度</span><strong>${d.heat}</strong></div>
   </div>`;
 }
 async function getJSON(path){
@@ -120,6 +130,7 @@ function digestPanel(status,market){
   const stocks=market.stocks||[];
   const items=stocks.map(s=>{
     const growth=s.structural_growth;
+    const d=decisionState(s);
     const sub=s.ticker==="SOXL"
       ? `局面 ${fmt(s.soxl_stage?.phase)}`
       : `成長スコア ${growth?.score==null?"—":Number(growth.score).toFixed(1)}`;
@@ -127,6 +138,7 @@ function digestPanel(status,market){
       <div class="digest-ticker">${fmt(s.ticker)}</div>
       <div class="digest-price">${money(s.close)}</div>
       <div class="digest-change ${deltaClass(s.change_pct)}">${pct(s.change_pct)}</div>
+      <div class="digest-signal ${signalTone(d.shortTerm)}">${d.shortTerm}</div>
       <div class="digest-sub">${sub}</div>
     </div>`;
   }).join("");
@@ -305,12 +317,15 @@ function stockCard(s){
     <div class="price">${money(s.close)}</div>
     <div class="delta ${deltaClass(s.change_pct)}">${pct(s.change_pct)}</div>
     ${decisionSummary(s)}
-    <div class="meta">
-      <div><span class="label">Trend</span>${fmt(s.trend)}</div>
-      <div><span class="label">MACD</span>${fmt(s.macd_state)}</div>
-      <div><span class="label">RSI14</span>${fmt(s.rsi14)}</div>
-      <div><span class="label">50 / 200MA</span>${fmt(s.ma_state)}</div>
-    </div>
+    <details class="technical-details">
+      <summary>テクニカル詳細</summary>
+      <div class="meta">
+        <div><span class="label">Trend</span>${fmt(s.trend)}</div>
+        <div><span class="label">MACD</span>${fmt(s.macd_state)}</div>
+        <div><span class="label">RSI14</span>${fmt(s.rsi14)}</div>
+        <div><span class="label">50 / 200MA</span>${fmt(s.ma_state)}</div>
+      </div>
+    </details>
     ${s.ticker==="SOXL"?soxlPanel(s):growthPanel(s)}
     ${levelPanel(s)}
   </article>`;
@@ -465,7 +480,7 @@ main();
 
 if("serviceWorker" in navigator){
   window.addEventListener("load",async()=>{
-    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.4",{updateViaCache:"none"});
+    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.5",{updateViaCache:"none"});
     reg.update();
   });
 }
