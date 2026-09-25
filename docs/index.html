@@ -11,7 +11,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./icons/us-stock-icon.png">
   <link rel="icon" href="./icons/us-stock-icon.png" type="image/png">
-  <link rel="stylesheet" href="./style.css?v=0.9.5-common1">
+  <link rel="stylesheet" href="./style.css?v=0.9.5-ops1">
 </head>
 <body>
   <main class="app">
@@ -37,9 +37,9 @@
       </div>
 
       <button id="refreshButton" class="refresh-button" type="button">
-        <span class="refresh-icon">↻</span> 最新データ取得
+        <span class="refresh-icon">↻</span> 公開データを再読込
       </button>
-      <div id="refreshNote" class="refresh-note">公開済みの最新データを再取得します。</div>
+      <div id="refreshNote" class="refresh-note">公開済みの最新JSONを再読込します。バックエンド更新は実行しません。</div>
     </header>
 
     <section id="commonSection" class="hidden">
@@ -88,6 +88,6 @@
     </footer>
   </main>
 
-  <script src="./app.js?v=0.9.5-common1" defer></script>
+  <script src="./app.js?v=0.9.5-ops1" defer></script>
 </body>
 </html>

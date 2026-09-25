@@ -32,7 +32,12 @@ jobs:
           assert 'id="commonDigest"' in index
           assert 'function renderCommonDigest(common)' in app
           assert 'getJSON("./data/common_snapshot.json").catch(()=>null)' in app
-          assert '0.9.5-common1' in index
-          assert 'us-stock-check-v0.9.5-common1' in sw
-          print("US Common digest validation PASS")
+          assert '0.9.5-ops1' in index
+          assert 'us-stock-check-v0.9.5-ops1' in sw
+          assert 'snapshotState==="NONE"||items.length===0' in app
+          assert '0/0は「判断可能」を意味しません' in app
+          assert '公開データを再読込' in index
+          assert 'canonicalKey' in sw and 'networkFirstData' in sw
+          assert 'Pre-deploy public safety gate' in Path(".github/workflows/deploy-pages.yml").read_text(encoding="utf-8")
+          print("US operational hardening validation PASS")
           PY

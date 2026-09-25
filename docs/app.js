@@ -39,6 +39,24 @@ function renderCommonDigest(common){
   section.classList.remove("hidden");
   const q=common.data_quality||{};
   const items=common.decision_items||[];
+  const snapshotState=String(common.snapshot?.state||"").toUpperCase();
+  if(snapshotState==="NONE"||items.length===0){
+    root.innerHTML=
+      '<div class="common-head">'+
+        '<div><div class="common-eyebrow">COMMON 10-SECOND VIEW</div>'+
+        '<div class="common-title">Common判断スナップショット待ち</div></div>'+
+        '<span class="common-pill '+commonStateClass(q.qc_state)+'">QC '+fmt(q.qc_state)+'</span>'+
+      '</div>'+
+      '<div class="common-grid">'+
+        '<div class="common-metric '+commonStateClass(q.data_state)+'"><span>Data</span><b>'+fmt(q.data_state)+'</b></div>'+
+        '<div class="common-metric '+commonStateClass(common.market_state?.state)+'"><span>Market</span><b>'+fmt(common.market_state?.state)+'</b></div>'+
+        '<div class="common-metric common-warn"><span>Snapshot</span><b>'+fmt(common.snapshot?.state)+'</b></div>'+
+        '<div class="common-metric common-warn"><span>判断対象</span><b>—</b></div>'+
+      '</div>'+
+      '<div class="common-blocker">新しいNORMAL/CURRENTスナップショット待ちです。0/0は「判断可能」を意味しません。</div>'+
+      '<div class="common-time">基準 '+dateOnly(common.timestamps?.market_as_of)+' / 計算 '+jst(common.timestamps?.calculated_at)+' / Common Spec '+fmt(common.common_spec_version)+'</div>';
+    return;
+  }
   const eligible=items.filter(x=>x.eligibility==="ELIGIBLE").length;
   const blocked=items.length-eligible;
   const firstBlocker=items.flatMap(x=>x.blocking_conditions||[]).find(x=>x&&x.label);
@@ -58,13 +76,13 @@ function renderCommonDigest(common){
     '</div>'+
     '<div class="common-grid">'+
       '<div class="common-metric '+commonStateClass(q.data_state)+'"><span>Data</span><b>'+fmt(q.data_state)+'</b></div>'+
-      '<div class="common-metric '+commonStateClass(common.market_state&&common.market_state.state)+'"><span>Market</span><b>'+fmt(common.market_state&&common.market_state.state)+'</b></div>'+
-      '<div class="common-metric '+commonStateClass(common.snapshot&&common.snapshot.state)+'"><span>Snapshot</span><b>'+fmt(common.snapshot&&common.snapshot.state)+'</b></div>'+
+      '<div class="common-metric '+commonStateClass(common.market_state?.state)+'"><span>Market</span><b>'+fmt(common.market_state?.state)+'</b></div>'+
+      '<div class="common-metric '+commonStateClass(common.snapshot?.state)+'"><span>Snapshot</span><b>'+fmt(common.snapshot?.state)+'</b></div>'+
       '<div class="common-metric '+(blocked?"common-ng":"common-ok")+'"><span>要確認</span><b>'+blocked+'</b></div>'+
     '</div>'+
     '<div class="common-blocker">'+fmt(firstBlocker&&firstBlocker.label||"正式判断を妨げる条件はありません。")+'</div>'+
     '<details class="common-details"><summary>4銘柄の判断可否</summary>'+itemRows+'</details>'+
-    '<div class="common-time">基準 '+dateOnly(common.timestamps&&common.timestamps.market_as_of)+' / 計算 '+jst(common.timestamps&&common.timestamps.calculated_at)+' / Common Spec '+fmt(common.common_spec_version)+'</div>';
+    '<div class="common-time">基準 '+dateOnly(common.timestamps?.market_as_of)+' / 計算 '+jst(common.timestamps?.calculated_at)+' / Common Spec '+fmt(common.common_spec_version)+'</div>';
 }
 
 function stateLabel(v){
@@ -386,6 +404,7 @@ function marketCard(m){
     </div>
     <div class="price">${fmt(m.value)}</div>
     <div class="delta ${deltaClass(m.change_pct)}">${pct(m.change_pct)}</div>
+    <div class="source-note">基準日 ${dateOnly(m.trade_date)}</div>
   </article>`;
 }
 
@@ -505,6 +524,7 @@ async function main(options={}){
         <div class="quality-item"><span class="label">取引セッション</span><div class="quality-value">${qualityPill(q.session)}</div></div>
         <div class="quality-item"><span class="label">データ充足</span><div class="quality-value">${fmt(q.completeness)}</div></div>
         <div class="quality-item"><span class="label">出典照合</span><div class="quality-value">${qualityPill(q.source_crosscheck)}</div></div>
+        <div class="quality-item"><span class="label">取引日経過</span><div class="quality-value">${q.trade_date_age_days==null?"—":fmt(q.trade_date_age_days)+"暦日"}</div></div>
       </div>`;
 
     $("modelValidation").classList.remove("muted");
@@ -530,7 +550,7 @@ main();
 
 if("serviceWorker" in navigator){
   window.addEventListener("load",async()=>{
-    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.5-common1",{updateViaCache:"none"});
+    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.5-ops1",{updateViaCache:"none"});
     reg.update();
   });
 }
