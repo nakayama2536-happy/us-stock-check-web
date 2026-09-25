@@ -11,7 +11,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./icons/us-stock-icon.png">
   <link rel="icon" href="./icons/us-stock-icon.png" type="image/png">
-  <link rel="stylesheet" href="./style.css?v=0.9.5">
+  <link rel="stylesheet" href="./style.css?v=0.9.5-common1">
 </head>
 <body>
   <main class="app">
@@ -41,6 +41,11 @@
       </button>
       <div id="refreshNote" class="refresh-note">公開済みの最新データを再取得します。</div>
     </header>
+
+    <section id="commonSection" class="hidden">
+      <h2>判断可否</h2>
+      <div id="commonDigest" class="card"></div>
+    </section>
 
     <section>
       <h2>ダイジェスト</h2>
@@ -83,6 +88,6 @@
     </footer>
   </main>
 
-  <script src="./app.js?v=0.9.5" defer></script>
+  <script src="./app.js?v=0.9.5-common1" defer></script>
 </body>
 </html>
