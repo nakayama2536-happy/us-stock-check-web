@@ -38,10 +38,20 @@ h2{font-size:17px;margin:0 0 10px}
 .delta.down{color:#1968a6}
 .delta.flat{color:#66758a}
 .signal-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:11px}
-.signal-item{background:#eef3f8;border-radius:10px;padding:8px 7px;min-width:0}
+.signal-item{background:#eef3f8;border-radius:10px;padding:8px 7px;min-width:0;border:1px solid transparent}
 .signal-label{display:block;color:#718096;font-size:8px;margin-bottom:3px}
 .signal-item strong{display:block;font-size:10px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.meta{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px;font-size:11px}
+.signal-positive{background:#eaf6ef;color:#1c6b40;border-color:#d9eee2}
+.signal-caution{background:#fff7df;color:#7d6413;border-color:#f3e8bc}
+.signal-negative{background:#edf5fb;color:#245f8f;border-color:#dceaf5}
+.signal-neutral{background:#eef3f8;color:#50627a;border-color:#e3eaf1}
+.signal-item.signal-positive .signal-label,.signal-item.signal-caution .signal-label,.signal-item.signal-negative .signal-label,.signal-item.signal-neutral .signal-label{color:inherit;opacity:.72}
+.technical-details{margin-top:8px}
+.technical-details summary{cursor:pointer;list-style:none;color:#5e6d82;font-size:9px;font-weight:700;padding:4px 1px;display:flex;justify-content:space-between;align-items:center}
+.technical-details summary::-webkit-details-marker{display:none}
+.technical-details summary::after{content:"＋";font-size:13px;font-weight:500}
+.technical-details[open] summary::after{content:"−"}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:5px;font-size:11px}
 .meta div{background:#f2f6fa;border-radius:10px;padding:7px}
 .label{display:block;color:#718096;font-size:9px;margin-bottom:2px}
 .badge,.quality-pill,.stage-pill{
@@ -163,6 +173,7 @@ footer{margin-top:24px;text-align:center;color:#7b8798;font-size:11px}
 .digest-price{font-size:13px;font-weight:750;margin-top:4px}
 .digest-change{font-size:10px;margin-top:2px}
 .digest-change.up{color:#a62b2b}.digest-change.down{color:#1968a6}.digest-change.flat{color:#66758a}
+.digest-signal{display:inline-block;font-size:8px;font-weight:750;margin-top:5px;padding:3px 6px;border-radius:999px;border:1px solid transparent}
 .digest-sub{font-size:9px;color:#718096;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .digest-foot{font-size:9px;color:#7b8798;margin-top:9px}
 @media(max-width:600px){.digest-stocks{grid-template-columns:repeat(2,1fr)}}
@@ -244,4 +255,11 @@ footer{margin-top:24px;text-align:center;color:#7b8798;font-size:11px}
   .signal-label{font-size:7px}
   .signal-item strong{font-size:9px}
   .growth-item .score-sub{line-height:1.35}
+}
+
+/* v0.9.5 card density */
+@media(max-width:600px){
+  .technical-details{margin-top:6px}
+  .technical-details summary{font-size:8px;padding:3px 1px}
+  .digest-signal{font-size:8px;padding:2px 6px}
 }
