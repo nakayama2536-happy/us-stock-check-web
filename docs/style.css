@@ -37,7 +37,11 @@ h2{font-size:17px;margin:0 0 10px}
 .delta.up{color:#a62b2b}
 .delta.down{color:#1968a6}
 .delta.flat{color:#66758a}
-.meta{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px;font-size:11px}
+.signal-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:11px}
+.signal-item{background:#eef3f8;border-radius:10px;padding:8px 7px;min-width:0}
+.signal-label{display:block;color:#718096;font-size:8px;margin-bottom:3px}
+.signal-item strong{display:block;font-size:10px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px;font-size:11px}
 .meta div{background:#f2f6fa;border-radius:10px;padding:7px}
 .label{display:block;color:#718096;font-size:9px;margin-bottom:2px}
 .badge,.quality-pill,.stage-pill{
@@ -231,4 +235,13 @@ footer{margin-top:24px;text-align:center;color:#7b8798;font-size:11px}
   section{margin-top:15px}
   h2{font-size:17px;margin-bottom:7px}
   .digest-state{margin-top:8px}
+}
+
+/* v0.9.4 clarity */
+@media(max-width:600px){
+  .signal-summary{gap:5px;margin-top:9px}
+  .signal-item{padding:7px 5px}
+  .signal-label{font-size:7px}
+  .signal-item strong{font-size:9px}
+  .growth-item .score-sub{line-height:1.35}
 }
