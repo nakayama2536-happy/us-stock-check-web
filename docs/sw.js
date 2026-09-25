@@ -1,9 +1,9 @@
-const CACHE="us-stock-check-v0.9.5-common1";
+const CACHE="us-stock-check-v0.9.5-ops1";
 const STATIC=[
   "./",
   "./index.html",
-  "./style.css?v=0.9.5-common1",
-  "./app.js?v=0.9.5-common1",
+  "./style.css?v=0.9.5-ops1",
+  "./app.js?v=0.9.5-ops1",
   "./manifest.webmanifest",
   "./icons/us-stock-icon.png"
 ];
@@ -24,10 +24,25 @@ self.addEventListener("activate",event=>{
   );
 });
 
+async function networkFirstData(request){
+  const url=new URL(request.url);
+  const canonicalKey=new Request(url.origin+url.pathname);
+  try{
+    const response=await fetch(request,{cache:"no-store"});
+    if(response.ok){
+      const cache=await caches.open(CACHE);
+      await cache.put(canonicalKey,response.clone());
+    }
+    return response;
+  }catch(e){
+    return (await caches.match(canonicalKey))||Response.error();
+  }
+}
+
 self.addEventListener("fetch",event=>{
   const url=new URL(event.request.url);
   if(url.pathname.includes("/data/")){
-    event.respondWith(fetch(event.request,{cache:"no-store"}).catch(()=>caches.match(event.request)));
+    event.respondWith(networkFirstData(event.request));
     return;
   }
   event.respondWith(
