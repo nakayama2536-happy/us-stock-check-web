@@ -11,7 +11,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./icons/us-stock-icon.png">
   <link rel="icon" href="./icons/us-stock-icon.png" type="image/png">
-  <link rel="stylesheet" href="./style.css?v=0.9.3">
+  <link rel="stylesheet" href="./style.css?v=0.9.4">
 </head>
 <body>
   <main class="app">
@@ -21,7 +21,7 @@
         <div class="hero-title">
           <div class="eyebrow">US STOCK CHECK</div>
           <h1>米国株 投資チェック</h1>
-          <div id="version" class="version">v0.9.3</div>
+          <div id="version" class="version">v0.9.4</div>
         </div>
       </div>
 
@@ -66,9 +66,9 @@
       <h2>データ品質</h2>
       <div id="quality" class="card"></div>
       <div class="legend card">
-        <div class="legend-row"><span class="quality-pill pass">PASS</span><span>確認済み・正常</span></div>
-        <div class="legend-row"><span class="quality-pill pending">PENDING</span><span>独立確認待ち。Primary確定値は利用可能</span></div>
-        <div class="legend-row"><span class="quality-pill fail">FAIL</span><span>確認が必要</span></div>
+        <div class="legend-row"><span class="quality-pill pass">正常</span><span>確認済み・正常</span></div>
+        <div class="legend-row"><span class="quality-pill pending">確認待ち</span><span>独立確認待ち。Primary確定値は利用可能</span></div>
+        <div class="legend-row"><span class="quality-pill fail">要確認</span><span>確認が必要</span></div>
       </div>
     </section>
 
@@ -78,11 +78,11 @@
     </section>
 
     <footer>
-      Shadow mode / 自動売買なし<br>
+      検証運用 / 自動売買なし<br>
       <span class="footer-sub">表示は定量監視用。売買判断は他の確認項目と併用。</span>
     </footer>
   </main>
 
-  <script src="./app.js?v=0.9.3" defer></script>
+  <script src="./app.js?v=0.9.4" defer></script>
 </body>
 </html>
