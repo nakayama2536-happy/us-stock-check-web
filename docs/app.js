@@ -20,6 +20,53 @@ const compactNumber=v=>{
   return Number.isInteger(n)?String(n):String(n).replace(/0+$/,"").replace(/\.$/,"");
 };
 
+
+function commonStateClass(value){
+  const v=String(value||"").toUpperCase();
+  if(["PASS","FRESH","CURRENT","CONFIRMED","ELIGIBLE"].includes(v))return "common-ok";
+  if(["FAIL","STALE","MISSING","BLOCKED","NOT_ELIGIBLE"].includes(v))return "common-ng";
+  return "common-warn";
+}
+function renderCommonDigest(common){
+  const section=$("commonSection");
+  const root=$("commonDigest");
+  if(!section||!root)return;
+  if(!common||common.schema_version!=="1.0"){
+    section.classList.add("hidden");
+    root.innerHTML="";
+    return;
+  }
+  section.classList.remove("hidden");
+  const q=common.data_quality||{};
+  const items=common.decision_items||[];
+  const eligible=items.filter(x=>x.eligibility==="ELIGIBLE").length;
+  const blocked=items.length-eligible;
+  const firstBlocker=items.flatMap(x=>x.blocking_conditions||[]).find(x=>x&&x.label);
+  const itemRows=items.map(x=>{
+    const blocker=(x.blocking_conditions||[]).find(y=>y&&y.label);
+    return '<div class="common-stock-row">'+
+      '<b>'+fmt(x.ticker||x.subject_id)+'</b>'+
+      '<span class="'+commonStateClass(x.eligibility)+'">'+(x.eligibility==="ELIGIBLE"?"判断可能":"判断不可")+'</span>'+
+      '<small>'+fmt(blocker&&blocker.label||"—")+'</small>'+
+    '</div>';
+  }).join("");
+  root.innerHTML=
+    '<div class="common-head">'+
+      '<div><div class="common-eyebrow">COMMON 10-SECOND VIEW</div>'+
+      '<div class="common-title">'+eligible+'/'+items.length+' 銘柄が正式判断可能</div></div>'+
+      '<span class="common-pill '+commonStateClass(q.qc_state)+'">QC '+fmt(q.qc_state)+'</span>'+
+    '</div>'+
+    '<div class="common-grid">'+
+      '<div class="common-metric '+commonStateClass(q.data_state)+'"><span>Data</span><b>'+fmt(q.data_state)+'</b></div>'+
+      '<div class="common-metric '+commonStateClass(common.market_state&&common.market_state.state)+'"><span>Market</span><b>'+fmt(common.market_state&&common.market_state.state)+'</b></div>'+
+      '<div class="common-metric '+commonStateClass(common.snapshot&&common.snapshot.state)+'"><span>Snapshot</span><b>'+fmt(common.snapshot&&common.snapshot.state)+'</b></div>'+
+      '<div class="common-metric '+(blocked?"common-ng":"common-ok")+'"><span>要確認</span><b>'+blocked+'</b></div>'+
+    '</div>'+
+    '<div class="common-blocker">'+fmt(firstBlocker&&firstBlocker.label||"正式判断を妨げる条件はありません。")+'</div>'+
+    '<details class="common-details"><summary>4銘柄の判断可否</summary>'+itemRows+'</details>'+
+    '<div class="common-time">基準 '+dateOnly(common.timestamps&&common.timestamps.market_as_of)+' / 計算 '+jst(common.timestamps&&common.timestamps.calculated_at)+' / Common Spec '+fmt(common.common_spec_version)+'</div>';
+}
+
 function stateLabel(v){
   const s=(v||"").toUpperCase();
   if(s==="NORMAL")return "更新済み";
@@ -422,9 +469,10 @@ async function main(options={}){
     note.textContent="最新の公開データを確認しています…";
   }
   try{
-    const [status,market]=await Promise.all([
+    const [status,market,common]=await Promise.all([
       getJSON("./data/status.json"),
-      getJSON("./data/market.json")
+      getJSON("./data/market.json"),
+      getJSON("./data/common_snapshot.json").catch(()=>null)
     ]);
 
     $("version").textContent="v"+fmt(status.app_version);
@@ -436,6 +484,8 @@ async function main(options={}){
 
     $("tradeDate").textContent=dateOnly(status.us_trade_date);
     $("updatedAt").textContent=jst(status.generated_at_jst);
+    renderCommonDigest(common);
+
     $("digest").classList.remove("muted");
     $("digest").innerHTML=digestPanel(status,market);
 
@@ -480,7 +530,7 @@ main();
 
 if("serviceWorker" in navigator){
   window.addEventListener("load",async()=>{
-    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.5",{updateViaCache:"none"});
+    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.5-common1",{updateViaCache:"none"});
     reg.update();
   });
 }
