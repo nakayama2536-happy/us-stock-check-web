@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "common_spec_version": "1.0-draft",
+  "market": "US",
+  "adapter_status": "PARALLEL_SHADOW",
+  "market_state": {
+    "state": "CONFIRMED"
+  },
+  "snapshot": {
+    "state": "NONE"
+  },
+  "incident": {
+    "level": "NORMAL",
+    "error_codes": []
+  },
+  "data_quality": {
+    "data_state": "FRESH",
+    "qc_state": "PASS",
+    "completeness_pct": 100.0,
+    "source_crosscheck": "PASS"
+  },
+  "decision_scope": "MULTI",
+  "decision_items": [],
+  "timestamps": {
+    "market_as_of": "2026-09-24",
+    "calculated_at": "2026-09-25T19:30:32+09:00"
+  }
+}
