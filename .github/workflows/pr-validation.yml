@@ -32,8 +32,10 @@ jobs:
           assert 'id="commonDigest"' in index
           assert 'function renderCommonDigest(common)' in app
           assert 'getJSON("./data/common_snapshot.json").catch(()=>null)' in app
-          assert '0.9.5-ops1' in index
-          assert 'us-stock-check-v0.9.5-ops1' in sw
+          assert 'chart28Svg' in app and 'renderMarketCharts' in app
+          assert 'id="marketChartsDetails"' in index and '市場環境の見方' in index
+          assert '0.9.6-common1' in index
+          assert 'us-stock-check-v0.9.6-common1' in sw
           assert 'snapshotState==="NONE"||items.length===0' in app
           assert '0/0は「判断可能」を意味しません' in app
           assert '公開データを再読込' in index
