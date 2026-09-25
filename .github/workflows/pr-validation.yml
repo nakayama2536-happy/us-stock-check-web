@@ -1,0 +1,38 @@
+name: PR Validation
+
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - name: JavaScript syntax
+        run: node --check docs/app.js
+      - name: Validate Common fallback markers
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          index=Path("docs/index.html").read_text(encoding="utf-8")
+          app=Path("docs/app.js").read_text(encoding="utf-8")
+          sw=Path("docs/sw.js").read_text(encoding="utf-8")
+          assert 'id="commonSection"' in index
+          assert 'id="commonDigest"' in index
+          assert 'function renderCommonDigest(common)' in app
+          assert 'getJSON("./data/common_snapshot.json").catch(()=>null)' in app
+          assert '0.9.5-common1' in index
+          assert 'us-stock-check-v0.9.5-common1' in sw
+          print("US Common digest validation PASS")
+          PY
