@@ -14,13 +14,23 @@ const jst=v=>{
   return m?`${m[1]}/${m[2]}/${m[3]} ${m[4]}:${m[5]} JST`:v;
 };
 const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+const compactNumber=v=>{
+  if(v===null||v===undefined||Number.isNaN(Number(v)))return "—";
+  const n=Math.round(Number(v)*100)/100;
+  return Number.isInteger(n)?String(n):String(n).replace(/0+$/,"").replace(/\.$/,"");
+};
 
 function stateLabel(v){
   const s=(v||"").toUpperCase();
-  if(s==="NORMAL")return "NORMAL";
-  if(s==="NO_CHANGE")return "NO CHANGE";
-  if(s==="HOLD")return "HOLD";
+  if(s==="NORMAL")return "更新済み";
+  if(s==="NO_CHANGE")return "更新なし";
+  if(s==="HOLD")return "要確認";
   return fmt(v);
+}
+function appModeLabel(v,fallback){
+  const s=(v||"").toUpperCase();
+  if(s==="SHADOW")return "検証運用中";
+  return fmt(fallback||v);
 }
 function stateClass(v){
   const s=(v||"").toUpperCase();
@@ -36,12 +46,22 @@ function badge(value){
     v==="HOLD"?"hold":
     v==="NO_CHANGE"?"nochange":
     v==="SHADOW"?"shadow":"";
-  return `<span class="badge ${cls}">${fmt(value)}</span>`;
+  const label=
+    v==="NORMAL"?"更新済み":
+    v==="HOLD"?"要確認":
+    v==="NO_CHANGE"?"更新なし":
+    v==="SHADOW"?"検証中":fmt(value);
+  return `<span class="badge ${cls}">${label}</span>`;
 }
 function qualityPill(value){
   const v=(value||"").toUpperCase();
   const cls=v==="PASS"||v==="REGULAR"?"pass":v==="PENDING"?"pending":v==="FAIL"?"fail":"";
-  return `<span class="quality-pill ${cls}">${fmt(value)}</span>`;
+  const label=
+    v==="PASS"?"正常":
+    v==="REGULAR"?"通常":
+    v==="PENDING"?"確認待ち":
+    v==="FAIL"?"要確認":fmt(value);
+  return `<span class="quality-pill ${cls}">${label}</span>`;
 }
 function deltaClass(v){
   if(v===null||v===undefined)return "flat";
@@ -52,7 +72,43 @@ function deltaClass(v){
 function healthPill(grade){
   const g=(grade||"N/A").toUpperCase();
   const cls=g==="A"?"health-a":g==="B"?"health-b":g==="C"?"health-c":"health-na";
-  return `<span class="stage-pill ${cls}">${g}</span>`;
+  const label=g==="N/A"?"評価対象外":g;
+  return `<span class="stage-pill ${cls}">${label}</span>`;
+}
+function scorePoints(scorePct,weight){
+  if(scorePct===null||scorePct===undefined||weight===null||weight===undefined)return "未確認";
+  const earned=Number(weight)*Number(scorePct)/100;
+  return `${compactNumber(earned)}/${compactNumber(weight)}点`;
+}
+function decisionSummary(s){
+  const trend=String(s.trend||"");
+  const macd=String(s.macd_state||"");
+  const ma=String(s.ma_state||"");
+  const rsi=s.rsi14==null?null:Number(s.rsi14);
+
+  let shortTerm="中立";
+  if(trend.includes("上昇")&&macd.includes("強気"))shortTerm="上昇優勢";
+  else if(trend.includes("下降")&&macd.includes("弱気"))shortTerm="下降優勢";
+  else if(trend.includes("上昇"))shortTerm="上向き";
+  else if(trend.includes("下降"))shortTerm="下向き";
+
+  let midTerm="中立";
+  if(ma.includes("50MA > 200MA"))midTerm="上昇基調";
+  else if(ma.includes("50MA < 200MA"))midTerm="下降基調";
+
+  let heat="中立";
+  if(rsi!==null){
+    if(rsi>=70)heat="過熱気味";
+    else if(rsi>=60)heat="やや高め";
+    else if(rsi<=30)heat="売られ過ぎ";
+    else if(rsi<=40)heat="やや低め";
+  }
+
+  return `<div class="signal-summary">
+    <div class="signal-item"><span class="signal-label">短期</span><strong>${shortTerm}</strong></div>
+    <div class="signal-item"><span class="signal-label">中長期</span><strong>${midTerm}</strong></div>
+    <div class="signal-item"><span class="signal-label">過熱度</span><strong>${heat}</strong></div>
+  </div>`;
 }
 async function getJSON(path){
   const r=await fetch(path+`?t=${Date.now()}`,{cache:"no-store"});
@@ -90,8 +146,8 @@ function digestPanel(status,market){
         <div class="digest-market-count"><span class="up-dot"></span>上昇 ${up}　<span class="down-dot"></span>下落 ${down}</div>
       </div>
       <div class="digest-quality">
-        <span class="quality-labeled"><small>QC</small>${qualityPill(q.qc)}</span>
-        <span class="quality-labeled"><small>SOURCE</small>${qualityPill(q.source_crosscheck)}</span>
+        <span class="quality-labeled"><small>品質確認</small>${qualityPill(q.qc)}</span>
+        <span class="quality-labeled"><small>出典照合</small>${qualityPill(q.source_crosscheck)}</span>
       </div>
     </div>
     ${stateNote}
@@ -147,10 +203,10 @@ function growthPanel(s){
 
   const axisRows=Object.entries(axisNames).map(([key,label])=>{
     const a=axes[key]||{};
-    const scoreText=a.score_pct==null?"未確認":Number(a.score_pct).toFixed(0);
+    const scoreText=scorePoints(a.score_pct,a.weight);
     const cls=a.score_pct==null?"axis-score axis-unverified":"axis-score";
     return `<div class="axis-row">
-      <span class="axis-name">${label}（${fmt(a.weight)}点）</span>
+      <span class="axis-name">${label}</span>
       <span class="${cls}">${scoreText}</span>
     </div>`;
   }).join("");
@@ -172,10 +228,12 @@ function growthPanel(s){
       <div class="growth-item">
         <span class="label">新高値の健全性</span>
         <div class="growth-value">${healthPill(health.grade)}</div>
+        <div class="score-sub">${health.grade==="N/A"||health.grade==null?fmt(health.basis):""}</div>
       </div>
       <div class="growth-item">
-        <span class="label">52週高値まで</span>
+        <span class="label">52週高値到達まで</span>
         <div class="growth-value">${health.distance_to_52w_high_pct==null?"—":Number(health.distance_to_52w_high_pct).toFixed(2)+"%"}</div>
+        <div class="score-sub">現在値から52週高値までの上昇幅</div>
       </div>
     </div>
 
@@ -246,6 +304,7 @@ function stockCard(s){
     </div>
     <div class="price">${money(s.close)}</div>
     <div class="delta ${deltaClass(s.change_pct)}">${pct(s.change_pct)}</div>
+    ${decisionSummary(s)}
     <div class="meta">
       <div><span class="label">Trend</span>${fmt(s.trend)}</div>
       <div><span class="label">MACD</span>${fmt(s.macd_state)}</div>
@@ -358,7 +417,7 @@ async function main(options={}){
     const stateBox=$("stateBox");
     stateBox.className="status-box "+stateClass(status.run_state);
     $("appState").innerHTML=
-      `${fmt(status.app_state_ja)} <small style="font-size:.72em;opacity:.78">/ ${stateLabel(status.run_state)}</small>`;
+      `${appModeLabel(status.app_state,status.app_state_ja)} <small style="font-size:.72em;opacity:.78">/ ${stateLabel(status.run_state)}</small>`;
 
     $("tradeDate").textContent=dateOnly(status.us_trade_date);
     $("updatedAt").textContent=jst(status.generated_at_jst);
@@ -376,11 +435,11 @@ async function main(options={}){
     const q=status.quality||{};
     $("quality").innerHTML=`
       <div class="quality-grid">
-        <div class="quality-item"><span class="label">Run state</span><div class="quality-value">${badge(status.run_state)}</div></div>
-        <div class="quality-item"><span class="label">QC</span><div class="quality-value">${qualityPill(q.qc)}</div></div>
-        <div class="quality-item"><span class="label">Session</span><div class="quality-value">${qualityPill(q.session)}</div></div>
-        <div class="quality-item"><span class="label">Completeness</span><div class="quality-value">${fmt(q.completeness)}</div></div>
-        <div class="quality-item"><span class="label">Source check</span><div class="quality-value">${qualityPill(q.source_crosscheck)}</div></div>
+        <div class="quality-item"><span class="label">実行状態</span><div class="quality-value">${badge(status.run_state)}</div></div>
+        <div class="quality-item"><span class="label">品質確認</span><div class="quality-value">${qualityPill(q.qc)}</div></div>
+        <div class="quality-item"><span class="label">取引セッション</span><div class="quality-value">${qualityPill(q.session)}</div></div>
+        <div class="quality-item"><span class="label">データ充足</span><div class="quality-value">${fmt(q.completeness)}</div></div>
+        <div class="quality-item"><span class="label">出典照合</span><div class="quality-value">${qualityPill(q.source_crosscheck)}</div></div>
       </div>`;
 
     $("modelValidation").classList.remove("muted");
@@ -406,7 +465,7 @@ main();
 
 if("serviceWorker" in navigator){
   window.addEventListener("load",async()=>{
-    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.3",{updateViaCache:"none"});
+    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.4",{updateViaCache:"none"});
     reg.update();
   });
 }
