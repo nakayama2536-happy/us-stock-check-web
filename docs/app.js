@@ -20,6 +20,32 @@ const compactNumber=v=>{
   return Number.isInteger(n)?String(n):String(n).replace(/0+$/,"").replace(/\.$/,"");
 };
 
+const chart28Svg=history=>{
+  const xs=(history||[]).filter(p=>p&&/^\d{4}-\d{2}-\d{2}$/.test(String(p.date||""))&&Number.isFinite(Number(p.value))).slice().sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+  if(xs.length<2)return '<div class="history-wait">28日履歴を準備中です。</div>';
+  const day=86400000,w=640,h=150,pl=28,pr=18,pt=15,pb=24;
+  const ms=d=>Date.parse(String(d)+"T00:00:00Z");
+  const end=ms(xs[xs.length-1].date),start=end-27*day;
+  const vis=xs.filter(p=>ms(p.date)>=start&&ms(p.date)<=end);
+  const vals=vis.map(p=>Number(p.value));
+  let lo=Math.min(...vals),hi=Math.max(...vals);if(lo===hi){lo-=1;hi+=1}
+  const pad=(hi-lo)*.08;lo-=pad;hi+=pad;
+  const x=d=>pl+(ms(d)-start)*(w-pl-pr)/(27*day),y=v=>pt+(hi-Number(v))*(h-pt-pb)/(hi-lo);
+  const grid=[.25,.5,.75].map(t=>{const yy=(pt+t*(h-pt-pb)).toFixed(1);return '<line class="chart-grid" x1="'+pl+'" y1="'+yy+'" x2="'+(w-pr)+'" y2="'+yy+'"/>';}).join("");
+  const sd=new Date(start);let sunday=start+((7-sd.getUTCDay())%7)*day,weeks="";
+  for(;sunday<=end;sunday+=7*day){const xx=(pl+(sunday-start)*(w-pl-pr)/(27*day)).toFixed(1),d=new Date(sunday),lab=(d.getUTCMonth()+1)+"/"+d.getUTCDate();weeks+='<line class="chart-week" x1="'+xx+'" y1="'+pt+'" x2="'+xx+'" y2="'+(h-pb)+'"/><text x="'+xx+'" y="'+(h-5)+'" text-anchor="middle">'+lab+'</text>';}
+  let path="";vis.forEach((p,i)=>{path+=(i?" L ":"M ")+x(p.date).toFixed(1)+","+y(p.value).toFixed(1);});
+  return '<svg class="market-chart" viewBox="0 0 '+w+' '+h+'" role="img">'+grid+weeks+'<path class="chart-line" d="'+path+'"/></svg>';
+};
+function renderMarketCharts(items){
+  const details=$("marketChartsDetails"),root=$("marketCharts");
+  if(!details||!root)return;
+  const ready=(items||[]).filter(m=>Array.isArray(m.history)&&m.history.length>=2);
+  if(!ready.length){details.classList.add("hidden");root.innerHTML="";return;}
+  root.innerHTML=ready.map(m=>'<div class="market-chart-card"><div class="market-chart-head"><b>'+fmt(m.name)+'</b><span>28日 / 最新 '+fmt(m.value)+'</span></div>'+chart28Svg(m.history)+'</div>').join("");
+  details.classList.remove("hidden");
+}
+
 
 function commonStateClass(value){
   const v=String(value||"").toUpperCase();
@@ -54,7 +80,7 @@ function renderCommonDigest(common){
         '<div class="common-metric common-warn"><span>判断対象</span><b>—</b></div>'+
       '</div>'+
       '<div class="common-blocker">新しいNORMAL/CURRENTスナップショット待ちです。0/0は「判断可能」を意味しません。</div>'+
-      '<div class="common-time">基準 '+dateOnly(common.timestamps?.market_as_of)+' / 計算 '+jst(common.timestamps?.calculated_at)+' / Common Spec '+fmt(common.common_spec_version)+'</div>';
+      '<details class="app-disclosure compact-disclosure"><summary>基準時刻・共通仕様を見る</summary><div class="disclosure-body">基準 '+dateOnly(common.timestamps?.market_as_of)+' / 計算 '+jst(common.timestamps?.calculated_at)+' / Common Spec '+fmt(common.common_spec_version)+'</div></details>';
     return;
   }
   const eligible=items.filter(x=>x.eligibility==="ELIGIBLE").length;
@@ -82,7 +108,7 @@ function renderCommonDigest(common){
     '</div>'+
     '<div class="common-blocker">'+fmt(firstBlocker&&firstBlocker.label||"正式判断を妨げる条件はありません。")+'</div>'+
     '<details class="common-details"><summary>4銘柄の判断可否</summary>'+itemRows+'</details>'+
-    '<div class="common-time">基準 '+dateOnly(common.timestamps?.market_as_of)+' / 計算 '+jst(common.timestamps?.calculated_at)+' / Common Spec '+fmt(common.common_spec_version)+'</div>';
+    '<details class="app-disclosure compact-disclosure"><summary>基準時刻・共通仕様を見る</summary><div class="disclosure-body">基準 '+dateOnly(common.timestamps?.market_as_of)+' / 計算 '+jst(common.timestamps?.calculated_at)+' / Common Spec '+fmt(common.common_spec_version)+'</div></details>';
 }
 
 function stateLabel(v){
@@ -515,6 +541,7 @@ async function main(options={}){
     $("market").innerHTML=
       (market.market_environment||[]).map(marketCard).join("")||
       '<div class="card muted">市場データ待ち</div>';
+    renderMarketCharts(market.market_environment||[]);
 
     const q=status.quality||{};
     $("quality").innerHTML=`
@@ -550,7 +577,7 @@ main();
 
 if("serviceWorker" in navigator){
   window.addEventListener("load",async()=>{
-    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.5-ops1",{updateViaCache:"none"});
+    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.6-common1",{updateViaCache:"none"});
     reg.update();
   });
 }
