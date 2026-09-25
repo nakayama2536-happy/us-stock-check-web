@@ -11,7 +11,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./icons/us-stock-icon.png">
   <link rel="icon" href="./icons/us-stock-icon.png" type="image/png">
-  <link rel="stylesheet" href="./style.css?v=0.9.5-ops1">
+  <link rel="stylesheet" href="./style.css?v=0.9.6-common1">
 </head>
 <body>
   <main class="app">
@@ -60,6 +60,17 @@
     <section>
       <h2>市場環境</h2>
       <div id="market" class="cards compact"></div>
+      <details id="marketChartsDetails" class="app-disclosure hidden">
+        <summary>市場環境の28日チャートを見る</summary>
+        <div class="disclosure-body">
+          <div id="marketCharts" class="market-chart-list"></div>
+          <p>横線＝値の目安、縦の点線＝日曜始まりの週区切り。欠損日は補完せず、取得済みデータだけを実際の日付位置に表示します。</p>
+        </div>
+      </details>
+      <details class="app-disclosure">
+        <summary>市場環境の見方</summary>
+        <div class="disclosure-body">市場環境は個別銘柄の背景確認用です。この表示だけで正式な売買判断を変更しません。</div>
+      </details>
     </section>
 
     <section>
@@ -70,11 +81,14 @@
     <section>
       <h2>データ品質</h2>
       <div id="quality" class="card"></div>
-      <div class="legend card">
-        <div class="legend-row"><span class="quality-pill pass">正常</span><span>確認済み・正常</span></div>
-        <div class="legend-row"><span class="quality-pill pending">確認待ち</span><span>独立確認待ち。Primary確定値は利用可能</span></div>
-        <div class="legend-row"><span class="quality-pill fail">要確認</span><span>確認が必要</span></div>
-      </div>
+      <details class="app-disclosure">
+        <summary>データ品質の見方</summary>
+        <div class="disclosure-body">
+          <div class="legend-row"><span class="quality-pill pass">正常</span><span>確認済み・正常</span></div>
+          <div class="legend-row"><span class="quality-pill pending">確認待ち</span><span>独立確認待ち。Primary確定値は利用可能</span></div>
+          <div class="legend-row"><span class="quality-pill fail">要確認</span><span>確認が必要</span></div>
+        </div>
+      </details>
     </section>
 
     <section id="noticesSection" class="hidden">
@@ -88,6 +102,6 @@
     </footer>
   </main>
 
-  <script src="./app.js?v=0.9.5-ops1" defer></script>
+  <script src="./app.js?v=0.9.6-common1" defer></script>
 </body>
 </html>
