@@ -287,3 +287,20 @@ footer{margin-top:24px;text-align:center;color:#7b8798;font-size:11px}
   .common-grid{grid-template-columns:repeat(2,1fr)}
   .common-stock-row{grid-template-columns:52px 60px 1fr}
 }
+
+/* Common UI alignment: progressive disclosure + fixed 28-day charts */
+.app-disclosure{margin-top:10px;border:1px solid #dbe4ee;border-radius:13px;background:#fff;overflow:hidden}
+.app-disclosure summary{cursor:pointer;padding:12px 13px;font-size:13px;font-weight:750;color:#31557f;line-height:1.45}
+.disclosure-body{padding:0 13px 13px;font-size:12px;line-height:1.65;color:#66758a}
+.compact-disclosure{margin-top:9px;background:#f7f9fc}
+.compact-disclosure summary{font-size:12px;padding:10px 11px}
+.market-chart-list{display:grid;gap:10px;margin-top:3px}
+.market-chart-card{background:#f7f9fc;border:1px solid #e4eaf1;border-radius:12px;padding:10px}
+.market-chart-head{display:flex;justify-content:space-between;gap:8px;align-items:baseline;margin-bottom:4px}
+.market-chart-head b{font-size:12px}.market-chart-head span{font-size:10px;color:#718096}
+.market-chart{display:block;width:100%;height:140px;overflow:visible}
+.market-chart text{font-size:9px;fill:#718096}
+.chart-grid{stroke:#dbe4ee;stroke-width:1}
+.chart-week{stroke:#8797aa;stroke-width:1;stroke-dasharray:3 5;opacity:.8}
+.chart-line{fill:none;stroke:#2f7dc0;stroke-width:2.2}
+.history-wait{padding:22px;text-align:center;color:#8a96a6;font-size:12px}
