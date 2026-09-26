@@ -56,6 +56,46 @@ function renderRecheckSchedule(){
   if($("backupRecheckAt"))$("backupRecheckAt").textContent=s.backup;
 }
 
+const TAB_IDS=["overview","stocks","market","quality"];
+function activateTab(tab,{scroll=true}={}){
+  const next=TAB_IDS.includes(tab)?tab:"overview";
+  document.querySelectorAll("[data-tab-panel]").forEach(panel=>{
+    panel.hidden=panel.dataset.tabPanel!==next;
+  });
+  document.querySelectorAll(".bottom-nav [data-tab]").forEach(button=>{
+    const active=button.dataset.tab===next;
+    button.classList.toggle("active",active);
+    button.setAttribute("aria-selected",active?"true":"false");
+    button.tabIndex=active?0:-1;
+  });
+  try{localStorage.setItem("usstock.activeTab",next);}catch(_){}
+  if(scroll){
+    const hero=document.querySelector(".hero");
+    const top=hero?Math.max(0,hero.offsetTop):0;
+    window.scrollTo({top,behavior:"smooth"});
+  }
+}
+function setupTabs(){
+  let initial="overview";
+  try{
+    const saved=localStorage.getItem("usstock.activeTab");
+    if(TAB_IDS.includes(saved))initial=saved;
+  }catch(_){}
+  document.querySelectorAll(".bottom-nav [data-tab]").forEach(button=>{
+    button.addEventListener("click",()=>activateTab(button.dataset.tab));
+    button.addEventListener("keydown",event=>{
+      if(!["ArrowLeft","ArrowRight"].includes(event.key))return;
+      event.preventDefault();
+      const current=TAB_IDS.indexOf(button.dataset.tab);
+      const step=event.key==="ArrowRight"?1:-1;
+      const next=TAB_IDS[(current+step+TAB_IDS.length)%TAB_IDS.length];
+      activateTab(next,{scroll:false});
+      document.querySelector(`.bottom-nav [data-tab="${next}"]`)?.focus();
+    });
+  });
+  activateTab(initial,{scroll:false});
+}
+
 const chart28Svg=history=>{
   const xs=(history||[]).filter(p=>p&&/^\d{4}-\d{2}-\d{2}$/.test(String(p.date||""))&&Number.isFinite(Number(p.value))).slice().sort((a,b)=>String(a.date).localeCompare(String(b.date)));
   if(xs.length<2)return '<div class="history-wait">28日履歴を準備中です。</div>';
@@ -688,11 +728,12 @@ async function main(options={}){
   }
 }
 $("refreshButton")?.addEventListener("click",()=>main({manual:true}));
+setupTabs();
 main();
 
 if("serviceWorker" in navigator){
   window.addEventListener("load",async()=>{
-    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.6",{updateViaCache:"none"});
+    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.7",{updateViaCache:"none"});
     reg.update();
   });
 }
