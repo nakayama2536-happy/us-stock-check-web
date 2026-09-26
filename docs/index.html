@@ -11,17 +11,17 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./icons/us-stock-icon.png">
   <link rel="icon" href="./icons/us-stock-icon.png" type="image/png">
-  <link rel="stylesheet" href="./style.css?v=0.9.6-common1">
+  <link rel="stylesheet" href="./style.css?v=0.9.6">
 </head>
 <body>
   <main class="app">
-    <header class="hero">
+    <header class="hero" id="top">
       <div class="hero-row">
         <img class="app-icon" src="./icons/us-stock-icon.png" alt="米国株アプリ">
         <div class="hero-title">
           <div class="eyebrow">US STOCK CHECK</div>
           <h1>米国株 投資チェック</h1>
-          <div id="version" class="version">v0.9.5</div>
+          <div id="version" class="version">v0.9.6</div>
         </div>
       </div>
 
@@ -34,6 +34,11 @@
           <div><span>取引日</span><strong id="tradeDate">—</strong></div>
           <div><span>更新</span><strong id="updatedAt">—</strong></div>
         </div>
+        <div class="recheck-meta">
+          <div><span>次回自動確認目安</span><strong id="recheckAt">—</strong></div>
+          <div><span>予備確認目安</span><strong id="backupRecheckAt">—</strong></div>
+        </div>
+        <div class="recheck-note">06:30 / 08:00 / 11:30 JST の冗長チェック。GitHub Actionsは開始が遅れる場合があります。</div>
       </div>
 
       <button id="refreshButton" class="refresh-button" type="button">
@@ -47,17 +52,17 @@
       <div id="commonDigest" class="card"></div>
     </section>
 
-    <section>
+    <section id="overviewSection">
       <h2>ダイジェスト</h2>
       <div id="digest" class="card muted">最新データを読み込み中です。</div>
     </section>
 
-    <section>
+    <section id="stocksSection">
       <h2>主要4銘柄</h2>
       <div id="stocks" class="cards"></div>
     </section>
 
-    <section>
+    <section id="marketSection">
       <h2>市場環境</h2>
       <div id="market" class="cards compact"></div>
       <details id="marketChartsDetails" class="app-disclosure hidden">
@@ -73,19 +78,14 @@
       </details>
     </section>
 
-    <section>
-      <h2>モデル検証</h2>
-      <div id="modelValidation" class="card muted">Point-in-Time検証データ待ちです。</div>
-    </section>
-
-    <section>
+    <section id="qualitySection">
       <h2>データ品質</h2>
       <div id="quality" class="card"></div>
       <details class="app-disclosure">
         <summary>データ品質の見方</summary>
         <div class="disclosure-body">
           <div class="legend-row"><span class="quality-pill pass">正常</span><span>確認済み・正常</span></div>
-          <div class="legend-row"><span class="quality-pill pending">確認待ち</span><span>独立確認待ち。Primary確定値は利用可能</span></div>
+          <div class="legend-row"><span class="quality-pill pending">確認待ち</span><span>独立確認待ち。主データの確定値は利用可能</span></div>
           <div class="legend-row"><span class="quality-pill fail">要確認</span><span>確認が必要</span></div>
         </div>
       </details>
@@ -96,12 +96,24 @@
       <div id="notices" class="card notice-card"></div>
     </section>
 
+    <section id="validationSection">
+      <h2>モデル検証</h2>
+      <div id="modelValidation" class="card muted">Point-in-Time検証データ待ちです。</div>
+    </section>
+
     <footer>
       検証運用 / 自動売買なし<br>
       <span class="footer-sub">表示は定量監視用。売買判断は他の確認項目と併用。</span>
     </footer>
   </main>
 
-  <script src="./app.js?v=0.9.6-common1" defer></script>
+  <nav class="bottom-nav" aria-label="主要画面">
+    <a href="#overviewSection">概要</a>
+    <a href="#stocksSection">銘柄</a>
+    <a href="#marketSection">市場</a>
+    <a href="#qualitySection">品質</a>
+  </nav>
+
+  <script src="./app.js?v=0.9.6" defer></script>
 </body>
 </html>
