@@ -3,25 +3,18 @@
   "app_version": "0.9.7",
   "app_state": "SHADOW",
   "app_state_ja": "Shadow検証中",
-  "run_state": "NORMAL",
+  "run_state": "NO_CHANGE",
   "us_trade_date": "2026-09-25",
-  "generated_at_jst": "2026-09-26T09:00:15+09:00",
-  "message": "Shadowデータ取得・計算を実行しました。 独立終値の一部は確認待ちです。",
+  "generated_at_jst": "2026-09-26T16:53:10+09:00",
+  "message": "新しい米国取引日の確定データはありません。",
   "quality": {
     "qc": "PASS",
     "session": "REGULAR",
     "completeness": "4/4",
-    "source_crosscheck": "PENDING",
+    "source_crosscheck": "PASS",
     "trade_date_age_days": 1,
     "delivery_target_jst": "12:00"
   },
-  "warnings": [
-    "PLTR: independent close is not published for 2026-09-25.",
-    "LLY: independent close is not published for 2026-09-25.",
-    "BSY: independent close is not published for 2026-09-25.",
-    "SOXL: independent close is not published for 2026-09-25.",
-    "SOXX: market environment value for confirmed trade date 2026-09-25 is unavailable.",
-    "SMH: market environment value for confirmed trade date 2026-09-25 is unavailable."
-  ],
+  "warnings": [],
   "errors": []
 }

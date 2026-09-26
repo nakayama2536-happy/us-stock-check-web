@@ -7,17 +7,17 @@
     "state": "CONFIRMED"
   },
   "snapshot": {
-    "state": "CURRENT"
+    "state": "LAST_VALID"
   },
   "incident": {
-    "level": "WARNING",
+    "level": "NORMAL",
     "error_codes": []
   },
   "data_quality": {
-    "data_state": "PARTIAL",
-    "qc_state": "WARN",
+    "data_state": "FRESH",
+    "qc_state": "PASS",
     "completeness_pct": 100.0,
-    "source_crosscheck": "PENDING"
+    "source_crosscheck": "PASS"
   },
   "decision_scope": "MULTI",
   "decision_items": [
@@ -28,7 +28,7 @@
       "ticker": "PLTR",
       "as_of": "2026-09-25",
       "mode": "SHADOW",
-      "phase": "DECISION",
+      "phase": null,
       "eligibility": "NOT_ELIGIBLE",
       "analysis_action": null,
       "formal_action": null,
@@ -50,7 +50,7 @@
       "ticker": "LLY",
       "as_of": "2026-09-25",
       "mode": "SHADOW",
-      "phase": "DECISION",
+      "phase": null,
       "eligibility": "NOT_ELIGIBLE",
       "analysis_action": null,
       "formal_action": null,
@@ -72,7 +72,7 @@
       "ticker": "BSY",
       "as_of": "2026-09-25",
       "mode": "SHADOW",
-      "phase": "DECISION",
+      "phase": null,
       "eligibility": "NOT_ELIGIBLE",
       "analysis_action": null,
       "formal_action": null,
@@ -94,7 +94,7 @@
       "ticker": "SOXL",
       "as_of": "2026-09-25",
       "mode": "SHADOW",
-      "phase": "DECISION",
+      "phase": null,
       "eligibility": "NOT_ELIGIBLE",
       "analysis_action": null,
       "formal_action": null,
@@ -112,6 +112,6 @@
   ],
   "timestamps": {
     "market_as_of": "2026-09-25",
-    "calculated_at": "2026-09-26T09:00:15+09:00"
+    "calculated_at": "2026-09-26T16:53:10+09:00"
   }
 }
