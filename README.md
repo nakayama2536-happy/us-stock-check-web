@@ -8,6 +8,7 @@
 - Mode: SHADOW
 - Private core: `nakayama2536-happy/us-stock-check`
 - Private → Public automatic publishing: enabled
+- Snapshot version is supplied by the Private core and validated against the PWA release
 - GitHub Pages / PWA deployment: enabled
 - Automatic trading / order placement: not implemented
 
