@@ -11,7 +11,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./icons/us-stock-icon.png">
   <link rel="icon" href="./icons/us-stock-icon.png" type="image/png">
-  <link rel="stylesheet" href="./style.css?v=0.9.6">
+  <link rel="stylesheet" href="./style.css?v=0.9.7">
 </head>
 <body>
   <main class="app">
@@ -21,7 +21,7 @@
         <div class="hero-title">
           <div class="eyebrow">US STOCK CHECK</div>
           <h1>米国株 投資チェック</h1>
-          <div id="version" class="version">v0.9.6</div>
+          <div id="version" class="version">v0.9.7</div>
         </div>
       </div>
 
@@ -47,59 +47,67 @@
       <div id="refreshNote" class="refresh-note">公開済みの最新JSONを再読込します。バックエンド更新は実行しません。</div>
     </header>
 
-    <section id="commonSection" class="hidden">
-      <h2>判断可否</h2>
-      <div id="commonDigest" class="card"></div>
-    </section>
+    <div id="tab-overview" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-overview" data-tab-panel="overview">
+      <section id="commonSection" class="hidden">
+        <h2>判断可否</h2>
+        <div id="commonDigest" class="card"></div>
+      </section>
 
-    <section id="overviewSection">
-      <h2>ダイジェスト</h2>
-      <div id="digest" class="card muted">最新データを読み込み中です。</div>
-    </section>
+      <section id="overviewSection">
+        <h2>ダイジェスト</h2>
+        <div id="digest" class="card muted">最新データを読み込み中です。</div>
+      </section>
+    </div>
 
-    <section id="stocksSection">
-      <h2>主要4銘柄</h2>
-      <div id="stocks" class="cards"></div>
-    </section>
+    <div id="tab-stocks" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-stocks" data-tab-panel="stocks" hidden>
+      <section id="stocksSection">
+        <h2>主要4銘柄</h2>
+        <div id="stocks" class="cards"></div>
+      </section>
+    </div>
 
-    <section id="marketSection">
-      <h2>市場環境</h2>
-      <div id="market" class="cards compact"></div>
-      <details id="marketChartsDetails" class="app-disclosure hidden">
-        <summary>市場環境の28日チャートを見る</summary>
-        <div class="disclosure-body">
-          <div id="marketCharts" class="market-chart-list"></div>
-          <p>横線＝値の目安、縦の点線＝日曜始まりの週区切り。欠損日は補完せず、取得済みデータだけを実際の日付位置に表示します。</p>
-        </div>
-      </details>
-      <details class="app-disclosure">
-        <summary>市場環境の見方</summary>
-        <div class="disclosure-body">市場環境は個別銘柄の背景確認用です。この表示だけで正式な売買判断を変更しません。</div>
-      </details>
-    </section>
+    <div id="tab-market" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-market" data-tab-panel="market" hidden>
+      <section id="marketSection">
+        <h2>市場環境</h2>
+        <div id="market" class="cards compact"></div>
+        <details id="marketChartsDetails" class="app-disclosure hidden">
+          <summary>市場環境の28日チャートを見る</summary>
+          <div class="disclosure-body">
+            <div id="marketCharts" class="market-chart-list"></div>
+            <p>横線＝値の目安、縦の点線＝日曜始まりの週区切り。欠損日は補完せず、取得済みデータだけを実際の日付位置に表示します。</p>
+          </div>
+        </details>
+        <details class="app-disclosure">
+          <summary>市場環境の見方</summary>
+          <div class="disclosure-body">市場環境は個別銘柄の背景確認用です。この表示だけで正式な売買判断を変更しません。</div>
+        </details>
+      </section>
+    </div>
 
-    <section id="qualitySection">
-      <h2>データ品質</h2>
-      <div id="quality" class="card"></div>
-      <details class="app-disclosure">
-        <summary>データ品質の見方</summary>
-        <div class="disclosure-body">
-          <div class="legend-row"><span class="quality-pill pass">正常</span><span>確認済み・正常</span></div>
-          <div class="legend-row"><span class="quality-pill pending">確認待ち</span><span>独立確認待ち。主データの確定値は利用可能</span></div>
-          <div class="legend-row"><span class="quality-pill fail">要確認</span><span>確認が必要</span></div>
-        </div>
-      </details>
-    </section>
+    <div id="tab-quality" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-quality" data-tab-panel="quality" hidden>
+      <section id="qualitySection">
+        <h2>データ品質</h2>
+        <div id="quality" class="card"></div>
+        <details class="app-disclosure">
+          <summary>データ品質の見方</summary>
+          <div class="disclosure-body">
+            <div class="legend-row"><span class="quality-pill pass">正常</span><span>確認済み・正常</span></div>
+            <div class="legend-row"><span class="quality-pill pending">確認待ち</span><span>独立確認待ち。主データの確定値は利用可能</span></div>
+            <div class="legend-row"><span class="quality-pill fail">要確認</span><span>確認が必要</span></div>
+          </div>
+        </details>
+      </section>
 
-    <section id="noticesSection" class="hidden">
-      <h2>確認事項</h2>
-      <div id="notices" class="card notice-card"></div>
-    </section>
+      <section id="noticesSection" class="hidden">
+        <h2>確認事項</h2>
+        <div id="notices" class="card notice-card"></div>
+      </section>
 
-    <section id="validationSection">
-      <h2>モデル検証</h2>
-      <div id="modelValidation" class="card muted">Point-in-Time検証データ待ちです。</div>
-    </section>
+      <section id="validationSection">
+        <h2>モデル検証</h2>
+        <div id="modelValidation" class="card muted">Point-in-Time検証データ待ちです。</div>
+      </section>
+    </div>
 
     <footer>
       検証運用 / 自動売買なし<br>
@@ -107,13 +115,13 @@
     </footer>
   </main>
 
-  <nav class="bottom-nav" aria-label="主要画面">
-    <a href="#overviewSection">概要</a>
-    <a href="#stocksSection">銘柄</a>
-    <a href="#marketSection">市場</a>
-    <a href="#qualitySection">品質</a>
+  <nav class="bottom-nav" role="tablist" aria-label="主要画面">
+    <button id="tabbtn-overview" type="button" role="tab" aria-selected="true" aria-controls="tab-overview" data-tab="overview" class="active">概要</button>
+    <button id="tabbtn-stocks" type="button" role="tab" aria-selected="false" aria-controls="tab-stocks" data-tab="stocks">銘柄</button>
+    <button id="tabbtn-market" type="button" role="tab" aria-selected="false" aria-controls="tab-market" data-tab="market">市場</button>
+    <button id="tabbtn-quality" type="button" role="tab" aria-selected="false" aria-controls="tab-quality" data-tab="quality">品質</button>
   </nav>
 
-  <script src="./app.js?v=0.9.6" defer></script>
+  <script src="./app.js?v=0.9.7" defer></script>
 </body>
 </html>

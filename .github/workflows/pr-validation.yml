@@ -45,6 +45,12 @@ jobs:
           assert '公開データを再読込' in index
           assert 'id="recheckAt"' in index and 'function nextRecheckSchedule()' in app
           assert 'id="qualitySection"' in index and 'class="bottom-nav"' in index
+          assert 'role="tablist"' in index
+          assert 'data-tab-panel="overview"' in index and 'data-tab-panel="stocks"' in index
+          assert 'data-tab-panel="market"' in index and 'data-tab-panel="quality"' in index
+          assert 'function setupTabs()' in app and 'function activateTab(tab' in app
+          assert 'usstock.activeTab' in app
+          assert '.tab-panel[hidden]' in Path("docs/style.css").read_text(encoding="utf-8")
           assert 'function dataFreshnessPanel(status,market)' in app
           assert '独立終値の照合待ち' in app and 'GitHubで再調査・再判定' in app
           assert 'canonicalKey' in sw and 'networkFirstData' in sw

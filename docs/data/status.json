@@ -1,6 +1,6 @@
 {
   "schema_version": "0.2",
-  "app_version": "0.9.6",
+  "app_version": "0.9.7",
   "app_state": "SHADOW",
   "app_state_ja": "Shadow検証中",
   "run_state": "NORMAL",
