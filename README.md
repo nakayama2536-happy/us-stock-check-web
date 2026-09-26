@@ -4,7 +4,7 @@
 
 ## Current status
 
-- APP_VERSION: 0.9.7
+- APP_VERSION: 0.9.8
 - Mode: SHADOW
 - Private core: `nakayama2536-happy/us-stock-check`
 - Private → Public automatic publishing: enabled
@@ -23,6 +23,12 @@ It must not contain:
 - account information
 - private investment rules
 - planned order size or transaction history
+
+## Targets
+
+- Securities: PLTR / LLY / BSY / MSTR / SOXL
+- Market context includes Bitcoin (BTC-USD) for MSTR background monitoring.
+- MSTR uses technical monitoring; the structural-growth score used for PLTR / LLY / BSY is not reused for MSTR.
 
 ## Current UI
 
