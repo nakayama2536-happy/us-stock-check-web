@@ -566,7 +566,7 @@
           "status": "CURRENT",
           "latest_period": "2026-Q2",
           "latest_available_from": "2026-08-03",
-          "days_since_latest": 54,
+          "days_since_latest": 55,
           "review_after_days": 100,
           "review_due": false
         }
@@ -1313,7 +1313,7 @@
           "status": "CURRENT",
           "latest_period": "2026-Q2",
           "latest_available_from": "2026-08-05",
-          "days_since_latest": 52,
+          "days_since_latest": 53,
           "review_after_days": 100,
           "review_due": false
         }
@@ -2048,7 +2048,7 @@
           "status": "CURRENT",
           "latest_period": "2026-Q2",
           "latest_available_from": "2026-08-05",
-          "days_since_latest": 52,
+          "days_since_latest": 53,
           "review_after_days": 100,
           "review_due": false
         }
@@ -2218,6 +2218,38 @@
           }
         ]
       }
+    },
+    {
+      "ticker": "MSTR",
+      "name": "Strategy Inc.",
+      "trade_date": "2026-09-25",
+      "close": 158.61,
+      "change_pct": -1.86,
+      "trend": "混在",
+      "macd_state": "強気",
+      "rsi14": 63.5,
+      "ma_state": "50MA < 200MA",
+      "ma50": 117.66,
+      "ma200": 136.54,
+      "macd": 12.2938,
+      "macd_signal": 10.462,
+      "levels": {
+        "support20": 121.38,
+        "resistance20": 171.19,
+        "ma50": 117.66,
+        "ma200": 136.54,
+        "low52": 81.81,
+        "high52": 365.21,
+        "support_distance_pct": 30.67,
+        "resistance_distance_pct": 7.93,
+        "range_position_pct": 74.7
+      },
+      "structural_growth": null,
+      "signal": "SHADOW",
+      "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+      "shadow_source": "Yahoo Finance",
+      "shadow_close_diff_usd": 0.0,
+      "shadow_close_diff_pct": 0.0
     },
     {
       "ticker": "SOXL",
@@ -2701,6 +2733,128 @@
         {
           "date": "2026-09-25",
           "value": 5.184
+        }
+      ]
+    },
+    {
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "trade_date": "2026-09-25",
+      "value": 84034.92,
+      "change_pct": -0.41,
+      "source": "Yahoo Finance",
+      "history": [
+        {
+          "date": "2026-08-29",
+          "value": 78245.81
+        },
+        {
+          "date": "2026-08-30",
+          "value": 77667.57
+        },
+        {
+          "date": "2026-08-31",
+          "value": 78548.63
+        },
+        {
+          "date": "2026-09-01",
+          "value": 77403.62
+        },
+        {
+          "date": "2026-09-02",
+          "value": 77300.48
+        },
+        {
+          "date": "2026-09-03",
+          "value": 81271.74
+        },
+        {
+          "date": "2026-09-04",
+          "value": 79671.97
+        },
+        {
+          "date": "2026-09-05",
+          "value": 79823.87
+        },
+        {
+          "date": "2026-09-06",
+          "value": 80350.05
+        },
+        {
+          "date": "2026-09-07",
+          "value": 79115.85
+        },
+        {
+          "date": "2026-09-08",
+          "value": 78438.58
+        },
+        {
+          "date": "2026-09-09",
+          "value": 78259.52
+        },
+        {
+          "date": "2026-09-10",
+          "value": 76568.12
+        },
+        {
+          "date": "2026-09-11",
+          "value": 77173.8
+        },
+        {
+          "date": "2026-09-12",
+          "value": 77270.47
+        },
+        {
+          "date": "2026-09-13",
+          "value": 76838.16
+        },
+        {
+          "date": "2026-09-14",
+          "value": 78163.38
+        },
+        {
+          "date": "2026-09-15",
+          "value": 75612.51
+        },
+        {
+          "date": "2026-09-16",
+          "value": 76150.32
+        },
+        {
+          "date": "2026-09-17",
+          "value": 76403.77
+        },
+        {
+          "date": "2026-09-18",
+          "value": 80901.46
+        },
+        {
+          "date": "2026-09-19",
+          "value": 81233.68
+        },
+        {
+          "date": "2026-09-20",
+          "value": 81142.61
+        },
+        {
+          "date": "2026-09-21",
+          "value": 86602.91
+        },
+        {
+          "date": "2026-09-22",
+          "value": 86172.28
+        },
+        {
+          "date": "2026-09-23",
+          "value": 84383.01
+        },
+        {
+          "date": "2026-09-24",
+          "value": 84379.06
+        },
+        {
+          "date": "2026-09-25",
+          "value": 84034.92
         }
       ]
     },
