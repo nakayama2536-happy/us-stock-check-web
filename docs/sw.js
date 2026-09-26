@@ -1,9 +1,9 @@
-const CACHE="us-stock-check-v0.9.7";
+const CACHE="us-stock-check-v0.9.8";
 const STATIC=[
   "./",
   "./index.html",
-  "./style.css?v=0.9.7",
-  "./app.js?v=0.9.7",
+  "./style.css?v=0.9.8",
+  "./app.js?v=0.9.8",
   "./manifest.webmanifest",
   "./icons/us-stock-icon.png"
 ];
