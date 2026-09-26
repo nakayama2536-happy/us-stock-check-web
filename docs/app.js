@@ -20,6 +20,42 @@ const compactNumber=v=>{
   return Number.isInteger(n)?String(n):String(n).replace(/0+$/,"").replace(/\.$/,"");
 };
 
+const WORKFLOW_URL="https://github.com/nakayama2536-happy/us-stock-check/actions/workflows/shadow-update.yml";
+const RECHECK_SLOTS_JST=[390,480,690]; // 06:30 / 08:00 / 11:30 JST
+function tokyoClock(){
+  const parts=Object.fromEntries(
+    new Intl.DateTimeFormat("en-CA",{
+      timeZone:"Asia/Tokyo",year:"numeric",month:"2-digit",day:"2-digit",
+      hour:"2-digit",minute:"2-digit",hourCycle:"h23"
+    }).formatToParts(new Date()).filter(p=>p.type!=="literal").map(p=>[p.type,p.value])
+  );
+  return {
+    year:Number(parts.year),month:Number(parts.month),day:Number(parts.day),
+    hour:Number(parts.hour),minute:Number(parts.minute)
+  };
+}
+function scheduleLabel(clock,slot,dayOffset=0){
+  const d=new Date(Date.UTC(clock.year,clock.month-1,clock.day+dayOffset));
+  const mm=String(d.getUTCMonth()+1).padStart(2,"0");
+  const dd=String(d.getUTCDate()).padStart(2,"0");
+  const hh=String(Math.floor(slot/60)).padStart(2,"0");
+  const mi=String(slot%60).padStart(2,"0");
+  return `${mm}/${dd} ${hh}:${mi} JST`;
+}
+function nextRecheckSchedule(){
+  const clock=tokyoClock();
+  const now=clock.hour*60+clock.minute;
+  const future=RECHECK_SLOTS_JST.filter(x=>x>now);
+  if(future.length>=2)return {next:scheduleLabel(clock,future[0]),backup:scheduleLabel(clock,future[1])};
+  if(future.length===1)return {next:scheduleLabel(clock,future[0]),backup:scheduleLabel(clock,RECHECK_SLOTS_JST[0],1)};
+  return {next:scheduleLabel(clock,RECHECK_SLOTS_JST[0],1),backup:scheduleLabel(clock,RECHECK_SLOTS_JST[1],1)};
+}
+function renderRecheckSchedule(){
+  const s=nextRecheckSchedule();
+  if($("recheckAt"))$("recheckAt").textContent=s.next;
+  if($("backupRecheckAt"))$("backupRecheckAt").textContent=s.backup;
+}
+
 const chart28Svg=history=>{
   const xs=(history||[]).filter(p=>p&&/^\d{4}-\d{2}-\d{2}$/.test(String(p.date||""))&&Number.isFinite(Number(p.value))).slice().sort((a,b)=>String(a.date).localeCompare(String(b.date)));
   if(xs.length<2)return '<div class="history-wait">28日履歴を準備中です。</div>';
@@ -53,6 +89,15 @@ function commonStateClass(value){
   if(["FAIL","STALE","MISSING","BLOCKED","NOT_ELIGIBLE"].includes(v))return "common-ng";
   return "common-warn";
 }
+function commonStateLabel(value){
+  const v=String(value||"").toUpperCase();
+  return ({
+    PASS:"正常",WARN:"注意",FAIL:"要確認",
+    FRESH:"最新",PARTIAL:"一部確認",CURRENT:"最新",LAST_VALID:"直近有効値",
+    CONFIRMED:"確認済み",UNKNOWN:"不明",MISSING:"未取得",
+    ELIGIBLE:"判断可能",NOT_ELIGIBLE:"判断不可"
+  })[v]||fmt(value);
+}
 function renderCommonDigest(common){
   const section=$("commonSection");
   const root=$("commonDigest");
@@ -69,18 +114,18 @@ function renderCommonDigest(common){
   if(snapshotState==="NONE"||items.length===0){
     root.innerHTML=
       '<div class="common-head">'+
-        '<div><div class="common-eyebrow">COMMON 10-SECOND VIEW</div>'+
+        '<div><div class="common-eyebrow">共通10秒確認</div>'+
         '<div class="common-title">Common判断スナップショット待ち</div></div>'+
-        '<span class="common-pill '+commonStateClass(q.qc_state)+'">QC '+fmt(q.qc_state)+'</span>'+
+        '<span class="common-pill '+commonStateClass(q.qc_state)+'">品質 '+commonStateLabel(q.qc_state)+'</span>'+
       '</div>'+
       '<div class="common-grid">'+
-        '<div class="common-metric '+commonStateClass(q.data_state)+'"><span>Data</span><b>'+fmt(q.data_state)+'</b></div>'+
-        '<div class="common-metric '+commonStateClass(common.market_state?.state)+'"><span>Market</span><b>'+fmt(common.market_state?.state)+'</b></div>'+
-        '<div class="common-metric common-warn"><span>Snapshot</span><b>'+fmt(common.snapshot?.state)+'</b></div>'+
+        '<div class="common-metric '+commonStateClass(q.data_state)+'"><span>データ</span><b>'+commonStateLabel(q.data_state)+'</b></div>'+
+        '<div class="common-metric '+commonStateClass(common.market_state?.state)+'"><span>市場</span><b>'+commonStateLabel(common.market_state?.state)+'</b></div>'+
+        '<div class="common-metric common-warn"><span>更新状態</span><b>'+commonStateLabel(common.snapshot?.state)+'</b></div>'+
         '<div class="common-metric common-warn"><span>判断対象</span><b>—</b></div>'+
       '</div>'+
       '<div class="common-blocker">新しいNORMAL/CURRENTスナップショット待ちです。0/0は「判断可能」を意味しません。</div>'+
-      '<details class="app-disclosure compact-disclosure"><summary>基準時刻・共通仕様を見る</summary><div class="disclosure-body">基準 '+dateOnly(common.timestamps?.market_as_of)+' / 計算 '+jst(common.timestamps?.calculated_at)+' / Common Spec '+fmt(common.common_spec_version)+'</div></details>';
+      '<details class="app-disclosure compact-disclosure"><summary>基準時刻・共通仕様を見る</summary><div class="disclosure-body">基準 '+dateOnly(common.timestamps?.market_as_of)+' / 計算 '+jst(common.timestamps?.calculated_at)+' / 共通仕様 '+fmt(common.common_spec_version)+'</div></details>';
     return;
   }
   const eligible=items.filter(x=>x.eligibility==="ELIGIBLE").length;
@@ -96,19 +141,19 @@ function renderCommonDigest(common){
   }).join("");
   root.innerHTML=
     '<div class="common-head">'+
-      '<div><div class="common-eyebrow">COMMON 10-SECOND VIEW</div>'+
+      '<div><div class="common-eyebrow">共通10秒確認</div>'+
       '<div class="common-title">'+eligible+'/'+items.length+' 銘柄が正式判断可能</div></div>'+
-      '<span class="common-pill '+commonStateClass(q.qc_state)+'">QC '+fmt(q.qc_state)+'</span>'+
+      '<span class="common-pill '+commonStateClass(q.qc_state)+'">品質 '+commonStateLabel(q.qc_state)+'</span>'+
     '</div>'+
     '<div class="common-grid">'+
-      '<div class="common-metric '+commonStateClass(q.data_state)+'"><span>Data</span><b>'+fmt(q.data_state)+'</b></div>'+
-      '<div class="common-metric '+commonStateClass(common.market_state?.state)+'"><span>Market</span><b>'+fmt(common.market_state?.state)+'</b></div>'+
-      '<div class="common-metric '+commonStateClass(common.snapshot?.state)+'"><span>Snapshot</span><b>'+fmt(common.snapshot?.state)+'</b></div>'+
+      '<div class="common-metric '+commonStateClass(q.data_state)+'"><span>データ</span><b>'+commonStateLabel(q.data_state)+'</b></div>'+
+      '<div class="common-metric '+commonStateClass(common.market_state?.state)+'"><span>市場</span><b>'+commonStateLabel(common.market_state?.state)+'</b></div>'+
+      '<div class="common-metric '+commonStateClass(common.snapshot?.state)+'"><span>更新状態</span><b>'+commonStateLabel(common.snapshot?.state)+'</b></div>'+
       '<div class="common-metric '+(blocked?"common-ng":"common-ok")+'"><span>要確認</span><b>'+blocked+'</b></div>'+
     '</div>'+
     '<div class="common-blocker">'+fmt(firstBlocker&&firstBlocker.label||"正式判断を妨げる条件はありません。")+'</div>'+
     '<details class="common-details"><summary>4銘柄の判断可否</summary>'+itemRows+'</details>'+
-    '<details class="app-disclosure compact-disclosure"><summary>基準時刻・共通仕様を見る</summary><div class="disclosure-body">基準 '+dateOnly(common.timestamps?.market_as_of)+' / 計算 '+jst(common.timestamps?.calculated_at)+' / Common Spec '+fmt(common.common_spec_version)+'</div></details>';
+    '<details class="app-disclosure compact-disclosure"><summary>基準時刻・共通仕様を見る</summary><div class="disclosure-body">基準 '+dateOnly(common.timestamps?.market_as_of)+' / 計算 '+jst(common.timestamps?.calculated_at)+' / 共通仕様 '+fmt(common.common_spec_version)+'</div></details>';
 }
 
 function stateLabel(v){
@@ -487,21 +532,89 @@ function modelValidationPanel(v,stocks){
   `;
 }
 
+function dataFreshnessPanel(status,market){
+  const stocks=market.stocks||[];
+  const env=market.market_environment||[];
+  const q=status.quality||{};
+  const stockDates=[...new Set(stocks.map(s=>s.trade_date).filter(Boolean))];
+  const envDates=[...new Set(env.map(m=>m.trade_date).filter(Boolean))];
+  const fundamentals=stocks
+    .filter(s=>s.structural_growth?.fundamental_last_updated)
+    .map(s=>`${s.ticker} ${s.structural_growth.fundamental_last_updated}`);
+  const pit=stocks
+    .filter(s=>s.point_in_time_validation?.freshness)
+    .map(s=>{
+      const f=s.point_in_time_validation.freshness||{};
+      return `${s.ticker} ${fmt(f.days_since_latest)}日`;
+    });
+
+  return `<details class="app-disclosure freshness-details">
+    <summary>参照データの日時・鮮度を見る</summary>
+    <div class="disclosure-body">
+      <div class="freshness-list">
+        <div class="freshness-row-item"><span>株価（4銘柄）</span><b>${stockDates.length?stockDates.map(dateOnly).join(" / "):"—"}</b><small>REGULAR終値</small></div>
+        <div class="freshness-row-item"><span>市場環境</span><b>${envDates.length?envDates.map(dateOnly).join(" / "):"—"}</b><small>${env.length}指標</small></div>
+        <div class="freshness-row-item"><span>財務データ</span><b>${fundamentals.length?fundamentals.join(" / "):"—"}</b><small>各社の公開更新日</small></div>
+        <div class="freshness-row-item"><span>モデル検証</span><b>${pit.length?pit.join(" / "):"—"}</b><small>最新イベントからの経過</small></div>
+        <div class="freshness-row-item"><span>独立出典照合</span><b>${commonStateLabel(q.source_crosscheck)}</b><small>次回自動確認目安で再照合</small></div>
+      </div>
+    </div>
+  </details>`;
+}
+
+function parseNotice(message,severity){
+  const text=String(message||"");
+  let m=text.match(/^([A-Z0-9.^-]+): independent close is not published for (\d{4}-\d{2}-\d{2})\.$/);
+  if(m)return {kind:"independent",subject:m[1],date:m[2],severity};
+  m=text.match(/^([A-Z0-9.^-]+): market environment value for confirmed trade date (\d{4}-\d{2}-\d{2}) is unavailable\.$/);
+  if(m)return {kind:"market",subject:m[1],date:m[2],severity};
+  return {kind:"other",message:text,severity};
+}
 function renderNotices(status){
-  const warnings=status.warnings||[];
-  const errors=status.errors||[];
+  const warnings=(status.warnings||[]).map(x=>parseNotice(x,"warning"));
+  const errors=(status.errors||[]).map(x=>parseNotice(x,"error"));
+  const issues=[...errors,...warnings];
   const section=$("noticesSection");
   const target=$("notices");
-  if(!warnings.length&&!errors.length){
+  if(!issues.length){
     section.classList.add("hidden");
     target.innerHTML="";
     return;
   }
-  const items=[
-    ...errors.map(x=>`<li class="notice-error">${x}</li>`),
-    ...warnings.map(x=>`<li class="notice-warning">${x}</li>`)
-  ];
-  target.innerHTML=`<ul class="notice-list">${items.join("")}</ul>`;
+
+  const independent=issues.filter(x=>x.kind==="independent");
+  const market=issues.filter(x=>x.kind==="market");
+  const other=issues.filter(x=>x.kind==="other");
+  const blocks=[];
+
+  if(independent.length){
+    const date=independent[0].date;
+    blocks.push(`<div class="notice-group">
+      <div class="notice-group-head"><b>独立終値の照合待ち</b><span>${independent.length}件</span></div>
+      <div class="notice-subjects">${independent.map(x=>x.subject).join(" / ")}</div>
+      <p>${dateOnly(date)} の独立終値がまだ公開されていないため、主データとの照合が未完了です。</p>
+      <div class="notice-remedy"><b>対応</b> 主データの確定値は保持し、次回自動確認で独立終値を再取得・再照合します。</div>
+    </div>`);
+  }
+  if(market.length){
+    const date=market[0].date;
+    blocks.push(`<div class="notice-group">
+      <div class="notice-group-head"><b>市場環境の参考値が未取得</b><span>${market.length}件</span></div>
+      <div class="notice-subjects">${market.map(x=>x.subject).join(" / ")}</div>
+      <p>${dateOnly(date)} の関連市場データが一部取得できていません。</p>
+      <div class="notice-remedy"><b>対応</b> 個別株の確定終値は変更せず、次回自動確認で参考値を再取得します。</div>
+    </div>`);
+  }
+  other.forEach(x=>blocks.push(`<div class="notice-group ${x.severity==="error"?"is-error":""}">
+    <div class="notice-group-head"><b>追加確認</b></div><p>${fmt(x.message)}</p>
+  </div>`));
+
+  target.innerHTML=`
+    <div class="notice-summary">確認事項 ${issues.length}件を、原因別に${blocks.length}グループへ整理しています。</div>
+    ${blocks.join("")}
+    <a class="notice-action-btn" href="${WORKFLOW_URL}" target="_blank" rel="noopener">GitHubで再調査・再判定</a>
+    <div class="notice-action-note">Workflowを実行した場合は、完了後にこのアプリへ戻り「公開データを再読込」を押してください。</div>
+  `;
   section.classList.remove("hidden");
 }
 
@@ -529,6 +642,7 @@ async function main(options={}){
 
     $("tradeDate").textContent=dateOnly(status.us_trade_date);
     $("updatedAt").textContent=jst(status.generated_at_jst);
+    renderRecheckSchedule();
     renderCommonDigest(common);
 
     $("digest").classList.remove("muted");
@@ -552,7 +666,8 @@ async function main(options={}){
         <div class="quality-item"><span class="label">データ充足</span><div class="quality-value">${fmt(q.completeness)}</div></div>
         <div class="quality-item"><span class="label">出典照合</span><div class="quality-value">${qualityPill(q.source_crosscheck)}</div></div>
         <div class="quality-item"><span class="label">取引日経過</span><div class="quality-value">${q.trade_date_age_days==null?"—":fmt(q.trade_date_age_days)+"暦日"}</div></div>
-      </div>`;
+      </div>
+      ${dataFreshnessPanel(status,market)}`;
 
     $("modelValidation").classList.remove("muted");
     $("modelValidation").innerHTML=modelValidationPanel(market.model_validation,market.stocks);
@@ -577,7 +692,7 @@ main();
 
 if("serviceWorker" in navigator){
   window.addEventListener("load",async()=>{
-    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.6-common1",{updateViaCache:"none"});
+    const reg=await navigator.serviceWorker.register("./sw.js?v=0.9.6",{updateViaCache:"none"});
     reg.update();
   });
 }
