@@ -24,21 +24,29 @@ jobs:
       - name: Validate Common fallback markers
         run: |
           python - <<'PY'
+          import json
           from pathlib import Path
           index=Path("docs/index.html").read_text(encoding="utf-8")
           app=Path("docs/app.js").read_text(encoding="utf-8")
           sw=Path("docs/sw.js").read_text(encoding="utf-8")
+          status=json.loads(Path("docs/data/status.json").read_text(encoding="utf-8"))
+          version=status["app_version"]
           assert 'id="commonSection"' in index
           assert 'id="commonDigest"' in index
           assert 'function renderCommonDigest(common)' in app
           assert 'getJSON("./data/common_snapshot.json").catch(()=>null)' in app
           assert 'chart28Svg' in app and 'renderMarketCharts' in app
           assert 'id="marketChartsDetails"' in index and '市場環境の見方' in index
-          assert '0.9.6-common1' in index
-          assert 'us-stock-check-v0.9.6-common1' in sw
+          assert f'v{version}' in index
+          assert f'style.css?v={version}' in index and f'app.js?v={version}' in index
+          assert f'us-stock-check-v{version}' in sw
           assert 'snapshotState==="NONE"||items.length===0' in app
           assert '0/0は「判断可能」を意味しません' in app
           assert '公開データを再読込' in index
+          assert 'id="recheckAt"' in index and 'function nextRecheckSchedule()' in app
+          assert 'id="qualitySection"' in index and 'class="bottom-nav"' in index
+          assert 'function dataFreshnessPanel(status,market)' in app
+          assert '独立終値の照合待ち' in app and 'GitHubで再調査・再判定' in app
           assert 'canonicalKey' in sw and 'networkFirstData' in sw
           assert 'Pre-deploy public safety gate' in Path(".github/workflows/deploy-pages.yml").read_text(encoding="utf-8")
           print("US operational hardening validation PASS")
