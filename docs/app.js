@@ -192,7 +192,7 @@ function renderCommonDigest(common){
       '<div class="common-metric '+(blocked?"common-ng":"common-ok")+'"><span>要確認</span><b>'+blocked+'</b></div>'+
     '</div>'+
     '<div class="common-blocker">'+fmt(firstBlocker&&firstBlocker.label||"正式判断を妨げる条件はありません。")+'</div>'+
-    '<details class="common-details"><summary>4銘柄の判断可否</summary>'+itemRows+'</details>'+
+    '<details class="common-details"><summary>'+items.length+'銘柄の判断可否</summary>'+itemRows+'</details>'+
     '<details class="app-disclosure compact-disclosure"><summary>基準時刻・共通仕様を見る</summary><div class="disclosure-body">基準 '+dateOnly(common.timestamps?.market_as_of)+' / 計算 '+jst(common.timestamps?.calculated_at)+' / 共通仕様 '+fmt(common.common_spec_version)+'</div></details>';
 }
 
@@ -309,7 +309,9 @@ function digestPanel(status,market){
     const d=decisionState(s);
     const sub=s.ticker==="SOXL"
       ? `局面 ${fmt(s.soxl_stage?.phase)}`
-      : `成長スコア ${growth?.score==null?"—":Number(growth.score).toFixed(1)}`;
+      : s.ticker==="MSTR"
+        ? "BTC連動・テクニカル監視"
+        : `成長スコア ${growth?.score==null?"—":Number(growth.score).toFixed(1)}`;
     return `<div class="digest-stock">
       <div class="digest-ticker">${fmt(s.ticker)}</div>
       <div class="digest-price">${money(s.close)}</div>
@@ -448,6 +450,17 @@ function growthPanel(s){
   </details>`;
 }
 
+function mstrPanel(s){
+  if(s.ticker!=="MSTR")return "";
+  return `<details class="expand-panel" open>
+    <summary>MSTR監視方針</summary>
+    <div class="panel-note">
+      MSTRはBitcoin Treasury特性の影響が大きいため、PLTR / LLY / BSY向けの構造的成長スコアは適用しません。
+      現段階では株価テクニカルと、市場タブのBitcoin推移を組み合わせて確認します。
+    </div>
+  </details>`;
+}
+
 function soxlPanel(s){
   const st=s.soxl_stage;
   if(!st)return "";
@@ -502,7 +515,7 @@ function stockCard(s){
         <div><span class="label">50 / 200MA</span>${fmt(s.ma_state)}</div>
       </div>
     </details>
-    ${s.ticker==="SOXL"?soxlPanel(s):growthPanel(s)}
+    ${s.ticker==="SOXL"?soxlPanel(s):s.ticker==="MSTR"?mstrPanel(s):growthPanel(s)}
     ${levelPanel(s)}
   </article>`;
 }
@@ -592,7 +605,7 @@ function dataFreshnessPanel(status,market){
     <summary>参照データの日時・鮮度を見る</summary>
     <div class="disclosure-body">
       <div class="freshness-list">
-        <div class="freshness-row-item"><span>株価（4銘柄）</span><b>${stockDates.length?stockDates.map(dateOnly).join(" / "):"—"}</b><small>REGULAR終値</small></div>
+        <div class="freshness-row-item"><span>株価（${stocks.length}銘柄）</span><b>${stockDates.length?stockDates.map(dateOnly).join(" / "):"—"}</b><small>REGULAR終値</small></div>
         <div class="freshness-row-item"><span>市場環境</span><b>${envDates.length?envDates.map(dateOnly).join(" / "):"—"}</b><small>${env.length}指標</small></div>
         <div class="freshness-row-item"><span>財務データ</span><b>${fundamentals.length?fundamentals.join(" / "):"—"}</b><small>各社の公開更新日</small></div>
         <div class="freshness-row-item"><span>モデル検証</span><b>${pit.length?pit.join(" / "):"—"}</b><small>最新イベントからの経過</small></div>
