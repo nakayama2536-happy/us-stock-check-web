@@ -40,6 +40,9 @@ jobs:
           assert f'v{version}' in index
           assert f'style.css?v={version}' in index and f'app.js?v={version}' in index
           assert f'us-stock-check-v{version}' in sw
+          assert 'CACHE_PREFIX="us-stock-check-v"' in sw
+          assert 'ownMatch' in sw and 'caches.match(' not in sw
+          assert 'url.searchParams.delete(CACHE_BUSTER_PARAM)' in sw
           assert 'snapshotState==="NONE"||items.length===0' in app
           assert '0/0は「判断可能」を意味しません' in app
           assert '公開データを再読込' in index
@@ -53,7 +56,7 @@ jobs:
           assert '.tab-panel[hidden]' in Path("docs/style.css").read_text(encoding="utf-8")
           assert 'function dataFreshnessPanel(status,market)' in app
           assert '独立終値の照合待ち' in app and 'GitHubで再調査・再判定' in app
-          assert 'canonicalKey' in sw and 'networkFirstData' in sw
+          assert 'canonicalDataKey' in sw and 'networkFirstData' in sw
           assert 'Pre-deploy public safety gate' in Path(".github/workflows/deploy-pages.yml").read_text(encoding="utf-8")
           print("US operational hardening validation PASS")
           PY

@@ -1,4 +1,5 @@
-const CACHE="us-stock-check-v0.9.8";
+const CACHE_PREFIX="us-stock-check-v";
+const CACHE="us-stock-check-v0.9.8-cache1";
 const STATIC=[
   "./",
   "./index.html",
@@ -7,6 +8,32 @@ const STATIC=[
   "./manifest.webmanifest",
   "./icons/us-stock-icon.png"
 ];
+
+const APP_SCOPE=new URL(self.registration.scope);
+const DATA_PREFIX=APP_SCOPE.pathname+"data/";
+const CACHE_BUSTER_PARAM="v";
+
+function inAppScope(url){
+  return url.origin===APP_SCOPE.origin && url.pathname.startsWith(APP_SCOPE.pathname);
+}
+function isData(url){
+  return inAppScope(url) && url.pathname.startsWith(DATA_PREFIX);
+}
+function canonicalDataKey(request){
+  const url=new URL(request.url);
+  // Only the documented freshness nonce is ignored. Keep all semantic query parameters.
+  url.searchParams.delete(CACHE_BUSTER_PARAM);
+  return new Request(url.href,{method:"GET",headers:request.headers});
+}
+async function ownMatch(key){
+  try{return await (await caches.open(CACHE)).match(key)}
+  catch(_){return undefined}
+}
+async function storeResponse(key,response){
+  if(!response.ok||response.redirected)return;
+  try{await (await caches.open(CACHE)).put(key,response.clone())}
+  catch(_){/* Cache is best effort; a successful network response remains usable. */}
+}
 
 self.addEventListener("install",event=>{
   event.waitUntil(
@@ -19,39 +46,43 @@ self.addEventListener("install",event=>{
 self.addEventListener("activate",event=>{
   event.waitUntil(
     caches.keys()
-      .then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key))))
+      .then(keys=>Promise.all(
+        keys.filter(key=>key.startsWith(CACHE_PREFIX)&&key!==CACHE)
+          .map(key=>caches.delete(key))
+      ))
       .then(()=>self.clients.claim())
   );
 });
 
 async function networkFirstData(request){
-  const url=new URL(request.url);
-  const canonicalKey=new Request(url.origin+url.pathname);
+  const key=canonicalDataKey(request);
   try{
     const response=await fetch(request,{cache:"no-store"});
-    if(response.ok){
-      const cache=await caches.open(CACHE);
-      await cache.put(canonicalKey,response.clone());
-    }
+    await storeResponse(key,response);
     return response;
-  }catch(e){
-    return (await caches.match(canonicalKey))||Response.error();
+  }catch(_){
+    return (await ownMatch(key))||Response.error();
+  }
+}
+
+async function networkFirstShell(request){
+  try{
+    const response=await fetch(request,{cache:"no-cache"});
+    await storeResponse(request,response);
+    return response;
+  }catch(_){
+    return (await ownMatch(request))||Response.error();
   }
 }
 
 self.addEventListener("fetch",event=>{
-  const url=new URL(event.request.url);
-  if(url.pathname.includes("/data/")){
-    event.respondWith(networkFirstData(event.request));
+  const request=event.request;
+  const url=new URL(request.url);
+  // Never intercept another app, another origin, or non-GET requests.
+  if(request.method!=="GET"||!inAppScope(url))return;
+  if(isData(url)){
+    event.respondWith(networkFirstData(request));
     return;
   }
-  event.respondWith(
-    fetch(event.request,{cache:"no-cache"})
-      .then(response=>{
-        const copy=response.clone();
-        caches.open(CACHE).then(cache=>cache.put(event.request,copy));
-        return response;
-      })
-      .catch(()=>caches.match(event.request))
-  );
+  event.respondWith(networkFirstShell(request));
 });
