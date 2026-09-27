@@ -566,7 +566,7 @@
           "status": "CURRENT",
           "latest_period": "2026-Q2",
           "latest_available_from": "2026-08-03",
-          "days_since_latest": 55,
+          "days_since_latest": 56,
           "review_after_days": 100,
           "review_due": false
         }
@@ -1313,7 +1313,7 @@
           "status": "CURRENT",
           "latest_period": "2026-Q2",
           "latest_available_from": "2026-08-05",
-          "days_since_latest": 53,
+          "days_since_latest": 54,
           "review_after_days": 100,
           "review_due": false
         }
@@ -2048,7 +2048,7 @@
           "status": "CURRENT",
           "latest_period": "2026-Q2",
           "latest_available_from": "2026-08-05",
-          "days_since_latest": 53,
+          "days_since_latest": 54,
           "review_after_days": 100,
           "review_due": false
         }
