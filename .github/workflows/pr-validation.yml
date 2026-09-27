@@ -39,7 +39,7 @@ jobs:
           assert 'id="marketChartsDetails"' in index and '市場環境の見方' in index
           assert f'v{version}' in index
           assert f'style.css?v={version}' in index and f'app.js?v={version}' in index
-          assert f'us-stock-check-v{version}' in sw
+          assert f'us-stock-check-v{version}' in sw\n          assert 'CACHE_PREFIX="us-stock-check-v"' in sw\n          assert 'ownMatch' in sw and 'caches.match(' not in sw\n          assert 'url.searchParams.delete(CACHE_BUSTER_PARAM)' in sw
           assert 'snapshotState==="NONE"||items.length===0' in app
           assert '0/0は「判断可能」を意味しません' in app
           assert '公開データを再読込' in index
