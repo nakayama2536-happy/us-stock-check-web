@@ -56,7 +56,7 @@ def main():
             page.route('**/data/*.json*',route)
             page.add_init_script("localStorage.setItem('usstock.activeTab','market');localStorage.setItem('other-app-record','preserve');")
             page.clock.install(time='2026-10-04T03:00:00Z')
-            page.goto(base+'/');page.wait_for_selector('.ux-stock')
+            page.goto(base+'/');page.wait_for_selector('.ux-stock',state='attached')
             check('legacy selected tab restored',page.locator('#tab-market').is_visible())
             page.locator('#tabbtn-overview').click()
             check('five summary rows',page.locator('.ux-stock').count()==5)
