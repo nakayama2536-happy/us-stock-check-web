@@ -29,13 +29,14 @@
   function candleHtml(stock,detail,window=90){
     const rows=detail.rows.slice(-(window===250?250:90)),title=esc(stock.ticker)+' 日足・出来高';
     const low=Math.min(...rows.map(r=>r.low)),high=Math.max(...rows.map(r=>r.high)),pad=Math.max((high-low)*.05,high*.001);
-    const min=low-pad,max=high+pad,vol=Math.max(1,...rows.map(r=>r.volume)),step=560/rows.length;
+    const width=window===250?1000:650,right=width-30;
+    const min=low-pad,max=high+pad,vol=Math.max(1,...rows.map(r=>r.volume)),step=(right-60)/rows.length;
     const x=i=>60+(i+.5)*step,y=p=>18+(max-p)/(max-min)*200;
     const candles=rows.map((r,i)=>{const xx=x(i),up=r.close>=r.open,cl=up?'usr-rise':'usr-fall';
       return '<g class="'+cl+'"><title>'+r.date+' 始 '+r.open.toFixed(2)+' 高 '+r.high.toFixed(2)+' 安 '+r.low.toFixed(2)+' 終 '+r.close.toFixed(2)+' 出来高 '+r.volume+'</title><line x1="'+xx+'" x2="'+xx+'" y1="'+y(r.high)+'" y2="'+y(r.low)+'"/><rect x="'+(xx-step*.3)+'" y="'+Math.min(y(r.open),y(r.close))+'" width="'+Math.max(.8,step*.6)+'" height="'+Math.max(.8,Math.abs(y(r.open)-y(r.close)))+'"/><rect class="usr-volume" x="'+(xx-step*.3)+'" y="'+(290-r.volume/vol*45)+'" width="'+Math.max(.8,step*.6)+'" height="'+r.volume/vol*45+'"/></g>';
     }).join('');
-    const grid=[min,(min+max)/2,max].map(v=>'<line x1="60" x2="620" y1="'+y(v)+'" y2="'+y(v)+'"/><text x="55" y="'+(y(v)+4)+'" text-anchor="end">'+v.toFixed(2)+'</text>').join('');
-    return '<section class="usr-chart usr-candles '+(window===250?'usr-window-250':'')+'" data-chart-ticker="'+esc(stock.ticker)+'"><h3>'+title+'</h3><label>表示範囲 <select data-history-window="'+esc(stock.ticker)+'"><option value="90"'+(window!==250?' selected':'')+'>直近90本</option><option value="250"'+(window===250?' selected':'')+'>保存250本</option></select></label><p>'+rows[0].date+' ～ '+rows.at(-1).date+' ／ '+rows.length+'本 ／ USD<br>赤：終値≧始値、青：終値＜始値。下段は出来高（株）。250本表示では横にスクロールできます。</p><div class="usr-chart-scroll" tabindex="0" role="region" aria-label="'+title+' 横スクロール"><svg viewBox="0 0 650 320" role="img" aria-label="'+title+' '+rows.length+'本"><g class="usr-grid">'+grid+'</g>'+candles+'<text x="5" y="250">出来高</text><text x="5" y="269">'+(vol/1000000).toFixed(1)+'M</text><text x="60" y="312">'+rows[0].date+'</text><text x="620" y="312" text-anchor="end">'+rows.at(-1).date+'</text></svg></div><details><summary>取得時点・データの制限</summary><p>履歴取得：'+esc(detail.generated_at_jst)+'。固定画面とは別実行で取得し、最終日・終値・主要指標の一致を検証しています。調整方式の同等性・全営業日の網羅・過去OHLCVの独立照合は未確認です。完全な計算履歴ではありません。出来高0：'+detail.zero_volume_rows+'件（欠損の可能性）。</p></details><details><summary>日足の数値を表で確認</summary><div class="usr-chart-scroll"><table><thead><tr><th>日付</th><th>始値</th><th>高値</th><th>安値</th><th>終値</th><th>出来高</th></tr></thead><tbody>'+rows.map(r=>'<tr><td>'+r.date+'</td>'+['open','high','low','close'].map(k=>'<td>'+r[k].toFixed(2)+'</td>').join('')+'<td>'+r.volume.toLocaleString('ja-JP')+'</td></tr>').join('')+'</tbody></table></div></details></section>';
+    const grid=[min,(min+max)/2,max].map(v=>'<line x1="60" x2="'+right+'" y1="'+y(v)+'" y2="'+y(v)+'"/><text x="55" y="'+(y(v)+4)+'" text-anchor="end">'+v.toFixed(2)+'</text>').join('');
+    return '<section class="usr-chart usr-candles '+(window===250?'usr-window-250':'')+'" data-chart-ticker="'+esc(stock.ticker)+'"><h3>'+title+'</h3><label>表示範囲 <select data-history-window="'+esc(stock.ticker)+'"><option value="90"'+(window!==250?' selected':'')+'>直近90本</option><option value="250"'+(window===250?' selected':'')+'>保存250本</option></select></label><p>'+rows[0].date+' ～ '+rows.at(-1).date+' ／ '+rows.length+'本 ／ USD<br>赤：終値≧始値、青：終値＜始値。下段は出来高（株）。250本表示は最新側から表示。左右にスクロールできます。</p><div class="usr-chart-scroll" tabindex="0" role="region" aria-label="'+title+' 横スクロール"><svg viewBox="0 0 '+width+' 320" preserveAspectRatio="none" role="img" aria-label="'+title+' '+rows.length+'本"><g class="usr-grid">'+grid+'</g>'+candles+'<text x="5" y="250">出来高</text><text x="5" y="269">'+(vol/1000000).toFixed(1)+'M</text><text x="60" y="312">'+rows[0].date+'</text><text x="'+right+'" y="312" text-anchor="end">'+rows.at(-1).date+'</text></svg></div><details><summary>取得時点・データの制限</summary><p>履歴取得：'+esc(detail.generated_at_jst)+'。固定画面とは別実行で取得し、最終日・終値・主要指標の一致を検証しています。調整方式の同等性・全営業日の網羅・過去OHLCVの独立照合は未確認です。完全な計算履歴ではありません。出来高0：'+detail.zero_volume_rows+'件（欠損の可能性）。</p></details><details><summary>日足の数値を表で確認</summary><div class="usr-chart-scroll"><table><thead><tr><th>日付</th><th>始値</th><th>高値</th><th>安値</th><th>終値</th><th>出来高</th></tr></thead><tbody>'+rows.map(r=>'<tr><td>'+r.date+'</td>'+['open','high','low','close'].map(k=>'<td>'+r[k].toFixed(2)+'</td>').join('')+'<td>'+r.volume.toLocaleString('ja-JP')+'</td></tr>').join('')+'</tbody></table></div></details></section>';
   }
   function install(w){
     const old=w.stockCard;
@@ -54,7 +55,10 @@
       const selector=e.target.closest('[data-history-window]');if(!selector)return;
       const ticker=selector.dataset.historyWindow,stock=PREVIEW_DATA['./data/market.json'].stocks.find(s=>s.ticker===ticker);
       if(!stock)return;const host=selector.closest('.usr-chart');host.outerHTML=chartHtml(stock,PREVIEW_HISTORY,PREVIEW_OHLCV[ticker],Number(selector.value));
-      w.document.querySelector('[data-history-window="'+ticker+'"]')?.focus();
+      const current=w.document.querySelector('[data-chart-ticker="'+ticker+'"]');
+      const scroll=current.querySelector('.usr-chart-scroll');
+      if(Number(selector.value)===250)scroll.scrollLeft=scroll.scrollWidth;
+      current.querySelector('[data-history-window]')?.focus({preventScroll:true});
     });
     w.document.addEventListener('click',e=>{
       const b=e.target.closest('[data-us-consult]');if(!b)return;

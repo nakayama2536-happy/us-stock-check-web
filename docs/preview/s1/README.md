@@ -81,3 +81,13 @@ Why minimal: Private PR #42 added opt-in capture only. A separate read-only Acti
 - Yahoo auto_adjust=False / provider values are not a claim of fully adjusted prices. Historical independent OHLCV crosschecks, corporate-action adjustment equivalence and complete US holiday-calendar coverage remain unverified. Zero-volume rows are counted as possible missing data (this capture: 0). A 250-row export is not all calculation history for recursive indicators.
 - Import using `node scripts/import-preview-ohlcv.cjs <artifact.json> <reviewed-json-sha256>`; this rejects unreviewed fields and mismatched evidence and updates only the extra JSON plus its blob PINS entry. Verify source artifact identity/digest before import.
 - Validation: Private CI 87 tests plus 15 subtests, including byte equality of original four outputs with capture on/off; Public Node 94 tests. Browser CI covers candles, 90/250 switching, bounded summary, saved text equality, split reconstruction, narrow widths and existing sandbox/SW/private-record preservation. Real iPhone/Safari/PWA acceptance remains pending.
+
+## 2026-10-04 — iPhone 250-row scaling correction
+
+User feedback at 22:38 JST: 250-row zoom was awkward; other preview items were OK. Two supplied screenshots show the 90-row chart fitting the screen and the 250-row chart growing vertically with enlarged labels. This is a user-reported preview result, not formal Safari/PWA migration acceptance; exact iOS version and launch mode were not confirmed. Images contain device/UI context and are not copied to the public repository.
+
+Why necessary: price and volume should be visible without a disproportionately tall chart.
+Why insufficient: min-width:1000px with an unchanged 650×320 viewBox and height:auto enlarged both axes and text.
+Why minimal: only the 250-row SVG coordinate width and fixed 240px height change. Switching to 250 opens at the latest/right edge; 90-row presentation, all market data and Core remain unchanged. Native browser zoom is not intercepted. PINS and outer loader query version are updated.
+
+The user's other preview checks are recorded as reported OK. The corrected 250-row interaction still awaits user recheck. Regular PWA adoption and Production promotion remain pending.
