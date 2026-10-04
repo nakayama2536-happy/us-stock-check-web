@@ -2,10 +2,10 @@ name: UI Preview Verification
 on:
   pull_request:
     branches: [main]
-    paths: ['docs/preview/**', 'tests/ui-preview.test.cjs', 'tests/browser_ui_preview.py', '.github/workflows/ui-preview.yml']
+    paths: ['docs/preview/**', 'tests/ui-preview.test.cjs', 'tests/judgment-cards.test.cjs', 'tests/browser_ui_preview.py', '.github/workflows/ui-preview.yml']
   push:
     branches: [main, feature/us-ui-preview-access-20261004]
-    paths: ['docs/preview/**', 'tests/ui-preview.test.cjs', 'tests/browser_ui_preview.py', '.github/workflows/ui-preview.yml']
+    paths: ['docs/preview/**', 'tests/ui-preview.test.cjs', 'tests/judgment-cards.test.cjs', 'tests/browser_ui_preview.py', '.github/workflows/ui-preview.yml']
 permissions:
   contents: read
 jobs:
@@ -22,7 +22,8 @@ jobs:
       - name: Preview integrity privacy state and existing cache contracts
         run: |
           node --check docs/preview/s1/preview.js
-          node --test tests/ui-preview.test.cjs docs/preview/s1/tests/experience.test.cjs tests/sw-cache.test.cjs
+          node --check docs/preview/s1/judgment-cards.js
+          node --test tests/ui-preview.test.cjs tests/judgment-cards.test.cjs docs/preview/s1/tests/experience.test.cjs tests/sw-cache.test.cjs
       - name: Browser test environment
         run: |
           python -m pip install playwright==1.57.0

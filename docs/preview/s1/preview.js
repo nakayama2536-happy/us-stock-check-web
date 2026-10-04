@@ -6,6 +6,8 @@
 })(typeof globalThis==='undefined'?this:globalThis,function(){
   'use strict';
   const PINS=Object.freeze({
+    'judgment-cards.js':'0e7bf0a387f1accbca05c5392001f33c4e27d0a5',
+    'judgment-cards.css':'d9d35ac0cb80b0ce14aad96e6e17cd0cf9545508',
     'candidate/index.html':'5c46ff665ab6aa770ecbbd2e46a1435143c20c10',
     'candidate/experience.js':'2076f0257887d5758b42692187a68833c86d288c',
     'candidate/experience.css':'2b86c215a1d1867e8d0386382aaf0cbf934bb6c4',
@@ -56,9 +58,9 @@
     html=html.replace(/<a\b[^>]*class="ux-link"[^>]*>([\s\S]*?)<\/a>/g,'<span class="ux-link" aria-disabled="true">本番の更新操作は通常アプリで行います。</span>');
     const policy="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'";
     html=html.replace('<head>',()=>'<head><meta http-equiv="Content-Security-Policy" content="'+policy+'">');
-    const css=files['reference/style.css']+'\n'+files['candidate/experience.css'];
+    const css=files['reference/style.css']+'\n'+files['candidate/experience.css']+'\n'+files['judgment-cards.css'];
     html=html.replace('</head>',()=>'<style>'+css+'</style></head>');
-    const code='const PREVIEW_DATA='+safeJSON(data)+';\n'+files['candidate/experience.js']+'\n'+source+'\n'+boot;
+    const code='const PREVIEW_DATA='+safeJSON(data)+';\n'+files['candidate/experience.js']+'\n'+source+'\n'+files['judgment-cards.js']+'\n'+boot;
     return html.replace('</body>',()=>'<script>'+safeScript(code)+'</script></body>');
   }
   async function readPinned(path){
