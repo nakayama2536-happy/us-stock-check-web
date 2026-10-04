@@ -1,0 +1,139 @@
+{
+  "schema_version": "1.0",
+  "common_spec_version": "1.0-draft",
+  "market": "US",
+  "adapter_status": "PARALLEL_SHADOW",
+  "market_state": {
+    "state": "CONFIRMED"
+  },
+  "snapshot": {
+    "state": "LAST_VALID"
+  },
+  "incident": {
+    "level": "NORMAL",
+    "error_codes": []
+  },
+  "data_quality": {
+    "data_state": "FRESH",
+    "qc_state": "PASS",
+    "completeness_pct": 100.0,
+    "source_crosscheck": "PASS"
+  },
+  "decision_scope": "MULTI",
+  "decision_items": [
+    {
+      "subject_id": "PLTR",
+      "subject_type": "SECURITY",
+      "subject_label": "Palantir Technologies",
+      "ticker": "PLTR",
+      "as_of": "2026-10-02",
+      "mode": "SHADOW",
+      "phase": null,
+      "eligibility": "NOT_ELIGIBLE",
+      "analysis_action": null,
+      "formal_action": null,
+      "reason_summary": [],
+      "blocking_conditions": [
+        {
+          "id": "FORMAL_ENGINE_NOT_IMPLEMENTED",
+          "category": "STRATEGY",
+          "label": "正式Trade Action Engineは未実装です。",
+          "status": "FAIL",
+          "impact": "BLOCKING"
+        }
+      ]
+    },
+    {
+      "subject_id": "LLY",
+      "subject_type": "SECURITY",
+      "subject_label": "Eli Lilly",
+      "ticker": "LLY",
+      "as_of": "2026-10-02",
+      "mode": "SHADOW",
+      "phase": null,
+      "eligibility": "NOT_ELIGIBLE",
+      "analysis_action": null,
+      "formal_action": null,
+      "reason_summary": [],
+      "blocking_conditions": [
+        {
+          "id": "FORMAL_ENGINE_NOT_IMPLEMENTED",
+          "category": "STRATEGY",
+          "label": "正式Trade Action Engineは未実装です。",
+          "status": "FAIL",
+          "impact": "BLOCKING"
+        }
+      ]
+    },
+    {
+      "subject_id": "BSY",
+      "subject_type": "SECURITY",
+      "subject_label": "Bentley Systems",
+      "ticker": "BSY",
+      "as_of": "2026-10-02",
+      "mode": "SHADOW",
+      "phase": null,
+      "eligibility": "NOT_ELIGIBLE",
+      "analysis_action": null,
+      "formal_action": null,
+      "reason_summary": [],
+      "blocking_conditions": [
+        {
+          "id": "FORMAL_ENGINE_NOT_IMPLEMENTED",
+          "category": "STRATEGY",
+          "label": "正式Trade Action Engineは未実装です。",
+          "status": "FAIL",
+          "impact": "BLOCKING"
+        }
+      ]
+    },
+    {
+      "subject_id": "MSTR",
+      "subject_type": "SECURITY",
+      "subject_label": "Strategy Inc.",
+      "ticker": "MSTR",
+      "as_of": "2026-10-02",
+      "mode": "SHADOW",
+      "phase": null,
+      "eligibility": "NOT_ELIGIBLE",
+      "analysis_action": null,
+      "formal_action": null,
+      "reason_summary": [],
+      "blocking_conditions": [
+        {
+          "id": "FORMAL_ENGINE_NOT_IMPLEMENTED",
+          "category": "STRATEGY",
+          "label": "正式Trade Action Engineは未実装です。",
+          "status": "FAIL",
+          "impact": "BLOCKING"
+        }
+      ]
+    },
+    {
+      "subject_id": "SOXL",
+      "subject_type": "SECURITY",
+      "subject_label": "Direxion Daily Semiconductor Bull 3X",
+      "ticker": "SOXL",
+      "as_of": "2026-10-02",
+      "mode": "SHADOW",
+      "phase": null,
+      "eligibility": "NOT_ELIGIBLE",
+      "analysis_action": null,
+      "formal_action": null,
+      "reason_summary": [],
+      "blocking_conditions": [
+        {
+          "id": "FORMAL_ENGINE_NOT_IMPLEMENTED",
+          "category": "STRATEGY",
+          "label": "正式Trade Action Engineは未実装です。",
+          "status": "FAIL",
+          "impact": "BLOCKING"
+        }
+      ]
+    }
+  ],
+  "timestamps": {
+    "market_as_of": "2026-10-02",
+    "calculated_at": "2026-10-04T17:36:25+09:00"
+  }
+}
