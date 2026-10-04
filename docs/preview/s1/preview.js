@@ -73,7 +73,7 @@
   async function readPinned(path){
     const abort=new AbortController(),timer=setTimeout(()=>abort.abort(),15000);
     try{
-      const response=await fetch('./'+path,{cache:'no-store',credentials:'omit',signal:abort.signal});
+      const response=await fetch('./'+path+'?v='+PINS[path],{cache:'no-store',credentials:'omit',signal:abort.signal});
       if(!response.ok||response.redirected)throw new Error('Source unavailable');
       const bytes=new Uint8Array(await response.arrayBuffer());
       if(bytes.length>200000||await blobHash(bytes)!==PINS[path])throw new Error('Source integrity mismatch');
