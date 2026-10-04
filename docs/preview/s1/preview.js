@@ -6,7 +6,7 @@
 })(typeof globalThis==='undefined'?this:globalThis,function(){
   'use strict';
   const PINS=Object.freeze({
-    'research.js':'da73915f51f7b032c7a3082180e3f986b2da11f7',
+    'research.js':'9cddb34ddc8ef07fc7d04b0941f7c84fd10ebe70',
     'data/chart-history.json':'7e70a4ea1f0d0c389381f559bed8ec0d2265d73d',
     'judgment-cards.js':'b5c15db04a3ae2d9e1b966be91967014b5c67d3e',
     'judgment-cards.css':'1ec1ac528e4965ecb5dc39a4b218cea436393d3b',
@@ -100,9 +100,9 @@
         const g=s.structural_growth||{};
         return {requested_ticker:t,matching_rows:matches.length,...pick(s,'ticker name trade_date close change_pct trend macd_state rsi14 ma_state ma50 ma200 macd macd_signal primary_source shadow_source shadow_close_diff_usd shadow_close_diff_pct'),
           levels:pick(s.levels,'support20 resistance20 ma50 ma200 low52 high52'),
-          growth:pick(g,'status score data_completeness_pct required_completeness_pct'),
+          growth:pick(g,'status score data_completeness_pct required_completeness_pct fundamental_source fundamental_last_updated'),
           financial_metrics:pick(g.axes?.financial_growth_quality,'revenue_growth_ttm_pct eps_growth_ttm_pct fcf_growth_ttm_pct operating_margin_ttm_pct'),
-          valuation:pick(g.axes?.valuation_reasonableness,'forward_pe peg'),
+          valuation:pick(g.axes?.valuation_reasonableness,'forward_pe peg_ratio'),
           history:(history.series?.[t]||[]).map(r=>pick(r,'date close source_commit primary_source shadow_source shadow_close_diff_usd'))};
       }),
       limitations:['表示用の固定データ。現在株価・最新ニュースではありません。','履歴は公開snapshotの観測終値だけで、連続OHLCV・調整後株価・完全な計算履歴ではありません。MA200やMACD等をこの短い履歴だけで再現したと断定しない。','正式売買エンジン・営業日予測は未実装。保有数量・取得単価・口座・個人メモは含めない。','共通snapshotの全文・内部ログ・計算コードはこの相談文に含まれません。必要に応じて正本を照合する。']};
