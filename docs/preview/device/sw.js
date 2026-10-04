@@ -1,5 +1,5 @@
 /* Device scope only. Never migrates or deletes regular app caches. */
-const SCOPE="/us-stock-check-web/preview/device/",PREFIX='us-stock-device-shell-',CACHE=PREFIX+'f8570ff9ea3262a8';
+const SCOPE="/us-stock-check-web/preview/device/",PREFIX='us-stock-device-shell-',CACHE=PREFIX+'d958cf4685c1c827';
 if(new URL(self.registration.scope).pathname!==SCOPE)throw Error('Unexpected preview scope');
 const STATIC=["./","./index.html","./assets.json","./preview-adapter.js","./delivery.js","./storage.js","./candidate.js","./device-status.js","./sw-register.js","./manifest.webmanifest","./icons/us-stock-icon.png"];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(STATIC)).then(()=>self.skipWaiting())));

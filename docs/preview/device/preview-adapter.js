@@ -52,12 +52,25 @@
     source=source.slice(0,source.indexOf('async function main(options={}){'));
     if(source.includes('serviceWorker.register'))throw new Error('Unexpected worker');
     let boot=files['candidate/bootstrap.js'];
+    boot=once(boot,'function currentModel(extra={}){',`let deviceDeliveryState='loading';
+function renderDeviceState(){
+  USExperience.renderState(currentModel(),document);
+  document.getElementById('appState').textContent=({ready:'参考分析 / 保存データ表示',offline:'保存値 / オフライン',failed:'保存値 / 再取得未確認',loading:'保存値 / 確認中'})[deviceDeliveryState];
+  document.querySelectorAll('[data-us-consult]').forEach(b=>b.disabled=deviceDeliveryState!=='ready');
+}
+function currentModel(extra={}){`);
+    boot=once(boot,'hasPrevious:!!lastBundle,...extra','hasPrevious:!!lastBundle,...extra,offline:deviceDeliveryState===\'offline\',loadFailed:deviceDeliveryState===\'failed\',loading:deviceDeliveryState===\'loading\'');
+    boot=boot.replaceAll('USExperience.renderState(m,document);','renderDeviceState();').replaceAll('USExperience.renderState(currentModel(),document);','renderDeviceState();').replaceAll('USExperience.renderState(currentModel({loading:true}),document);','renderDeviceState();').replaceAll('USExperience.renderState(currentModel({offline:true}),document)','renderDeviceState()');
+    // Keep the helper delegation intact after replacing call sites.
+    boot=once(boot,'function renderDeviceState(){\n  renderDeviceState();','function renderDeviceState(){\n  USExperience.renderState(currentModel(),document);');
+    boot=once(boot,"$('appState').textContent='参考分析 / '+stateLabel(status.run_state);",'renderDeviceState();');
     boot=once(boot,"let selectedTicker='PLTR';","let selectedTicker=USExperience.TICKERS.includes(DELIVERY_SELECTION.ticker)?DELIVERY_SELECTION.ticker:'PLTR';");
     boot+=`
 activateTab(DELIVERY_SELECTION.tab||'overview');
     window.addEventListener('message',e=>{
       if(e.source!==parent||e.data?.type!=='US_DELIVERY_STATE'||e.data.generation!==DELIVERY_GENERATION)return;
-      USExperience.renderState(currentModel({loading:e.data.state==='loading',loadFailed:e.data.state==='failed',offline:e.data.state==='offline'}),document);
+      if(!['ready','offline','failed','loading'].includes(e.data.state))return;
+      deviceDeliveryState=e.data.state;renderDeviceState();
       document.querySelectorAll('[data-us-consult]').forEach(b=>b.disabled=e.data.state!=='ready');
     });
     document.addEventListener('click',e=>{

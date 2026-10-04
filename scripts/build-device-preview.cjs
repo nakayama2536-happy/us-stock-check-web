@@ -18,9 +18,31 @@ function build(input,out){
  fs.writeFileSync(path.join(out,'delivery/current.json'),JSON.stringify(m));
  let storage=fs.readFileSync(path.join(out,'storage.js'),'utf8');storage=once(storage,"const CACHE='us-stock-check-delivery-v1';","const CACHE='us-stock-device-delivery-v1';");fs.writeFileSync(path.join(out,'storage.js'),storage);
  let code=fs.readFileSync(path.join(out,'candidate.js'),'utf8');code=once(code,"try{const t=localStorage.getItem('usstock.activeTab');if(tabs.includes(t))selection.tab=t;}catch(_){}","// Device preview does not read or write regular-app preferences.");fs.writeFileSync(path.join(out,'candidate.js'),code);
+
+ let adapter=fs.readFileSync(path.join(out,'preview-adapter.js'),'utf8');
+ adapter=once(adapter,"    let boot=files['candidate/bootstrap.js'];",`    let boot=files['candidate/bootstrap.js'];
+    boot=once(boot,'function currentModel(extra={}){',\`let deviceDeliveryState='loading';
+function renderDeviceState(){
+  USExperience.renderState(currentModel(),document);
+  document.getElementById('appState').textContent=({ready:'参考分析 / 保存データ表示',offline:'保存値 / オフライン',failed:'保存値 / 再取得未確認',loading:'保存値 / 確認中'})[deviceDeliveryState];
+  document.querySelectorAll('[data-us-consult]').forEach(b=>b.disabled=deviceDeliveryState!=='ready');
+}
+function currentModel(extra={}){\`);
+    boot=once(boot,'hasPrevious:!!lastBundle,...extra','hasPrevious:!!lastBundle,...extra,offline:deviceDeliveryState===\\'offline\\',loadFailed:deviceDeliveryState===\\'failed\\',loading:deviceDeliveryState===\\'loading\\'');
+    boot=boot.replaceAll('USExperience.renderState(m,document);','renderDeviceState();').replaceAll('USExperience.renderState(currentModel(),document);','renderDeviceState();').replaceAll('USExperience.renderState(currentModel({loading:true}),document);','renderDeviceState();').replaceAll('USExperience.renderState(currentModel({offline:true}),document)','renderDeviceState()');
+    // Keep the helper delegation intact after replacing call sites.
+    boot=once(boot,'function renderDeviceState(){\\n  renderDeviceState();','function renderDeviceState(){\\n  USExperience.renderState(currentModel(),document);');
+    boot=once(boot,\"$('appState').textContent='参考分析 / '+stateLabel(status.run_state);\",'renderDeviceState();');`);
+ adapter=once(adapter,"      USExperience.renderState(currentModel({loading:e.data.state==='loading',loadFailed:e.data.state==='failed',offline:e.data.state==='offline'}),document);","      if(!['ready','offline','failed','loading'].includes(e.data.state))return;\n      deviceDeliveryState=e.data.state;renderDeviceState();");
+ fs.writeFileSync(path.join(out,'preview-adapter.js'),adapter);
+ code=once(code,"function tell(state){if(current)","function tell(state){document.getElementById('deliverySummary').textContent=({ready:'保存データ表示',offline:'オフライン・保存値／GPT停止',failed:'再取得未確認／GPT停止',loading:'データ確認中／GPT停止'})[state];if(current)");
+ code=once(code,"loading.textContent='候補を起動できません：'+e.message;","tell('failed');loading.textContent='候補を起動できません：'+e.message;");
+ fs.writeFileSync(path.join(out,'candidate.js'),code);
  const manifest=JSON.parse(fs.readFileSync(path.join(input,'manifest.webmanifest')));Object.assign(manifest,{id:SCOPE,start_url:SCOPE,scope:SCOPE,name:'米国株 実機確認版',short_name:'米国確認',description:'通常アプリと独立した実機確認用。売買には使用しません。'});fs.writeFileSync(path.join(out,'manifest.webmanifest'),JSON.stringify(manifest,null,2)+'\n');
- let html=fs.readFileSync(path.join(out,'index.html'),'utf8');html=html.replace('通常データ接続候補・未公開','米国株 実機確認版').replace('同一配信版の公開データで確認します。売買には使用しません。','10/4 23:37 JST生成の確認用データです。自動更新ではありません。売買には使用しません。');
- html=html.replace('</header>','<details><summary>実機確認の手順・状態</summary><p>① Safariで5タブと250本表示を確認<br>② 共有から「ホーム画面に追加」、米国確認を起動<br>③ 通信を切り、閉じて再起動。保存版・GPT停止を確認後、通信を戻す</p><p id="deviceStatus"></p><p>通常アプリの削除・データ消去は不要です。実機の合否は未判定です。</p></details></header>');
+ let html=fs.readFileSync(path.join(out,'index.html'),'utf8');
+ const header='<header><div><b>米国株 実機確認版</b><a href="https://nakayama2536-happy.github.io/us-stock-check-web/" target="_top">通常アプリへ</a></div><p>固定データ・自動更新なし・売買不可</p><p id="deliverySummary" role="status">データ確認中／GPT停止</p><details id="deviceDetails"><summary>詳細・実機確認</summary><p>10/4 23:37 JST生成。株価基準日2026-10-02。</p><button id="deliveryRefresh" type="button">公開データを再読込</button><p id="deliveryState"></p><p>① Safariで5タブと250本表示を確認<br>② 共有から「ホーム画面に追加」、米国確認を起動<br>③ 通信を切り、閉じて再起動。保存版・GPT停止を確認後、通信を戻す</p><p id="deviceStatus"></p><p>通常アプリの削除・データ消去は不要です。実機の合否は別記録です。</p></details></header>';
+ html=html.replace(/<header>[\s\S]*?<\/header>/,header);
+ html=html.replace('</style>','header{max-height:50dvh;overflow-y:auto}header summary{min-height:32px;cursor:pointer}#deliverySummary{font-weight:700}header button{min-height:44px;font:inherit} @media(orientation:landscape) and (max-height:500px){header{padding-top:2px;padding-bottom:2px;font-size:12px;line-height:1.25}header b{font-size:14px}header>div{min-height:26px}header a{min-height:26px;padding:3px 2px}header summary{min-height:26px}header p{margin:0}header details[open]{padding-bottom:8px}}</style>');
  html=html.replace('</body>','<script src="./device-status.js" defer></script></body>');fs.writeFileSync(path.join(out,'index.html'),html);
  fs.writeFileSync(path.join(out,'device-status.js'),`function deviceStatus(){const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;const controller=navigator.serviceWorker?.controller;document.getElementById('deviceStatus').textContent='起動：'+(standalone?'ホーム画面':'ブラウザー')+' ／ 通信：'+(navigator.onLine?'オンライン':'オフライン')+' ／ SW：'+(controller?.scriptURL.includes('${SCOPE}sw.js')?'確認版':'登録待ち（オンラインで再読込）');}deviceStatus();addEventListener('online',deviceStatus);addEventListener('offline',deviceStatus);navigator.serviceWorker?.addEventListener('controllerchange',deviceStatus);\n`);
  fs.writeFileSync(path.join(out,'sw-register.js'),`if(location.pathname.startsWith('${SCOPE}')&&'serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js',{scope:'./',updateViaCache:'none'}).catch(()=>{document.getElementById('deviceStatus').textContent='確認版SWの登録に失敗しました。';}));\n`);
