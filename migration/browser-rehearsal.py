@@ -29,7 +29,11 @@ def main():
             with sync_playwright() as p:
                 browser=p.chromium.launch(executable_path=os.getenv('CHROME_PATH') or shutil.which('google-chrome') or shutil.which('chromium'),headless=True,args=['--no-sandbox'])
                 context=browser.new_context(viewport={'width':390,'height':844});page=context.new_page()
-                page.goto(base+'/');page.evaluate('navigator.serviceWorker.ready')
+                page.on('pageerror',lambda e:print('PAGE ERROR:',e,flush=True))
+                page.on('console',lambda m:print('BROWSER:',m.type,m.text,flush=True) if m.type=='error' else None)
+                print('Opening baseline',flush=True)
+                page.goto(base+'/');page.evaluate("Promise.race([navigator.serviceWorker.ready,new Promise((_,reject)=>setTimeout(()=>reject(Error('baseline SW ready timeout')),20000))])")
+                print('Baseline worker ready',flush=True)
                 page.reload()
                 page.evaluate('''async()=>{
                     localStorage.setItem('usstock.activeTab','market');
