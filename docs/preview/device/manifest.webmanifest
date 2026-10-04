@@ -1,0 +1,19 @@
+{
+  "name": "米国株 実機確認版",
+  "short_name": "米国確認",
+  "description": "通常アプリと独立した実機確認用。売買には使用しません。",
+  "start_url": "/us-stock-check-web/preview/device/",
+  "scope": "/us-stock-check-web/preview/device/",
+  "display": "standalone",
+  "background_color": "#eef3f8",
+  "theme_color": "#0b2a53",
+  "icons": [
+    {
+      "src": "./icons/us-stock-icon.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "id": "/us-stock-check-web/preview/device/"
+}

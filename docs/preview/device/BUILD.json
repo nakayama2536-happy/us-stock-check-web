@@ -1,0 +1,27 @@
+{
+  "release": "b88f9c8734bc69cd680187331307869295a3d67651ae86e5c062792b306aeba8",
+  "artifact_id": 11306590625,
+  "artifact_sha256": "c372d4b5655f8b53308bd21b74b53c937f486110ca95fc181751ed244513e428",
+  "producer_revision": "e1f8e595099e94e3473be2b1ab8225b4de86c22a",
+  "consumer_revision": "4ec017b323bdc841ef7b8202c52abd89f7cd1dea",
+  "public_base": "55e872d80e20dac280ef56f2ac17ba18b3a90ee6",
+  "scope": "/us-stock-check-web/preview/device/",
+  "sha256": {
+    "assets.json": "5d55048f2affb9dca1a9dae779c141d92d1806fc73e53221b88e12ba29cc791d",
+    "candidate.js": "13192bb272cbc605a1b6a5eeecda818105373c4ce914e74313c0722d15374b47",
+    "delivery/current.json": "1a1abb241611473870960e005b018fdad33ba3e28d486a396a74f99ab3076a12",
+    "delivery/releases/b88f9c8734bc69cd680187331307869295a3d67651ae86e5c062792b306aeba8/common_snapshot.json": "14f0eb45062c385ac2dd70d37ad4de14f3759700c1840c265c667d4fab1c1cd9",
+    "delivery/releases/b88f9c8734bc69cd680187331307869295a3d67651ae86e5c062792b306aeba8/market.json": "b92eac0c6eacbeb87568e365a9b8672d8bacb6f3e7450b59752a5bef4de752cb",
+    "delivery/releases/b88f9c8734bc69cd680187331307869295a3d67651ae86e5c062792b306aeba8/ohlcv-history.json": "3f29efa4b6b964af6c5cbed3e7d8305b47b8b9da5e9d92a11ee181918f9893cc",
+    "delivery/releases/b88f9c8734bc69cd680187331307869295a3d67651ae86e5c062792b306aeba8/status.json": "0a06019481dd284bec56e55b13bd3d4f53defc380df781b183c3cb68d04206d4",
+    "delivery.js": "be405207f0524216026223f1f433a298b9bda6711b98c4580b82bfac18489f30",
+    "device-status.js": "3b898fe3a17c448555f9cb7f6237dd4c703683c3887177b1f67b98b25e9e2ae6",
+    "icons/us-stock-icon.png": "07eab8629467be85452199088598fc58fd6918e77d17ee9fe8bbaf7bb9314fed",
+    "index.html": "d5af0abd84174bc26298719dda2f3ddb90b7a2d23ac3c96f9ffd34c651520c9c",
+    "manifest.webmanifest": "7376bd972d9031dab28aca8a4bb85d7974e452ce1e9fcc3596b21c12d68b597f",
+    "preview-adapter.js": "6fe5f4d08303b3632c5bad9ebd9c0267a5e22a83c7e2901f69f3291aa60491cf",
+    "storage.js": "6a723a039965f0b8306c4ee0a77139fb79cf6752871b80af4750c43e3e1add38",
+    "sw-register.js": "5f33fd46fb1bbdea162193a0a1204d66aa39ee41beb7da75613ea531c6b8d893",
+    "sw.js": "e3cf20eb52fc1b327c163d8ced90a621298be89b93e3ef84f3afc0c8e5d17c5c"
+  }
+}

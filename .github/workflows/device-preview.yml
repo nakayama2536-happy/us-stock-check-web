@@ -1,0 +1,27 @@
+name: Device Preview Isolation
+on:
+  pull_request:
+    branches: [main]
+    paths: ['docs/preview/device/**', 'scripts/build-device-preview.cjs', 'tests/browser_device_preview.py', 'tests/device-preview.test.cjs', '.github/workflows/device-preview.yml']
+permissions:
+  contents: read
+jobs:
+  isolation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - run: node --test tests/device-preview.test.cjs
+      - run: python -m pip install playwright==1.57.0
+      - run: python tests/browser_device_preview.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: device-preview-isolation
+          path: test-output-device/
+          retention-days: 7
