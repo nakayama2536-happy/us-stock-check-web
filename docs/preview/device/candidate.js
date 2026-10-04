@@ -7,7 +7,7 @@
  let assets=null,current=null,allowed=null,cycle=0,selection={tab:'overview',ticker:'PLTR'};
  // Device preview does not read or write regular-app preferences.
  const consult=USPreview.installConsultation(()=>allowed,frame);
- function tell(state){if(current)frame.contentWindow.postMessage({type:'US_DELIVERY_STATE',generation:current._generation,state},'*');}
+ function tell(state){document.getElementById('deliverySummary').textContent=({ready:'保存データ表示',offline:'オフライン・保存値／GPT停止',failed:'再取得未確認／GPT停止',loading:'データ確認中／GPT停止'})[state];if(current)frame.contentWindow.postMessage({type:'US_DELIVERY_STATE',generation:current._generation,state},'*');}
  const runner=USDelivery.controller({
   async read(signal){
    try{return await USDelivery.load('./delivery/',{signal});
@@ -50,5 +50,5 @@
  window.addEventListener('online',refresh);
  try{
   const r=await fetch('./assets.json',{cache:'no-store',credentials:'omit'});if(!r.ok||r.redirected)throw Error('UI資材の取得失敗');assets=await r.json();await refresh();
- }catch(e){loading.textContent='候補を起動できません：'+e.message;button.disabled=true;}
+ }catch(e){tell('failed');loading.textContent='候補を起動できません：'+e.message;button.disabled=true;}
 })();
