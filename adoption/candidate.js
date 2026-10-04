@@ -9,7 +9,10 @@
  const consult=USPreview.installConsultation(()=>allowed,frame);
  function tell(state){if(current)frame.contentWindow.postMessage({type:'US_DELIVERY_STATE',generation:current._generation,state},'*');}
  const runner=USDelivery.controller({
-  read:signal=>USDelivery.load('./delivery/',{signal}),
+  async read(signal){
+   try{return await USDelivery.load('./delivery/',{signal});
+   }catch(error){if(signal.aborted||current)throw error;const saved=await USSavedDelivery.restore();saved.networkError=error.message;return saved;}
+  },
   begin(){cycle++;allowed=null;consult.invalidate();tell('loading');button.disabled=true;status.textContent='配信版を確認中です。前回表示は再確認が終わるまで参考値です。';},
   async commit(bundle){
    const mine=cycle;
@@ -19,15 +22,17 @@
    files['data/chart-history.json']=JSON.stringify({basis_date:bundle.objects['status.json'].us_trade_date,series:{},note:'観測終値履歴は未接続。'});
    files._hashes=Object.fromEntries(await Promise.all(Object.entries(files).map(async([name,text])=>[name,await USPreview.blobHash(new TextEncoder().encode(text))])));
    if(mine!==cycle)return;
+   if(!bundle.restored){try{await USSavedDelivery.save(bundle,()=>mine===cycle);}catch(_){bundle.storageWarning=true;}}
+   if(mine!==cycle)return;
    files._delivery={release:bundle.manifest.release,source_repository:bundle.manifest.source_repository,source_revision:bundle.manifest.source_revision,files:bundle.manifest.files,verified_at:new Date().toISOString(),note:'同一公開版の包装を検証。バックエンド同一実行・市場データ品質の証明ではない。'};
    files._generation=crypto.randomUUID();files._selection={...selection};
    const html=USPreview.makeDocument(files);
    current=files;
    frame.onload=()=>{
     if(mine!==cycle)return;
-    allowed=files;frame.hidden=false;loading.hidden=true;button.disabled=false;tell('ready');
+    allowed=bundle.restored?null:files;frame.hidden=false;loading.hidden=true;button.disabled=false;tell(bundle.restored?(!navigator.onLine?'offline':'failed'):'ready');
     const st=bundle.objects['status.json'];
-    status.textContent='配信版 '+bundle.manifest.release.slice(0,12)+' ／ 株価基準日 '+st.us_trade_date+' ／ 計算 '+st.generated_at_jst+'。取得成功は品質PASSを意味しません。';
+    status.textContent=(bundle.restored?'保存版（再取得未確認・GPT停止） ':'配信版 ')+bundle.manifest.release.slice(0,12)+' ／ 株価基準日 '+st.us_trade_date+' ／ 計算 '+st.generated_at_jst+'。取得成功は品質PASSを意味しません。'+(bundle.storageWarning?' 今回の版を端末へ保存できませんでした。':'');
    };
    frame.srcdoc=html;
   },

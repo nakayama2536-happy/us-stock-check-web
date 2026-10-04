@@ -7,7 +7,7 @@
  const hex=(s,n)=>typeof s==='string'&&new RegExp('^[a-f0-9]{'+n+'}$').test(s);
  const object=o=>o&&typeof o==='object'&&!Array.isArray(o);
  function manifest(m){
-  if(!object(m)||m.schema!=='us-ui-delivery/1'||!hex(m.release,64)||!hex(m.source_revision,40)||m.source_repository!=='nakayama2536-happy/us-stock-check-web'||!object(m.files))throw Error('配信一覧の形式・出典が不正です');
+  if(!object(m)||m.schema!=='us-ui-delivery/1'||!hex(m.release,64)||!hex(m.source_revision,40)||!['nakayama2536-happy/us-stock-check-web','nakayama2536-happy/us-stock-check'].includes(m.source_repository)||!object(m.files))throw Error('配信一覧の形式・出典が不正です');
   if(Object.keys(m).sort().join(',')!=='files,release,schema,source_repository,source_revision')throw Error('配信一覧に未対応の項目があります');
   const names=Object.keys(m.files);
   if(REQUIRED.some(n=>!names.includes(n))||names.some(n=>![...REQUIRED,...OPTIONAL].includes(n)))throw Error('配信ファイルの対象が不正です');
@@ -45,6 +45,10 @@
    objects[name]=parse(bytes);raw[name]=new TextDecoder('utf-8',{fatal:true}).decode(bytes);
   }));
   binding(objects);
+  if(m.source_repository==='nakayama2536-happy/us-stock-check'){
+   const capture=objects['ohlcv-history.json'];
+   if(capture?.capture?.repository!==m.source_repository||capture.capture.code_sha!==m.source_revision||capture.generated_at_jst!==objects['status.json'].generated_at_jst)throw Error('同一計算実行の履歴を確認できません');
+  }
   // Hashes identify one packaged publication; they do not prove data accuracy.
   return {manifest:m,raw,objects};
  }
