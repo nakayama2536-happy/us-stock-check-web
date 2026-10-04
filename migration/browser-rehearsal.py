@@ -50,7 +50,7 @@ def main():
                     await(await caches.open('india1400-rehearsal-sentinel')).put('/other-app-sentinel',new Response('other app'));
                     const db=await new Promise((resolve,reject)=>{const r=indexedDB.open('rehearsal-records',1);r.onupgradeneeded=()=>r.result.createObjectStore('records');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});
                     await new Promise((resolve,reject)=>{const tx=db.transaction('records','readwrite');tx.objectStore('records').put('preserve','sentinel');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});db.close();
-                    for(const f of ['status','market','history','common_snapshot'])await fetch('./data/'+f+'.json?t=100',{cache:'no-store'});
+                    for(const f of ['status','market','history','common_snapshot'])await(await fetch('./data/'+f+'.json?t=100',{cache:'no-store'})).text();
                 }''')
                 print("Baseline records seeded",flush=True)
                 original_data=page.evaluate('''async()=>Object.fromEntries(await Promise.all(['status','market','history','common_snapshot'].map(async f=>[f,await(await fetch('./data/'+f+'.json?t=100',{cache:'no-store'})).text()])))''')
