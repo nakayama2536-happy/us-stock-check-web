@@ -44,7 +44,7 @@ def main():
                     check(ticker+' verified daily graph',frame.locator(f'[data-stock-panel="{ticker}"] [data-history-window]').count()==1)
                 frame.locator('#stockSelector').select_option('PLTR')
                 frame.locator('[data-history-window="PLTR"]').select_option('250')
-                dims=frame.locator('[data-chart-ticker="PLTR"] .usr-chart-scroll').evaluate('(e)=>({h:e.querySelector("svg").getBoundingClientRect().height,end:e.scrollLeft+e.clientWidth>=e.scrollWidth-2})')
+                dims=frame.locator('[data-chart-ticker="PLTR"] .usr-chart-scroll[role=region]').evaluate('(e)=>({h:e.querySelector("svg").getBoundingClientRect().height,end:e.scrollLeft+e.clientWidth>=e.scrollWidth-2})')
                 check('250 bars retain fixed height and latest edge',dims['h']==240 and dims['end'])
                 frame.locator('[data-stock-panel="PLTR"] [data-us-consult="analysis"]').click()
                 expect(page.locator('#consultDialog')).to_be_visible()
