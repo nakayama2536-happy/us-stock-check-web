@@ -115,6 +115,10 @@ def main():
                 check(ticker+' initial 90 candles',frame.locator('[data-stock-panel="'+ticker+'"] .usr-volume').count()==90)
                 selector.select_option('250')
                 check(ticker+' expands to 250 candles',frame.locator('[data-stock-panel="'+ticker+'"] .usr-volume').count()==250)
+                chart=frame.locator('[data-stock-panel="'+ticker+'"] .usr-candles svg')
+                check(ticker+' 250 chart height bounded',chart.bounding_box()['height']<=241)
+                check(ticker+' 250 opens at latest edge',inner.evaluate('''(ticker)=>{const e=document.querySelector('[data-chart-ticker="'+ticker+'"] .usr-chart-scroll');return Math.abs(e.scrollWidth-e.clientWidth-e.scrollLeft)<2}''',ticker))
+                check(ticker+' 250 axis text does not inflate',frame.locator('[data-stock-panel="'+ticker+'"] .usr-candles svg text').first.bounding_box()['height']<20)
                 selector.select_option('90')
             for width,height in [(320,780),(390,844),(844,390)]:
                 page.set_viewport_size({'width':width,'height':height})
