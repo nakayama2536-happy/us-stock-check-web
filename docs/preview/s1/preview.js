@@ -7,10 +7,10 @@
   'use strict';
   const PINS=Object.freeze({
     'data/ohlcv-history.json':'fea1d14b9b1e0d0eaed8127014459f7e30f35ef8',
-    'research.js':'8a90f212698f7e410f3297dbf1828aea9092d5b3',
+    'research.js':'affd5593696f0bc8eb7dbb0ccf80eca802bcfe44',
     'data/chart-history.json':'7e70a4ea1f0d0c389381f559bed8ec0d2265d73d',
     'judgment-cards.js':'37ac475c07cde4a901da18dcebc49391ebc4a23b',
-    'judgment-cards.css':'ce8204eaecdf43a586a8b8c5abb8cce438050c19',
+    'judgment-cards.css':'8be1238f5db55bcf6e45d5f73f5538d23096cc99',
     'candidate/index.html':'5c46ff665ab6aa770ecbbd2e46a1435143c20c10',
     'candidate/experience.js':'2076f0257887d5758b42692187a68833c86d288c',
     'candidate/experience.css':'2b86c215a1d1867e8d0386382aaf0cbf934bb6c4',
