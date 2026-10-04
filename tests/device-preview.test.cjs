@@ -1,6 +1,13 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),vm=require('node:vm');
 const root=path.join(__dirname,'../docs/preview/device'),read=n=>fs.readFileSync(path.join(root,n),'utf8'),sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+test('nested public delivery and embedded UI JSON exclude private record fields',()=>{
+ const denied=new Set(['shares','quantity','position_size','average_cost','cost_basis','purchase_price','account_type','position_id','planned_total_shares','stage_size','completed_stages','max_stages','opened_at','closed_at','brokerage_account','brokerage_account_id','portfolio_id','api_key','apikey','access_token','token','password','secret']);
+ function visit(x){if(Array.isArray(x))return x.forEach(visit);if(x&&typeof x==='object')for(const[k,v]of Object.entries(x)){assert.ok(!denied.has(k.toLowerCase()),'Private field: '+k);visit(v);}}
+ const m=JSON.parse(read('delivery/current.json'));
+ for(const name of Object.keys(m.files))visit(JSON.parse(read('delivery/releases/'+m.release+'/'+name)));
+ for(const[name,text]of Object.entries(JSON.parse(read('assets.json'))))if(name.endsWith('.json'))visit(JSON.parse(text));
+});
 test('all shipped runtime files and delivery bytes are pinned',()=>{
  const b=JSON.parse(read('BUILD.json')),m=JSON.parse(read('delivery/current.json'));
  for(const[n,digest]of Object.entries(b.sha256))assert.equal(sha(fs.readFileSync(path.join(root,n))),digest,n);
