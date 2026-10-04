@@ -37,7 +37,7 @@ def main():
                 expect(frame.locator('#tab-stocks')).to_be_visible()
                 check('five approved tabs and legacy tab preference',frame.locator('[role=tab]').count()==5)
                 check('same-origin access remains absent',page.locator('#previewFrame').get_attribute('sandbox')=='allow-scripts')
-                check('public date displayed',frame.locator('#tradeDate').inner_text()=='2026-10-02')
+                check('public date displayed',frame.locator('#tradeDate').inner_text()=='2026/10/02')
                 for ticker in ['PLTR','LLY','BSY','MSTR','SOXL']:
                     frame.locator('#stockSelector').select_option(ticker)
                     expect(frame.locator(f'[data-stock-panel="{ticker}"] .usr-candles')).to_be_visible()
@@ -56,7 +56,7 @@ def main():
                 page.locator('#deliveryRefresh').evaluate('(b)=>b.click()')
                 expect(page.locator('#consultDialog')).not_to_be_visible()
                 expect(page.locator('#deliveryState')).to_contain_text('更新できません')
-                check('failed hash leaves previous display with blocked transfer',frame.locator('#tradeDate').inner_text()=='2026-10-02' and page.locator('#consultText').input_value()=='')
+                check('failed hash leaves previous display with blocked transfer',frame.locator('#tradeDate').inner_text()=='2026/10/02' and page.locator('#consultText').input_value()=='')
                 expect(frame.locator('[data-stock-panel="PLTR"] [data-us-consult="analysis"]')).to_be_disabled()
                 state['corrupt']=False
                 # New public-data package is a TEST FIXTURE, not a backend publication.
