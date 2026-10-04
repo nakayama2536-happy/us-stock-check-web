@@ -4,6 +4,9 @@ const {candidateWorker}=require('../migration/build-rehearsal.cjs');
 const {once}=require('./adapter.cjs');
 const root=path.resolve(__dirname,'..');
 function install(out){
+ const assetPath=path.join(out,'assets.json'),assets=JSON.parse(fs.readFileSync(assetPath,'utf8'));
+ assets['candidate/index.html']=once(assets['candidate/index.html'],'この候補はService Workerを登録しません。公開・PWA実機受入は別工程です。','この候補は検証用Service Workerで画面を保存します。通常版への採用・PWA実機受入は未完了です。');
+ fs.writeFileSync(assetPath,JSON.stringify(assets));
  let worker=candidateWorker(fs.readFileSync(path.join(root,'docs/sw.js'),'utf8'));
  worker=once(worker,'us-stock-check-v0.9.8-migration-rehearsal1','us-stock-check-v0.9.8-adoption1');
  const start=worker.indexOf('const STATIC=['),end=worker.indexOf('\n];',start)+3;
