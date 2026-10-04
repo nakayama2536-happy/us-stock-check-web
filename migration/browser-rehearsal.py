@@ -20,6 +20,12 @@ def main():
         state={'root':original.parent}
         class Handler(http.server.SimpleHTTPRequestHandler):
             def __init__(self,*args,**kwargs):super().__init__(*args,directory=str(state['root']),**kwargs)
+            def do_GET(self):
+                # Baseline and candidate are built in the same second. Do not let
+                # SimpleHTTPRequestHandler return 304 for different worker bytes.
+                for header in ['If-Modified-Since','If-None-Match']:
+                    if header in self.headers:del self.headers[header]
+                super().do_GET()
             def log_message(self,*args):pass
             def end_headers(self):
                 self.send_header('Cache-Control','no-store');super().end_headers()
