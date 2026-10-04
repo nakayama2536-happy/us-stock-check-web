@@ -1,0 +1,37 @@
+/* Japan-like cards, confined to judgment view. Original source colors/values remain unchanged. */
+.ui-s1 #digest{padding:0;background:transparent;box-shadow:none;border:0}
+.usj-summary,.usj-list{background:#fff;border:1px solid #dbe3ed;border-radius:18px;padding:16px}
+.usj-list{margin-top:14px;padding-bottom:3px}
+.ui-s1 .usj-list h2{font-size:20px;line-height:1.45;margin:0 0 8px}
+.usj-caption{font-size:13px;line-height:1.6;color:#53637d;margin:0 0 4px}
+.usj-source-note{font-size:12px;margin-bottom:8px}
+.ui-s1 .usj-stock{display:block;background:transparent;border:0;border-bottom:1px solid #d7e0eb;padding:20px 0 12px;margin:0;min-height:0;cursor:default}
+.ui-s1 .usj-stock:last-child{border-bottom:0}
+.usj-stock-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:start}
+.usj-company{display:block;text-align:left;border:0;background:transparent;color:#111827;padding:0;min-width:0;min-height:44px;font:inherit;cursor:pointer}
+.usj-company strong{display:block;font-size:20px;font-weight:800;line-height:1.4;overflow-wrap:anywhere}
+.usj-company>span{display:block;font-size:14px;color:#53637d;margin-top:1px}
+.usj-price-group{text-align:right;padding-top:2px;min-width:0}
+.usj-price{display:block;font-size:25px;font-weight:850;line-height:1.35;font-variant-numeric:tabular-nums;white-space:nowrap;color:#111827}
+.usj-change{display:block;font-size:13px;line-height:1.6;font-variant-numeric:tabular-nums}
+.usj-up{color:#a62b2b}.usj-down{color:#1968a6}.usj-flat,.usj-unknown{color:#5d6b80}.usj-number{color:#20334e}
+.usj-state-row{display:flex;justify-content:space-between;align-items:end;gap:8px;margin-top:10px}
+.usj-badge-group{min-width:0}
+.usj-state-caption{display:block;font-size:11px;color:#53637d;margin-bottom:3px}
+.usj-badge{display:inline-block;font-size:21px;font-weight:800;line-height:1.4;border:1.5px solid #245db8;border-radius:9px;padding:5px 10px;color:#2458a2;background:#f8faff}
+.usj-badge-warn{color:#9c4a16;border-color:#ae581e;background:#fffaf5}
+.usj-check{border:0;background:transparent;font:inherit;font-size:12px;font-weight:750;min-height:44px;padding:9px 0 9px 8px;cursor:pointer;white-space:nowrap}
+.usj-check-good{color:#1c6b40}.usj-check-warn{color:#935020}
+.usj-indicators{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:10px}
+.usj-indicator{background:#f6f8fb;border-radius:10px;min-width:0;padding:8px 3px 7px;text-align:center}
+.usj-indicator>div{display:flex;align-items:center;justify-content:center;gap:6px;min-height:27px}
+.usj-indicator span{font-size:12px;color:#53637d;white-space:nowrap}
+.usj-direction svg{display:block}
+.usj-direction{font-size:26px;font-weight:850;line-height:1.1;white-space:nowrap}
+.usj-direction.usj-number{font-size:20px;font-variant-numeric:tabular-nums}
+.usj-indicator small{display:block;font-size:11px;line-height:1.5;color:#53637d;margin-top:2px}
+.usj-links{display:flex;justify-content:space-between;align-items:stretch;gap:7px;margin-top:8px}
+.usj-links button{background:transparent;border:0;color:#225aa8;font:inherit;font-size:13px;font-weight:750;min-height:44px;padding:5px 0;text-align:left;cursor:pointer}
+.usj-links button:last-child{text-align:right}
+@media(min-width:600px){.usj-summary,.usj-list{padding-left:22px;padding-right:22px}.usj-company strong{font-size:23px}.usj-price{font-size:28px}.usj-links button{font-size:15px}}
+@media(max-width:359px){.usj-summary,.usj-list{padding-left:12px;padding-right:12px}.usj-company strong{font-size:18px}.usj-price{font-size:22px}.usj-indicator>div{gap:4px;flex-wrap:wrap}.usj-direction{font-size:24px}.usj-links button{font-size:12px}}
