@@ -38,3 +38,8 @@ test('consultation retains published PEG and dated fundamental provenance',()=>{
  assert.ok(out.includes('"peg_ratio": 1.86'));assert.ok(out.includes('"fundamental_source"'));assert.ok(out.includes('"fundamental_last_updated"'));
  assert.ok(R.chartHtml(market.stocks[0],history).includes('独立照合が未確認'));
 });
+
+test('preview inputs use hash-versioned URLs while keeping integrity rejection',()=>{
+ const loader=fs.readFileSync(path.join(root,'preview.js'),'utf8');
+ assert.ok(loader.includes("path+'?v='+PINS[path]"));assert.ok(loader.includes("await blobHash(bytes)!==PINS[path]"));
+});
