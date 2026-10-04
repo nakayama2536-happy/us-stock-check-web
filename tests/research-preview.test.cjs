@@ -43,3 +43,27 @@ test('preview inputs use hash-versioned URLs while keeping integrity rejection',
  const loader=fs.readFileSync(path.join(root,'preview.js'),'utf8');
  assert.ok(loader.includes("path+'?v='+PINS[path]"));assert.ok(loader.includes("await blobHash(bytes)!==PINS[path]"));
 });
+
+test('summary is bounded and full evidence is retained for every supported request',()=>{
+ for(const kind of ['analysis','diagnostic'])for(const ticker of kind==='analysis'?market.stocks.map(s=>s.ticker):['ALL',...market.stocks.map(s=>s.ticker)]){
+  const p=P.consultationPackage(files,kind,ticker);
+  assert.ok(p.summary.length<=8000);assert.ok(p.parts.every(x=>x.length<=8000));
+  assert.equal(p.full,P.consultationText(files,kind,ticker));
+  assert.equal(p.parts.map(x=>x.slice(x.indexOf('\n')+1)).join(''),p.full);
+  assert.ok(p.summary.includes('未収録'));assert.ok(p.summary.includes('全文が未提供'));
+  assert.ok(p.filename.endsWith(ticker+'_2026-10-02.txt'));
+ }
+});
+test('split copies preserve non-BMP characters and exact full content',()=>{
+ const full='a'.repeat(7399)+'😀'+'日本語'.repeat(6000);
+ const parts=P.splitConsultation(full),texts=parts.map(x=>x.slice(x.indexOf('\n')+1));
+ assert.ok(parts.every(x=>x.length<=8000));assert.equal(texts.join(''),full);
+ assert.ok(texts.every(x=>!/[\uD800-\uDBFF]$/.test(x)&&! /^[\uDC00-\uDFFF]/.test(x)));
+});
+test('long source strings cannot overflow summary or silently truncate full evidence',()=>{
+ const m=structuredClone(market),s=JSON.parse(files['data/status.json']);
+ s.warnings=Array(200).fill('長い根拠'.repeat(1000));m.stocks[0].trend='状態'.repeat(9000);
+ const p=P.consultationPackage({...files,'data/market.json':JSON.stringify(m),'data/status.json':JSON.stringify(s)},'diagnostic','ALL');
+ assert.ok(p.summary.length<=8000);assert.ok(p.summary.includes('全文を参照'));assert.ok(p.full.includes(m.stocks[0].trend));
+ assert.equal(p.parts.map(x=>x.slice(x.indexOf('\n')+1)).join(''),p.full);
+});

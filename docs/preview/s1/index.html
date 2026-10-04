@@ -12,13 +12,19 @@
 body{height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden;padding-bottom:env(safe-area-inset-bottom)}
 header{flex:none;padding:calc(7px + env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) 7px max(12px,env(safe-area-inset-left));background:#fff5d9;border-bottom:1px solid #cfb979;font-size:13px;line-height:1.4}
 header>div{display:flex;justify-content:space-between;align-items:center;gap:8px}header b{font-size:16px}header a{color:#174d87;min-height:32px;padding:5px 2px}header p{margin:2px 0 0}#loading{font-size:16px;padding:18px;margin:0}iframe{display:block;flex:1;min-height:0;width:100%;border:0;background:#eef3f8}[hidden]{display:none!important}
-dialog{width:min(680px,94vw);max-height:88dvh;overflow:auto;border:1px solid #9bb0c8;border-radius:16px;padding:18px}dialog::backdrop{background:#10233f88}dialog h2{font-size:20px}dialog textarea{display:block;width:100%;min-height:230px;font-size:14px;line-height:1.5}dialog button,dialog a{display:inline-block;min-height:44px;padding:12px;margin:8px 4px 8px 0;font-size:15px}dialog p{font-size:14px;line-height:1.6}</style>
+dialog{width:min(680px,94vw);max-height:88dvh;overflow:auto;border:1px solid #9bb0c8;border-radius:16px;padding:18px}dialog::backdrop{background:#10233f88}dialog h2{font-size:20px}dialog textarea{display:block;width:100%;min-height:230px;font-size:14px;line-height:1.5}dialog button,dialog a{display:inline-block;min-height:44px;padding:12px;margin:8px 4px 8px 0;font-size:15px}dialog select{display:block;width:100%;min-height:44px;font-size:16px;margin:8px 0}dialog button{max-width:100%;white-space:normal}dialog p{font-size:14px;line-height:1.6}</style>
 </head>
 <body>
 <header><div><b>UI確認専用</b><a href="../../" target="_top">通常アプリへ</a></div><p>固定データで表示・操作を確認します。売買には使用しません。</p></header>
 <p id="loading" role="status">確認用画面を読み込んでいます。</p>
 <iframe id="previewFrame" title="米国株5画面のUI確認版" sandbox="allow-scripts" referrerpolicy="no-referrer" hidden></iframe>
-<dialog id="consultDialog" aria-labelledby="consultTitle"><button id="consultClose" type="button">閉じる</button><h2 id="consultTitle"></h2><p>表示用の固定公開データを渡します。日本版のFULL履歴機能とはデータ範囲が異なります。</p><label for="consultText">相談文（内容を確認・手動コピーできます）</label><textarea id="consultText" readonly></textarea><button id="consultCopy" type="button">① 相談文をコピー</button><a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">② ChatGPTを開く</a><p id="consultStatus" role="status" aria-live="polite"></p><p>貼り付けて送信してください。自動送信はしません。</p></dialog>
+<dialog id="consultDialog" aria-labelledby="consultTitle"><button id="consultClose" type="button">閉じる</button><h2 id="consultTitle"></h2>
+<p>① 要点をコピー → ② 全文を保存 → ③ ChatGPTへ貼り付け・添付してください。添付できない場合は分割コピーを使えます。</p>
+<details><summary>収録範囲と不足しているデータ</summary><p>収録：固定公開データの指標・一部財務・観測終値・取得元・入力ハッシュ。未収録：連続OHLCV、完全な計算履歴、共通snapshot全文、内部ログ、計算コード、個人記録。「全文」は相談用に収録した範囲の全文です。</p></details>
+<label for="consultView">コピーする内容</label><select id="consultView"></select><p id="consultCount"></p>
+<label for="consultText">内容確認・手動コピー</label><textarea id="consultText" readonly></textarea>
+<button id="consultCopy" type="button">表示内容をコピー（8,000文字以内）</button><button id="consultSave" type="button">相談データ全文を保存</button>
+<a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">ChatGPTを開く</a><p id="consultStatus" role="status" aria-live="polite"></p><p>固定データです。自動送信・自動添付はしません。</p></dialog>
 <noscript>JavaScriptを有効にしてSafariで開いてください。</noscript>
-<script src="./preview.js?v=jp-cards-2-evidence-1" defer></script>
+<script src="./preview.js?v=jp-cards-3-transfer-1" defer></script>
 </body></html>
