@@ -1,12 +1,13 @@
 """Disposable old->candidate->old worker rehearsal; no deployment and no device PASS."""
 from pathlib import Path
-import http.server, threading, tempfile, subprocess, shutil, json, os
+import http.server, threading, tempfile, subprocess, shutil, json, os, signal
 from playwright.sync_api import sync_playwright
 
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'test-output-migration'
 
 def main():
+    signal.alarm(90)
     OUT.mkdir(exist_ok=True)
     checks=[]
     def check(name,ok):
@@ -44,6 +45,7 @@ def main():
                     await new Promise((resolve,reject)=>{const tx=db.transaction('records','readwrite');tx.objectStore('records').put('preserve','sentinel');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)});db.close();
                     for(const f of ['status','market','history','common_snapshot'])await fetch('./data/'+f+'.json?t=100',{cache:'no-store'});
                 }''')
+                print("Baseline records seeded",flush=True)
                 original_data=page.evaluate('''async()=>Object.fromEntries(await Promise.all(['status','market','history','common_snapshot'].map(async f=>[f,await(await fetch('./data/'+f+'.json?t=100',{cache:'no-store'})).text()])))''')
                 state['root']=candidate.parent
                 update='''async()=>{const r=await navigator.serviceWorker.getRegistration();const changed=new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('controller update timeout')),20000);navigator.serviceWorker.addEventListener('controllerchange',()=>{clearTimeout(timer);resolve()},{once:true})});await r.update();await changed;}'''
