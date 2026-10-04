@@ -166,8 +166,11 @@
       if(!dialog.open)dialog.showModal();
     });
     select.onchange=()=>{revision++;render();};
-    document.getElementById('consultClose').onclick=()=>dialog.close();
-    dialog.addEventListener('close',()=>{revision++;pack=null;body.value='';select.replaceChildren();note.textContent='';document.getElementById('consultCount').textContent='';frame.focus();});
+    function clearConsultation(){revision++;pack=null;body.value='';select.replaceChildren();note.textContent='';document.getElementById('consultCount').textContent='';frame.focus();}
+    function closeConsultation(){dialog.close();clearConsultation();}
+    document.getElementById('consultClose').onclick=closeConsultation;
+    dialog.addEventListener('cancel',event=>{event.preventDefault();closeConsultation();});
+    dialog.addEventListener('close',()=>{if(!dialog.open)clearConsultation();});
     copy.onclick=async()=>{
       if(!pack||body.value.length>COPY_LIMIT)return;
       const current=revision,text=body.value;
