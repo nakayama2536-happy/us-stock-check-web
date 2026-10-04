@@ -17,12 +17,13 @@
   function chartHtml(stock,history){
     const rows=rowsFor(stock,history),title=esc(stock.ticker)+' 保存終値の推移（USD）';
     if(rows.length<2)return '<section class="usr-chart"><h3>'+title+'</h3><p>履歴不足または表示データと不一致のため、グラフは表示できません。</p></section>';
+    const pending=rows.filter(r=>typeof r.shadow_close_diff_usd!=='number'||!r.shadow_source||r.shadow_source==='Independent close pending').length;
     const lo=Math.min(...rows.map(r=>r.close)),hi=Math.max(...rows.map(r=>r.close)),pad=Math.max((hi-lo)*.12,lo*.005),min=lo-pad,max=hi+pad;
     const start=Date.parse(rows[0].date),end=Date.parse(rows.at(-1).date);
     const xy=r=>[60+(Date.parse(r.date)-start)/(end-start)*550,18+(max-r.close)/(max-min)*145];
     const dots=rows.map(r=>{const [x,y]=xy(r);return '<circle cx="'+x.toFixed(2)+'" cy="'+y.toFixed(2)+'" r="4"><title>'+esc(r.date)+' $'+r.close.toFixed(2)+'</title></circle>';}).join('');
     const grid=[min,(min+max)/2,max].map(v=>{const y=18+(max-v)/(max-min)*145;return '<line x1="60" x2="610" y1="'+y+'" y2="'+y+'"/><text x="54" y="'+(y+4)+'" text-anchor="end">'+v.toFixed(2)+'</text>';}).join('');
-    return '<section class="usr-chart"><h3>'+title+'</h3><p>'+rows[0].date+' ～ '+rows.at(-1).date+' ／ '+rows.length+'観測</p><svg viewBox="0 0 640 198" role="img" aria-label="'+title+' '+rows.length+'観測"><g class="usr-grid">'+grid+'</g><g class="usr-dots">'+dots+'</g><text x="60" y="190">'+rows[0].date+'</text><text x="610" y="190" text-anchor="end">'+rows.at(-1).date+'</text></svg><p class="usr-note">公開済みの保存終値を点で表示。未保存日は補間しません。完全な日足履歴・調整後株価ではありません。</p><details><summary>日付・終値を表で確認</summary><table><thead><tr><th>取引日</th><th>終値（USD）</th></tr></thead><tbody>'+rows.map(r=>'<tr><td>'+r.date+'</td><td>'+r.close.toFixed(2)+'</td></tr>').join('')+'</tbody></table></details></section>';
+    return '<section class="usr-chart"><h3>'+title+'</h3><p>'+rows[0].date+' ～ '+rows.at(-1).date+' ／ '+rows.length+'観測</p><svg viewBox="0 0 640 198" role="img" aria-label="'+title+' '+rows.length+'観測"><g class="usr-grid">'+grid+'</g><g class="usr-dots">'+dots+'</g><text x="60" y="190">'+rows[0].date+'</text><text x="610" y="190" text-anchor="end">'+rows.at(-1).date+'</text></svg><p class="usr-note">公開済みの保存終値を点で表示。未保存日は補間しません。完全な日足履歴・調整後株価ではありません。'+(pending?' 保存時の独立照合が未確認の点：'+pending+'件。':'')+'</p><details><summary>日付・終値を表で確認</summary><table><thead><tr><th>取引日</th><th>終値（USD）</th></tr></thead><tbody>'+rows.map(r=>'<tr><td>'+r.date+'</td><td>'+r.close.toFixed(2)+'</td></tr>').join('')+'</tbody></table></details></section>';
   }
   function install(w){
     const old=w.stockCard;

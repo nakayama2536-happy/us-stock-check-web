@@ -32,3 +32,9 @@ test('diagnostics keep five target identities and disclose duplicate missing dat
 test('periods describe implemented calculation windows not return horizons',()=>{
  const src=files['judgment-cards.js'];assert.ok(src.includes('12・26営業日'));assert.ok(src.includes('50・200営業日'));assert.ok(src.includes('シグナル9営業日'));assert.ok(src.includes('予測先ではありません'));
 });
+
+test('consultation retains published PEG and dated fundamental provenance',()=>{
+ const out=P.consultationText(files,'analysis','PLTR');
+ assert.ok(out.includes('"peg_ratio": 1.86'));assert.ok(out.includes('"fundamental_source"'));assert.ok(out.includes('"fundamental_last_updated"'));
+ assert.ok(R.chartHtml(market.stocks[0],history).includes('独立照合が未確認'));
+});
