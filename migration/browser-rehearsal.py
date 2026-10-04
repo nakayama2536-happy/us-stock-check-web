@@ -25,6 +25,7 @@ def main():
                 # SimpleHTTPRequestHandler return 304 for different worker bytes.
                 for header in ['If-Modified-Since','If-None-Match']:
                     if header in self.headers:del self.headers[header]
+                if 'sw.js' in self.path:print('SERVE WORKER:',self.directory,self.path,flush=True)
                 super().do_GET()
             def log_message(self,*args):pass
             def end_headers(self):
@@ -37,7 +38,7 @@ def main():
                 browser=p.chromium.launch(executable_path=os.getenv('CHROME_PATH') or shutil.which('google-chrome') or shutil.which('chromium'),headless=True,args=['--no-sandbox'])
                 context=browser.new_context(viewport={'width':390,'height':844});page=context.new_page()
                 page.on('pageerror',lambda e:print('PAGE ERROR:',e,flush=True))
-                page.on('console',lambda m:print('BROWSER:',m.type,m.text,flush=True) if m.type=='error' else None)
+                page.on('console',lambda m:print('BROWSER:',m.type,m.text,flush=True) if m.type in ['error','log'] else None)
                 print('Opening baseline',flush=True)
                 page.goto(base+'/');page.evaluate("Promise.race([navigator.serviceWorker.ready,new Promise((_,reject)=>setTimeout(()=>reject(Error('baseline SW ready timeout')),20000))])")
                 print('Baseline worker ready',flush=True)
@@ -54,7 +55,7 @@ def main():
                 print("Baseline records seeded",flush=True)
                 original_data=page.evaluate('''async()=>Object.fromEntries(await Promise.all(['status','market','history','common_snapshot'].map(async f=>[f,await(await fetch('./data/'+f+'.json?t=100',{cache:'no-store'})).text()])))''')
                 state['root']=candidate.parent
-                update='''async()=>{const r=await navigator.serviceWorker.getRegistration();const changed=new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('controller update timeout')),90000);navigator.serviceWorker.addEventListener('controllerchange',()=>{clearTimeout(timer);resolve()},{once:true})});await Promise.all([r.update(),changed]);}'''
+                update='''async()=>{const r=await navigator.serviceWorker.getRegistration();r.addEventListener('updatefound',()=>{const w=r.installing;console.log('WORKER updatefound');w.addEventListener('statechange',()=>console.log('WORKER state',w.state))});const changed=new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('controller update timeout')),90000);navigator.serviceWorker.addEventListener('controllerchange',()=>{clearTimeout(timer);resolve()},{once:true})});await Promise.all([r.update().then(()=>console.log('WORKER update resolved',r.installing?.state,r.waiting?.state,r.active?.state)),changed]);}'''
                 page.evaluate(update)
                 check('candidate worker activates at unchanged scope',page.evaluate('navigator.serviceWorker.controller!==null'))
                 check('legacy US cache retired only after copy',page.evaluate("caches.keys().then(k=>!k.includes('us-stock-check-v0.9.8-cache1')&&k.includes('us-stock-check-v0.9.8-migration-rehearsal1'))"))
