@@ -83,7 +83,7 @@ test('both row links describe implemented detail views, not unimplemented AI exp
 });
 test('assembled preview includes facade with no external loader or SW inside sandbox',()=>{
   const files=Object.fromEntries(Object.keys(P.PINS).map(k=>[k,fs.readFileSync(path.join(root,k),'utf8')]));
-  const html=P.makeDocument(files);assert.ok(html.includes('jp-cards.2'));assert.ok(html.includes("connect-src 'none'"));
+  const html=P.makeDocument(files);assert.ok(html.includes('jp-cards.3'));assert.ok(html.includes("connect-src 'none'"));
   assert.ok(!/\bfetch\s*\(|serviceWorker\.register|allow-same-origin/.test(html));
   const scripts=[...html.matchAll(/<script>([\s\S]*?)<\/script>/g)];assert.equal(scripts.length,1);new vm.Script(scripts[0][1]);
 });

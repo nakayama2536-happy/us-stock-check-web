@@ -40,3 +40,26 @@ UI preview publication remains separate from regular PWA adoption. The user's re
 - Analysis and diagnostic buttons request an outer dialog through a strict message contract: expected iframe window, opaque origin, exact three keys, enum kind/ticker. No `allow-same-origin` is added. Outer dialog constructs allowlisted evidence only from hash-verified inputs; it never trusts message-supplied prompt text.
 - Copy requires a separate user click. Clipboard failure offers selectable read-only text. ChatGPT opens without query parameters or attached data. No automatic transmission, storage, orders, or workflow dispatch. Japan FULL bundle parity is not claimed.
 - Existing normal UI, worker, Core, trading conditions and private records remain out of scope. Device acceptance and regular-PWA adoption are pending.
+
+## 2026-10-04 — bounded consultation transfer (jp-cards.3)
+
+Why necessary: calculation windows must not look like forecast horizons, and long diagnostics must remain usable without losing evidence.
+Why insufficient: the previous ALL diagnostic exceeded 22,000 characters and only offered whole-text copy.
+Why minimal: change only the preview presentation and outer consultation dialog. Preserve Core, thresholds, root UI/SW, all fixed JSON and chart inputs.
+
+- Labels explicitly say 判定期間. Existing MACD/MA windows and state calculations are unchanged.
+- Default view is an explicit summary of at most 8,000 UTF-16 code units. Counts and limits use this conservative browser string length (emoji can count as two).
+- Save exports the exact allowlisted consultation text as UTF-8. It is NOT all repository data or a FULL-contract adoption. The UI lists included and omitted evidence.
+- Split copy includes sequence headers and keeps each part below 8,000 code units; removing each first-line header and concatenating reconstructs the exact full text. Surrogate pairs are not split.
+- Whole-text copy is disabled above the limit. Clipboard failure keeps manual selection available. No automatic transmission/attachment. Close clears the dialog; reopening builds a fresh subject-specific package.
+- PINS updated for changed judgment source; loader entry version advanced to avoid stale outer assets.
+- Verification: 89 Node tests; browser CI checks summary/full/split, exact downloaded content, subject reset, small-screen layout and existing sandbox/storage/SW contracts. Real iPhone/Safari acceptance remains pending.
+
+### History investigation and next data-stage boundary
+
+Private main b4df5e5810a619b6c9be22d7c595b86f9ce4b5d2 was read directly:
+- sources/yahoo.py fetches daily OHLCV, auto_adjust=False; run.py requests 5y and uses those rows for technical calculations with target-date handling and primary-source fallback.
+- Those per-security OHLCV rows are not currently persisted as a dedicated chart dataset. data/shadow/history.json contains operational run records, not security prices.
+- Therefore a 90/250-session chart cannot be obtained merely by changing preview labels or treating the run history as prices. No replacement data was invented or independently mixed into the fixed snapshot.
+- Next separate data change: retain selected OHLCV rows from the same calculation run; export an explicit public allowlist (ticker/date/OHLCV/source/adjustment basis); validate date uniqueness/order, finite positive prices, OHLC bounds, volume, target-date alignment and latest close reconciliation. Pin a reviewed frozen copy in this preview before rendering candles/volume. Declare mixed-source and adjustment limits; do not claim full indicator reproducibility from a short export.
+- Existing frozen snapshots and regular public pipeline remain unchanged by this UI PR.

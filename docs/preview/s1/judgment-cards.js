@@ -12,7 +12,7 @@
   }
 })(typeof globalThis==='undefined'?this:globalThis,function(base){
   'use strict';
-  const VERSION='jp-cards.2';
+  const VERSION='jp-cards.3';
   // Display aliases only. The ticker and original company name stay visible/accessible.
   const NAMES=Object.freeze({PLTR:'パランティア',LLY:'イーライリリー',BSY:'ベントレー・システムズ',MSTR:'ストラテジー',SOXL:'半導体ブル3倍ETF'});
   const esc=base.esc,finite=base.finite;
@@ -56,8 +56,8 @@
       price:money(stock.close),change:pct(stock.change_pct),changeTone:finite(stock.change_pct)>0?'up':finite(stock.change_pct)<0?'down':'flat',
       badge:valid?short:'データ要確認',badgeTone:valid&&short!=='未確認'?'reference':'warn',check,
       cells:[
-        {label:'短期：12・26営業日',value:direction(short)[0],tone:direction(short)[1],detail:short},
-        {label:'中長期：50・200営業日',value:direction(mid)[0],tone:direction(mid)[1],detail:mid},
+        {label:'短期の判定期間：12・26営業日',value:direction(short)[0],tone:direction(short)[1],detail:short},
+        {label:'中長期の判定期間：50・200営業日',value:direction(mid)[0],tone:direction(mid)[1],detail:mid},
         {label:'RSI14',value:rsi!==null&&rsi>=0&&rsi<=100?rsi.toFixed(1):'—',tone:'number',detail:heat}
       ]};
   }
