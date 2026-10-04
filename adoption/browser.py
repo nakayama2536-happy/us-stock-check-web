@@ -1,6 +1,6 @@
 """Browser checks for the unpublished candidate; all changed records are test fixtures."""
 from pathlib import Path
-import http.server,threading,tempfile,subprocess,shutil,json,os,signal
+import http.server,threading,tempfile,subprocess,shutil,json,os,signal,re
 from playwright.sync_api import sync_playwright,expect
 ROOT=Path(__file__).resolve().parents[1]
 REVISION='55e872d80e20dac280ef56f2ac17ba18b3a90ee6'
@@ -32,7 +32,7 @@ def main():
                 context.add_init_script("if(window===window.top){localStorage.setItem('usstock.activeTab','stocks');localStorage.setItem('user-record-sentinel','preserve');}")
                 page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
                 page.goto(f'http://127.0.0.1:{server.server_port}/us-stock-check-web/')
-                expect(page.locator('#deliveryState')).to_contain_text('配信版 ')
+                expect(page.locator('#deliveryState')).to_contain_text(re.compile(r'配信版 [0-9a-f]{12}'))
                 frame=page.frame_locator('#previewFrame')
                 expect(frame.locator('#tab-stocks')).to_be_visible()
                 check('five approved tabs and legacy tab preference',frame.locator('[role=tab]').count()==5)
@@ -77,7 +77,7 @@ def main():
                 expect(page.locator('#consultDialog')).to_be_visible()
                 context.set_offline(True);expect(page.locator('#deliveryState')).to_contain_text('オフライン');expect(page.locator('#consultDialog')).not_to_be_visible()
                 check('offline closes and clears consultation',page.locator('#consultText').input_value()=='')
-                context.set_offline(False);expect(page.locator('#deliveryState')).to_contain_text('配信版 ')
+                context.set_offline(False);expect(page.locator('#deliveryState')).to_contain_text(re.compile(r'配信版 [0-9a-f]{12}'))
                 check('reconnection revalidates package',not page.locator('#deliveryRefresh').is_disabled())
                 check('personal record sentinel unchanged',page.evaluate("localStorage.getItem('user-record-sentinel')")=='preserve')
                 check('candidate registers no SW',page.evaluate('navigator.serviceWorker.getRegistrations().then(r=>r.length)')==0)
