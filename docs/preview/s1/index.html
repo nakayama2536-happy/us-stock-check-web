@@ -20,11 +20,11 @@ dialog{width:min(680px,94vw);max-height:88dvh;overflow:auto;border:1px solid #9b
 <iframe id="previewFrame" title="米国株5画面のUI確認版" sandbox="allow-scripts" referrerpolicy="no-referrer" hidden></iframe>
 <dialog id="consultDialog" aria-labelledby="consultTitle"><button id="consultClose" type="button">閉じる</button><h2 id="consultTitle"></h2>
 <p>① 要点をコピー → ② 全文を保存 → ③ ChatGPTへ貼り付け・添付してください。添付できない場合は分割コピーを使えます。</p>
-<details><summary>収録範囲と不足しているデータ</summary><p>収録：固定公開データの指標・一部財務・観測終値・取得元・入力ハッシュ。未収録：連続OHLCV、完全な計算履歴、共通snapshot全文、内部ログ、計算コード、個人記録。「全文」は相談用に収録した範囲の全文です。</p></details>
+<details><summary>収録範囲と不足しているデータ</summary><p>収録：固定公開データの指標・一部財務・観測終値・一致検証済みOHLCV（最大250本）・取得元・入力ハッシュ。未収録：完全な計算履歴、共通snapshot全文、内部ログ、計算コード、個人記録。「全文」は相談用に収録した範囲の全文です。</p></details>
 <label for="consultView">コピーする内容</label><select id="consultView"></select><p id="consultCount"></p>
 <label for="consultText">内容確認・手動コピー</label><textarea id="consultText" readonly></textarea>
 <button id="consultCopy" type="button">表示内容をコピー（8,000文字以内）</button><button id="consultSave" type="button">相談データ全文を保存</button>
 <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">ChatGPTを開く</a><p id="consultStatus" role="status" aria-live="polite"></p><p>固定データです。自動送信・自動添付はしません。</p></dialog>
 <noscript>JavaScriptを有効にしてSafariで開いてください。</noscript>
-<script src="./preview.js?v=jp-cards-3-transfer-1" defer></script>
+<script src="./preview.js?v=jp-cards-4-history-1" defer></script>
 </body></html>

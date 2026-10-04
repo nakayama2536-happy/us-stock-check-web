@@ -110,7 +110,12 @@ def main():
             frame.locator('#tabbtn-stocks').click()
             for ticker in ['PLTR','LLY','BSY','MSTR','SOXL']:
                 frame.locator('#stockSelector').select_option(ticker)
-                check(ticker+' has saved-close chart',frame.locator('[data-stock-panel="'+ticker+'"] .usr-chart svg').is_visible())
+                check(ticker+' has validated candle and volume chart',frame.locator('[data-stock-panel="'+ticker+'"] .usr-candles svg').is_visible())
+                selector=frame.locator('[data-history-window="'+ticker+'"]')
+                check(ticker+' initial 90 candles',frame.locator('[data-stock-panel="'+ticker+'"] .usr-volume').count()==90)
+                selector.select_option('250')
+                check(ticker+' expands to 250 candles',frame.locator('[data-stock-panel="'+ticker+'"] .usr-volume').count()==250)
+                selector.select_option('90')
             for width,height in [(320,780),(390,844),(844,390)]:
                 page.set_viewport_size({'width':width,'height':height})
                 check(str(width)+' chart no overflow',inner.evaluate('document.documentElement.scrollWidth<=innerWidth+1'))
@@ -120,6 +125,8 @@ def main():
                 check(str(width)+' new consultation resets to selected security',page.locator('#consultView').input_value()=='summary' and 'SOXL' in page.locator('#consultText').input_value() and 'PLTR' not in page.locator('#consultText').input_value())
                 page.locator('#consultClose').click()
             page.set_viewport_size({'width':390,'height':844})
+            frame.locator('[data-stock-panel="SOXL"] .usr-candles').scroll_into_view_if_needed()
+            page.screenshot(path=str(OUT/'us-preview-ohlcv.png'))
             frame.locator('#tabbtn-manage').click()
             requests=[];page.on('request',lambda r:requests.append(r.url))
             frame.locator('#refreshButton').click()
@@ -136,7 +143,7 @@ def main():
             page.wait_for_timeout(250);page.screenshot(path=str(OUT/'us-preview-judgment-jp.png'))
             frame.locator('#tabbtn-quality').click();page.wait_for_timeout(250);page.screenshot(path=str(OUT/'us-preview-quality.png'))
             check('no script errors',not errors)
-            (OUT/'ui-preview-report.json').write_text(json.dumps({'passed':len(checks),'checks':checks,'device_pass':False,'kind':'sandboxed static preview / Chromium / jp-cards.3'},ensure_ascii=False,indent=2)+'\n')
+            (OUT/'ui-preview-report.json').write_text(json.dumps({'passed':len(checks),'checks':checks,'device_pass':False,'kind':'sandboxed static preview / Chromium / jp-cards.4'},ensure_ascii=False,indent=2)+'\n')
             browser.close()
     finally:server.shutdown()
 

@@ -12,7 +12,7 @@
   }
 })(typeof globalThis==='undefined'?this:globalThis,function(base){
   'use strict';
-  const VERSION='jp-cards.3';
+  const VERSION='jp-cards.4';
   // Display aliases only. The ticker and original company name stay visible/accessible.
   const NAMES=Object.freeze({PLTR:'パランティア',LLY:'イーライリリー',BSY:'ベントレー・システムズ',MSTR:'ストラテジー',SOXL:'半導体ブル3倍ETF'});
   const esc=base.esc,finite=base.finite;

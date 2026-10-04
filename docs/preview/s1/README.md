@@ -10,7 +10,7 @@ Why three: a tested ZIP is not a usable iPhone review route; full adoption is st
 - Reference panels preserve existing prices and analysis. These are frozen UI input, not current quotes.
 - Every preview source is pinned to its Git blob hash; loading fails on mismatch. This is not adoption of the FULL deep-dive contract.
 - Inner page runs in `sandbox=allow-scripts` WITHOUT same-origin privilege. No storage, cache, worker, or parent-page access. CSP blocks network in the inner page.
-- The outer loader fetches only thirteen allowlisted files from this preview directory. The existing production worker may serve/cache this outer document normally; the preview neither replaces nor unregisters that worker.
+- The outer loader fetches only fourteen allowlisted files from this preview directory. The existing production worker may serve/cache this outer document normally; the preview neither replaces nor unregisters that worker.
 - Fixed-data redisplay never fetches market data or runs GitHub workflows.
 - Preview does not install a PWA, change normal-app preferences, or place orders.
 - A UI-review URL is not runtime adoption, Production promotion, or iPhone DEVICE_PASS.
@@ -63,3 +63,21 @@ Private main b4df5e5810a619b6c9be22d7c595b86f9ce4b5d2 was read directly:
 - Therefore a 90/250-session chart cannot be obtained merely by changing preview labels or treating the run history as prices. No replacement data was invented or independently mixed into the fixed snapshot.
 - Next separate data change: retain selected OHLCV rows from the same calculation run; export an explicit public allowlist (ticker/date/OHLCV/source/adjustment basis); validate date uniqueness/order, finite positive prices, OHLC bounds, volume, target-date alignment and latest close reconciliation. Pin a reviewed frozen copy in this preview before rendering candles/volume. Declare mixed-source and adjustment limits; do not claim full indicator reproducibility from a short export.
 - Existing frozen snapshots and regular public pipeline remain unchanged by this UI PR.
+
+## 2026-10-04 — validated 250-row candle/volume evidence (jp-cards.4)
+
+Why necessary: detailed charts and GPT research require OHLCV rather than 6–10 isolated closing observations.
+Why insufficient: the normal pipeline did not persist its selected calculation histories.
+Why minimal: Private PR #42 added opt-in capture only. A separate read-only Actions run produced the artifact; the normal Shadow workflow and original fixed JSON remain unchanged. This preview receives a reviewed static copy and does not auto-update it.
+
+- Capture run: https://github.com/nakayama2536-happy/us-stock-check/actions/runs/37204524814
+- Capture code: b7a2c6d2c30719042c4779f99023175f608614d8; merged Private main: 945caf689ad2175855ca09149155c7133d125a38.
+- Artifact 11303618575 ZIP SHA-256: 4edeb65c6365fbdaffc2d4715303c236e82cf7f168549f614cc5440c18e3e73c.
+- JSON SHA-256: 9759a0e3d7b619599cdf4382bb77932fec0655f0372fea0f67ec0e5de9050800.
+- Captured 2026-10-04 22:08:24 JST, separate from the original fixed snapshot generation. All five securities have 250 rows (2025-10-06–2026-10-02), with latest date, rounded displayed close, MA50, MA200, MACD, signal and RSI matching the frozen screen exactly. Capture also verified these indicators against the complete selected calculation history.
+- Display defaults to 90 candles, switchable to 250; volume is below. Red means close >= open, blue means close < open. Touch horizontal scrolling and a numeric table are available. No prices are interpolated or recomputed into original JSON.
+- Browser binding rejects invalid/order/duplicate/weekend/future dates, OHLC bounds, volume, unknown source, run provenance and snapshot mismatches; rejected long history is excluded from GPT too, with old observation dots retained as a disclosed fallback.
+- GPT full text includes all 250 validated rows per selected security, source/run/digest and limits. Summary reports included counts/dates; save/split operations preserve all evidence. Full multi-security diagnostics are large: attaching the saved text is preferred.
+- Yahoo auto_adjust=False / provider values are not a claim of fully adjusted prices. Historical independent OHLCV crosschecks, corporate-action adjustment equivalence and complete US holiday-calendar coverage remain unverified. Zero-volume rows are counted as possible missing data (this capture: 0). A 250-row export is not all calculation history for recursive indicators.
+- Import using `node scripts/import-preview-ohlcv.cjs <artifact.json> <reviewed-json-sha256>`; this rejects unreviewed fields and mismatched evidence and updates only the extra JSON plus its blob PINS entry. Verify source artifact identity/digest before import.
+- Validation: Private CI 87 tests plus 15 subtests, including byte equality of original four outputs with capture on/off; Public Node 94 tests. Browser CI covers candles, 90/250 switching, bounded summary, saved text equality, split reconstruction, narrow widths and existing sandbox/SW/private-record preservation. Real iPhone/Safari/PWA acceptance remains pending.
