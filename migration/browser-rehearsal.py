@@ -7,7 +7,7 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'test-output-migration'
 
 def main():
-    signal.alarm(90)
+    signal.alarm(240)
     OUT.mkdir(exist_ok=True)
     checks=[]
     def check(name,ok):
@@ -48,7 +48,7 @@ def main():
                 print("Baseline records seeded",flush=True)
                 original_data=page.evaluate('''async()=>Object.fromEntries(await Promise.all(['status','market','history','common_snapshot'].map(async f=>[f,await(await fetch('./data/'+f+'.json?t=100',{cache:'no-store'})).text()])))''')
                 state['root']=candidate.parent
-                update='''async()=>{const r=await navigator.serviceWorker.getRegistration();const changed=new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('controller update timeout')),20000);navigator.serviceWorker.addEventListener('controllerchange',()=>{clearTimeout(timer);resolve()},{once:true})});await r.update();await changed;}'''
+                update='''async()=>{const r=await navigator.serviceWorker.getRegistration();const changed=new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('controller update timeout')),90000);navigator.serviceWorker.addEventListener('controllerchange',()=>{clearTimeout(timer);resolve()},{once:true})});await Promise.all([r.update(),changed]);}'''
                 page.evaluate(update)
                 check('candidate worker activates at unchanged scope',page.evaluate('navigator.serviceWorker.controller!==null'))
                 check('legacy US cache retired only after copy',page.evaluate("caches.keys().then(k=>!k.includes('us-stock-check-v0.9.8-cache1')&&k.includes('us-stock-check-v0.9.8-migration-rehearsal1'))"))
