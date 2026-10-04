@@ -28,6 +28,8 @@ def main():
                 regular.goto(base)
                 regular.evaluate('navigator.serviceWorker.ready')
                 regular.reload()
+                root_worker = regular.evaluate('navigator.serviceWorker.controller.scriptURL')
+                check('baseline worker belongs to root scope', root_worker.split('?')[0]==base+'sw.js')
                 check('normal UI has four tabs', regular.locator('[role=tab]').count()==4)
                 regular.evaluate("""async()=>{
                     localStorage.setItem('usstock.activeTab','market');localStorage.setItem('personal-sentinel','preserve');
@@ -44,7 +46,7 @@ def main():
                 frame = page.frame_locator('#previewFrame')
                 check('device UI has five tabs', frame.locator('[role=tab]').count()==5)
                 check('normal preference is not imported', frame.locator('#tab-overview').is_visible())
-                check('dedicated SW controls only preview', regular.evaluate('navigator.serviceWorker.controller.scriptURL')==base+'sw.js')
+                check('dedicated SW controls only preview', regular.evaluate('navigator.serviceWorker.controller.scriptURL')==root_worker)
                 manifest = page.evaluate("fetch('./manifest.webmanifest').then(r=>r.json())")
                 check('install identity and scope are separate', all(manifest[k]=='/us-stock-check-web/preview/device/' for k in ['id','scope','start_url']) and manifest['short_name']=='米国確認')
                 check('stale device shell is retired', 'us-stock-device-shell-obsolete' not in page.evaluate('caches.keys()'))
@@ -72,7 +74,7 @@ def main():
                 check('normal local records preserved', page.evaluate("localStorage.getItem('usstock.activeTab')==='market' && localStorage.getItem('personal-sentinel')==='preserve'"))
                 check('IndexedDB record preserved', page.evaluate("""async()=>{const db=await new Promise(resolve=>{const r=indexedDB.open('device-test-records');r.onsuccess=()=>resolve(r.result)});return new Promise(resolve=>{const r=db.transaction('records').objectStore('records').get('test');r.onsuccess=()=>{resolve(r.result==='preserve');db.close()}})}"""))
                 regular.reload()
-                check('normal app still four tabs and root worker', regular.locator('[role=tab]').count()==4 and regular.evaluate('navigator.serviceWorker.controller.scriptURL')==base+'sw.js')
+                check('normal app still four tabs and root worker', regular.locator('[role=tab]').count()==4 and regular.evaluate('navigator.serviceWorker.controller.scriptURL')==root_worker)
                 browser.close()
                 (out/'report.json').write_text(json.dumps({'passed':len(checks),'checks':checks,'device_pass':False,'restart':'Chromium tab close/reopen; not iPhone or OS termination'},ensure_ascii=False,indent=2)+'\n')
         finally: server.shutdown()
