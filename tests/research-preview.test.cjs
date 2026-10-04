@@ -67,3 +67,32 @@ test('long source strings cannot overflow summary or silently truncate full evid
  assert.ok(p.summary.length<=8000);assert.ok(p.summary.includes('全文を参照'));assert.ok(p.full.includes(m.stocks[0].trend));
  assert.equal(p.parts.map(x=>x.slice(x.indexOf('\n')+1)).join(''),p.full);
 });
+
+const capture=JSON.parse(files['data/ohlcv-history.json']);
+test('captured history binds all five frozen snapshots and renders 90/250 candles',()=>{
+ for(const s of market.stocks){
+  const h=P.ohlcvFor(s,capture);assert.ok(h.available,h.reason);assert.equal(h.rows.length,250);
+  assert.equal(h.rows.at(-1).date,s.trade_date);
+  for(const count of [90,250]){const html=R.chartHtml(s,history,h,count);assert.equal((html.match(/class="usr-volume"/g)||[]).length,count);assert.ok(html.includes('調整方式'));}
+ }
+});
+test('OHLCV rejects mismatched snapshot, invalid prices, provenance, duplicate dates and volume',()=>{
+ const s=market.stocks[0];
+ const changes=[c=>c.basis_date='2026-09-30',c=>c.securities.PLTR.snapshot.ma200++,c=>c.securities.PLTR.rows[0].high=0,c=>c.securities.PLTR.rows[0].open=null,c=>c.securities.PLTR.rows[0].volume=-1,c=>c.securities.PLTR.rows[0].volume=1.5,c=>c.securities.PLTR.rows[1].date=c.securities.PLTR.rows[0].date,c=>c.securities.PLTR.rows[0].date='2026-02-30',c=>c.securities.PLTR.rows[0].source='unknown',c=>c.capture.code_sha='main',c=>c.securities.PLTR.rows.at(-1).close+=1,c=>c.securities.PLTR.rows.splice(0,100),c=>c.generated_at_jst='invalid'];
+ for(const change of changes){const c=structuredClone(capture);change(c);const h=P.ohlcvFor(s,c);assert.equal(h.available,false);assert.deepEqual(h.rows,[]);assert.ok(!R.chartHtml(s,history,h).includes('usr-candles'));}
+});
+test('GPT includes only validated OHLCV and strips unexpected nested private fields',()=>{
+ const c=structuredClone(capture);c.securities.PLTR.rows[0].account='PRIVATE_CANARY';
+ const f={...files,'data/ohlcv-history.json':JSON.stringify(c)},p=P.consultationPackage(f,'analysis','PLTR');
+ assert.ok(p.full.includes('"calculation_input_sha256"'));assert.ok(!p.full.includes('PRIVATE_CANARY'));assert.ok(p.summary.includes('"ohlcv_rows": 250'));
+ c.securities.PLTR.snapshot.close=1;
+ const rejected=P.consultationPackage({...files,'data/ohlcv-history.json':JSON.stringify(c)},'analysis','PLTR');
+ assert.ok(rejected.full.includes('"available": false'));assert.ok(!rejected.full.includes('"open":'));
+});
+
+test('artifact importer rejects changed digest and unreviewed fields before publication',()=>{
+ const I=require('../scripts/import-preview-ohlcv.cjs'),crypto=require('node:crypto');
+ const raw=Buffer.from(files['data/ohlcv-history.json']),hash=b=>crypto.createHash('sha256').update(b).digest('hex');
+ assert.equal(I.validate(raw,hash(raw)).schema,'us-preview-ohlcv/1');assert.throws(()=>I.validate(raw,'0'.repeat(64)));
+ const c=structuredClone(capture);c.securities.PLTR.rows[0].account='PRIVATE_CANARY';const altered=Buffer.from(JSON.stringify(c));assert.throws(()=>I.validate(altered,hash(altered)));
+});
