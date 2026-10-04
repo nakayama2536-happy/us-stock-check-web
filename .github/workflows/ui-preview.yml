@@ -1,0 +1,38 @@
+name: UI Preview Verification
+on:
+  pull_request:
+    branches: [main]
+    paths: ['docs/preview/**', 'tests/ui-preview.test.cjs', 'tests/browser_ui_preview.py', '.github/workflows/ui-preview.yml']
+  push:
+    branches: [main, feature/us-ui-preview-access-20261004]
+    paths: ['docs/preview/**', 'tests/ui-preview.test.cjs', 'tests/browser_ui_preview.py', '.github/workflows/ui-preview.yml']
+permissions:
+  contents: read
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Preview integrity privacy state and existing cache contracts
+        run: |
+          node --check docs/preview/s1/preview.js
+          node --test tests/ui-preview.test.cjs docs/preview/s1/tests/experience.test.cjs tests/sw-cache.test.cjs
+      - name: Browser test environment
+        run: |
+          python -m pip install playwright==1.57.0
+          sudo apt-get update -qq
+          sudo apt-get install -y fonts-noto-cjk
+      - name: Isolated preview and regular-app preservation
+        run: python tests/browser_ui_preview.py
+      - name: Save UI review evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: us-ui-preview-evidence
+          path: test-output/
+          retention-days: 7
