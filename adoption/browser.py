@@ -70,7 +70,7 @@ def main():
                 expect(frame.locator('#tab-stocks')).to_be_visible()
                 check('new package replaces all data while keeping selection',frame.locator('#stockSelector').input_value()=='PLTR')
                 check('missing history never reuses fixed 250 bars',frame.locator('.usr-candles').count()==0 and 'グラフは表示できません' in frame.locator('[data-stock-panel="PLTR"]').inner_text())
-                frame.locator('body').evaluate("(generation)=>parent.postMessage({type:'US_PREVIEW_CONSULT',kind:'analysis',ticker:'PLTR',generation},'*')",generation)
+                frame.locator('body').evaluate("(_,generation)=>parent.postMessage({type:'US_PREVIEW_CONSULT',kind:'analysis',ticker:'PLTR',generation},'*')",generation)
                 page.wait_for_timeout(100)
                 check('old generation message cannot reopen old consultation',not page.locator('#consultDialog').is_visible())
                 frame.locator('[data-stock-panel="PLTR"] [data-us-consult="analysis"]').click()
