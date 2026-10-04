@@ -1,0 +1,48 @@
+/* Candidate-only overrides. Original market up/down colors remain in style.css. */
+.ui-s1{font-size:16px;line-height:1.55}
+.ui-s1 .app{padding:calc(12px + env(safe-area-inset-top)) 12px calc(100px + env(safe-area-inset-bottom));max-width:900px}
+.ui-s1 .hero{padding:14px 16px;border-radius:18px}
+.ux-brand{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.ui-s1 h1{font-size:22px;margin:0}
+.ux-preview{font-size:12px;border:1px solid #aac4e3;border-radius:6px;padding:2px 6px}
+.ux-mode{font-size:16px;margin-top:5px}
+.ux-formal,.ux-asof{font-size:13px;margin:4px 0 0}
+.ui-s1 section{margin-top:14px}
+.ui-s1 h2{font-size:20px;margin:0 0 10px}
+.ux-summary-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:5px}
+.ux-summary-head h2{font-size:19px}
+.ux-chip{font-size:12px;background:#eef3f8;color:#354d6d;border-radius:6px;padding:2px 6px;align-self:flex-start}
+.ux-headline{font-size:26px;font-weight:800;margin:6px 0 3px;line-height:1.35}
+.ux-good{color:#205b3d}.ux-warn{color:#795913}.ux-bad{color:#922f31}
+.ux-caption{font-size:13px;color:#52657e;margin:6px 0;line-height:1.55;overflow-wrap:anywhere}
+.ux-global{padding:10px 12px;margin-top:10px;border-radius:10px;font-size:15px;border:1px solid currentColor;background:#fff7e4;overflow-wrap:anywhere}
+.ux-global.ux-bad{background:#fff0f0}
+.ux-quality-link{background:#edf3fa;border:1px solid #d7e1ed;border-radius:9px;color:#193b65;text-align:left;width:100%;min-height:44px;font:inherit;font-size:14px;padding:8px 10px;margin:5px 0}
+.ux-stocks{display:grid;gap:0;margin:3px 0}
+.ux-stock{display:grid;grid-template-columns:1fr 1fr;gap:1px 10px;width:100%;text-align:left;border:0;border-bottom:1px solid #e1e8f0;background:transparent;color:inherit;padding:10px 0;min-height:64px;font:inherit}
+.ux-stock:last-child{border-bottom:0}
+.ux-symbol{font-size:18px;font-weight:800}.ux-value{text-align:right;font-size:18px;font-weight:750;font-variant-numeric:tabular-nums}
+.ux-signal{font-size:18px;font-weight:750;line-height:1.3}.ux-stock .delta{text-align:right;margin:0;font-size:14px;align-self:center}
+.ui-s1 .bottom-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:fixed;left:0;right:0;bottom:0;padding:6px 8px calc(6px + env(safe-area-inset-bottom));z-index:100;background:#fff;border-top:1px solid #ccd8e6}
+.ui-s1 .bottom-nav button{min-width:0;min-height:46px;padding:8px 3px;font-size:16px;font-weight:750}
+.ui-s1 [hidden],.ui-s1 .tab-panel[hidden]{display:none!important}
+.ui-s1 .signal-item strong{font-size:18px;line-height:1.3;white-space:normal;text-overflow:clip;overflow:visible}
+.ui-s1 .signal-label,.ui-s1 .label{font-size:13px}
+.ui-s1 .name{font-size:14px}.ui-s1 .price{font-size:26px}
+.ui-s1 summary{font-size:16px;padding:12px 4px;min-height:44px}
+.ui-s1 .meta{font-size:16px}.ui-s1 .quality-value{font-size:16px}
+.ux-quality-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.ux-metric{background:#f1f5fa;border-radius:12px;padding:12px;min-width:0}
+.ux-metric span,.ux-metric small{display:block;font-size:13px;color:#52657e;overflow-wrap:anywhere}
+.ux-metric b{display:block;font-size:21px;margin:3px 0}
+.ux-reasons p{font-size:16px;margin:10px 0;overflow-wrap:anywhere}
+.ux-select-label{display:block;font-size:14px;color:#52657e}
+#stockSelector{width:100%;font:inherit;font-size:18px;min-height:46px;padding:8px 10px;border:1px solid #b5c7db;border-radius:10px;background:#fff;color:#10233f;margin:5px 0 12px}
+.ux-market-group h3{font-size:18px;margin:8px 0}
+.ux-link{display:block;min-height:44px;padding:10px;color:#174d87;overflow-wrap:anywhere}
+.ux-times{display:grid;gap:2px;margin:10px 0}.ux-times dt{font-size:13px;color:#52657e}.ux-times dd{font-size:16px;margin:0 0 8px;overflow-wrap:anywhere}
+.ui-s1 .refresh-button{min-height:46px;font-size:16px;background:#174d87;color:#fff}
+#refreshNote{font-size:14px;color:#52657e;overflow-wrap:anywhere}
+.ui-s1 button:focus-visible,.ui-s1 a:focus-visible,.ui-s1 select:focus-visible{outline:3px solid #3579bb;outline-offset:2px}
+@media(max-width:430px){.ui-s1 .cards{grid-template-columns:1fr}.ui-s1 .signal-summary{grid-template-columns:repeat(3,minmax(0,1fr))}.ui-s1 .signal-item{padding:8px 5px}.ui-s1 .signal-item strong{font-size:16px}}
+@media(prefers-reduced-motion:reduce){.ui-s1 *{scroll-behavior:auto!important;transition:none!important}}

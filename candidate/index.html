@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b2a53">
+  <title>米国株 CHECK — UI候補</title>
+  <link rel="stylesheet" href="./style.css?v=0.9.8">
+  <link rel="stylesheet" href="./experience.css?v=s1.0.1.0">
+</head>
+<body class="ui-s1">
+<main class="app">
+  <header class="hero" id="top">
+    <div class="ux-brand"><h1>米国株 CHECK</h1><span class="ux-preview">UI候補・未公開</span></div>
+    <div id="stateBox" class="ux-mode"><strong id="appState">参考分析 / 読込中</strong></div>
+    <p class="ux-formal">正式売買判断は未実装です。自動売買は行いません。</p>
+    <p class="ux-asof">株価基準日 <strong id="tradeDate">未確認</strong></p>
+  </header>
+  <div id="globalDataNotice" class="ux-global ux-warn" role="status" aria-live="polite">データを読み込み中です。</div>
+  <div id="tab-overview" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-overview" data-tab-panel="overview">
+    <section id="overviewSection"><div id="digest" class="card">最新データを読み込み中です。</div></section>
+  </div>
+  <div id="tab-stocks" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-stocks" data-tab-panel="stocks" hidden>
+    <section id="stocksSection">
+      <h2>必要な銘柄だけ詳しく確認</h2>
+      <label class="ux-select-label" for="stockSelector">対象銘柄</label>
+      <select id="stockSelector"><option>PLTR</option><option>LLY</option><option>BSY</option><option>MSTR</option><option>SOXL</option></select>
+      <div id="stocks"></div>
+    </section>
+  </div>
+  <div id="tab-market" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-market" data-tab-panel="market" hidden>
+    <section id="marketSection"><h2>市場環境</h2><div id="market"></div>
+      <details id="marketChartsDetails" class="app-disclosure hidden"><summary>市場環境の28日チャートを見る</summary><div class="disclosure-body"><div id="marketCharts"></div><p>取得済みの日足だけを表示します。欠損を0で補完しません。</p></div></details>
+      <details class="app-disclosure"><summary>市場環境の見方</summary><div class="disclosure-body">背景確認用です。正式な売買判断や日数別予測ではありません。</div></details>
+    </section>
+  </div>
+  <div id="tab-quality" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-quality" data-tab-panel="quality" hidden>
+    <section id="qualitySection"><h2>データ品質ダイジェスト</h2><div id="qualityDigest" class="card">未確認</div>
+      <details class="app-disclosure"><summary>保存データの品質・出典・日時</summary><div id="quality" class="disclosure-body"></div></details>
+      <p class="ux-caption">日時・対象の一致確認は最低限の矛盾検出です。同一公開版の完全な証明は、後段のマニフェスト対応で扱います。</p>
+    </section>
+    <section id="commonSection" class="hidden" hidden><div id="commonDigest"></div></section>
+    <section id="noticesSection" class="hidden" hidden><div id="notices"></div></section>
+  </div>
+  <div id="tab-manage" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-manage" data-tab-panel="manage" hidden>
+    <section><h2>更新・確認</h2><div class="card">
+      <button id="refreshButton" class="refresh-button" type="button">公開データを再読込</button>
+      <p id="refreshNote" role="status">公開済みJSONの再読込だけを行います。バックエンド更新・売買注文は実行しません。</p>
+      <dl class="ux-times"><dt>元データ計算時刻</dt><dd id="updatedAt">未確認</dd><dt>次回自動確認目安</dt><dd id="recheckAt">未確認</dd><dt>予備確認目安</dt><dd id="backupRecheckAt">未確認</dd></dl>
+      <p class="ux-caption">06:30 / 08:00 / 11:30 JST。開始時刻は遅れる場合があります。</p>
+      <a class="ux-link" href="https://github.com/nakayama2536-happy/us-stock-check/actions/workflows/shadow-update.yml" target="_blank" rel="noopener noreferrer">必要時にGitHubの更新状態を確認</a>
+      <p class="ux-caption">GitHubの画面を開くだけです。このアプリから自動実行しません。</p>
+    </div></section>
+    <section><h2>版・運用境界</h2><div class="card"><p id="version">Core v0.9.8 / UI候補 s1.0.1.0</p><p>この候補はService Workerを登録しません。公開・PWA実機受入は別工程です。</p><p>ChatGPT相談文コピー・全量深掘りは後段です。保存データを本番判断へ自動昇格しません。</p></div></section>
+    <section id="validationSection"><h2>モデル検証（過去データの診断）</h2><div id="modelValidation" class="card"></div></section>
+  </div>
+</main>
+<nav class="bottom-nav" role="tablist" aria-label="主要画面">
+  <button id="tabbtn-overview" type="button" role="tab" aria-selected="true" aria-controls="tab-overview" data-tab="overview" class="active">判断</button>
+  <button id="tabbtn-stocks" type="button" role="tab" aria-selected="false" aria-controls="tab-stocks" data-tab="stocks">銘柄</button>
+  <button id="tabbtn-market" type="button" role="tab" aria-selected="false" aria-controls="tab-market" data-tab="market">市場</button>
+  <button id="tabbtn-quality" type="button" role="tab" aria-selected="false" aria-controls="tab-quality" data-tab="quality">品質</button>
+  <button id="tabbtn-manage" type="button" role="tab" aria-selected="false" aria-controls="tab-manage" data-tab="manage">管理</button>
+</nav>
+<script src="./experience.js?v=s1.0.1.0" defer></script>
+<script src="./app.js?v=0.9.8" defer></script>
+<script src="./boot.js?v=s1.0.1.0" defer></script>
+</body>
+</html>
