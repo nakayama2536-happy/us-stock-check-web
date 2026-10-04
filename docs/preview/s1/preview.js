@@ -60,6 +60,9 @@
     html=html.replace('公開済みJSONの再読込だけを行います。バックエンド更新・売買注文は実行しません。','固定データの再表示だけを行います。市場データ取得・売買注文は実行しません。');
     html=html.replace(/<a\b[^>]*class="ux-link"[^>]*>([\s\S]*?)<\/a>/g,'<span class="ux-link" aria-disabled="true">本番の更新操作は通常アプリで行います。</span>');
     html=html.replace('GitHubの画面を開くだけです。このアプリから自動実行しません。','この確認版では固定データだけを再表示します。');
+    html=html.replace('ChatGPT相談文コピー・全量深掘りは後段です。','GPT相談文の作成・コピーは確認版で利用できます。完全な日足履歴を使う解析は別途対応が必要です。');
+    source=once(source,'<span class="signal-label">短期</span>','<span class="signal-label">短期（MACD12・26・9営業日＋50・200日線）</span>');
+    source=once(source,'<span class="signal-label">中長期</span>','<span class="signal-label">中長期（50・200営業日線）</span>');
     const policy="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'";
     html=html.replace('<head>',()=>'<head><meta http-equiv="Content-Security-Policy" content="'+policy+'">');
     const css=files['reference/style.css']+'\n'+files['candidate/experience.css']+'\n'+files['judgment-cards.css'];
