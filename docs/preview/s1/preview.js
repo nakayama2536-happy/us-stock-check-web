@@ -18,7 +18,7 @@
   });
   function once(s,from,to){
     if(s.split(from).length!==2)throw new Error('Unreviewed source boundary');
-    return s.replace(from,to);
+    return s.replace(from,()=>to);
   }
   function section(s,start,end,value){
     if(s.split(start).length!==2||s.split(end).length!==2)throw new Error('Unreviewed function boundary');
@@ -55,11 +55,11 @@
     html=html.replace('公開済みJSONの再読込だけを行います。バックエンド更新・売買注文は実行しません。','固定データの再表示だけを行います。市場データ取得・売買注文は実行しません。');
     html=html.replace(/<a\b[^>]*class="ux-link"[^>]*>([\s\S]*?)<\/a>/g,'<span class="ux-link" aria-disabled="true">本番の更新操作は通常アプリで行います。</span>');
     const policy="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'";
-    html=html.replace('<head>','<head><meta http-equiv="Content-Security-Policy" content="'+policy+'">');
+    html=html.replace('<head>',()=>'<head><meta http-equiv="Content-Security-Policy" content="'+policy+'">');
     const css=files['reference/style.css']+'\n'+files['candidate/experience.css'];
-    html=html.replace('</head>','<style>'+css+'</style></head>');
+    html=html.replace('</head>',()=>'<style>'+css+'</style></head>');
     const code='const PREVIEW_DATA='+safeJSON(data)+';\n'+files['candidate/experience.js']+'\n'+source+'\n'+boot;
-    return html.replace('</body>','<script>'+safeScript(code)+'</script></body>');
+    return html.replace('</body>',()=>'<script>'+safeScript(code)+'</script></body>');
   }
   async function readPinned(path){
     const abort=new AbortController(),timer=setTimeout(()=>abort.abort(),15000);
