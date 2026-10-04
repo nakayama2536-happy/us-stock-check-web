@@ -83,11 +83,11 @@ test('both row links describe implemented detail views, not unimplemented AI exp
 });
 test('assembled preview includes facade with no external loader or SW inside sandbox',()=>{
   const files=Object.fromEntries(Object.keys(P.PINS).map(k=>[k,fs.readFileSync(path.join(root,k),'utf8')]));
-  const html=P.makeDocument(files);assert.ok(html.includes('jp-cards.1'));assert.ok(html.includes("connect-src 'none'"));
+  const html=P.makeDocument(files);assert.ok(html.includes('jp-cards.2'));assert.ok(html.includes("connect-src 'none'"));
   assert.ok(!/\bfetch\s*\(|serviceWorker\.register|allow-same-origin/.test(html));
   const scripts=[...html.matchAll(/<script>([\s\S]*?)<\/script>/g)];assert.equal(scripts.length,1);new vm.Script(scripts[0][1]);
 });
 test('all allowlisted input hashes match after layout addition',async()=>{
   for(const [name,sha]of Object.entries(P.PINS))assert.equal(await P.blobHash(fs.readFileSync(path.join(root,name))),sha);
-  assert.equal(Object.keys(P.PINS).length,11);
+  assert.equal(Object.keys(P.PINS).length,13);
 });

@@ -1,0 +1,388 @@
+{
+  "schema": "us-preview-public-close-history/1",
+  "source_repository": "nakayama2536-happy/us-stock-check-web",
+  "source_path": "docs/data/market.json",
+  "source_revision": "e4b0ba505a4eb8d260e76ca9bd1beec5156862d6",
+  "basis_date": "2026-10-02",
+  "note": "公開snapshotの保存終値。完全な連続日足・調整後終値ではなく、未保存日は補間しない。指標の再計算には使用しない。",
+  "series": {
+    "PLTR": [
+      {
+        "date": "2026-09-21",
+        "close": 183.09,
+        "source_commit": "21cb72390c45fcff2de27eda0766a22adb9c6cfe",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-22",
+        "close": 184.99,
+        "source_commit": "194e73a52635952650d911e48ec9773412833513",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Independent close pending",
+        "shadow_close_diff_usd": null
+      },
+      {
+        "date": "2026-09-23",
+        "close": 191.79,
+        "source_commit": "fb4d174807fcc6b47c963dea05fa68d6bca33832",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-24",
+        "close": 192.59,
+        "source_commit": "4c3b9771c2d04239361773ca4a1b2e5a579f153a",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-25",
+        "close": 189.67,
+        "source_commit": "f8cbf04a29532b99ed329aa5ce9e89c1aafa93db",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-28",
+        "close": 187.48,
+        "source_commit": "176f72ac626d21c5670dc7dd0cb138ff74fb960c",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-29",
+        "close": 186.97,
+        "source_commit": "58ebc871fc3c359024071063cee348529f36c9eb",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-30",
+        "close": 187.05,
+        "source_commit": "6f9c29550d552d99327bf1b7a5b008596ada07e2",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-10-01",
+        "close": 190.04,
+        "source_commit": "de417914af0cb14701b97b5f70b251ea0cbf1c40",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-10-02",
+        "close": 188.75,
+        "source_commit": "c60369e18fb8f2833f54cb787f35ddd45c49261e",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      }
+    ],
+    "LLY": [
+      {
+        "date": "2026-09-21",
+        "close": 1164.89,
+        "source_commit": "21cb72390c45fcff2de27eda0766a22adb9c6cfe",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-22",
+        "close": 1170.14,
+        "source_commit": "194e73a52635952650d911e48ec9773412833513",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Independent close pending",
+        "shadow_close_diff_usd": null
+      },
+      {
+        "date": "2026-09-23",
+        "close": 1150.99,
+        "source_commit": "fb4d174807fcc6b47c963dea05fa68d6bca33832",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-24",
+        "close": 1181.89,
+        "source_commit": "4c3b9771c2d04239361773ca4a1b2e5a579f153a",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-25",
+        "close": 1183.46,
+        "source_commit": "f8cbf04a29532b99ed329aa5ce9e89c1aafa93db",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-28",
+        "close": 1184.78,
+        "source_commit": "176f72ac626d21c5670dc7dd0cb138ff74fb960c",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-29",
+        "close": 1184.63,
+        "source_commit": "58ebc871fc3c359024071063cee348529f36c9eb",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-30",
+        "close": 1157.08,
+        "source_commit": "6f9c29550d552d99327bf1b7a5b008596ada07e2",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-10-01",
+        "close": 1149.85,
+        "source_commit": "de417914af0cb14701b97b5f70b251ea0cbf1c40",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-10-02",
+        "close": 1142.85,
+        "source_commit": "c60369e18fb8f2833f54cb787f35ddd45c49261e",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      }
+    ],
+    "BSY": [
+      {
+        "date": "2026-09-21",
+        "close": 31.96,
+        "source_commit": "21cb72390c45fcff2de27eda0766a22adb9c6cfe",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-22",
+        "close": 31.86,
+        "source_commit": "194e73a52635952650d911e48ec9773412833513",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Independent close pending",
+        "shadow_close_diff_usd": null
+      },
+      {
+        "date": "2026-09-23",
+        "close": 32.72,
+        "source_commit": "fb4d174807fcc6b47c963dea05fa68d6bca33832",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-24",
+        "close": 31.9,
+        "source_commit": "4c3b9771c2d04239361773ca4a1b2e5a579f153a",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-25",
+        "close": 31.44,
+        "source_commit": "f8cbf04a29532b99ed329aa5ce9e89c1aafa93db",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-28",
+        "close": 31.29,
+        "source_commit": "176f72ac626d21c5670dc7dd0cb138ff74fb960c",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-29",
+        "close": 31.12,
+        "source_commit": "58ebc871fc3c359024071063cee348529f36c9eb",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-30",
+        "close": 31.95,
+        "source_commit": "6f9c29550d552d99327bf1b7a5b008596ada07e2",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-10-01",
+        "close": 32.75,
+        "source_commit": "de417914af0cb14701b97b5f70b251ea0cbf1c40",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-10-02",
+        "close": 32.23,
+        "source_commit": "c60369e18fb8f2833f54cb787f35ddd45c49261e",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      }
+    ],
+    "MSTR": [
+      {
+        "date": "2026-09-25",
+        "close": 158.61,
+        "source_commit": "f8cbf04a29532b99ed329aa5ce9e89c1aafa93db",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-28",
+        "close": 157.14,
+        "source_commit": "176f72ac626d21c5670dc7dd0cb138ff74fb960c",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-29",
+        "close": 154.67,
+        "source_commit": "58ebc871fc3c359024071063cee348529f36c9eb",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-30",
+        "close": 153.09,
+        "source_commit": "6f9c29550d552d99327bf1b7a5b008596ada07e2",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-10-01",
+        "close": 160.5,
+        "source_commit": "de417914af0cb14701b97b5f70b251ea0cbf1c40",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-10-02",
+        "close": 160.01,
+        "source_commit": "c60369e18fb8f2833f54cb787f35ddd45c49261e",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      }
+    ],
+    "SOXL": [
+      {
+        "date": "2026-09-21",
+        "close": 141.93,
+        "source_commit": "21cb72390c45fcff2de27eda0766a22adb9c6cfe",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-22",
+        "close": 151.95,
+        "source_commit": "194e73a52635952650d911e48ec9773412833513",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Independent close pending",
+        "shadow_close_diff_usd": null
+      },
+      {
+        "date": "2026-09-23",
+        "close": 146.25,
+        "source_commit": "fb4d174807fcc6b47c963dea05fa68d6bca33832",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-24",
+        "close": 146.33,
+        "source_commit": "4c3b9771c2d04239361773ca4a1b2e5a579f153a",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-25",
+        "close": 151.45,
+        "source_commit": "f8cbf04a29532b99ed329aa5ce9e89c1aafa93db",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-28",
+        "close": 142.29,
+        "source_commit": "176f72ac626d21c5670dc7dd0cb138ff74fb960c",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-29",
+        "close": 147.0,
+        "source_commit": "58ebc871fc3c359024071063cee348529f36c9eb",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-09-30",
+        "close": 147.86,
+        "source_commit": "6f9c29550d552d99327bf1b7a5b008596ada07e2",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-10-01",
+        "close": 153.69,
+        "source_commit": "de417914af0cb14701b97b5f70b251ea0cbf1c40",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      },
+      {
+        "date": "2026-10-02",
+        "close": 163.71,
+        "source_commit": "c60369e18fb8f2833f54cb787f35ddd45c49261e",
+        "primary_source": "StockAnalysis/S&P Global Market Intelligence",
+        "shadow_source": "Yahoo Finance",
+        "shadow_close_diff_usd": 0.0
+      }
+    ]
+  }
+}
