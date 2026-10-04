@@ -10,7 +10,7 @@ Why three: a tested ZIP is not a usable iPhone review route; full adoption is st
 - Reference panels preserve existing prices and analysis. These are frozen UI input, not current quotes.
 - Every preview source is pinned to its Git blob hash; loading fails on mismatch. This is not adoption of the FULL deep-dive contract.
 - Inner page runs in `sandbox=allow-scripts` WITHOUT same-origin privilege. No storage, cache, worker, or parent-page access. CSP blocks network in the inner page.
-- The outer loader fetches only eleven allowlisted files from this preview directory. The existing production worker may serve/cache this outer document normally; the preview neither replaces nor unregisters that worker.
+- The outer loader fetches only thirteen allowlisted files from this preview directory. The existing production worker may serve/cache this outer document normally; the preview neither replaces nor unregisters that worker.
 - Fixed-data redisplay never fetches market data or runs GitHub workflows.
 - Preview does not install a PWA, change normal-app preferences, or place orders.
 - A UI-review URL is not runtime adoption, Production promotion, or iPhone DEVICE_PASS.
@@ -31,3 +31,12 @@ The user asked to bring the judgment screen closer to the Japan app. `judgment-c
 - New state and browser tests cover render-only invariance, missing evidence, zero/null, source differences, source/date conflicts, HOLD warnings, narrow screens, links, sandbox isolation and real-app settings preservation.
 
 UI preview publication remains separate from regular PWA adoption. The user's reference screenshot is not stored in this public repository.
+
+## 2026-10-04 — periods, security charts and GPT consultation (jp-cards.2)
+
+- Periods show the current Core calculation windows, not future prediction horizons: MACD 12/26/9 sessions plus close/MA50/MA200 for short state; MA50/MA200 for medium/long state. Verified against Private technical.py at b4df5e5810a619b6c9be22d7c595b86f9ce4b5d2.
+- Separate `data/chart-history.json` contains already-public saved closes from this repository history through e4b0ba505a4eb8d260e76ca9bd1beec5156862d6. Rebuild with `python scripts/build-preview-history.py` on a full clone. Existing three fixed JSON files are byte unchanged. PLTR/LLY/BSY/SOXL: 10 observations, 2026-09-21 through 2026-10-02; MSTR: 6, 2026-09-25 through 2026-10-02. Latest published PASS snapshot per date wins. This is not full adjusted daily OHLCV or technical recomputation history. Chart dots do not interpolate missing dates.
+- Chart rendering rejects duplicate/invalid dates, invalid closes and last-date/close mismatch.
+- Analysis and diagnostic buttons request an outer dialog through a strict message contract: expected iframe window, opaque origin, exact three keys, enum kind/ticker. No `allow-same-origin` is added. Outer dialog constructs allowlisted evidence only from hash-verified inputs; it never trusts message-supplied prompt text.
+- Copy requires a separate user click. Clipboard failure offers selectable read-only text. ChatGPT opens without query parameters or attached data. No automatic transmission, storage, orders, or workflow dispatch. Japan FULL bundle parity is not claimed.
+- Existing normal UI, worker, Core, trading conditions and private records remain out of scope. Device acceptance and regular-PWA adoption are pending.
