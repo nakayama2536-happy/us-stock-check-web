@@ -1,0 +1,33 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),os=require('node:os'),path=require('node:path'),vm=require('node:vm');
+const d=require('./delivery.js'),{build,pack}=require('./build.cjs');
+const temp=fs.mkdtempSync(path.join(os.tmpdir(),'us-adoption-test-')),out=path.join(temp,'candidate'),root=path.resolve(__dirname,'..');
+const revision='55e872d80e20dac280ef56f2ac17ba18b3a90ee6';
+const m=build(out,revision,path.join(root,'docs/preview/s1/data/ohlcv-history.json'));
+const fetcher=async url=>new Response(fs.readFileSync(path.join(out,url)),{status:200});
+const fixture=()=>Object.fromEntries(d.REQUIRED.map(n=>[n,JSON.parse(fs.readFileSync(path.join(root,'docs/data',n)))]));
+test.after(()=>fs.rmSync(temp,{recursive:true,force:true}));
+test('same packaged public main data verified by digest, date and target',async()=>{const b=await d.load('delivery/',{fetcher});assert.equal(b.manifest.source_revision,revision);assert.equal(b.objects['market.json'].stocks.length,5);});
+test('changed bytes fail closed without partial commit',async()=>{await assert.rejects(d.load('delivery/',{fetcher:async u=>u.endsWith('/market.json')?new Response('{}'):fetcher(u)}),/ハッシュ|容量/);});
+test('unknown file names, traversal, extra metadata and overlarge entries rejected',()=>{for(const key of ['../private.json','history.json'])assert.throws(()=>d.manifest({...m,files:{...m.files,[key]:{sha256:'a'.repeat(64),bytes:5}}}));assert.throws(()=>d.manifest({...m,private:'secret'}));assert.throws(()=>d.manifest({...m,files:{...m.files,'status.json':{sha256:'a'.repeat(64),bytes:1000001}}}));});
+test('manifest release ID cannot be substituted',async()=>{await assert.rejects(d.load('delivery/',{fetcher:async u=>u.endsWith('current.json')?new Response(JSON.stringify({...m,release:'0'.repeat(64)})):fetcher(u)}),/版識別子/);});
+test('redirect and missing release fail closed',async()=>{await assert.rejects(d.load('delivery/',{fetcher:async()=>({ok:true,redirected:true})}));await assert.rejects(d.load('delivery/',{fetcher:async()=>new Response('',{status:404})}));});
+test('mismatched quality timestamp, duplicate ticker and future invalid calendar day rejected',()=>{for(const mutate of [f=>f['common_snapshot.json'].timestamps.calculated_at='2026-10-03T00:00:00+09:00',f=>f['market.json'].stocks[1]=f['market.json'].stocks[0],f=>f['status.json'].us_trade_date='2026-02-30']){const f=fixture();mutate(f);assert.throws(()=>d.binding(f));}});
+test('quality HOLD is rendered as data, never suppressed into PASS',()=>{const f=fixture();f['status.json'].run_state='HOLD';assert.doesNotThrow(()=>d.binding(f));});
+test('optional OHLCV may be absent but must not fall back to preview history',()=>{const out2=path.join(temp,'without');const v=build(out2,revision);assert(!v.files['ohlcv-history.json']);assert(!fs.existsSync(path.join(out2,'delivery/releases',v.release,'ohlcv-history.json')));});
+test('mismatched OHLCV rejected by packer',()=>{const p=path.join(temp,'bad.json'),cap=JSON.parse(fs.readFileSync(path.join(root,'docs/preview/s1/data/ohlcv-history.json')));cap.securities.PLTR.snapshot.close+=1;fs.writeFileSync(p,JSON.stringify(cap));assert.throws(()=>pack(path.join(temp,'bad-release'),path.join(root,'docs/data'),revision,p),/一致/);});
+test('late response cannot replace a newer request; failure invalidates before reading',async()=>{
+ const pending=[],commits=[],events=[];const c=d.controller({read:()=>new Promise((resolve,reject)=>pending.push({resolve,reject})),begin:()=>events.push('invalid'),commit:r=>commits.push(r),fail:e=>events.push('failure')});
+ const a=c.refresh(),b=c.refresh();pending[1].resolve('new');await b;pending[0].resolve('old');await a;assert.deepEqual(commits,['new']);assert.deepEqual(events,['invalid','invalid']);const f=c.refresh();pending[2].reject(Error('bad'));await f;assert.deepEqual(events.slice(-2),['invalid','failure']);
+});
+test('offline invalidation prevents pending response adoption',async()=>{let resolve;const result=[];const c=d.controller({read:()=>new Promise(r=>resolve=r),begin(){},commit:r=>result.push(r),fail(){}});const p=c.refresh();c.invalidate();resolve('stale');await p;assert.deepEqual(result,[]);});
+test('generated adapter has correct generation guard, dynamic provenance and bounded transfer',async()=>{
+ const api=require(path.join(out,'preview-adapter.js')),b=await d.load('delivery/',{fetcher}),files=JSON.parse(fs.readFileSync(path.join(out,'assets.json')));
+ for(const[n,v]of Object.entries(b.raw))files['data/'+n]=v;
+ files['data/chart-history.json']='{}';files._generation='current';files._delivery={release:m.release};files._hashes={'data/market.json':'ACTUAL_HASH'};
+ const html=api.makeDocument(files);new vm.Script(html.match(/<script>([\s\S]*)<\/script>/)[1]);
+ assert(html.includes("connect-src 'none'"));assert(!html.includes('serviceWorker.register'));assert(!html.includes('固定データ'));
+ const frame={contentWindow:{}};const e={source:frame.contentWindow,origin:'null',data:{type:'US_PREVIEW_CONSULT',kind:'analysis',ticker:'PLTR',generation:'old'}};
+ assert.equal(api.consultationRequest(e,frame,'current'),false);e.data.generation='current';assert.equal(api.consultationRequest(e,frame,'current'),true);
+ const p=api.consultationPackage(files,'analysis','PLTR');assert(p.summary.length<=8000);assert(p.full.includes('ACTUAL_HASH'));assert(p.full.includes(m.release));assert(!p.full.includes('FROZEN_UI_PREVIEW'));assert(p.parts.every(x=>x.length<=8000));
+});
