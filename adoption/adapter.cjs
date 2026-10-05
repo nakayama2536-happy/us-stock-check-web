@@ -8,12 +8,23 @@ function adapter(){
  s=once(s,'else{root.USPreview=api;api.start();}','else{root.USPreview=api;}');
  s=once(s,"const code='const PREVIEW_OHLCV='", "const code='const DELIVERY_GENERATION='+safeJSON(files._generation)+';\\nconst DELIVERY_SELECTION='+safeJSON(files._selection||{})+';\\nconst PREVIEW_OHLCV='");
  s=once(s,"let boot=files['candidate/bootstrap.js'];",`let boot=files['candidate/bootstrap.js'];
+    boot=once(boot,'function currentModel(extra={}){',\`let deliveryState='loading';
+function renderDeliveryState(){
+  USExperience.renderState(currentModel(),document);
+  document.getElementById('appState').textContent=({ready:'参考分析 / 保存データ表示',offline:'保存値 / オフライン',failed:'保存値 / 再取得未確認',loading:'保存値 / 確認中'})[deliveryState];
+  document.querySelectorAll('[data-us-consult]').forEach(b=>b.disabled=deliveryState!=='ready');
+}
+function currentModel(extra={}){\`);
+    boot=once(boot,'hasPrevious:!!lastBundle,...extra',"hasPrevious:!!lastBundle,...extra,offline:deliveryState==='offline',loadFailed:deliveryState==='failed',loading:deliveryState==='loading'");
+    boot=boot.replaceAll('USExperience.renderState(m,document);','renderDeliveryState();').replaceAll('USExperience.renderState(currentModel(),document);','renderDeliveryState();').replaceAll('USExperience.renderState(currentModel({loading:true}),document);','renderDeliveryState();').replaceAll('USExperience.renderState(currentModel({offline:true}),document)','renderDeliveryState()');
+    boot=once(boot,'function renderDeliveryState(){\\n  renderDeliveryState();','function renderDeliveryState(){\\n  USExperience.renderState(currentModel(),document);');
+    boot=once(boot,"$('appState').textContent='参考分析 / '+stateLabel(status.run_state);",'renderDeliveryState();');
     boot=once(boot,"let selectedTicker='PLTR';","let selectedTicker=USExperience.TICKERS.includes(DELIVERY_SELECTION.ticker)?DELIVERY_SELECTION.ticker:'PLTR';");
     boot+=\`\nactivateTab(DELIVERY_SELECTION.tab||'overview');
     window.addEventListener('message',e=>{
       if(e.source!==parent||e.data?.type!=='US_DELIVERY_STATE'||e.data.generation!==DELIVERY_GENERATION)return;
-      USExperience.renderState(currentModel({loading:e.data.state==='loading',loadFailed:e.data.state==='failed',offline:e.data.state==='offline'}),document);
-      document.querySelectorAll('[data-us-consult]').forEach(b=>b.disabled=e.data.state!=='ready');
+      if(!['ready','offline','failed','loading'].includes(e.data.state))return;
+      deliveryState=e.data.state;renderDeliveryState();
     });
     document.addEventListener('click',e=>{
       if(e.target.closest('#refreshButton')){e.stopImmediatePropagation();e.preventDefault();parent.postMessage({type:'US_DELIVERY_REFRESH',generation:DELIVERY_GENERATION},'*');}

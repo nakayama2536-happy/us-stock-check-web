@@ -56,3 +56,11 @@ PRの`US Data-connected UI Candidate`はcontents:readで、公開処理なし。
 - オンラインで旧版へ戻す場合は元のSWを同じURLで配信する。旧版自身のnonce問題は残るため、復旧後の旧版offline動作は保証しない。
 - `import-run.cjs`はPrivate側の同一実行パッケージを検証し、5タブ＋PWA候補を生成する。Privateのcheckout、ログ、個人情報を候補へコピーしない。
 - 自動生成は隔離workflowのartifactまで。本番の定時workflow、Public main、GitHub Pagesへの書込みは行わない。実際の本番定時配信への接続には別途採用確認が必要。
+# 2026-10-05 未公開候補の表示追従
+
+Public PR #34の実機確認版で修正した保存値表示を、この通常採用候補にも反映。
+親から受けた配信状態を保持し、60秒ごとの再描画でもオフライン表示とGPT停止を維持する。
+オンラインでも「更新済み」ではなく「保存データ表示」。未知の状態メッセージは無視する。
+通常公開ファイル、固定JSON、s1のPINS、Core、SW、個人記録は変更しない。
+候補はDraftのまま。Private PR #44のconsumer pinは旧検証版の証拠として維持し、
+本変更を含む新しい同一実行パッケージの証拠とは扱わない。
