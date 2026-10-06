@@ -7,7 +7,7 @@
     "state": "CONFIRMED"
   },
   "snapshot": {
-    "state": "CURRENT"
+    "state": "LAST_VALID"
   },
   "incident": {
     "level": "NORMAL",
@@ -28,7 +28,7 @@
       "ticker": "PLTR",
       "as_of": "2026-10-05",
       "mode": "SHADOW",
-      "phase": "DECISION",
+      "phase": null,
       "eligibility": "NOT_ELIGIBLE",
       "analysis_action": null,
       "formal_action": null,
@@ -50,7 +50,7 @@
       "ticker": "LLY",
       "as_of": "2026-10-05",
       "mode": "SHADOW",
-      "phase": "DECISION",
+      "phase": null,
       "eligibility": "NOT_ELIGIBLE",
       "analysis_action": null,
       "formal_action": null,
@@ -72,7 +72,7 @@
       "ticker": "BSY",
       "as_of": "2026-10-05",
       "mode": "SHADOW",
-      "phase": "DECISION",
+      "phase": null,
       "eligibility": "NOT_ELIGIBLE",
       "analysis_action": null,
       "formal_action": null,
@@ -94,7 +94,7 @@
       "ticker": "MSTR",
       "as_of": "2026-10-05",
       "mode": "SHADOW",
-      "phase": "DECISION",
+      "phase": null,
       "eligibility": "NOT_ELIGIBLE",
       "analysis_action": null,
       "formal_action": null,
@@ -116,7 +116,7 @@
       "ticker": "SOXL",
       "as_of": "2026-10-05",
       "mode": "SHADOW",
-      "phase": "DECISION",
+      "phase": null,
       "eligibility": "NOT_ELIGIBLE",
       "analysis_action": null,
       "formal_action": null,
@@ -134,6 +134,6 @@
   ],
   "timestamps": {
     "market_as_of": "2026-10-05",
-    "calculated_at": "2026-10-06T10:50:05+09:00"
+    "calculated_at": "2026-10-06T11:35:39+09:00"
   }
 }
