@@ -7,7 +7,7 @@
     "state": "CONFIRMED"
   },
   "snapshot": {
-    "state": "LAST_VALID"
+    "state": "CURRENT"
   },
   "incident": {
     "level": "NORMAL",
@@ -26,9 +26,9 @@
       "subject_type": "SECURITY",
       "subject_label": "Palantir Technologies",
       "ticker": "PLTR",
-      "as_of": "2026-10-02",
+      "as_of": "2026-10-05",
       "mode": "SHADOW",
-      "phase": null,
+      "phase": "DECISION",
       "eligibility": "NOT_ELIGIBLE",
       "analysis_action": null,
       "formal_action": null,
@@ -48,9 +48,9 @@
       "subject_type": "SECURITY",
       "subject_label": "Eli Lilly",
       "ticker": "LLY",
-      "as_of": "2026-10-02",
+      "as_of": "2026-10-05",
       "mode": "SHADOW",
-      "phase": null,
+      "phase": "DECISION",
       "eligibility": "NOT_ELIGIBLE",
       "analysis_action": null,
       "formal_action": null,
@@ -70,9 +70,9 @@
       "subject_type": "SECURITY",
       "subject_label": "Bentley Systems",
       "ticker": "BSY",
-      "as_of": "2026-10-02",
+      "as_of": "2026-10-05",
       "mode": "SHADOW",
-      "phase": null,
+      "phase": "DECISION",
       "eligibility": "NOT_ELIGIBLE",
       "analysis_action": null,
       "formal_action": null,
@@ -92,9 +92,9 @@
       "subject_type": "SECURITY",
       "subject_label": "Strategy Inc.",
       "ticker": "MSTR",
-      "as_of": "2026-10-02",
+      "as_of": "2026-10-05",
       "mode": "SHADOW",
-      "phase": null,
+      "phase": "DECISION",
       "eligibility": "NOT_ELIGIBLE",
       "analysis_action": null,
       "formal_action": null,
@@ -114,9 +114,9 @@
       "subject_type": "SECURITY",
       "subject_label": "Direxion Daily Semiconductor Bull 3X",
       "ticker": "SOXL",
-      "as_of": "2026-10-02",
+      "as_of": "2026-10-05",
       "mode": "SHADOW",
-      "phase": null,
+      "phase": "DECISION",
       "eligibility": "NOT_ELIGIBLE",
       "analysis_action": null,
       "formal_action": null,
@@ -133,7 +133,7 @@
     }
   ],
   "timestamps": {
-    "market_as_of": "2026-10-02",
-    "calculated_at": "2026-10-05T18:17:15+09:00"
+    "market_as_of": "2026-10-05",
+    "calculated_at": "2026-10-06T10:50:05+09:00"
   }
 }

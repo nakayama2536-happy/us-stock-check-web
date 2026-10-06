@@ -735,6 +735,16 @@
       "source_crosscheck": "PASS",
       "warnings": [],
       "errors": []
+    },
+    {
+      "generated_at_jst": "2026-10-06T10:50:05+09:00",
+      "us_trade_date": "2026-10-05",
+      "run_state": "NORMAL",
+      "source_crosscheck": "PASS",
+      "warnings": [
+        "BTC: market environment value for confirmed trade date 2026-10-05 is unavailable."
+      ],
+      "errors": []
     }
   ]
 }
