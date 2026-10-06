@@ -755,6 +755,14 @@
         "BTC: market environment value for confirmed trade date 2026-10-05 is unavailable."
       ],
       "errors": []
+    },
+    {
+      "generated_at_jst": "2026-10-06T18:09:22+09:00",
+      "us_trade_date": "2026-10-05",
+      "run_state": "NO_CHANGE",
+      "source_crosscheck": "PASS",
+      "warnings": [],
+      "errors": []
     }
   ]
 }
