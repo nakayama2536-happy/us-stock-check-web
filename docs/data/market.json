@@ -1,6 +1,6 @@
 {
   "schema_version": "0.2",
-  "summary": "2026-10-06 のREGULAR確定値を取得し、5銘柄のテクニカル計算を完了しました。 独立終値照合は一部確認待ちです。",
+  "summary": "2026-10-06 の確定値を維持しています。新しい米国取引日データはありません。",
   "stocks": [
     {
       "ticker": "PLTR",
@@ -154,9 +154,9 @@
       },
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
-      "shadow_source": "Independent close pending",
-      "shadow_close_diff_usd": null,
-      "shadow_close_diff_pct": null,
+      "shadow_source": "Yahoo Finance",
+      "shadow_close_diff_usd": 0.0,
+      "shadow_close_diff_pct": 0.0,
       "structural_backtest": {
         "status": "PROXY_V1",
         "ticker": "PLTR",
@@ -164,7 +164,7 @@
         "lookahead_bias": true,
         "point_in_time_ready": false,
         "history_start": "2021-10-07",
-        "history_end": "2026-10-05",
+        "history_end": "2026-10-06",
         "observations": 50,
         "buckets": {
           "HIGH": {
@@ -1569,7 +1569,7 @@
             "weight": 10,
             "score_pct": 100,
             "forward_pe": 24.7,
-            "peg_ratio": 1.8
+            "peg_ratio": 1.86
           },
           "price_confirmation": {
             "weight": 10,
@@ -1602,7 +1602,7 @@
           "fcf_growth_ttm_pct": 14.93,
           "operating_margin_ttm_pct": 25.19,
           "forward_pe": 24.7,
-          "peg_ratio": 1.8
+          "peg_ratio": 1.86
         },
         "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
         "fundamental_last_updated": "Aug 6, 2026",
@@ -1636,9 +1636,9 @@
       },
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
-      "shadow_source": "Independent close pending",
-      "shadow_close_diff_usd": null,
-      "shadow_close_diff_pct": null,
+      "shadow_source": "Yahoo Finance",
+      "shadow_close_diff_usd": 0.0,
+      "shadow_close_diff_pct": 0.0,
       "structural_backtest": {
         "status": "PROXY_V1",
         "ticker": "BSY",
@@ -1646,7 +1646,7 @@
         "lookahead_bias": true,
         "point_in_time_ready": false,
         "history_start": "2021-10-07",
-        "history_end": "2026-10-05",
+        "history_end": "2026-10-06",
         "observations": 50,
         "buckets": {
           "HIGH": {
