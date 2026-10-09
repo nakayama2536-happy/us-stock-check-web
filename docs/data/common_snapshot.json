@@ -7,17 +7,17 @@
     "state": "CONFIRMED"
   },
   "snapshot": {
-    "state": "LAST_VALID"
+    "state": "CURRENT"
   },
   "incident": {
-    "level": "NORMAL",
+    "level": "WARNING",
     "error_codes": []
   },
   "data_quality": {
-    "data_state": "FRESH",
-    "qc_state": "PASS",
+    "data_state": "PARTIAL",
+    "qc_state": "WARN",
     "completeness_pct": 100.0,
-    "source_crosscheck": "PASS"
+    "source_crosscheck": "PENDING"
   },
   "decision_scope": "MULTI",
   "decision_items": [
@@ -26,9 +26,9 @@
       "subject_type": "SECURITY",
       "subject_label": "Palantir Technologies",
       "ticker": "PLTR",
-      "as_of": "2026-10-07",
+      "as_of": "2026-10-08",
       "mode": "SHADOW",
-      "phase": null,
+      "phase": "DECISION",
       "eligibility": "NOT_ELIGIBLE",
       "analysis_action": null,
       "formal_action": null,
@@ -48,9 +48,9 @@
       "subject_type": "SECURITY",
       "subject_label": "Eli Lilly",
       "ticker": "LLY",
-      "as_of": "2026-10-07",
+      "as_of": "2026-10-08",
       "mode": "SHADOW",
-      "phase": null,
+      "phase": "DECISION",
       "eligibility": "NOT_ELIGIBLE",
       "analysis_action": null,
       "formal_action": null,
@@ -70,9 +70,9 @@
       "subject_type": "SECURITY",
       "subject_label": "Bentley Systems",
       "ticker": "BSY",
-      "as_of": "2026-10-07",
+      "as_of": "2026-10-08",
       "mode": "SHADOW",
-      "phase": null,
+      "phase": "DECISION",
       "eligibility": "NOT_ELIGIBLE",
       "analysis_action": null,
       "formal_action": null,
@@ -92,9 +92,9 @@
       "subject_type": "SECURITY",
       "subject_label": "Strategy Inc.",
       "ticker": "MSTR",
-      "as_of": "2026-10-07",
+      "as_of": "2026-10-08",
       "mode": "SHADOW",
-      "phase": null,
+      "phase": "DECISION",
       "eligibility": "NOT_ELIGIBLE",
       "analysis_action": null,
       "formal_action": null,
@@ -114,9 +114,9 @@
       "subject_type": "SECURITY",
       "subject_label": "Direxion Daily Semiconductor Bull 3X",
       "ticker": "SOXL",
-      "as_of": "2026-10-07",
+      "as_of": "2026-10-08",
       "mode": "SHADOW",
-      "phase": null,
+      "phase": "DECISION",
       "eligibility": "NOT_ELIGIBLE",
       "analysis_action": null,
       "formal_action": null,
@@ -133,7 +133,7 @@
     }
   ],
   "timestamps": {
-    "market_as_of": "2026-10-07",
-    "calculated_at": "2026-10-08T18:12:26+09:00"
+    "market_as_of": "2026-10-08",
+    "calculated_at": "2026-10-09T10:20:05+09:00"
   }
 }
