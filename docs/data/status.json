@@ -3,27 +3,20 @@
   "app_version": "0.9.8",
   "app_state": "SHADOW",
   "app_state_ja": "Shadow検証中",
-  "run_state": "NORMAL",
+  "run_state": "NO_CHANGE",
   "us_trade_date": "2026-10-08",
-  "generated_at_jst": "2026-10-09T10:20:05+09:00",
-  "message": "Shadowデータ取得・計算を実行しました。 独立終値の一部は確認待ちです。",
+  "generated_at_jst": "2026-10-09T11:39:43+09:00",
+  "message": "新しい米国取引日の確定データはありません。 独立終値の一部は確認待ちです。",
   "quality": {
     "qc": "PASS",
     "session": "REGULAR",
     "completeness": "5/5",
-    "source_crosscheck": "PENDING",
+    "source_crosscheck": "PASS",
     "trade_date_age_days": 1,
     "delivery_target_jst": "12:00"
   },
   "warnings": [
-    "PLTR: independent close is not published for 2026-10-08.",
-    "LLY: independent close is not published for 2026-10-08.",
-    "BSY: independent close is not published for 2026-10-08.",
-    "MSTR: independent close is not published for 2026-10-08.",
-    "SOXL: independent close is not published for 2026-10-08.",
-    "BTC: market environment value for confirmed trade date 2026-10-08 is unavailable.",
-    "SOXX: market environment value for confirmed trade date 2026-10-08 is unavailable.",
-    "SMH: market environment value for confirmed trade date 2026-10-08 is unavailable."
+    "BTC: market environment value for confirmed trade date 2026-10-08 is unavailable."
   ],
   "errors": []
 }
