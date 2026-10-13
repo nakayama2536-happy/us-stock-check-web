@@ -41,9 +41,25 @@ def main():
             frame=page.frame_locator('#previewFrame')
             frame.locator('.ux-stock').first.wait_for(state='visible',timeout=30000)
             inner=page.locator('#previewFrame').element_handle().content_frame()
+            # The sandboxed srcdoc has its own Date realm. Freeze it explicitly;
+            # page-level clock setup alone must not silently depend on wall time.
+            print('PREVIEW CLOCK BEFORE:', inner.evaluate('new Date().toISOString()'), flush=True)
+            inner.evaluate("""()=>{
+                const NativeDate=Date;
+                window.__previewTestNow=NativeDate.parse('2026-10-04T18:30:00+09:00');
+                window.Date=class extends NativeDate{
+                    constructor(...args){super(...(args.length?args:[window.__previewTestNow]));}
+                    static now(){return window.__previewTestNow;}
+                };
+                USExperience.renderState(currentModel(),document);
+            }""")
+            check('sandbox fixture clock is fixed',inner.evaluate('new Date().toISOString()')=='2026-10-04T09:30:00.000Z')
             check('isolated preview loads five summary rows',frame.locator('.ux-stock').count()==5)
             check('preview starts at overview without reading real-app market preference',frame.locator('#tab-overview').is_visible())
             check('saved input remains reference data, not a false five-incident warning',not frame.locator('#globalDataNotice').is_visible())
+            inner.evaluate("window.__previewTestNow=Date.parse('2026-10-13T12:00:00+09:00');USExperience.renderState(currentModel(),document)")
+            check('stale fixture still warns after clock advance',frame.locator('#globalDataNotice').is_visible() and '4暦日' in frame.locator('#globalDataNotice').inner_text())
+            inner.evaluate("window.__previewTestNow=Date.parse('2026-10-04T18:30:00+09:00');USExperience.renderState(currentModel(),document)")
             check('sandbox blocks storage access',inner.evaluate("()=>{try{localStorage.getItem('usstock.activeTab');return false}catch(_){return true}}"))
             check('sandbox blocks parent document access',inner.evaluate("()=>{try{parent.document.title;return false}catch(_){return true}}"))
             for width,height in [(320,780),(390,844),(844,390)]:
