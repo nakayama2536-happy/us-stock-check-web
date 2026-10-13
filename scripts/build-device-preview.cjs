@@ -34,6 +34,7 @@ function currentModel(extra={}){\`);
     boot=once(boot,'function renderDeviceState(){\\n  renderDeviceState();','function renderDeviceState(){\\n  USExperience.renderState(currentModel(),document);');
     boot=once(boot,\"$('appState').textContent='参考分析 / '+stateLabel(status.run_state);\",'renderDeviceState();');`);
  adapter=once(adapter,"      USExperience.renderState(currentModel({loading:e.data.state==='loading',loadFailed:e.data.state==='failed',offline:e.data.state==='offline'}),document);","      if(!['ready','offline','failed','loading'].includes(e.data.state))return;\n      deviceDeliveryState=e.data.state;renderDeviceState();");
+ adapter=require('./device-consultation-contract.cjs').patch(adapter);
  fs.writeFileSync(path.join(out,'preview-adapter.js'),adapter);
  code=once(code,"function tell(state){if(current)","function tell(state){document.getElementById('deliverySummary').textContent=({ready:'保存データ表示',offline:'オフライン・保存値／GPT停止',failed:'再取得未確認／GPT停止',loading:'データ確認中／GPT停止'})[state];if(current)");
  code=once(code,"loading.textContent='候補を起動できません：'+e.message;","tell('failed');loading.textContent='候補を起動できません：'+e.message;");

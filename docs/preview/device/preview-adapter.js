@@ -145,27 +145,56 @@ activateTab(DELIVERY_SELECTION.tab||'overview');
       zero_volume_rows:rows.filter(r=>r.volume===0).length,
       rows:rows.map(r=>pick(r,'date open high low close volume source'))};
   }
+  // Device consultation contract v2: absent evidence remains unknown.
+  function consultationStatus(status){
+    const result=pick(status,'app_version app_state us_trade_date generated_at_jst run_state');
+    const modes=[status.mode,status.app_state].filter(v=>v!==null&&v!==undefined&&v!=='');
+    const valid=modes.length>0&&modes.every(v=>['SHADOW','PRODUCTION'].includes(v))&&new Set(modes).size===1;
+    return {...result,mode:valid?modes[0]:null,mode_source:valid?(status.mode?'mode':'app_state'):null,
+      mode_status:valid?'RECORDED':modes.length?'CONFLICT_OR_INVALID':'NOT_RECORDED'};
+  }
+  function consultationCoverage(stock,history,delivery){
+    const g=stock.structural_growth;
+    // Scope is tied to the reviewed producer config, not inferred for future releases.
+    const reviewed=delivery?.source_revision==='e1f8e595099e94e3473be2b1ab8225b4de86c22a';
+    const outside=reviewed&&['MSTR','SOXL'].includes(stock.ticker);
+    const values=['revenue_growth_ttm_pct','eps_growth_ttm_pct','fcf_growth_ttm_pct','operating_margin_ttm_pct'].map(k=>g?.axes?.financial_growth_quality?.[k]);
+    const count=values.filter(v=>typeof v==='number'&&Number.isFinite(v)).length;
+    return {growth:outside?'NOT_APPLICABLE':g?'RECORDED':'NOT_RECORDED',
+      financial_metrics:outside?'NOT_APPLICABLE':count===4?'RECORDED':count?'PARTIAL':'NOT_RECORDED',
+      history:(history.series?.[stock.ticker]||[]).length?'RECORDED':history.note==='観測終値履歴は未接続。'?'NOT_CONNECTED':'NOT_RECORDED',
+      note:outside?'この生成版の一般企業向け成長評価の対象外。取得失敗ではありません。':'欠損の理由・取得失敗は、記録がない限り断定しません。'};
+  }
+  function consultationAcquisition(capture,status,delivery){
+    const origin=capture?.capture;
+    const same=!!delivery&&origin?.repository===delivery.source_repository&&origin?.code_sha===delivery.source_revision&&
+      typeof origin?.run_id==='string'&&/^\d+$/.test(origin.run_id)&&capture.generated_at_jst===status.generated_at_jst&&capture.basis_date===status.us_trade_date;
+    return {relationship:same?'SAME_RUN_DECLARED':'UNCONFIRMED',
+      note:same?'収録メタデータは同一計算実行由来を示します。内部ログ・完全な計算入力の独立監査ではありません。':'取得実行の同一性は未確認です。別実行とも断定しません。'};
+  }
   function consultationData(files,kind,ticker){
     if(!['analysis','diagnostic'].includes(kind)||!(TICKERS.includes(ticker)||(kind==='diagnostic'&&ticker==='ALL')))throw new Error('Invalid consultation');
     const status=JSON.parse(files['data/status.json']),market=JSON.parse(files['data/market.json']),history=JSON.parse(files['data/chart-history.json']);
     const capture=JSON.parse(files['data/ohlcv-history.json']);
     const chosen=ticker==='ALL'?TICKERS:[ticker];
     const data={schema:'us-preview-consultation/1',purpose:kind,ui_version:'jp-cards.4',mode:'VERSION_BOUND_UI_CANDIDATE',
-      status:pick(status,'app_version mode us_trade_date generated_at_jst run_state'),quality:pick(status.quality,'qc session completeness source_crosscheck'),
+      status:consultationStatus(status),quality:pick(status.quality,'qc session completeness source_crosscheck'),
       recorded_warnings:(status.warnings||[]).map(scalar),recorded_errors:(status.errors||[]).map(scalar),
+      acquisition:consultationAcquisition(capture,status,files._delivery),
       input_git_blob_sha:{...files._hashes},delivery_manifest:files._delivery,history_source:pick(history,'source_repository source_path source_revision basis_date note'),
       securities:chosen.map(t=>{
         const matches=(market.stocks||[]).filter(s=>s.ticker===t),s=matches.length===1?matches[0]:{};
         const g=s.structural_growth||{};
         return {requested_ticker:t,matching_rows:matches.length,...pick(s,'ticker name trade_date close change_pct trend macd_state rsi14 ma_state ma50 ma200 macd macd_signal primary_source shadow_source shadow_close_diff_usd shadow_close_diff_pct'),
           levels:pick(s.levels,'support20 resistance20 ma50 ma200 low52 high52'),
+          coverage:consultationCoverage(s,history,files._delivery),
           growth:pick(g,'status score data_completeness_pct required_completeness_pct fundamental_source fundamental_last_updated'),
           financial_metrics:pick(g.axes?.financial_growth_quality,'revenue_growth_ttm_pct eps_growth_ttm_pct fcf_growth_ttm_pct operating_margin_ttm_pct'),
           valuation:pick(g.axes?.valuation_reasonableness,'forward_pe peg_ratio'),
           ohlcv:ohlcvFor(s,capture),
           history:(history.series?.[t]||[]).map(r=>pick(r,'date close source_commit primary_source shadow_source shadow_close_diff_usd'))};
       }),
-      limitations:['表示用の読込済みデータ。現在株価・最新ニュースではありません。','historyは公開snapshotの観測終値、ohlcvは一致検証済みの場合だけ最大250本を収録します。元画面とは別の取得実行です。Yahoo auto_adjust=False等の取得元値で、株式分割・配当調整方式の同等性、全営業日の網羅、過去OHLCVの独立照合は未確認。出来高0は欠損の可能性があります。完全な計算履歴ではありません。MACD等の初期値を含む再現を断定しない。','正式売買エンジン・営業日予測は未実装。保有数量・取得単価・口座・個人メモは含めない。','共通snapshotの全文・内部ログ・計算コードはこの相談文に含まれません。必要に応じて正本を照合する。']};
+      limitations:['表示用の読込済みデータ。現在株価・最新ニュースではありません。','historyは公開snapshotの観測終値、ohlcvは一致検証済みの場合だけ最大250本を収録します。取得実行の関係はacquisitionを参照してください。Yahoo auto_adjust=False等の取得元値で、株式分割・配当調整方式の同等性、全営業日の網羅、過去OHLCVの独立照合は未確認。出来高0は欠損の可能性があります。完全な計算履歴ではありません。MACD等の初期値を含む再現を断定しない。','正式売買エンジン・営業日予測は未実装。保有数量・取得単価・口座・個人メモは含めない。','共通snapshotの全文・内部ログ・計算コードはこの相談文に含まれません。必要に応じて正本を照合する。']};
     return data;
   }
   function consultationText(files,kind,ticker){
@@ -188,10 +217,10 @@ activateTab(DELIVERY_SELECTION.tab||'overview');
   function consultationPackage(files,kind,ticker){
     const data=consultationData(files,kind,ticker),full=consultationText(files,kind,ticker);
     const clip=v=>typeof v==='string'&&v.length>180?v.slice(0,180)+'…（全文を参照）':v;
-    const brief={purpose:kind,mode:data.mode,status:Object.fromEntries(Object.entries(data.status).map(([k,v])=>[k,clip(v)])),quality:data.quality,
+    const brief={purpose:kind,mode:data.mode,status:Object.fromEntries(Object.entries(data.status).map(([k,v])=>[k,clip(v)])),quality:data.quality,acquisition:data.acquisition,
       securities:data.securities.map(s=>({ticker:s.requested_ticker,matching_rows:s.matching_rows,trade_date:clip(s.trade_date),close:s.close,
         trend:clip(s.trend),macd_state:clip(s.macd_state),ma_state:clip(s.ma_state),rsi14:s.rsi14,
-        history_rows:s.history.length,history_start:s.history[0]?.date??null,history_end:s.history.at(-1)?.date??null,
+        coverage:s.coverage,history_rows:s.history.length,history_start:s.history[0]?.date??null,history_end:s.history.at(-1)?.date??null,
         ohlcv_available:s.ohlcv.available,ohlcv_reason:s.ohlcv.reason??null,ohlcv_rows:s.ohlcv.rows.length,ohlcv_start:s.ohlcv.rows[0]?.date??null,ohlcv_end:s.ohlcv.rows.at(-1)?.date??null,ohlcv_captured_at:s.ohlcv.generated_at_jst??null})),
       warning_count:data.recorded_warnings.length,error_count:data.recorded_errors.length,
       recorded_warnings:data.recorded_warnings.slice(0,5).map(clip),recorded_errors:data.recorded_errors.slice(0,5).map(clip)};

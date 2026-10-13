@@ -2,7 +2,7 @@ name: Device Preview Isolation
 on:
   pull_request:
     branches: [main]
-    paths: ['docs/preview/device/**', 'scripts/build-device-preview.cjs', 'tests/browser_device_preview.py', 'tests/device-preview.test.cjs', '.github/workflows/device-preview.yml']
+    paths: ['docs/preview/device/**', 'scripts/build-device-preview.cjs', 'scripts/device-consultation-contract.cjs', 'tests/browser_device_preview.py', 'tests/device-preview.test.cjs', '.github/workflows/device-preview.yml']
 permissions:
   contents: read
 jobs:

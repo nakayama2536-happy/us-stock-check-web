@@ -19,9 +19,9 @@
     "icons/us-stock-icon.png": "07eab8629467be85452199088598fc58fd6918e77d17ee9fe8bbaf7bb9314fed",
     "index.html": "c24abf09f2c67a57e9352d18d42a71cf35f673f1b621dccf8ff2965a44bfb200",
     "manifest.webmanifest": "7376bd972d9031dab28aca8a4bb85d7974e452ce1e9fcc3596b21c12d68b597f",
-    "preview-adapter.js": "39437275bfa24436039447a8fc3142eca1b351dccf6f8e9fb73821bba9808c3d",
+    "preview-adapter.js": "c9bcc3b1e5de1c0931c2d6552d37568bab1130e0676d3d42165db2ba534a2eb3",
     "storage.js": "6a723a039965f0b8306c4ee0a77139fb79cf6752871b80af4750c43e3e1add38",
     "sw-register.js": "5f33fd46fb1bbdea162193a0a1204d66aa39ee41beb7da75613ea531c6b8d893",
-    "sw.js": "c48bfce8f54f990f4830c0124bfc91eea7dff712c084e84e54624de8fb58a96a"
+    "sw.js": "adc79709fefc7b1b47ffe164ceb1cbb7ef03f8c8ee715e43ae4f1cdf3fa61138"
   }
 }

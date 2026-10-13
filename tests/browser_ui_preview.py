@@ -6,7 +6,7 @@ import threading
 import json
 import shutil
 import os
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, expect
 
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'test-output'
@@ -29,8 +29,17 @@ def main():
         with sync_playwright() as p:
             browser=p.chromium.launch(executable_path=chrome,headless=True,args=['--no-sandbox'])
             context=browser.new_context(viewport={'width':390,'height':844})
+            # Initialize Date before scripts in every document, including srcdoc.
+            # Setting page.clock after creation can be observed too late by its
+            # initial synchronous render even when a later Date read is fixed.
+            context.add_init_script("""(()=>{
+                const NativeDate=Date, fixed=NativeDate.parse('2026-10-04T18:30:00+09:00');
+                window.Date=class extends NativeDate{
+                    constructor(...args){super(...(args.length?args:[fixed]));}
+                    static now(){return fixed;}
+                };
+            })();""")
             page=context.new_page()
-            page.clock.set_fixed_time('2026-10-04T18:30:00+09:00')
             errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             page.goto(base+'/index.html')
             page.evaluate('navigator.serviceWorker.ready')
@@ -41,9 +50,16 @@ def main():
             frame=page.frame_locator('#previewFrame')
             frame.locator('.ux-stock').first.wait_for(state='visible',timeout=30000)
             inner=page.locator('#previewFrame').element_handle().content_frame()
+            # Verify the sandbox clock, and await the completed state render.
+            print('PREVIEW CLOCK BEFORE:', inner.evaluate('new Date().toISOString()'), flush=True)
+            check('sandbox fixture clock is fixed',inner.evaluate('new Date().toISOString()')=='2026-10-04T09:30:00.000Z')
             check('isolated preview loads five summary rows',frame.locator('.ux-stock').count()==5)
             check('preview starts at overview without reading real-app market preference',frame.locator('#tab-overview').is_visible())
-            check('saved input remains reference data, not a false five-incident warning',not frame.locator('#globalDataNotice').is_visible())
+            expect(frame.locator('#globalDataNotice')).to_be_hidden()
+            check('saved input remains reference data, not a false five-incident warning',True)
+            inner.evaluate("USExperience.renderState(currentModel({now:new Date('2026-10-13T12:00:00+09:00')}),document)")
+            check('stale fixture still warns after clock advance',frame.locator('#globalDataNotice').is_visible() and '4暦日' in frame.locator('#globalDataNotice').inner_text())
+            inner.evaluate("USExperience.renderState(currentModel(),document)")
             check('sandbox blocks storage access',inner.evaluate("()=>{try{localStorage.getItem('usstock.activeTab');return false}catch(_){return true}}"))
             check('sandbox blocks parent document access',inner.evaluate("()=>{try{parent.document.title;return false}catch(_){return true}}"))
             for width,height in [(320,780),(390,844),(844,390)]:
