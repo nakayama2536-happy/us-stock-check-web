@@ -29,8 +29,17 @@ def main():
         with sync_playwright() as p:
             browser=p.chromium.launch(executable_path=chrome,headless=True,args=['--no-sandbox'])
             context=browser.new_context(viewport={'width':390,'height':844})
+            # Initialize Date before scripts in every document, including srcdoc.
+            # Setting page.clock after creation can be observed too late by its
+            # initial synchronous render even when a later Date read is fixed.
+            context.add_init_script("""(()=>{
+                const NativeDate=Date, fixed=NativeDate.parse('2026-10-04T18:30:00+09:00');
+                window.Date=class extends NativeDate{
+                    constructor(...args){super(...(args.length?args:[fixed]));}
+                    static now(){return fixed;}
+                };
+            })();""")
             page=context.new_page()
-            page.clock.set_fixed_time('2026-10-04T18:30:00+09:00')
             errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
             page.goto(base+'/index.html')
             page.evaluate('navigator.serviceWorker.ready')
