@@ -1,0 +1,26 @@
+name: PWA Migration Rehearsal
+on:
+  pull_request:
+    branches: [main]
+    paths: ['migration/**', '.github/workflows/migration-rehearsal.yml']
+permissions:
+  contents: read
+jobs:
+  rehearsal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - run: node --test migration/worker-migration.test.cjs
+      - run: python -m pip install playwright==1.57.0
+      - run: python migration/browser-rehearsal.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: pwa-migration-rehearsal
+          path: test-output-migration/
+          retention-days: 7
