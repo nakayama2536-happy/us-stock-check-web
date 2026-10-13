@@ -86,6 +86,22 @@ def main():
                 expect(frame.locator('#appState')).to_have_text('参考分析 / 保存データ表示')
                 expect(page.locator('#deliverySummary')).to_have_text('保存データ表示')
                 check('online recovery revalidates', not page.locator('#deliveryRefresh').is_disabled())
+                frame.locator('#tabbtn-quality').click()
+                frame.locator('[data-us-consult="diagnostic"][data-us-ticker="ALL"]').click()
+                expect(page.locator('#consultDialog')).to_be_visible()
+                summary_text = page.locator('#consultText').input_value()
+                summary = json.loads(summary_text[summary_text.index('{'):])
+                page.locator('#consultView').select_option('full')
+                full_text = page.locator('#consultText').input_value()
+                full = json.loads(full_text[full_text.index('{'):])
+                check('consultation retains SHADOW in summary and full', summary['status']==full['status'] and full['status']['mode']=='SHADOW')
+                check('consultation distinguishes declared provenance and unconnected history', full['acquisition']['relationship']=='SAME_RUN_DECLARED' and all(s['coverage']['history']=='NOT_CONNECTED' for s in full['securities']))
+                check('consultation preserves all 1250 rows', sum(len(s['ohlcv']['rows']) for s in full['securities'])==1250)
+                with page.expect_download() as download_info:
+                    page.locator('#consultSave').click()
+                downloaded = download_info.value
+                check('saved consultation equals full displayed text', Path(downloaded.path()).read_text()==full_text)
+                page.locator('#consultClose').click()
                 check('normal and foreign cache records preserved', page.evaluate("""async()=>{
                     return await(await(await caches.open('us-stock-check-v0.9.8-cache1')).match('/normal-record-sentinel')).text()==='preserve' && await(await(await caches.open('other-app-preserve')).match('/sentinel')).text()==='preserve';
                 }"""))
