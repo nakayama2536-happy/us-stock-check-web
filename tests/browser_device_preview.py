@@ -14,9 +14,22 @@ def main():
         print('DEVICE PREVIEW PASS:', name, flush=True)
     with tempfile.TemporaryDirectory() as tmp:
         shutil.copytree(ROOT/'docs', Path(tmp)/'us-stock-check-web')
+        device_dir = Path(tmp)/'us-stock-check-web/preview/device'
+        worker_source = (device_dir/'sw.js').read_text()
+        status_source = (device_dir/'device-status.js').read_text()
+        # Temporary-server fixtures only: simulate two UI releases under an
+        # unexpired HTTP cache, without editing the shipped data or app files.
+        def release_fixture(version):
+            (device_dir/'sw.js').write_text(worker_source.replace("CACHE=PREFIX+'", "CACHE=PREFIX+'upgrade-"+version+"-", 1))
+            (device_dir/'device-status.js').write_text(status_source+"\ndocument.getElementById('deviceStatus').textContent += ' / update-fixture-"+version+"';\n")
+        release_fixture('old')
         class Handler(http.server.SimpleHTTPRequestHandler):
             def __init__(self, *a, **kw): super().__init__(*a, directory=tmp, **kw)
             def log_message(self, *a): pass
+            def end_headers(self):
+                if self.path.split('?')[0].endswith('/preview/device/device-status.js'):
+                    self.send_header('Cache-Control', 'public, max-age=3600')
+                super().end_headers()
         server = http.server.ThreadingHTTPServer(('127.0.0.1', 0), Handler)
         threading.Thread(target=server.serve_forever, daemon=True).start()
         base = f'http://127.0.0.1:{server.server_port}/us-stock-check-web/'
@@ -105,6 +118,18 @@ def main():
                 downloaded = download_info.value
                 check('saved consultation equals full displayed text', Path(downloaded.path()).read_text()==full_text)
                 page.locator('#consultClose').click()
+                page.reload()
+                expect(page.locator('#deviceStatus')).to_contain_text('update-fixture-old')
+                release_fixture('new')
+                page.evaluate("""async()=>{
+                    const changed=new Promise(resolve=>navigator.serviceWorker.addEventListener('controllerchange',resolve,{once:true}));
+                    await(await navigator.serviceWorker.ready).update();
+                    await changed;
+                }""")
+                page.reload()
+                expect(page.locator('#deviceStatus')).to_contain_text('update-fixture-new')
+                check('updated device shell bypasses still-fresh HTTP cache', True)
+                expect(page.locator('#deliveryState')).to_contain_text('配信ファイル照合')
                 check('normal and foreign cache records preserved', page.evaluate("""async()=>{
                     return await(await(await caches.open('us-stock-check-v0.9.8-cache1')).match('/normal-record-sentinel')).text()==='preserve' && await(await(await caches.open('other-app-preserve')).match('/sentinel')).text()==='preserve';
                 }"""))
