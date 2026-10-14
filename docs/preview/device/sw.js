@@ -1,8 +1,8 @@
 /* Device scope only. Never migrates or deletes regular app caches. */
-const SCOPE="/us-stock-check-web/preview/device/",PREFIX='us-stock-device-shell-',CACHE=PREFIX+'fab6ec32537490ef';
+const SCOPE="/us-stock-check-web/preview/device/",PREFIX='us-stock-device-shell-',CACHE=PREFIX+'39e1bc67298e80d9';
 if(new URL(self.registration.scope).pathname!==SCOPE)throw Error('Unexpected preview scope');
 const STATIC=["./","./index.html","./assets.json","./preview-adapter.js","./delivery.js","./storage.js","./candidate.js","./device-status.js","./sw-register.js","./manifest.webmanifest","./icons/us-stock-icon.png"];
-self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(STATIC)).then(()=>self.skipWaiting())));
+self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(STATIC.map(url=>new Request(new URL(url,self.registration.scope),{cache:'reload'})))).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil((async()=>{await Promise.all((await caches.keys()).filter(k=>k.startsWith(PREFIX)&&k!==CACHE).map(k=>caches.delete(k)));await self.clients.claim();})()));
 self.addEventListener('fetch',e=>{
  const r=e.request,u=new URL(r.url),base=new URL(self.registration.scope);

@@ -49,12 +49,13 @@ function currentModel(extra={}){\`);
  fs.writeFileSync(path.join(out,'device-status.js'),`function deviceStatus(){const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;const controller=navigator.serviceWorker?.controller;document.getElementById('deviceStatus').textContent='起動：'+(standalone?'ホーム画面':'ブラウザー')+' ／ 通信：'+(navigator.onLine?'オンライン':'オフライン')+' ／ SW：'+(controller?.scriptURL.includes('${SCOPE}sw.js')?'確認版':'登録待ち（オンラインで再読込）');}deviceStatus();addEventListener('online',deviceStatus);addEventListener('offline',deviceStatus);navigator.serviceWorker?.addEventListener('controllerchange',deviceStatus);\n`);
  fs.writeFileSync(path.join(out,'sw-register.js'),`if(location.pathname.startsWith('${SCOPE}')&&'serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js',{scope:'./',updateViaCache:'none'}).catch(()=>{document.getElementById('deviceStatus').textContent='確認版SWの登録に失敗しました。';}));\n`);
  const STATIC=['./','./index.html','./assets.json','./preview-adapter.js','./delivery.js','./storage.js','./candidate.js','./device-status.js','./sw-register.js','./manifest.webmanifest','./icons/us-stock-icon.png'];
- const digest=sha(Buffer.concat(STATIC.filter(x=>x!=='./').map(n=>fs.readFileSync(path.join(out,n))))).slice(0,16);
+ // Include the install policy so a worker-only repair gets a fresh shell cache.
+ const digest=sha(Buffer.concat([Buffer.from('reload-v1\n'),...STATIC.filter(x=>x!=='./').map(n=>fs.readFileSync(path.join(out,n)))])).slice(0,16);
  fs.writeFileSync(path.join(out,'sw.js'),`/* Device scope only. Never migrates or deletes regular app caches. */
 const SCOPE=${JSON.stringify(SCOPE)},PREFIX='us-stock-device-shell-',CACHE=PREFIX+'${digest}';
 if(new URL(self.registration.scope).pathname!==SCOPE)throw Error('Unexpected preview scope');
 const STATIC=${JSON.stringify(STATIC)};
-self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(STATIC)).then(()=>self.skipWaiting())));
+self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(STATIC.map(url=>new Request(new URL(url,self.registration.scope),{cache:'reload'})))).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil((async()=>{await Promise.all((await caches.keys()).filter(k=>k.startsWith(PREFIX)&&k!==CACHE).map(k=>caches.delete(k)));await self.clients.claim();})()));
 self.addEventListener('fetch',e=>{
  const r=e.request,u=new URL(r.url),base=new URL(self.registration.scope);

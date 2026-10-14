@@ -49,3 +49,13 @@ SW scopeはこのディレクトリのみ。静的資材は `us-stock-device-she
 - `freshness.evaluated_at`: 相談文作成時の端末時計による鮮度評価日時。
 
 表示側の詳細にも「データ生成」と「配信ファイル照合」を明記する。変更するSWはdevice専用の静的資材cache名のみ。通常PWAの採用や正式売買資格を変更しない。
+
+## 2026-10-15 版更新時のHTTPキャッシュ対策（PR #40）
+
+PR #39後の追加対策。device専用SWのインストール時は、静的資材を `Request(..., {cache:'reload'})` で取得する。有効期限内の古いHTTPキャッシュが新しいshellへ再保存されることを防ぐ。取得完了後だけ有効化し、途中失敗時は既存の確認版を維持する。通常起動・オフラインでは従来のshellキャッシュを使う。
+
+cache名には資材ハッシュに加えて取得方式の版を含める。scope、取得対象、旧shellの削除範囲、固定配信・通常アプリ・個人記録は変えない。1時間のHTTPキャッシュが残った旧版から新版への更新を自動テストへ追加した。iPhoneでの正式受入とは区別する。
+
+再現記録: commit `81bd550843b9c0505b0491e304d299ed3b7e90d4`、Device Preview Isolation run `38589633859`。SWの更新と再読込後も `update-fixture-old` が残り、新版表示を期待した検査で失敗した。これはテストサーバー上で確認した原因であり、公開ブラウザーの内部キャッシュまで独立確認した記録ではない。修正後の同じテストと公開確認結果はPR #40に記録する。
+
+取得方式の根拠: [MDN Request.cache](https://developer.mozilla.org/en-US/docs/Web/API/Request/cache)。`reload` はHTTPキャッシュを参照せず取得し、その取得結果でHTTPキャッシュを更新する。
