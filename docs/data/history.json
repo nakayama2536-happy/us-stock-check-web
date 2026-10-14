@@ -974,6 +974,23 @@
       "source_crosscheck": "PASS",
       "warnings": [],
       "errors": []
+    },
+    {
+      "generated_at_jst": "2026-10-14T09:28:57+09:00",
+      "us_trade_date": "2026-10-13",
+      "run_state": "NORMAL",
+      "source_crosscheck": "PENDING",
+      "warnings": [
+        "PLTR: independent close is not published for 2026-10-13.",
+        "LLY: independent close is not published for 2026-10-13.",
+        "BSY: independent close is not published for 2026-10-13.",
+        "MSTR: independent close is not published for 2026-10-13.",
+        "SOXL: independent close is not published for 2026-10-13.",
+        "BTC: market environment value for confirmed trade date 2026-10-13 is unavailable.",
+        "SOXX: market environment value for confirmed trade date 2026-10-13 is unavailable.",
+        "SMH: market environment value for confirmed trade date 2026-10-13 is unavailable."
+      ],
+      "errors": []
     }
   ]
 }
