@@ -118,3 +118,18 @@ test('worker activation can only delete obsolete device shell; fetch bypasses no
  }
  assert.throws(()=>vm.runInNewContext(read('sw.js'),{...context,self:{...context.self,registration:{scope:'https://example.test/us-stock-check-web/'}}}),/Unexpected preview scope/);
 });
+test('device install requests fresh shell bytes and does not activate after an incomplete download',async()=>{
+ const scope='https://example.test/us-stock-check-web/preview/device/';
+ for(const fail of [false,true]){
+  const events={};let requested,activated=false,completed;
+  const context={URL,Request,Promise,Error,
+   self:{registration:{scope},addEventListener:(n,f)=>events[n]=f,skipWaiting:async()=>{activated=true;}},
+   caches:{open:async()=>({addAll:async requests=>{requested=requests;if(fail)throw Error('Download failed');}})}};
+  vm.runInNewContext(read('sw.js'),context);
+  events.install({waitUntil:p=>completed=p});
+  if(fail)await assert.rejects(completed,/Download failed/);else await completed;
+  assert.equal(activated,!fail);
+  assert.ok(requested.length>0);
+  for(const r of requested){assert.equal(r.cache,'reload');assert.ok(r.url.startsWith(scope));assert.ok(!r.url.includes('/delivery/'));}
+ }
+});
