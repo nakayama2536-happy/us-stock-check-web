@@ -125,18 +125,18 @@
       '<span class="delta '+(finite(r.stock&&r.stock.change_pct)>0?'up':finite(r.stock&&r.stock.change_pct)<0?'down':'flat')+'">'+percent(r.stock&&r.stock.change_pct)+'</span></button>').join('');
     return '<div class="ux-summary-head"><h2>本日の確認サマリー</h2><span class="ux-chip">参考分析</span></div>'+
       '<p class="ux-headline ux-'+m.state+'">'+esc(m.headline)+'</p><p class="ux-caption">'+esc(m.freshness)+' ／ 対象5銘柄</p>'+
-      '<button type="button" class="ux-quality-link" data-go-tab="quality">株価 '+m.received+'/5取得 ／ 独立照合 '+esc(m.crossLabel)+'　品質詳細 ›</button>'+
+      '<button type="button" class="ux-quality-link" data-go-tab="quality">株価 '+m.received+'/5取得 ／ 保存時の終値照合 '+esc(m.crossLabel)+'　品質詳細 ›</button>'+
       '<div class="ux-stocks">'+rows+'</div><p class="ux-caption">表示は既存の短期状態です。将来予測や発注指示ではありません。</p>';
   }
   function reasonsHtml(m){
-    return m.reasons.length?'<div class="ux-reasons">'+m.reasons.map(r=>'<p class="ux-'+r.severity+'">'+esc(r.message)+'</p>').join('')+'</div>':'<p>現在の表示データに確認事項は検出されていません。正式売買の許可ではありません。</p>';
+    return m.reasons.length?'<div class="ux-reasons">'+m.reasons.map(r=>'<p class="ux-'+r.severity+'">'+esc(r.message)+'</p>').join('')+'</div>':'<p>既存の取得・対象日チェックで追加の警告は検出されていません。未確認範囲の解消や正式売買の許可を意味しません。</p>';
   }
   function qualityHtml(m){
     return '<div class="ux-quality-grid">'+[
       ['株価取得',m.received+'/5','有効な価格がある対象数'],['対象日整合',m.usable+'/5','重複・対象日・価格を確認'],
-      ['独立照合',m.crossLabel,'保存された照合状態'],['共通情報',m.bound?'日時・対象一致':'未確認','同一公開版の完全証明ではありません']
+      ['終値照合',m.crossLabel,'保存された対象日の終値比較'],['共通情報',m.bound?'日時・対象一致':'未確認','同一公開版の完全証明ではありません']
     ].map(x=>'<div class="ux-metric"><span>'+esc(x[0])+'</span><b>'+esc(x[1])+'</b><small>'+esc(x[2])+'</small></div>').join('')+'</div>'+
-      '<p class="ux-caption">取得完了・出典一致・正式売買資格は別の状態です。</p>'+reasonsHtml(m);
+      '<p class="ux-caption">取得完了・終値照合・正式売買資格は別の状態です。</p><p class="ux-caption" data-quality-scope>過去OHLCV全項目の独立照合、取得元の終値確定、分割・配当調整方式の同等性は未確認です。終値照合のPASSだけでは、これらを確認済みとは扱いません。</p>'+reasonsHtml(m);
   }
   function renderState(m,doc){
     const banner=doc.getElementById('globalDataNotice');

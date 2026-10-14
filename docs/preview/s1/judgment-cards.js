@@ -12,7 +12,7 @@
   }
 })(typeof globalThis==='undefined'?this:globalThis,function(base){
   'use strict';
-  const VERSION='jp-cards.4';
+  const VERSION='jp-cards.5';
   // Display aliases only. The ticker and original company name stay visible/accessible.
   const NAMES=Object.freeze({PLTR:'パランティア',LLY:'イーライリリー',BSY:'ベントレー・システムズ',MSTR:'ストラテジー',SOXL:'半導体ブル3倍ETF'});
   const esc=base.esc,finite=base.finite;
@@ -77,7 +77,7 @@
   function summaryHtml(m){
     return '<article class="usj-summary"><div class="ux-summary-head"><h2>本日の確認サマリー</h2><span class="ux-chip">参考分析</span></div>'+
       '<p class="ux-headline ux-'+m.state+'">'+esc(m.headline)+'</p><p class="ux-caption">'+esc(m.freshness)+' ／ 対象5銘柄</p>'+
-      '<button type="button" class="ux-quality-link" data-go-tab="quality">株価 '+m.received+'/5取得 ／ 独立照合 '+esc(m.crossLabel)+'　品質詳細 ›</button></article>'+
+      '<button type="button" class="ux-quality-link" data-go-tab="quality">株価 '+m.received+'/5取得 ／ 保存時の終値照合 '+esc(m.crossLabel)+'　品質詳細 ›</button></article>'+
       '<article class="usj-list"><h2>5銘柄の状態・テクニカル</h2><p class="usj-caption">矢印は現在の状態です。上向き＝赤／下向き＝青。営業日予測や売買指示ではありません。</p>'+
       '<p class="usj-caption usj-source-note">日数は計算期間であり、予測先ではありません。短期はMACD（12・26営業日、シグナル9営業日）と終値・50・200日線、中長期は50・200日線の比較。RSI14は14営業日の過熱度。照合は保存時の終値比較です。</p>'+
       m.rows.map(row=>cardHtml(row,m)).join('')+'</article>';

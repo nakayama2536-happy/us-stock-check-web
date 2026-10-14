@@ -9,6 +9,17 @@ const P=require(path.join(root,'preview.js'));
 const source=['status','market','common_snapshot'].map(n=>JSON.parse(fs.readFileSync(path.join(root,'data/'+n+'.json'),'utf8')));
 function fixture(){return structuredClone(source);}
 const model=f=>U.model(...f,{now:new Date('2026-10-04T18:30:00+09:00')});
+test('PASS remains scoped to saved close, not full OHLCV or finality',()=>{
+  const m=model(fixture()),before=JSON.stringify(m);
+  const html=U.qualityHtml(m);
+  assert.match(html,/data-quality-scope/);
+  assert.match(html,/過去OHLCV全項目の独立照合/);
+  assert.match(html,/取得元の終値確定/);
+  assert.match(html,/分割・配当調整方式の同等性は未確認/);
+  assert.match(J.summaryHtml(m),/保存時の終値照合/);
+  assert.ok(!html.includes('確認事項は検出されていません'));
+  assert.equal(JSON.stringify(m),before);
+});
 test('Japan-like judgment structure retains five expected securities',()=>{
   const html=J.summaryHtml(model(fixture()));
   assert.equal((html.match(/data-judgment-card=/g)||[]).length,5);
@@ -83,7 +94,7 @@ test('both row links describe implemented detail views, not unimplemented AI exp
 });
 test('assembled preview includes facade with no external loader or SW inside sandbox',()=>{
   const files=Object.fromEntries(Object.keys(P.PINS).map(k=>[k,fs.readFileSync(path.join(root,k),'utf8')]));
-  const html=P.makeDocument(files);assert.ok(html.includes('jp-cards.4'));assert.ok(html.includes("connect-src 'none'"));
+  const html=P.makeDocument(files);assert.ok(html.includes('jp-cards.5'));assert.ok(html.includes("connect-src 'none'"));
   assert.ok(!/\bfetch\s*\(|serviceWorker\.register|allow-same-origin/.test(html));
   const scripts=[...html.matchAll(/<script>([\s\S]*?)<\/script>/g)];assert.equal(scripts.length,1);new vm.Script(scripts[0][1]);
 });
