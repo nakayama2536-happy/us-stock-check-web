@@ -32,7 +32,7 @@
     if(mine!==cycle)return;
     allowed=bundle.restored?null:files;frame.hidden=false;loading.hidden=true;button.disabled=false;tell(bundle.restored?(!navigator.onLine?'offline':'failed'):'ready');
     const st=bundle.objects['status.json'];
-    status.textContent=(bundle.restored?'保存版（再取得未確認・GPT停止） ':'配信版 ')+bundle.manifest.release.slice(0,12)+' ／ 株価基準日 '+st.us_trade_date+' ／ 計算 '+st.generated_at_jst+'。取得成功は品質PASSを意味しません。'+(bundle.storageWarning?' 今回の版を端末へ保存できませんでした。':'');
+    status.textContent=(bundle.restored?'保存版（再取得未確認・GPT停止） ':'配信版 ')+bundle.manifest.release.slice(0,12)+' ／ 株価基準日 '+st.us_trade_date+' ／ データ生成 '+st.generated_at_jst+' ／ 配信ファイル照合 '+files._delivery.verified_at+'（株価更新日時ではありません）。取得成功は品質PASSを意味しません。'+(bundle.storageWarning?' 今回の版を端末へ保存できませんでした。':'');
    };
    frame.srcdoc=html;
   },

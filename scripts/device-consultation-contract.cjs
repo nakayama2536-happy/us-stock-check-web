@@ -39,6 +39,37 @@ function patch(adapter){
  adapter=once(adapter,'元画面とは別の取得実行です。','取得実行の関係はacquisitionを参照してください。');
  adapter=once(adapter,'history_rows:s.history.length,','coverage:s.coverage,history_rows:s.history.length,');
  adapter=once(adapter,'quality:data.quality,','quality:data.quality,acquisition:data.acquisition,');
+ return patchFreshness(adapter);
+}
+function patchFreshness(adapter){
+ adapter=once(adapter,'  function consultationData(files,kind,ticker){',String.raw`  // Age is evaluated once per export, separately from the stored quality result.
+  function consultationFreshness(status,now){
+    const validClock=now instanceof Date&&Number.isFinite(now.getTime());
+    const raw=status.us_trade_date;
+    const basis=typeof raw==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(raw)&&Number.isFinite(Date.parse(raw))&&new Date(raw).toISOString().slice(0,10)===raw?raw:null;
+    const today=validClock?new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'}).format(now):null;
+    const age=basis&&today?Math.floor((Date.parse(today)-Date.parse(basis))/86400000):null;
+    return {data_kind:'FIXED_PREVIEW',auto_updates_market_data:false,
+      evaluated_at:validClock?now.toISOString():null,clock:'DEVICE_CLOCK',calendar_timezone:'Asia/Tokyo',basis_date:basis,
+      age_calendar_days:age,stale_after_calendar_days:4,
+      state:!validClock?'CLOCK_UNKNOWN':!basis?'DATE_UNKNOWN':age<0?'FUTURE_DATE':age>4?'STALE':'WITHIN_AGE_LIMIT',
+      note:'端末日時で評価。保存時PASS・警告0件とは別の評価です。営業日数・予測期間ではなく、4暦日以内でも最新価格の保証ではありません。'};
+  }
+  function consultationData(files,kind,ticker,now=new Date()){`);
+ adapter=once(adapter,'status:consultationStatus(status),quality:',`freshness:consultationFreshness(status,now),quality_scope:'RECORDED_AT_GENERATION',
+      timestamp_meanings:{generated_at_jst:'市場データの生成日時',verified_at:'配信ファイルの照合日時。株価更新日時ではありません',evaluated_at:'相談文作成時の端末時計による鮮度評価日時'},
+      status:consultationStatus(status),quality:`);
+ adapter=once(adapter,'function consultationText(files,kind,ticker){','function consultationText(files,kind,ticker,now=new Date()){');
+ adapter=once(adapter,'const data=consultationData(files,kind,ticker);','const data=consultationData(files,kind,ticker,now);');
+ adapter=once(adapter,'function consultationPackage(files,kind,ticker){','function consultationPackage(files,kind,ticker,now=new Date()){');
+ adapter=once(adapter,'const data=consultationData(files,kind,ticker),full=consultationText(files,kind,ticker);','const data=consultationData(files,kind,ticker,now),full=consultationText(files,kind,ticker,now);');
+ adapter=once(adapter,'quality:data.quality,acquisition:data.acquisition,','quality:data.quality,quality_scope:data.quality_scope,freshness:data.freshness,timestamp_meanings:data.timestamp_meanings,acquisition:data.acquisition,');
+ adapter=once(adapter,"status:clip(data.status.us_trade_date),tickers:","status:clip(data.status.us_trade_date),quality_scope:data.quality_scope,freshness:data.freshness,timestamp_meanings:data.timestamp_meanings,tickers:");
+ adapter=once(adapter,'読込済み確認版です。日数は計算期間であり予測期間ではありません。','固定データの確認版です。品質PASSと警告・エラー件数は保存時の記録であり、現在の鮮度はfreshnessを確認してください。日数は計算期間であり予測期間ではありません。');
  return adapter;
 }
-module.exports={patch};
+function patchDeliveryTime(code){
+ return once(code,"' ／ 計算 '+st.generated_at_jst+'。取得成功は品質PASSを意味しません。'",
+   "' ／ データ生成 '+st.generated_at_jst+' ／ 配信ファイル照合 '+files._delivery.verified_at+'（株価更新日時ではありません）。取得成功は品質PASSを意味しません。'");
+}
+module.exports={patch,patchFreshness,patchDeliveryTime};

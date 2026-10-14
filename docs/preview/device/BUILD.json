@@ -8,7 +8,7 @@
   "scope": "/us-stock-check-web/preview/device/",
   "sha256": {
     "assets.json": "5d55048f2affb9dca1a9dae779c141d92d1806fc73e53221b88e12ba29cc791d",
-    "candidate.js": "e66713ca5ec77ba2eefd9107ad732e82c71e72c5d7b60b961249d47a43516a19",
+    "candidate.js": "580d7994c454c312e16163b701262f6ff1cab3e859df4b074ae972723d1ceb76",
     "delivery/current.json": "1a1abb241611473870960e005b018fdad33ba3e28d486a396a74f99ab3076a12",
     "delivery/releases/b88f9c8734bc69cd680187331307869295a3d67651ae86e5c062792b306aeba8/common_snapshot.json": "14f0eb45062c385ac2dd70d37ad4de14f3759700c1840c265c667d4fab1c1cd9",
     "delivery/releases/b88f9c8734bc69cd680187331307869295a3d67651ae86e5c062792b306aeba8/market.json": "b92eac0c6eacbeb87568e365a9b8672d8bacb6f3e7450b59752a5bef4de752cb",
@@ -19,9 +19,9 @@
     "icons/us-stock-icon.png": "07eab8629467be85452199088598fc58fd6918e77d17ee9fe8bbaf7bb9314fed",
     "index.html": "c24abf09f2c67a57e9352d18d42a71cf35f673f1b621dccf8ff2965a44bfb200",
     "manifest.webmanifest": "7376bd972d9031dab28aca8a4bb85d7974e452ce1e9fcc3596b21c12d68b597f",
-    "preview-adapter.js": "c9bcc3b1e5de1c0931c2d6552d37568bab1130e0676d3d42165db2ba534a2eb3",
+    "preview-adapter.js": "c24a1565e765763ea082fffa8dfd8b6a196f07dbc83444e8bbfae24f60dd4579",
     "storage.js": "6a723a039965f0b8306c4ee0a77139fb79cf6752871b80af4750c43e3e1add38",
     "sw-register.js": "5f33fd46fb1bbdea162193a0a1204d66aa39ee41beb7da75613ea531c6b8d893",
-    "sw.js": "adc79709fefc7b1b47ffe164ceb1cbb7ef03f8c8ee715e43ae4f1cdf3fa61138"
+    "sw.js": "b71a01d9fb497f7c1b400f7313f464beef435f8e1d7748b597b2bd77fad569ca"
   }
 }

@@ -10,6 +10,11 @@ from playwright.sync_api import sync_playwright, expect
 
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'test-output'
+FIXTURE_TIMES={
+    'fresh':'2026-10-04T09:30:00.000Z',
+    'boundary':'2026-10-06T14:59:59.000Z',
+    'stale':'2026-10-06T15:00:00.000Z',
+}
 class Quiet(http.server.SimpleHTTPRequestHandler):
     def log_message(self,*args):pass
     def do_GET(self):
@@ -17,8 +22,19 @@ class Quiet(http.server.SimpleHTTPRequestHandler):
             source=(ROOT/'docs/preview/s1/preview.js').read_text()
             boundary='safeScript(code)'
             assert source.count(boundary)==1
-            probe="console.info('PREVIEW INITIAL CLOCK',new Date().toISOString());\n"
-            source=source.replace(boundary,'safeScript('+json.dumps(probe)+'+code)')
+            # srcdoc can run inline scripts before context.add_init_script.
+            # This local test server prepends only the clock to the same script;
+            # production bytes, pinned inputs, model and render calls stay intact.
+            at=FIXTURE_TIMES[self.headers.get('X-Preview-Test-Clock','fresh')]
+            prelude="""(()=>{
+                const NativeDate=Date, fixed=NativeDate.parse(%s);
+                window.Date=class extends NativeDate{
+                    constructor(...args){super(...(args.length?args:[fixed]));}
+                    static now(){return fixed;}
+                };
+                window.__previewInitialClock=new Date().toISOString();
+            })();\n""" % json.dumps(at)
+            source=source.replace(boundary,'safeScript('+json.dumps(prelude)+'+code)')
             body=source.encode()
             self.send_response(200);self.send_header('Content-Type','text/javascript');self.send_header('Content-Length',str(len(body)));self.end_headers();self.wfile.write(body)
         else: super().do_GET()
@@ -39,19 +55,8 @@ def main():
         with sync_playwright() as p:
             browser=p.chromium.launch(executable_path=chrome,headless=True,args=['--no-sandbox'])
             context=browser.new_context(viewport={'width':390,'height':844})
-            # Initialize Date before scripts in every document, including srcdoc.
-            # Setting page.clock after creation can be observed too late by its
-            # initial synchronous render even when a later Date read is fixed.
-            context.add_init_script("""(()=>{
-                const NativeDate=Date, fixed=NativeDate.parse('2026-10-04T18:30:00+09:00');
-                window.Date=class extends NativeDate{
-                    constructor(...args){super(...(args.length?args:[fixed]));}
-                    static now(){return fixed;}
-                };
-            })();""")
             page=context.new_page()
             errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
-            page.on('console',lambda m:print(m.text,flush=True) if m.text.startswith('PREVIEW INITIAL CLOCK') else None)
             page.goto(base+'/index.html')
             page.evaluate('navigator.serviceWorker.ready')
             page.evaluate("localStorage.setItem('usstock.activeTab','market');localStorage.setItem('other-app-record','preserve')")
@@ -61,17 +66,23 @@ def main():
             frame=page.frame_locator('#previewFrame')
             frame.locator('.ux-stock').first.wait_for(state='visible',timeout=30000)
             inner=page.locator('#previewFrame').element_handle().content_frame()
-            # Verify the sandbox clock, and await the completed state render.
-            print('PREVIEW CLOCK BEFORE:', inner.evaluate('new Date().toISOString()'), flush=True)
-            check('sandbox fixture clock is fixed',inner.evaluate('new Date().toISOString()')=='2026-10-04T09:30:00.000Z')
+            check('initial and later sandbox clocks agree',inner.evaluate('__previewInitialClock')==FIXTURE_TIMES['fresh'] and inner.evaluate('new Date().toISOString()')==FIXTURE_TIMES['fresh'])
             check('isolated preview loads five summary rows',frame.locator('.ux-stock').count()==5)
             check('preview starts at overview without reading real-app market preference',frame.locator('#tab-overview').is_visible())
-            print('PREVIEW CURRENT MODEL:',inner.evaluate('({age:currentModel().age,reasons:currentModel().reasons})'),flush=True)
             expect(frame.locator('#globalDataNotice')).to_be_hidden()
             check('saved input remains reference data, not a false five-incident warning',True)
-            inner.evaluate("USExperience.renderState(currentModel({now:new Date('2026-10-13T12:00:00+09:00')}),document)")
-            check('stale fixture still warns after clock advance',frame.locator('#globalDataNotice').is_visible() and '4暦日' in frame.locator('#globalDataNotice').inner_text())
-            inner.evaluate("USExperience.renderState(currentModel(),document)")
+            # Independent cold starts verify the 4-calendar-day threshold and
+            # repeated fresh startup. Never force a corrective render in tests.
+            for fixture,age,warns in [('fresh',2,False),('fresh',2,False),('boundary',4,False),('stale',5,True)]:
+                cold=browser.new_context(extra_http_headers={'X-Preview-Test-Clock':fixture})
+                cp=cold.new_page();cp.on('pageerror',lambda e:errors.append(str(e)));cp.goto(base+'/preview/s1/')
+                cf=cp.frame_locator('#previewFrame');cf.locator('.ux-stock').first.wait_for(state='visible',timeout=30000)
+                ci=cp.locator('#previewFrame').element_handle().content_frame()
+                check(f'{fixture} cold start uses initial fixture time',ci.evaluate('__previewInitialClock')==FIXTURE_TIMES[fixture] and ci.evaluate('currentModel().age')==age)
+                if warns: expect(cf.locator('#globalDataNotice')).to_contain_text('4暦日')
+                else: expect(cf.locator('#globalDataNotice')).to_be_hidden()
+                check(f'{fixture} initial freshness notice matches age {age}',True)
+                cold.close()
             check('sandbox blocks storage access',inner.evaluate("()=>{try{localStorage.getItem('usstock.activeTab');return false}catch(_){return true}}"))
             check('sandbox blocks parent document access',inner.evaluate("()=>{try{parent.document.title;return false}catch(_){return true}}"))
             for width,height in [(320,780),(390,844),(844,390)]:

@@ -38,6 +38,7 @@ function currentModel(extra={}){\`);
  fs.writeFileSync(path.join(out,'preview-adapter.js'),adapter);
  code=once(code,"function tell(state){if(current)","function tell(state){document.getElementById('deliverySummary').textContent=({ready:'保存データ表示',offline:'オフライン・保存値／GPT停止',failed:'再取得未確認／GPT停止',loading:'データ確認中／GPT停止'})[state];if(current)");
  code=once(code,"loading.textContent='候補を起動できません：'+e.message;","tell('failed');loading.textContent='候補を起動できません：'+e.message;");
+ code=require('./device-consultation-contract.cjs').patchDeliveryTime(code);
  fs.writeFileSync(path.join(out,'candidate.js'),code);
  const manifest=JSON.parse(fs.readFileSync(path.join(input,'manifest.webmanifest')));Object.assign(manifest,{id:SCOPE,start_url:SCOPE,scope:SCOPE,name:'米国株 実機確認版',short_name:'米国確認',description:'通常アプリと独立した実機確認用。売買には使用しません。'});fs.writeFileSync(path.join(out,'manifest.webmanifest'),JSON.stringify(manifest,null,2)+'\n');
  let html=fs.readFileSync(path.join(out,'index.html'),'utf8');

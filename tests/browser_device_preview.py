@@ -62,6 +62,7 @@ def main():
                 check('landscape content retains 270px viewport', page.locator('#previewFrame').bounding_box()['height']>=270)
                 page.locator('#deviceDetails summary').click()
                 check('expanded details and refresh remain accessible', page.locator('#deliveryRefresh').is_visible() and page.locator('#deliveryState').is_visible())
+                check('verification time is visibly distinguished from market generation', all(t in page.locator('#deliveryState').inner_text() for t in ['データ生成','配信ファイル照合','株価更新日時ではありません']))
                 page.locator('#deviceDetails summary').click()
                 region.scroll_into_view_if_needed()
                 page.screenshot(path=str(out/'device-landscape.png'))
@@ -95,6 +96,8 @@ def main():
                 full_text = page.locator('#consultText').input_value()
                 full = json.loads(full_text[full_text.index('{'):])
                 check('consultation retains SHADOW in summary and full', summary['status']==full['status'] and full['status']['mode']=='SHADOW')
+                check('summary and full share the export-time freshness assessment', summary['freshness']==full['freshness'] and full['freshness']['data_kind']=='FIXED_PREVIEW' and full['freshness']['auto_updates_market_data'] is False and full['freshness']['clock']=='DEVICE_CLOCK')
+                check('saved quality remains separate from current freshness', full['quality_scope']=='RECORDED_AT_GENERATION' and full['quality']['qc']=='PASS' and summary['warning_count']==0 and '株価更新日時ではありません' in summary['timestamp_meanings']['verified_at'])
                 check('consultation distinguishes declared provenance and unconnected history', full['acquisition']['relationship']=='SAME_RUN_DECLARED' and all(s['coverage']['history']=='NOT_CONNECTED' for s in full['securities']))
                 check('consultation preserves all 1250 rows', sum(len(s['ohlcv']['rows']) for s in full['securities'])==1250)
                 with page.expect_download() as download_info:
