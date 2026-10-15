@@ -4,12 +4,28 @@ const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypt
 const SCOPE='/us-stock-check-web/preview/device/';
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 function once(s,a,b){if(s.split(a).length!==2)throw Error('Unreviewed device boundary');return s.replace(a,()=>b);}
+function qualityScopeAssets(assets){
+ // Only the two reviewed S1 display assets; never imports S1's fixed market data.
+ const reviewed={
+  'candidate/experience.js':['2076f0257887d5758b42692187a68833c86d288c','179b1ae576af31205b7e0d062d0952579c5efcda'],
+  'judgment-cards.js':['37ac475c07cde4a901da18dcebc49391ebc4a23b','65d305424de1f0be65c6eabf7336f71c67b4c1d5']
+ };
+ const blob=text=>{const b=Buffer.from(text);return crypto.createHash('sha1').update(Buffer.from('blob '+b.length+'\0')).update(b).digest('hex');};
+ const out={...assets};
+ for(const[name,[before,after]]of Object.entries(reviewed)){
+  const text=fs.readFileSync(path.join(__dirname,'../docs/preview/s1',name),'utf8');
+  if(typeof assets[name]!=='string'||![before,after].includes(blob(assets[name]))||blob(text)!==after)throw Error('Unreviewed quality-scope asset: '+name);
+  out[name]=text;
+ }
+ return out;
+}
 function build(input,out){
  const m=JSON.parse(fs.readFileSync(path.join(input,'delivery/current.json')));
  if(m.release!=='b88f9c8734bc69cd680187331307869295a3d67651ae86e5c062792b306aeba8')throw Error('Unreviewed release');
  const files=['assets.json','candidate.js','delivery.js','index.html','preview-adapter.js','storage.js','icons/us-stock-icon.png'];
  fs.mkdirSync(out,{recursive:true});
  for(const name of files){const dest=path.join(out,name);fs.mkdirSync(path.dirname(dest),{recursive:true});fs.copyFileSync(path.join(input,name),dest);}
+ fs.writeFileSync(path.join(out,'assets.json'),JSON.stringify(qualityScopeAssets(JSON.parse(fs.readFileSync(path.join(out,'assets.json'),'utf8')))));
  for(const[name,meta]of Object.entries(m.files)){
   if(!['status.json','market.json','common_snapshot.json','ohlcv-history.json'].includes(name))throw Error('Unknown data file');
   const rel='delivery/releases/'+m.release+'/'+name,b=fs.readFileSync(path.join(input,rel));if(b.length!==meta.bytes||sha(b)!==meta.sha256)throw Error('Delivery digest mismatch');
@@ -71,4 +87,4 @@ self.addEventListener('fetch',e=>{
 }
 function CACHE_NAME(digest){return 'us-stock-device-shell-'+digest;}
 if(require.main===module)console.log(JSON.stringify(build(process.argv[2],process.argv[3])));
-module.exports={build};
+module.exports={build,qualityScopeAssets};
