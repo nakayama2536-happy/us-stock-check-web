@@ -2,6 +2,16 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),vm=require('node:vm');
 const root=path.join(__dirname,'../docs/preview/device'),read=n=>fs.readFileSync(path.join(root,n),'utf8'),sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 const adapter=require(path.join(root,'preview-adapter.js'));
+test('device uses the reviewed S1 quality-scope display assets without replacing other assets',()=>{
+ const {qualityScopeAssets}=require('../scripts/build-device-preview.cjs');
+ const assets=JSON.parse(read('assets.json')),before=JSON.stringify(assets),updated=qualityScopeAssets(assets);
+ for(const name of ['candidate/experience.js','judgment-cards.js'])assert.equal(assets[name],fs.readFileSync(path.join(__dirname,'../docs/preview/s1',name),'utf8'));
+ assert.match(assets['candidate/experience.js'],/data-quality-scope/);
+ assert.match(assets['judgment-cards.js'],/保存時の終値照合/);
+ assert.equal(JSON.stringify(assets),before);assert.deepEqual(updated,assets);
+ assert.throws(()=>qualityScopeAssets({...assets,'judgment-cards.js':'unreviewed'}),/Unreviewed quality-scope asset/);
+ for(const [name,value]of Object.entries(assets))if(!['candidate/experience.js','judgment-cards.js'].includes(name))assert.equal(updated[name],value);
+});
 function consultationFiles(){
  const manifest=JSON.parse(read('delivery/current.json'));
  return {...JSON.parse(read('assets.json')),...Object.fromEntries(Object.keys(manifest.files).map(n=>['data/'+n,read('delivery/releases/'+manifest.release+'/'+n)])),
