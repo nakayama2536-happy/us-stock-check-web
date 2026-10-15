@@ -13,7 +13,9 @@ def main():
         checks.append(name);print('ADOPTION PASS:',name,flush=True)
     with tempfile.TemporaryDirectory() as temp:
         site=Path(temp)/'us-stock-check-web'
-        subprocess.run(['node',str(ROOT/'adoption/build.cjs'),str(site),REVISION,str(ROOT/'docs/preview/s1/data/ohlcv-history.json')],check=True)
+        fixture_manifest=json.loads((ROOT/'docs/preview/device/delivery/current.json').read_text())
+        fixture=ROOT/'docs/preview/device/delivery/releases'/fixture_manifest['release']
+        subprocess.run(['node','-e',"require(process.argv[1]).build(process.argv[2],process.argv[3],process.argv[4],{inputDir:process.argv[5]})",str(ROOT/'adoption/build.cjs'),str(site),REVISION,str(fixture/'ohlcv-history.json'),str(fixture)],check=True)
         state={'corrupt':False}
         class Handler(http.server.SimpleHTTPRequestHandler):
             def __init__(self,*a,**kw):super().__init__(*a,directory=temp,**kw)
@@ -51,6 +53,9 @@ def main():
                 page.locator('#consultView').select_option('full')
                 content=page.locator('#consultText').input_value()
                 check('GPT text has actual delivery provenance', 'delivery_manifest' in content and REVISION in content and 'VERSION_BOUND_UI_CANDIDATE' in content and 'FROZEN_UI_PREVIEW' not in content)
+                data=json.loads(content[content.index('{'):])
+                check('candidate consultation preserves mode, freshness and coverage',data['status']['mode']=='SHADOW' and data['freshness']['data_kind']=='VERSIONED_DELIVERY' and data['quality_scope']=='RECORDED_AT_GENERATION' and data['securities'][0]['coverage']['history']=='NOT_CONNECTED')
+                check('file verification is not presented as market update', '株価更新日時ではありません' in page.locator('#deliveryState').inner_text())
                 generation=frame.locator('body').evaluate('()=>DELIVERY_GENERATION')
                 state['corrupt']=True
                 page.locator('#deliveryRefresh').evaluate('(b)=>b.click()')
@@ -60,7 +65,7 @@ def main():
                 expect(frame.locator('[data-stock-panel="PLTR"] [data-us-consult="analysis"]')).to_be_disabled()
                 state['corrupt']=False
                 # New public-data package is a TEST FIXTURE, not a backend publication.
-                inputs=Path(temp)/'input';shutil.copytree(ROOT/'docs/data',inputs)
+                inputs=Path(temp)/'input';shutil.copytree(fixture,inputs)
                 status=json.loads((inputs/'status.json').read_text());status['generated_at_jst']='2026-10-04T17:37:25+09:00'
                 common=json.loads((inputs/'common_snapshot.json').read_text());common['timestamps']['calculated_at']=status['generated_at_jst']
                 (inputs/'status.json').write_text(json.dumps(status));(inputs/'common_snapshot.json').write_text(json.dumps(common))

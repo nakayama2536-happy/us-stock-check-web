@@ -1,5 +1,28 @@
 # 通常データ接続候補 — 未公開
 
+## 2026-10-15 最新main追従・再開
+
+Public main `4fb2769ea779bb8db385abc5f2acf89062ec9787`へ追従。以下の10/4時点のSHA・試験結果は過去記録。
+
+- 最新S1 PINSを検証して資材を生成し、保存時終値照合と未確認範囲の表示を取り込む。
+- device版の検証済み相談契約を再利用し、SHADOW由来、履歴未接続、証拠に基づく財務対象範囲、相談作成時の鮮度を出力。候補は`VERSIONED_DELIVERY`とし、固定確認版という誤表記を避ける。生成時QCを現在の鮮度で上書きしない。
+- 配信ファイルの照合日時と市場データ生成日時を区別。
+- 同一実行importは検証済み入力から直接生成する。無関係な最新docs/dataを先に包装してから置換する依存を解消。
+- 回帰試験は収録済み10/2同一実行パッケージを明示して使用する。現在の株価へ古いOHLCVを結合しない。現在のdocs/dataはOHLCVなし経路で別に検証する。
+
+これは候補コードと試験の更新であり、新しい市場データを取得・公開した証拠ではない。Private #55の復旧、Private #44の新consumerによる新規同一実行試験、定時配信への接続、正式実機受入は未完了。Draftを維持し、通常PWAへ採用しない。
+
+現在の再現コマンド（repo外の空き出力先を指定）：
+
+```bash
+node --test adoption/delivery.test.cjs migration/worker-migration.test.cjs
+node adoption/import-run.cjs docs/preview/device/delivery /tmp/us-saved-candidate PUBLIC_CANDIDATE_FULL_SHA
+python adoption/browser.py
+python adoption/browser_pwa.py
+```
+
+`PUBLIC_CANDIDATE_FULL_SHA`には対象候補の40桁commit SHAを指定する。Privateの新しい同一実行試験では`ADOPTION_DELIVERY_DIR`へ新規検証済みパッケージを渡す。収録fixtureによる成功を、新規取得成功へ読み替えない。
+
 2026-10-04 JST / UI候補 / NOT_DEPLOYED / DEVICE_PENDING
 
 ## なぜ3

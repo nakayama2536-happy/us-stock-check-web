@@ -45,6 +45,10 @@ function currentModel(extra={}){\`);
  s=s.slice(0,s.indexOf('  async function start(){'))+s.slice(s.indexOf('  return Object.freeze({PINS,blobHash,makeDocument,installConsultation,'));
  s=s.replaceAll('固定','読込済み').replaceAll('再表示','再読込').replaceAll('FROZEN_UI_PREVIEW','VERSION_BOUND_UI_CANDIDATE');
  s=s.replaceAll('市場データの取得・更新は行いません。','公開済みの配信データを再取得します。バックエンド更新は行いません。');
+ // Reuse the reviewed evidence/freshness contract, with explicit live-candidate semantics.
+ s=require('../scripts/device-consultation-contract.cjs').patch(s);
+ s=once(s,"data_kind:'FIXED_PREVIEW',auto_updates_market_data:false", "data_kind:'VERSIONED_DELIVERY',auto_updates_market_data:false");
+ s=once(s,'固定データの確認版です。','版別配信データを読む候補です。再読込は公開済みデータの取得であり、市場データの生成ではありません。');
  return s;
 }
 module.exports={adapter,once};

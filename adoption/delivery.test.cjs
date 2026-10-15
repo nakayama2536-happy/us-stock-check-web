@@ -3,11 +3,13 @@ const test=require('node:test'),assert=require('node:assert/strict'),fs=require(
 const d=require('./delivery.js'),{build,pack}=require('./build.cjs');
 const temp=fs.mkdtempSync(path.join(os.tmpdir(),'us-adoption-test-')),out=path.join(temp,'candidate'),root=path.resolve(__dirname,'..');
 const revision='55e872d80e20dac280ef56f2ac17ba18b3a90ee6';
-const m=build(out,revision,path.join(root,'docs/preview/s1/data/ohlcv-history.json'));
+const fixtureManifest=JSON.parse(fs.readFileSync(path.join(root,'docs/preview/device/delivery/current.json')));
+const inputDir=path.join(root,'docs/preview/device/delivery/releases',fixtureManifest.release);
+const m=build(out,revision,path.join(inputDir,'ohlcv-history.json'),{inputDir});
 const fetcher=async url=>new Response(fs.readFileSync(path.join(out,url)),{status:200});
 const fixture=()=>Object.fromEntries(d.REQUIRED.map(n=>[n,JSON.parse(fs.readFileSync(path.join(root,'docs/data',n)))]));
 test.after(()=>fs.rmSync(temp,{recursive:true,force:true}));
-test('same packaged public main data verified by digest, date and target',async()=>{const b=await d.load('delivery/',{fetcher});assert.equal(b.manifest.source_revision,revision);assert.equal(b.objects['market.json'].stocks.length,5);});
+test('coherent saved fixture verified by digest, date and target',async()=>{const b=await d.load('delivery/',{fetcher});assert.equal(b.manifest.source_revision,revision);assert.equal(b.objects['market.json'].stocks.length,5);});
 test('changed bytes fail closed without partial commit',async()=>{await assert.rejects(d.load('delivery/',{fetcher:async u=>u.endsWith('/market.json')?new Response('{}'):fetcher(u)}),/ハッシュ|容量/);});
 test('unknown file names, traversal, extra metadata and overlarge entries rejected',()=>{for(const key of ['../private.json','history.json'])assert.throws(()=>d.manifest({...m,files:{...m.files,[key]:{sha256:'a'.repeat(64),bytes:5}}}));assert.throws(()=>d.manifest({...m,private:'secret'}));assert.throws(()=>d.manifest({...m,files:{...m.files,'status.json':{sha256:'a'.repeat(64),bytes:1000001}}}));});
 test('manifest release ID cannot be substituted',async()=>{await assert.rejects(d.load('delivery/',{fetcher:async u=>u.endsWith('current.json')?new Response(JSON.stringify({...m,release:'0'.repeat(64)})):fetcher(u)}),/版識別子/);});
@@ -30,4 +32,25 @@ test('generated adapter has correct generation guard, dynamic provenance and bou
  const frame={contentWindow:{}};const e={source:frame.contentWindow,origin:'null',data:{type:'US_PREVIEW_CONSULT',kind:'analysis',ticker:'PLTR',generation:'old'}};
  assert.equal(api.consultationRequest(e,frame,'current'),false);e.data.generation='current';assert.equal(api.consultationRequest(e,frame,'current'),true);
  const p=api.consultationPackage(files,'analysis','PLTR');assert(p.summary.length<=8000);assert(p.full.includes('ACTUAL_HASH'));assert(p.full.includes(m.release));assert(!p.full.includes('FROZEN_UI_PREVIEW'));assert(p.parts.every(x=>x.length<=8000));
+});
+test('candidate exports recorded mode and current freshness without claiming fixed-preview or same-run evidence',async()=>{
+ const api=require(path.join(out,'preview-adapter.js')),b=await d.load('delivery/',{fetcher});
+ const files={...JSON.parse(fs.readFileSync(path.join(out,'assets.json'))),...Object.fromEntries(Object.entries(b.raw).map(([k,v])=>['data/'+k,v]))};
+ files['data/chart-history.json']=JSON.stringify({series:{},note:'観測終値履歴は未接続。'});
+ files._hashes={};files._delivery={...b.manifest,verified_at:'2026-10-15T02:00:00Z'};
+ const p=api.consultationPackage(files,'diagnostic','PLTR',new Date('2026-10-15T02:00:00Z'));
+ assert(p.summary.includes('SHADOW'));assert(p.summary.includes('STALE'));assert(p.summary.includes('NOT_CONNECTED'));
+ assert(p.summary.includes('UNCONFIRMED'));assert(p.summary.includes('VERSIONED_DELIVERY'));
+ assert(!p.full.includes('FIXED_PREVIEW'));assert(!p.full.includes('固定データの確認版'));
+ assert(p.full.includes('RECORDED_AT_GENERATION'));assert(p.full.includes('株価更新日時ではありません'));
+ const summary=JSON.parse(p.summary.slice(p.summary.indexOf('{'))),full=JSON.parse(p.full.slice(p.full.indexOf('{')));
+ assert.deepEqual(summary.freshness,full.freshness);assert.equal(summary.quality.qc,'PASS');assert.equal(summary.warning_count,0);
+});
+test('same-run importer works independently of current public main data and preserves original delivery',async()=>{
+ const {importRun}=require('./import-run.cjs');const dest=path.join(temp,'imported');
+ const release=await importRun(path.join(root,'docs/preview/device/delivery'),dest,revision);
+ assert.equal(release,fixtureManifest.release);
+ const b=await d.load('delivery/',{fetcher:async u=>new Response(fs.readFileSync(path.join(dest,u)))});
+ assert.equal(b.manifest.source_revision,fixtureManifest.source_revision);
+ for(const[n,v]of Object.entries(b.raw))assert.equal(v,fs.readFileSync(path.join(inputDir,n),'utf8'));
 });

@@ -15,7 +15,7 @@ def main():
         shutil.copytree(ROOT/'docs',baseline)
         external=os.getenv('ADOPTION_DELIVERY_DIR')
         if external:subprocess.run(['node',str(ROOT/'adoption/import-run.cjs'),external,str(candidate),REV],check=True)
-        else:subprocess.run(['node','-e',"require(process.argv[1]).build(process.argv[2],process.argv[3],process.argv[4],{pwa:true})",str(ROOT/'adoption/build.cjs'),str(candidate),REV,str(ROOT/'docs/preview/s1/data/ohlcv-history.json')],check=True)
+        else:subprocess.run(['node',str(ROOT/'adoption/import-run.cjs'),str(ROOT/'docs/preview/device/delivery'),str(candidate),REV],check=True)
         manifest=json.loads((candidate/'delivery/current.json').read_text())
         state={'root':baseline.parent}
         class Handler(http.server.SimpleHTTPRequestHandler):
@@ -81,5 +81,5 @@ def main():
                 browser.close()
         finally:server.shutdown()
         out=ROOT/'test-output-adoption';out.mkdir(exist_ok=True)
-        (out/'pwa-report.json').write_text(json.dumps({'passed':len(checks),'checks':checks,'release':manifest['release'],'source_repository':manifest['source_repository'],'same_run_input':bool(external),'device_pass':False,'production_changed':False,'restart':'tab close/reopen, not OS termination'},indent=2)+'\n')
+        (out/'pwa-report.json').write_text(json.dumps({'passed':len(checks),'checks':checks,'release':manifest['release'],'source_repository':manifest['source_repository'],'same_run_input':True,'new_capture':bool(external),'input_kind':'external' if external else 'saved_2026_10_02_fixture','device_pass':False,'production_changed':False,'restart':'tab close/reopen, not OS termination'},indent=2)+'\n')
 if __name__=='__main__':main()

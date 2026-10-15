@@ -1,0 +1,1 @@
+if(location.pathname.startsWith('/us-stock-check-web/preview/device/')&&'serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js',{scope:'./',updateViaCache:'none'}).catch(()=>{document.getElementById('deviceStatus').textContent='確認版SWの登録に失敗しました。';}));
