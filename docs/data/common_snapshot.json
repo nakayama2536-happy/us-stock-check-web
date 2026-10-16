@@ -10,14 +10,14 @@
     "state": "LAST_VALID"
   },
   "incident": {
-    "level": "WARNING",
+    "level": "NORMAL",
     "error_codes": []
   },
   "data_quality": {
-    "data_state": "PARTIAL",
-    "qc_state": "WARN",
+    "data_state": "FRESH",
+    "qc_state": "PASS",
     "completeness_pct": 100.0,
-    "source_crosscheck": "PENDING"
+    "source_crosscheck": "PASS"
   },
   "decision_scope": "MULTI",
   "decision_items": [
@@ -134,6 +134,6 @@
   ],
   "timestamps": {
     "market_as_of": "2026-10-15",
-    "calculated_at": "2026-10-16T09:53:54+09:00"
+    "calculated_at": "2026-10-16T16:22:39+09:00"
   }
 }
