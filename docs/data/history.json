@@ -1032,6 +1032,18 @@
       "source_crosscheck": "PASS",
       "warnings": [],
       "errors": []
+    },
+    {
+      "generated_at_jst": "2026-10-16T09:53:54+09:00",
+      "us_trade_date": "2026-10-15",
+      "run_state": "NO_CHANGE",
+      "source_crosscheck": "PENDING",
+      "warnings": [
+        "PLTR: independent close is not published for 2026-10-15.",
+        "BSY: independent close is not published for 2026-10-15.",
+        "BTC: market environment value for confirmed trade date 2026-10-15 is unavailable."
+      ],
+      "errors": []
     }
   ]
 }
