@@ -5,18 +5,16 @@
   "app_state_ja": "Shadow検証中",
   "run_state": "NO_CHANGE",
   "us_trade_date": "2026-10-16",
-  "generated_at_jst": "2026-10-17T16:04:37+09:00",
+  "generated_at_jst": "2026-10-18T08:18:52+09:00",
   "message": "新しい米国取引日の確定データはありません。",
   "quality": {
     "qc": "PASS",
     "session": "REGULAR",
     "completeness": "5/5",
     "source_crosscheck": "PASS",
-    "trade_date_age_days": 1,
+    "trade_date_age_days": 2,
     "delivery_target_jst": "12:00"
   },
-  "warnings": [
-    "BTC: market environment value for confirmed trade date 2026-10-16 is unavailable."
-  ],
+  "warnings": [],
   "errors": []
 }
