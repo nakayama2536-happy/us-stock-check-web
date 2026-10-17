@@ -1077,6 +1077,16 @@
         "SMH: market environment value for confirmed trade date 2026-10-16 is unavailable."
       ],
       "errors": []
+    },
+    {
+      "generated_at_jst": "2026-10-17T16:04:37+09:00",
+      "us_trade_date": "2026-10-16",
+      "run_state": "NO_CHANGE",
+      "source_crosscheck": "PASS",
+      "warnings": [
+        "BTC: market environment value for confirmed trade date 2026-10-16 is unavailable."
+      ],
+      "errors": []
     }
   ]
 }
