@@ -115,6 +115,10 @@ def main():
                 page.clock.install()
                 page.goto(url)
                 expect(page.locator('#deliveryState')).to_contain_text('保存版（再取得未確認・GPT停止）')
+                # The restored page deliberately collapses audit details. Inspect via the real user control.
+                if page.locator('header details').get_attribute('open') is None:
+                    page.locator('header summary').click()
+                expect(page.locator('#deliveryState')).to_be_visible()
                 check('offline tab restart restores the same release', manifest['release'][:12] in page.locator('#deliveryState').inner_text())
                 frame = page.frame_locator('#previewFrame')
                 expect(frame.locator('#appState')).to_have_text('保存値 / オフライン')
@@ -124,7 +128,8 @@ def main():
                 context.set_offline(False)
                 expect(page.locator('#connectedState')).to_contain_text('配信データ表示')
                 check('recovery revalidates rather than relabels cache', True)
-                page.locator('header summary').click()
+                if page.locator('header details').get_attribute('open') is None:
+                    page.locator('header summary').click()
                 state['corrupt'] = True
                 page.locator('#deliveryRefresh').click()
                 expect(page.locator('#deliveryState')).to_contain_text('更新できません')
