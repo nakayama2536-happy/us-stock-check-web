@@ -2,12 +2,6 @@
   "schema_version": "0.2",
   "records": [
     {
-      "generated_at_jst": "2026-09-22T07:13:09+09:00",
-      "us_trade_date": "2026-09-21",
-      "run_state": "NORMAL",
-      "errors": []
-    },
-    {
       "generated_at_jst": "2026-09-22T07:19:44+09:00",
       "us_trade_date": "2026-09-21",
       "run_state": "NO_CHANGE",
@@ -1168,6 +1162,14 @@
         "SOXX: market environment value for confirmed trade date 2026-10-19 is unavailable.",
         "SMH: market environment value for confirmed trade date 2026-10-19 is unavailable."
       ],
+      "errors": []
+    },
+    {
+      "generated_at_jst": "2026-10-20T16:47:32+09:00",
+      "us_trade_date": "2026-10-19",
+      "run_state": "NO_CHANGE",
+      "source_crosscheck": "PASS",
+      "warnings": [],
       "errors": []
     }
   ]
