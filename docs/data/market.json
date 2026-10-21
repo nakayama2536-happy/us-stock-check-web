@@ -1,40 +1,40 @@
 {
   "schema_version": "0.2",
-  "summary": "2026-10-19 の確定値を維持しています。新しい米国取引日データはありません。",
+  "summary": "2026-10-20 のREGULAR確定値を取得し、5銘柄のテクニカル計算を完了しました。 独立終値照合は一部確認待ちです。",
   "stocks": [
     {
       "ticker": "PLTR",
       "name": "Palantir Technologies",
-      "trade_date": "2026-10-19",
-      "close": 194.15,
-      "change_pct": 4.36,
+      "trade_date": "2026-10-20",
+      "close": 192.6,
+      "change_pct": -0.8,
       "trend": "上昇",
       "macd_state": "弱気",
-      "rsi14": 53.6,
+      "rsi14": 52.1,
       "ma_state": "50MA > 200MA",
-      "ma50": 183.01,
-      "ma200": 152.73,
-      "macd": 5.4771,
-      "macd_signal": 6.6429,
+      "ma50": 183.36,
+      "ma200": 152.85,
+      "macd": 4.7934,
+      "macd_signal": 6.273,
       "levels": {
-        "support20": 182.03,
+        "support20": 182.94,
         "resistance20": 212.94,
-        "ma50": 183.01,
-        "ma200": 152.73,
+        "ma50": 183.36,
+        "ma200": 152.85,
         "low52": 106.37,
         "high52": 212.94,
-        "support_distance_pct": 6.66,
-        "resistance_distance_pct": 9.68,
-        "range_position_pct": 39.2
+        "support_distance_pct": 5.28,
+        "resistance_distance_pct": 10.56,
+        "range_position_pct": 32.2
       },
       "structural_growth": {
         "ticker": "PLTR",
         "status": "算定可能",
-        "score": 92.5,
+        "score": 90.0,
         "data_completeness_pct": 100,
         "required_completeness_pct": 70,
         "available_weight": 100,
-        "earned_points_on_available_axes": 92.5,
+        "earned_points_on_available_axes": 90.0,
         "axes": {
           "structural_growth_4y": {
             "weight": 20,
@@ -86,8 +86,8 @@
           "valuation_reasonableness": {
             "weight": 10,
             "score_pct": 50,
-            "forward_pe": 102.31,
-            "peg_ratio": 1.91
+            "forward_pe": 101.51,
+            "peg_ratio": 1.9
           },
           "price_confirmation": {
             "weight": 10,
@@ -95,23 +95,23 @@
           },
           "volume_confirmation": {
             "weight": 5,
-            "score_pct": 50
+            "score_pct": 0
           }
         },
         "price_confirmation": {
           "weight": 10,
           "score_pct": 100,
           "trend": "上昇",
-          "distance_to_52w_high_pct": 9.68
+          "distance_to_52w_high_pct": 10.56
         },
         "volume_confirmation": {
           "weight": 5,
-          "score_pct": 50,
-          "volume_ratio20": 1.03
+          "score_pct": 0,
+          "volume_ratio20": 0.67
         },
         "new_high_health": {
           "grade": "N/A",
-          "distance_to_52w_high_pct": 9.68,
+          "distance_to_52w_high_pct": 10.56,
           "basis": "52週高値から5%超離れており、新高値局面ではない"
         },
         "fundamentals": {
@@ -119,8 +119,8 @@
           "eps_growth_ttm_pct": 287.57,
           "fcf_growth_ttm_pct": 96.54,
           "operating_margin_ttm_pct": 42.8,
-          "forward_pe": 102.31,
-          "peg_ratio": 1.91
+          "forward_pe": 101.51,
+          "peg_ratio": 1.9
         },
         "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
         "fundamental_last_updated": "Aug 4, 2026",
@@ -154,28 +154,28 @@
       },
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
-      "shadow_source": "Yahoo Finance",
-      "shadow_close_diff_usd": 0.0,
-      "shadow_close_diff_pct": 0.0,
+      "shadow_source": "Independent close pending",
+      "shadow_close_diff_usd": null,
+      "shadow_close_diff_pct": null,
       "structural_backtest": {
         "status": "PROXY_V1",
         "ticker": "PLTR",
         "method": "Proxy V1: current fundamental/competitive axes held constant; historical price and volume axes recomputed monthly. Look-ahead bias remains, so results are diagnostic only.",
         "lookahead_bias": true,
         "point_in_time_ready": false,
-        "history_start": "2021-10-20",
+        "history_start": "2021-10-21",
         "history_end": "2026-10-19",
         "observations": 50,
         "buckets": {
           "HIGH": {
             "observations": 50,
-            "avg_forward_21d_pct": 7.95,
-            "positive_rate_21d_pct": 58.0,
-            "avg_forward_63d_pct": 25.77,
+            "avg_forward_21d_pct": 7.96,
+            "positive_rate_21d_pct": 62.0,
+            "avg_forward_63d_pct": 25.8,
             "positive_rate_63d_pct": 75.0,
-            "avg_forward_126d_pct": 62.35,
-            "positive_rate_126d_pct": 80.0,
-            "avg_max_drawdown_63d_pct": -13.73
+            "avg_forward_126d_pct": 62.92,
+            "positive_rate_126d_pct": 82.2,
+            "avg_max_drawdown_63d_pct": -13.68
           },
           "MID": {
             "observations": 0,
@@ -200,268 +200,268 @@
         },
         "records": [
           {
-            "date": "2024-10-09",
-            "proxy_score": 92.5,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 29.56,
-              "63d": 55.95,
-              "126d": 105.31
-            },
-            "max_drawdown_63d_pct": -6.42
-          },
-          {
-            "date": "2024-11-07",
-            "proxy_score": 95.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 29.67,
-              "63d": 101.54,
-              "126d": 129.24
-            },
-            "max_drawdown_63d_pct": -1.04
-          },
-          {
-            "date": "2024-12-09",
-            "proxy_score": 95.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -7.18,
-              "63d": 9.88,
-              "126d": 86.57
-            },
-            "max_drawdown_63d_pct": -12.5
-          },
-          {
-            "date": "2025-01-10",
+            "date": "2024-10-10",
             "proxy_score": 91.2,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": 67.44,
-              "63d": 31.65,
-              "126d": 120.9
+              "21d": 34.17,
+              "63d": 49.31,
+              "126d": 112.82
             },
-            "max_drawdown_63d_pct": -5.74
+            "max_drawdown_63d_pct": -7.26
           },
           {
-            "date": "2025-02-11",
-            "proxy_score": 92.5,
+            "date": "2024-11-08",
+            "proxy_score": 93.8,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": -29.3,
-              "63d": 13.75,
-              "126d": 63.71
-            },
-            "max_drawdown_63d_pct": -41.29
-          },
-          {
-            "date": "2025-03-13",
-            "proxy_score": 86.2,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 11.22,
-              "63d": 69.79,
-              "126d": 115.31
-            },
-            "max_drawdown_63d_pct": -16.96
-          },
-          {
-            "date": "2025-04-11",
-            "proxy_score": 86.2,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 44.66,
-              "63d": 67.79,
-              "126d": 100.12
+              "21d": 21.41,
+              "63d": 101.04,
+              "126d": 122.95
             },
             "max_drawdown_63d_pct": 0.0
           },
           {
-            "date": "2025-05-13",
-            "proxy_score": 93.8,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 5.53,
-              "63d": 43.93,
-              "126d": 49.07
-            },
-            "max_drawdown_63d_pct": -7.16
-          },
-          {
-            "date": "2025-06-12",
-            "proxy_score": 90.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 9.9,
-              "63d": 26.81,
-              "126d": 38.72
-            },
-            "max_drawdown_63d_pct": -4.94
-          },
-          {
-            "date": "2025-07-15",
-            "proxy_score": 90.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 24.09,
-              "63d": 19.27,
-              "126d": 20.45
-            },
-            "max_drawdown_63d_pct": -4.2
-          },
-          {
-            "date": "2025-08-13",
-            "proxy_score": 91.2,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -7.02,
-              "63d": 3.57,
-              "126d": -29.96
-            },
-            "max_drawdown_63d_pct": -22.8
-          },
-          {
-            "date": "2025-09-12",
-            "proxy_score": 90.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 3.37,
-              "63d": 9.4,
-              "126d": -10.91
-            },
-            "max_drawdown_63d_pct": -13.92
-          },
-          {
-            "date": "2025-10-13",
-            "proxy_score": 90.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 7.76,
-              "63d": 0.99,
-              "126d": -19.78
-            },
-            "max_drawdown_63d_pct": -16.73
-          },
-          {
-            "date": "2025-11-11",
-            "proxy_score": 91.2,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -1.79,
-              "63d": -32.38,
-              "126d": -29.97
-            },
-            "max_drawdown_63d_pct": -33.72
-          },
-          {
-            "date": "2025-12-11",
-            "proxy_score": 91.2,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -4.58,
-              "63d": -18.57,
-              "126d": -28.17
-            },
-            "max_drawdown_63d_pct": -32.69
-          },
-          {
-            "date": "2026-01-13",
-            "proxy_score": 85.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -27.84,
-              "63d": -20.57,
-              "126d": -24.88
-            },
-            "max_drawdown_63d_pct": -31.45
-          },
-          {
-            "date": "2026-02-12",
-            "proxy_score": 86.2,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 18.27,
-              "63d": 3.56,
-              "126d": 34.78
-            },
-            "max_drawdown_63d_pct": -4.99
-          },
-          {
-            "date": "2026-03-16",
-            "proxy_score": 80.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -6.92,
-              "63d": -11.79,
-              "126d": 12.99
-            },
-            "max_drawdown_63d_pct": -19.67
-          },
-          {
-            "date": "2026-04-15",
-            "proxy_score": 81.2,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -5.92,
-              "63d": -5.42,
-              "126d": 41.38
-            },
-            "max_drawdown_63d_pct": -25.17
-          },
-          {
-            "date": "2026-05-14",
-            "proxy_score": 81.2,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 0.73,
-              "63d": 30.14,
-              "126d": null
-            },
-            "max_drawdown_63d_pct": -20.46
-          },
-          {
-            "date": "2026-06-15",
-            "proxy_score": 82.5,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -0.2,
-              "63d": 28.1,
-              "126d": null
-            },
-            "max_drawdown_63d_pct": -21.04
-          },
-          {
-            "date": "2026-07-16",
-            "proxy_score": 82.5,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 29.46,
-              "63d": 49.49,
-              "126d": null
-            },
-            "max_drawdown_63d_pct": -12.31
-          },
-          {
-            "date": "2026-08-14",
-            "proxy_score": 85.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -0.85,
-              "63d": null,
-              "126d": null
-            },
-            "max_drawdown_63d_pct": -5.45
-          },
-          {
-            "date": "2026-09-15",
+            "date": "2024-12-10",
             "proxy_score": 92.5,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": 16.46,
+              "21d": -8.34,
+              "63d": 21.65,
+              "126d": 93.82
+            },
+            "max_drawdown_63d_pct": -10.57
+          },
+          {
+            "date": "2025-01-13",
+            "proxy_score": 85.0,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 80.66,
+              "63d": 42.54,
+              "126d": 132.24
+            },
+            "max_drawdown_63d_pct": 0.0
+          },
+          {
+            "date": "2025-02-12",
+            "proxy_score": 91.2,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -26.54,
+              "63d": 10.9,
+              "126d": 54.2
+            },
+            "max_drawdown_63d_pct": -43.67
+          },
+          {
+            "date": "2025-03-14",
+            "proxy_score": 86.2,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 7.4,
+              "63d": 59.32,
+              "126d": 98.53
+            },
+            "max_drawdown_63d_pct": -23.33
+          },
+          {
+            "date": "2025-04-14",
+            "proxy_score": 87.5,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 40.55,
+              "63d": 62.93,
+              "126d": 94.06
+            },
+            "max_drawdown_63d_pct": -3.57
+          },
+          {
+            "date": "2025-05-14",
+            "proxy_score": 91.2,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 5.55,
+              "63d": 39.05,
+              "126d": 41.47
+            },
+            "max_drawdown_63d_pct": -8.64
+          },
+          {
+            "date": "2025-06-13",
+            "proxy_score": 92.5,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 9.83,
+              "63d": 24.61,
+              "126d": 33.6
+            },
+            "max_drawdown_63d_pct": -6.47
+          },
+          {
+            "date": "2025-07-16",
+            "proxy_score": 90.0,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 19.95,
+              "63d": 19.1,
+              "126d": 18.22
+            },
+            "max_drawdown_63d_pct": -5.68
+          },
+          {
+            "date": "2025-08-14",
+            "proxy_score": 91.2,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -5.42,
+              "63d": 1.74,
+              "126d": -27.41
+            },
+            "max_drawdown_63d_pct": -21.37
+          },
+          {
+            "date": "2025-09-15",
+            "proxy_score": 90.0,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 4.98,
+              "63d": 7.22,
+              "126d": -9.42
+            },
+            "max_drawdown_63d_pct": -13.81
+          },
+          {
+            "date": "2025-10-14",
+            "proxy_score": 91.2,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 2.46,
+              "63d": -0.75,
+              "126d": -20.57
+            },
+            "max_drawdown_63d_pct": -17.9
+          },
+          {
+            "date": "2025-11-12",
+            "proxy_score": 91.2,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -0.33,
+              "63d": -28.65,
+              "126d": -27.25
+            },
+            "max_drawdown_63d_pct": -31.46
+          },
+          {
+            "date": "2025-12-12",
+            "proxy_score": 91.2,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -2.82,
+              "63d": -15.52,
+              "126d": -27.41
+            },
+            "max_drawdown_63d_pct": -31.23
+          },
+          {
+            "date": "2026-01-14",
+            "proxy_score": 86.2,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -26.34,
+              "63d": -19.98,
+              "126d": -25.8
+            },
+            "max_drawdown_63d_pct": -31.23
+          },
+          {
+            "date": "2026-02-13",
+            "proxy_score": 83.8,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 18.01,
+              "63d": 1.96,
+              "126d": 31.31
+            },
+            "max_drawdown_63d_pct": -6.64
+          },
+          {
+            "date": "2026-03-17",
+            "proxy_score": 82.5,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -7.94,
+              "63d": -14.08,
+              "126d": 12.42
+            },
+            "max_drawdown_63d_pct": -20.89
+          },
+          {
+            "date": "2026-04-16",
+            "proxy_score": 81.2,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -6.14,
+              "63d": -7.27,
+              "126d": 40.45
+            },
+            "max_drawdown_63d_pct": -25.49
+          },
+          {
+            "date": "2026-05-15",
+            "proxy_score": 80.0,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -0.55,
+              "63d": 28.78,
+              "126d": null
+            },
+            "max_drawdown_63d_pct": -20.61
+          },
+          {
+            "date": "2026-06-16",
+            "proxy_score": 80.0,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -0.65,
+              "63d": 30.84,
+              "126d": null
+            },
+            "max_drawdown_63d_pct": -20.17
+          },
+          {
+            "date": "2026-07-17",
+            "proxy_score": 80.0,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 30.34,
+              "63d": 51.46,
+              "126d": null
+            },
+            "max_drawdown_63d_pct": -10.95
+          },
+          {
+            "date": "2026-08-17",
+            "proxy_score": 85.0,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 1.04,
               "63d": null,
               "126d": null
             },
-            "max_drawdown_63d_pct": -2.09
+            "max_drawdown_63d_pct": -4.64
+          },
+          {
+            "date": "2026-09-16",
+            "proxy_score": 90.0,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 15.01,
+              "63d": null,
+              "126d": null
+            },
+            "max_drawdown_63d_pct": -1.34
           }
         ]
       },
@@ -566,7 +566,7 @@
           "status": "CURRENT",
           "latest_period": "2026-Q2",
           "latest_available_from": "2026-08-03",
-          "days_since_latest": 78,
+          "days_since_latest": 79,
           "review_after_days": 100,
           "review_due": false
         }
@@ -740,36 +740,36 @@
     {
       "ticker": "LLY",
       "name": "Eli Lilly",
-      "trade_date": "2026-10-19",
-      "close": 1240.34,
-      "change_pct": -1.33,
+      "trade_date": "2026-10-20",
+      "close": 1283.66,
+      "change_pct": 3.49,
       "trend": "上昇",
       "macd_state": "強気",
-      "rsi14": 63.4,
+      "rsi14": 69.8,
       "ma_state": "50MA > 200MA",
-      "ma50": 1181.44,
-      "ma200": 1080.74,
-      "macd": 17.7509,
-      "macd_signal": 7.609,
+      "ma50": 1182.47,
+      "ma200": 1081.75,
+      "macd": 22.8009,
+      "macd_signal": 10.6474,
       "levels": {
         "support20": 1131.21,
-        "resistance20": 1275.88,
-        "ma50": 1181.44,
-        "ma200": 1080.74,
-        "low52": 783.85,
-        "high52": 1292.65,
-        "support_distance_pct": 9.65,
-        "resistance_distance_pct": 2.87,
-        "range_position_pct": 75.4
+        "resistance20": 1311.75,
+        "ma50": 1182.47,
+        "ma200": 1081.75,
+        "low52": 793.82,
+        "high52": 1311.75,
+        "support_distance_pct": 13.48,
+        "resistance_distance_pct": 2.19,
+        "range_position_pct": 84.4
       },
       "structural_growth": {
         "ticker": "LLY",
         "status": "算定可能",
-        "score": 90.0,
+        "score": 92.5,
         "data_completeness_pct": 100,
         "required_completeness_pct": 70,
         "available_weight": 100,
-        "earned_points_on_available_axes": 90.0,
+        "earned_points_on_available_axes": 92.5,
         "axes": {
           "structural_growth_4y": {
             "weight": 20,
@@ -821,8 +821,8 @@
           "valuation_reasonableness": {
             "weight": 10,
             "score_pct": 75,
-            "forward_pe": 31.79,
-            "peg_ratio": 1.54
+            "forward_pe": 32.9,
+            "peg_ratio": 1.59
           },
           "price_confirmation": {
             "weight": 10,
@@ -830,23 +830,23 @@
           },
           "volume_confirmation": {
             "weight": 5,
-            "score_pct": 25
+            "score_pct": 75
           }
         },
         "price_confirmation": {
           "weight": 10,
           "score_pct": 100,
           "trend": "上昇",
-          "distance_to_52w_high_pct": 4.22
+          "distance_to_52w_high_pct": 2.19
         },
         "volume_confirmation": {
           "weight": 5,
-          "score_pct": 25,
-          "volume_ratio20": 0.85
+          "score_pct": 75,
+          "volume_ratio20": 1.3
         },
         "new_high_health": {
           "grade": "B",
-          "distance_to_52w_high_pct": 4.22,
+          "distance_to_52w_high_pct": 2.19,
           "basis": "価格構造・MACD・RSI・出来高によるテクニカル暫定判定"
         },
         "fundamentals": {
@@ -854,8 +854,8 @@
           "eps_growth_ttm_pct": 94.8,
           "fcf_growth_ttm_pct": 272.37,
           "operating_margin_ttm_pct": 49.72,
-          "forward_pe": 31.79,
-          "peg_ratio": 1.54
+          "forward_pe": 32.9,
+          "peg_ratio": 1.59
         },
         "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
         "fundamental_last_updated": "Aug 5, 2026",
@@ -889,28 +889,28 @@
       },
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
-      "shadow_source": "Yahoo Finance",
-      "shadow_close_diff_usd": 0.0,
-      "shadow_close_diff_pct": 0.0,
+      "shadow_source": "Independent close pending",
+      "shadow_close_diff_usd": null,
+      "shadow_close_diff_pct": null,
       "structural_backtest": {
         "status": "PROXY_V1",
         "ticker": "LLY",
         "method": "Proxy V1: current fundamental/competitive axes held constant; historical price and volume axes recomputed monthly. Look-ahead bias remains, so results are diagnostic only.",
         "lookahead_bias": true,
         "point_in_time_ready": false,
-        "history_start": "2021-10-20",
+        "history_start": "2021-10-21",
         "history_end": "2026-10-19",
         "observations": 50,
         "buckets": {
           "HIGH": {
             "observations": 50,
-            "avg_forward_21d_pct": 3.13,
-            "positive_rate_21d_pct": 64.0,
-            "avg_forward_63d_pct": 9.67,
-            "positive_rate_63d_pct": 70.8,
-            "avg_forward_126d_pct": 19.66,
-            "positive_rate_126d_pct": 80.0,
-            "avg_max_drawdown_63d_pct": -8.64
+            "avg_forward_21d_pct": 3.23,
+            "positive_rate_21d_pct": 60.0,
+            "avg_forward_63d_pct": 9.85,
+            "positive_rate_63d_pct": 72.9,
+            "avg_forward_126d_pct": 19.85,
+            "positive_rate_126d_pct": 75.6,
+            "avg_max_drawdown_63d_pct": -8.98
           },
           "MID": {
             "observations": 0,
@@ -935,268 +935,268 @@
         },
         "records": [
           {
-            "date": "2024-10-09",
+            "date": "2024-10-10",
             "proxy_score": 88.8,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": -13.3,
-              "63d": -13.03,
-              "126d": -20.37
+              "21d": -8.69,
+              "63d": -12.43,
+              "126d": -17.17
             },
-            "max_drawdown_63d_pct": -22.65
+            "max_drawdown_63d_pct": -21.88
           },
           {
-            "date": "2024-11-07",
-            "proxy_score": 85.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 0.77,
-              "63d": 8.47,
-              "126d": -6.44
-            },
-            "max_drawdown_63d_pct": -10.79
-          },
-          {
-            "date": "2024-12-09",
-            "proxy_score": 81.2,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -0.46,
-              "63d": -0.24,
-              "126d": 1.05
-            },
-            "max_drawdown_63d_pct": -9.78
-          },
-          {
-            "date": "2025-01-10",
-            "proxy_score": 85.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 8.14,
-              "63d": -8.44,
-              "126d": -3.52
-            },
-            "max_drawdown_63d_pct": -15.35
-          },
-          {
-            "date": "2025-02-11",
-            "proxy_score": 83.8,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -7.32,
-              "63d": -13.75,
-              "126d": -23.64
-            },
-            "max_drawdown_63d_pct": -21.72
-          },
-          {
-            "date": "2025-03-13",
-            "proxy_score": 80.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -8.64,
-              "63d": 1.29,
-              "126d": -5.77
-            },
-            "max_drawdown_63d_pct": -15.54
-          },
-          {
-            "date": "2025-04-11",
-            "proxy_score": 80.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 1.86,
-              "63d": 5.37,
-              "126d": 11.88
-            },
-            "max_drawdown_63d_pct": -3.2
-          },
-          {
-            "date": "2025-05-13",
-            "proxy_score": 80.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 8.84,
-              "63d": -11.47,
-              "126d": 32.51
-            },
-            "max_drawdown_63d_pct": -16.39
-          },
-          {
-            "date": "2025-06-12",
-            "proxy_score": 81.2,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -4.96,
-              "63d": -6.98,
-              "126d": 24.3
-            },
-            "max_drawdown_63d_pct": -23.18
-          },
-          {
-            "date": "2025-07-15",
-            "proxy_score": 85.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -14.42,
-              "63d": 6.17,
-              "126d": 39.58
-            },
-            "max_drawdown_63d_pct": -19.17
-          },
-          {
-            "date": "2025-08-13",
-            "proxy_score": 81.2,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 14.37,
-              "63d": 49.68,
-              "126d": 57.2
-            },
-            "max_drawdown_63d_pct": -0.82
-          },
-          {
-            "date": "2025-09-12",
-            "proxy_score": 81.2,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 8.47,
-              "63d": 33.62,
-              "126d": 30.94
-            },
-            "max_drawdown_63d_pct": -5.74
-          },
-          {
-            "date": "2025-10-13",
-            "proxy_score": 83.8,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 20.65,
-              "63d": 31.46,
-              "126d": 10.45
-            },
-            "max_drawdown_63d_pct": -4.34
-          },
-          {
-            "date": "2025-11-11",
-            "proxy_score": 91.2,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 2.1,
-              "63d": 5.02,
-              "126d": 1.83
-            },
-            "max_drawdown_63d_pct": -1.16
-          },
-          {
-            "date": "2025-12-11",
-            "proxy_score": 92.5,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 6.72,
-              "63d": -2.01,
-              "126d": 11.89
-            },
-            "max_drawdown_63d_pct": -4.34
-          },
-          {
-            "date": "2026-01-13",
+            "date": "2024-11-08",
             "proxy_score": 88.8,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -3.84,
+              "63d": 4.98,
+              "126d": -13.95
+            },
+            "max_drawdown_63d_pct": -14.45
+          },
+          {
+            "date": "2024-12-10",
+            "proxy_score": 81.2,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -0.26,
+              "63d": 1.74,
+              "126d": 2.47
+            },
+            "max_drawdown_63d_pct": -9.33
+          },
+          {
+            "date": "2025-01-13",
+            "proxy_score": 83.8,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 9.47,
+              "63d": -5.41,
+              "126d": -0.96
+            },
+            "max_drawdown_63d_pct": -15.1
+          },
+          {
+            "date": "2025-02-12",
+            "proxy_score": 83.8,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -6.81,
+              "63d": -18.03,
+              "126d": -21.6
+            },
+            "max_drawdown_63d_pct": -22.44
+          },
+          {
+            "date": "2025-03-14",
+            "proxy_score": 80.0,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -7.27,
+              "63d": 0.72,
+              "126d": -8.03
+            },
+            "max_drawdown_63d_pct": -16.77
+          },
+          {
+            "date": "2025-04-14",
+            "proxy_score": 80.0,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -5.14,
+              "63d": 4.7,
+              "126d": 7.69
+            },
+            "max_drawdown_63d_pct": -6.01
+          },
+          {
+            "date": "2025-05-14",
+            "proxy_score": 83.8,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 14.51,
+              "63d": -4.35,
+              "126d": 42.24
+            },
+            "max_drawdown_63d_pct": -12.83
+          },
+          {
+            "date": "2025-06-13",
+            "proxy_score": 81.2,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
               "21d": -3.61,
-              "63d": -15.98,
-              "126d": 8.54
+              "63d": -8.69,
+              "126d": 25.4
             },
-            "max_drawdown_63d_pct": -18.57
+            "max_drawdown_63d_pct": -23.87
           },
           {
-            "date": "2026-02-12",
-            "proxy_score": 85.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -4.73,
-              "63d": -3.04,
-              "126d": 13.67
-            },
-            "max_drawdown_63d_pct": -18.08
-          },
-          {
-            "date": "2026-03-16",
-            "proxy_score": 85.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -8.5,
-              "63d": 14.18,
-              "126d": 14.86
-            },
-            "max_drawdown_63d_pct": -14.01
-          },
-          {
-            "date": "2026-04-15",
-            "proxy_score": 87.5,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 11.23,
-              "63d": 29.19,
-              "126d": 33.56
-            },
-            "max_drawdown_63d_pct": -6.02
-          },
-          {
-            "date": "2026-05-14",
-            "proxy_score": 88.8,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 12.18,
-              "63d": 17.23,
-              "126d": null
-            },
-            "max_drawdown_63d_pct": -2.76
-          },
-          {
-            "date": "2026-06-15",
-            "proxy_score": 90.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 3.53,
-              "63d": 0.6,
-              "126d": null
-            },
-            "max_drawdown_63d_pct": -4.44
-          },
-          {
-            "date": "2026-07-16",
-            "proxy_score": 90.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 0.94,
-              "63d": 3.38,
-              "126d": null
-            },
-            "max_drawdown_63d_pct": -5.13
-          },
-          {
-            "date": "2026-08-14",
-            "proxy_score": 90.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -3.73,
-              "63d": null,
-              "126d": null
-            },
-            "max_drawdown_63d_pct": -5.67
-          },
-          {
-            "date": "2026-09-15",
+            "date": "2025-07-16",
             "proxy_score": 83.8,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": 6.39,
+              "21d": -13.34,
+              "63d": 2.86,
+              "126d": 35.89
+            },
+            "max_drawdown_63d_pct": -21.02
+          },
+          {
+            "date": "2025-08-14",
+            "proxy_score": 82.5,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 9.32,
+              "63d": 48.7,
+              "126d": 51.95
+            },
+            "max_drawdown_63d_pct": 0.0
+          },
+          {
+            "date": "2025-09-15",
+            "proxy_score": 81.2,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 8.58,
+              "63d": 37.33,
+              "126d": 24.35
+            },
+            "max_drawdown_63d_pct": -4.83
+          },
+          {
+            "date": "2025-10-14",
+            "proxy_score": 83.8,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 25.29,
+              "63d": 32.12,
+              "126d": 11.28
+            },
+            "max_drawdown_63d_pct": -3.51
+          },
+          {
+            "date": "2025-11-12",
+            "proxy_score": 92.5,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 0.96,
+              "63d": 2.18,
+              "126d": -1.26
+            },
+            "max_drawdown_63d_pct": -3.99
+          },
+          {
+            "date": "2025-12-12",
+            "proxy_score": 90.0,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 4.46,
+              "63d": -9.46,
+              "126d": 9.24
+            },
+            "max_drawdown_63d_pct": -9.95
+          },
+          {
+            "date": "2026-01-14",
+            "proxy_score": 88.8,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -3.1,
+              "63d": -15.77,
+              "126d": 9.86
+            },
+            "max_drawdown_63d_pct": -18.28
+          },
+          {
+            "date": "2026-02-13",
+            "proxy_score": 83.8,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -10.54,
+              "63d": -3.37,
+              "126d": 13.77
+            },
+            "max_drawdown_63d_pct": -18.22
+          },
+          {
+            "date": "2026-03-17",
+            "proxy_score": 88.8,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -2.83,
+              "63d": 20.65,
+              "126d": 22.3
+            },
+            "max_drawdown_63d_pct": -8.58
+          },
+          {
+            "date": "2026-04-16",
+            "proxy_score": 82.5,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 11.16,
+              "63d": 30.43,
+              "126d": 38.45
+            },
+            "max_drawdown_63d_pct": -5.92
+          },
+          {
+            "date": "2026-05-15",
+            "proxy_score": 90.0,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 11.7,
+              "63d": 17.74,
+              "126d": null
+            },
+            "max_drawdown_63d_pct": -2.59
+          },
+          {
+            "date": "2026-06-16",
+            "proxy_score": 88.8,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 5.04,
+              "63d": 1.36,
+              "126d": null
+            },
+            "max_drawdown_63d_pct": -3.86
+          },
+          {
+            "date": "2026-07-17",
+            "proxy_score": 90.0,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 0.34,
+              "63d": 6.15,
+              "126d": null
+            },
+            "max_drawdown_63d_pct": -5.93
+          },
+          {
+            "date": "2026-08-17",
+            "proxy_score": 88.8,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -3.83,
               "63d": null,
               "126d": null
             },
-            "max_drawdown_63d_pct": -0.43
+            "max_drawdown_63d_pct": -5.91
+          },
+          {
+            "date": "2026-09-16",
+            "proxy_score": 83.8,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 10.0,
+              "63d": null,
+              "126d": null
+            },
+            "max_drawdown_63d_pct": -0.58
           }
         ]
       },
@@ -1313,7 +1313,7 @@
           "status": "CURRENT",
           "latest_period": "2026-Q2",
           "latest_available_from": "2026-08-05",
-          "days_since_latest": 76,
+          "days_since_latest": 77,
           "review_after_days": 100,
           "review_due": false
         }
@@ -1487,36 +1487,36 @@
     {
       "ticker": "BSY",
       "name": "Bentley Systems",
-      "trade_date": "2026-10-19",
-      "close": 36.73,
-      "change_pct": 3.85,
-      "trend": "混在",
+      "trade_date": "2026-10-20",
+      "close": 38.13,
+      "change_pct": 3.81,
+      "trend": "上昇",
       "macd_state": "強気",
-      "rsi14": 63.6,
-      "ma_state": "50MA < 200MA",
-      "ma50": 34.32,
+      "rsi14": 68.5,
+      "ma_state": "50MA > 200MA",
+      "ma50": 34.38,
       "ma200": 34.34,
-      "macd": 0.7398,
-      "macd_signal": 0.3947,
+      "macd": 0.9321,
+      "macd_signal": 0.5022,
       "levels": {
         "support20": 30.36,
-        "resistance20": 36.86,
-        "ma50": 34.32,
+        "resistance20": 38.4,
+        "ma50": 34.38,
         "ma200": 34.34,
         "low52": 28.08,
         "high52": 52.85,
-        "support_distance_pct": 20.98,
-        "resistance_distance_pct": 0.35,
-        "range_position_pct": 98.0
+        "support_distance_pct": 25.59,
+        "resistance_distance_pct": 0.71,
+        "range_position_pct": 96.6
       },
       "structural_growth": {
         "ticker": "BSY",
         "status": "算定可能",
-        "score": 61.3,
+        "score": 70.0,
         "data_completeness_pct": 100,
         "required_completeness_pct": 70,
         "available_weight": 100,
-        "earned_points_on_available_axes": 61.25,
+        "earned_points_on_available_axes": 70.0,
         "axes": {
           "structural_growth_4y": {
             "weight": 20,
@@ -1568,32 +1568,32 @@
           "valuation_reasonableness": {
             "weight": 10,
             "score_pct": 75,
-            "forward_pe": 25.24,
-            "peg_ratio": 1.9
+            "forward_pe": 26.2,
+            "peg_ratio": 1.97
           },
           "price_confirmation": {
             "weight": 10,
-            "score_pct": 50
+            "score_pct": 100
           },
           "volume_confirmation": {
             "weight": 5,
-            "score_pct": 0
+            "score_pct": 75
           }
         },
         "price_confirmation": {
           "weight": 10,
-          "score_pct": 50,
-          "trend": "混在",
-          "distance_to_52w_high_pct": 43.89
+          "score_pct": 100,
+          "trend": "上昇",
+          "distance_to_52w_high_pct": 38.6
         },
         "volume_confirmation": {
           "weight": 5,
-          "score_pct": 0,
-          "volume_ratio20": 0.8
+          "score_pct": 75,
+          "volume_ratio20": 1.29
         },
         "new_high_health": {
           "grade": "N/A",
-          "distance_to_52w_high_pct": 43.89,
+          "distance_to_52w_high_pct": 38.6,
           "basis": "52週高値から5%超離れており、新高値局面ではない"
         },
         "fundamentals": {
@@ -1601,8 +1601,8 @@
           "eps_growth_ttm_pct": 15.5,
           "fcf_growth_ttm_pct": 14.93,
           "operating_margin_ttm_pct": 25.19,
-          "forward_pe": 25.24,
-          "peg_ratio": 1.9
+          "forward_pe": 26.2,
+          "peg_ratio": 1.97
         },
         "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
         "fundamental_last_updated": "Aug 6, 2026",
@@ -1636,16 +1636,16 @@
       },
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
-      "shadow_source": "Yahoo Finance",
-      "shadow_close_diff_usd": 0.0,
-      "shadow_close_diff_pct": 0.0,
+      "shadow_source": "Independent close pending",
+      "shadow_close_diff_usd": null,
+      "shadow_close_diff_pct": null,
       "structural_backtest": {
         "status": "PROXY_V1",
         "ticker": "BSY",
         "method": "Proxy V1: current fundamental/competitive axes held constant; historical price and volume axes recomputed monthly. Look-ahead bias remains, so results are diagnostic only.",
         "lookahead_bias": true,
         "point_in_time_ready": false,
-        "history_start": "2021-10-20",
+        "history_start": "2021-10-21",
         "history_end": "2026-10-19",
         "observations": 50,
         "buckets": {
@@ -1661,13 +1661,13 @@
           },
           "MID": {
             "observations": 50,
-            "avg_forward_21d_pct": 0.07,
-            "positive_rate_21d_pct": 46.0,
-            "avg_forward_63d_pct": 0.4,
-            "positive_rate_63d_pct": 54.2,
-            "avg_forward_126d_pct": 0.62,
-            "positive_rate_126d_pct": 46.7,
-            "avg_max_drawdown_63d_pct": -11.59
+            "avg_forward_21d_pct": 0.12,
+            "positive_rate_21d_pct": 48.0,
+            "avg_forward_63d_pct": 0.27,
+            "positive_rate_63d_pct": 50.0,
+            "avg_forward_126d_pct": 0.33,
+            "positive_rate_126d_pct": 48.9,
+            "avg_max_drawdown_63d_pct": -11.41
           },
           "LOW": {
             "observations": 0,
@@ -1682,268 +1682,268 @@
         },
         "records": [
           {
-            "date": "2024-10-09",
+            "date": "2024-10-10",
+            "proxy_score": 60.0,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -3.15,
+              "63d": -9.57,
+              "126d": -14.27
+            },
+            "max_drawdown_63d_pct": -10.59
+          },
+          {
+            "date": "2024-11-08",
+            "proxy_score": 61.3,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -2.43,
+              "63d": -5.15,
+              "126d": -1.3
+            },
+            "max_drawdown_63d_pct": -7.68
+          },
+          {
+            "date": "2024-12-10",
+            "proxy_score": 57.5,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -4.3,
+              "63d": -12.57,
+              "126d": 4.09
+            },
+            "max_drawdown_63d_pct": -15.65
+          },
+          {
+            "date": "2025-01-13",
+            "proxy_score": 57.5,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 1.59,
+              "63d": -5.2,
+              "126d": 26.79
+            },
+            "max_drawdown_63d_pct": -19.51
+          },
+          {
+            "date": "2025-02-12",
             "proxy_score": 56.2,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": 4.31,
-              "63d": -6.37,
-              "126d": -14.45
+              "21d": -10.07,
+              "63d": 4.06,
+              "126d": 12.24
             },
-            "max_drawdown_63d_pct": -6.98
+            "max_drawdown_63d_pct": -20.77
           },
           {
-            "date": "2024-11-07",
-            "proxy_score": 66.2,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -4.83,
-              "63d": -8.73,
-              "126d": -5.77
-            },
-            "max_drawdown_63d_pct": -12.21
-          },
-          {
-            "date": "2024-12-09",
+            "date": "2025-03-14",
             "proxy_score": 58.8,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": -5.68,
-              "63d": -17.5,
-              "126d": 1.15
+              "21d": 3.76,
+              "63d": 19.06,
+              "126d": 27.08
             },
-            "max_drawdown_63d_pct": -17.77
+            "max_drawdown_63d_pct": -11.9
           },
           {
-            "date": "2025-01-10",
-            "proxy_score": 57.5,
+            "date": "2025-04-14",
+            "proxy_score": 58.8,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": 1.68,
-              "63d": -8.63,
-              "126d": 25.23
+              "21d": 11.51,
+              "63d": 33.74,
+              "126d": 17.05
             },
-            "max_drawdown_63d_pct": -20.39
+            "max_drawdown_63d_pct": -2.63
           },
           {
-            "date": "2025-02-11",
-            "proxy_score": 57.5,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -13.98,
-              "63d": 3.24,
-              "126d": 11.71
-            },
-            "max_drawdown_63d_pct": -21.7
-          },
-          {
-            "date": "2025-03-13",
-            "proxy_score": 57.5,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 4.46,
-              "63d": 22.61,
-              "126d": 31.99
-            },
-            "max_drawdown_63d_pct": -8.98
-          },
-          {
-            "date": "2025-04-11",
-            "proxy_score": 57.5,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 14.89,
-              "63d": 37.06,
-              "126d": 21.36
-            },
-            "max_drawdown_63d_pct": -0.26
-          },
-          {
-            "date": "2025-05-13",
-            "proxy_score": 62.5,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 2.16,
-              "63d": 8.21,
-              "126d": -6.58
-            },
-            "max_drawdown_63d_pct": -2.12
-          },
-          {
-            "date": "2025-06-12",
+            "date": "2025-05-14",
             "proxy_score": 61.3,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": 16.78,
-              "63d": 7.65,
-              "126d": -16.41
+              "21d": 2.9,
+              "63d": 7.86,
+              "126d": -7.45
             },
-            "max_drawdown_63d_pct": -1.27
+            "max_drawdown_63d_pct": -1.73
           },
           {
-            "date": "2025-07-15",
+            "date": "2025-06-13",
+            "proxy_score": 61.3,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 16.56,
+              "63d": 6.73,
+              "126d": -17.75
+            },
+            "max_drawdown_63d_pct": -0.06
+          },
+          {
+            "date": "2025-07-16",
             "proxy_score": 66.2,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": -9.3,
-              "63d": -11.46,
-              "126d": -31.29
+              "21d": -10.07,
+              "63d": -12.48,
+              "126d": -31.61
             },
-            "max_drawdown_63d_pct": -14.39
+            "max_drawdown_63d_pct": -14.51
           },
           {
-            "date": "2025-08-13",
-            "proxy_score": 65.0,
+            "date": "2025-08-14",
+            "proxy_score": 63.7,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": 1.63,
-              "63d": -13.67,
-              "126d": -34.54
+              "21d": 1.82,
+              "63d": -14.19,
+              "126d": -34.07
             },
-            "max_drawdown_63d_pct": -14.1
+            "max_drawdown_63d_pct": -14.62
           },
           {
-            "date": "2025-09-12",
+            "date": "2025-09-15",
             "proxy_score": 61.3,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": -3.95,
-              "63d": -22.35,
-              "126d": -28.11
+              "21d": -4.42,
+              "63d": -22.94,
+              "126d": -28.07
             },
-            "max_drawdown_63d_pct": -24.75
+            "max_drawdown_63d_pct": -24.35
           },
           {
-            "date": "2025-10-13",
+            "date": "2025-10-14",
             "proxy_score": 61.3,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": -11.56,
-              "63d": -22.4,
-              "126d": -33.04
+              "21d": -11.82,
+              "63d": -21.86,
+              "126d": -31.15
             },
-            "max_drawdown_63d_pct": -25.86
+            "max_drawdown_63d_pct": -25.09
           },
           {
-            "date": "2025-11-11",
-            "proxy_score": 62.5,
+            "date": "2025-11-12",
+            "proxy_score": 63.7,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": -8.58,
-              "63d": -24.17,
-              "126d": -29.42
+              "21d": -8.56,
+              "63d": -23.16,
+              "126d": -27.74
             },
-            "max_drawdown_63d_pct": -31.14
+            "max_drawdown_63d_pct": -30.23
           },
           {
-            "date": "2025-12-11",
-            "proxy_score": 56.2,
+            "date": "2025-12-12",
+            "proxy_score": 57.5,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": -4.01,
-              "63d": -7.42,
-              "126d": -25.74
+              "21d": -3.08,
+              "63d": -6.65,
+              "126d": -25.65
             },
-            "max_drawdown_63d_pct": -24.68
+            "max_drawdown_63d_pct": -23.69
           },
           {
-            "date": "2026-01-13",
-            "proxy_score": 56.2,
+            "date": "2026-01-14",
+            "proxy_score": 58.8,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": -13.58,
-              "63d": -13.71,
-              "126d": -16.09
+              "21d": -13.3,
+              "63d": -11.9,
+              "126d": -17.77
             },
-            "max_drawdown_63d_pct": -21.87
+            "max_drawdown_63d_pct": -21.61
           },
           {
-            "date": "2026-02-12",
-            "proxy_score": 61.3,
+            "date": "2026-02-13",
+            "proxy_score": 60.0,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": 11.61,
-              "63d": -6.92,
-              "126d": 6.28
+              "21d": 11.09,
+              "63d": -5.95,
+              "126d": 1.88
             },
             "max_drawdown_63d_pct": -10.5
           },
           {
-            "date": "2026-03-16",
+            "date": "2026-03-17",
             "proxy_score": 58.8,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": -10.54,
-              "63d": -19.78,
-              "126d": -16.24
+              "21d": -8.53,
+              "63d": -20.35,
+              "126d": -17.9
             },
-            "max_drawdown_63d_pct": -22.62
+            "max_drawdown_63d_pct": -22.25
           },
           {
-            "date": "2026-04-15",
+            "date": "2026-04-16",
             "proxy_score": 56.2,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": -6.78,
-              "63d": -2.76,
-              "126d": 3.05
+              "21d": -7.45,
+              "63d": -6.67,
+              "126d": 4.56
             },
-            "max_drawdown_63d_pct": -17.54
+            "max_drawdown_63d_pct": -18.97
           },
           {
-            "date": "2026-05-14",
-            "proxy_score": 60.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": -3.81,
-              "63d": 14.18,
-              "126d": null
-            },
-            "max_drawdown_63d_pct": -11.54
-          },
-          {
-            "date": "2026-06-15",
-            "proxy_score": 60.0,
-            "data_completeness_pct": 100,
-            "forward_returns_pct": {
-              "21d": 8.45,
-              "63d": 4.42,
-              "126d": null
-            },
-            "max_drawdown_63d_pct": -8.03
-          },
-          {
-            "date": "2026-07-16",
+            "date": "2026-05-15",
             "proxy_score": 58.8,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": 9.45,
-              "63d": 5.98,
+              "21d": -5.92,
+              "63d": 8.33,
               "126d": null
             },
-            "max_drawdown_63d_pct": -11.07
+            "max_drawdown_63d_pct": -12.45
           },
           {
-            "date": "2026-08-14",
+            "date": "2026-06-16",
             "proxy_score": 60.0,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": -12.03,
-              "63d": null,
+              "21d": 7.19,
+              "63d": 3.08,
               "126d": null
             },
-            "max_drawdown_63d_pct": -16.23
+            "max_drawdown_63d_pct": -6.94
           },
           {
-            "date": "2026-09-15",
-            "proxy_score": 61.3,
+            "date": "2026-07-17",
+            "proxy_score": 60.0,
             "data_completeness_pct": 100,
             "forward_returns_pct": {
-              "21d": 10.07,
+              "21d": 7.42,
+              "63d": 12.03,
+              "126d": null
+            },
+            "max_drawdown_63d_pct": -8.95
+          },
+          {
+            "date": "2026-08-17",
+            "proxy_score": 58.8,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": -10.48,
               "63d": null,
               "126d": null
             },
-            "max_drawdown_63d_pct": -4.77
+            "max_drawdown_63d_pct": -12.61
+          },
+          {
+            "date": "2026-09-16",
+            "proxy_score": 60.0,
+            "data_completeness_pct": 100,
+            "forward_returns_pct": {
+              "21d": 16.5,
+              "63d": null,
+              "126d": null
+            },
+            "max_drawdown_63d_pct": -2.38
           }
         ]
       },
@@ -2048,7 +2048,7 @@
           "status": "CURRENT",
           "latest_period": "2026-Q2",
           "latest_available_from": "2026-08-05",
-          "days_since_latest": 76,
+          "days_since_latest": 77,
           "review_after_days": 100,
           "review_due": false
         }
@@ -2222,78 +2222,78 @@
     {
       "ticker": "MSTR",
       "name": "Strategy Inc.",
-      "trade_date": "2026-10-19",
-      "close": 136.02,
-      "change_pct": -0.59,
+      "trade_date": "2026-10-20",
+      "close": 142.72,
+      "change_pct": 4.93,
       "trend": "上昇",
       "macd_state": "弱気",
-      "rsi14": 42.1,
+      "rsi14": 47.4,
       "ma_state": "50MA > 200MA",
-      "ma50": 135.64,
-      "ma200": 135.53,
-      "macd": 1.1454,
-      "macd_signal": 4.9442,
+      "ma50": 136.55,
+      "ma200": 135.45,
+      "macd": 0.6348,
+      "macd_signal": 4.0823,
       "levels": {
-        "support20": 134.11,
-        "resistance20": 171.19,
-        "ma50": 135.64,
-        "ma200": 135.53,
+        "support20": 133.6,
+        "resistance20": 170.17,
+        "ma50": 136.55,
+        "ma200": 135.45,
         "low52": 81.81,
         "high52": 306.16,
-        "support_distance_pct": 1.42,
-        "resistance_distance_pct": 25.86,
-        "range_position_pct": 5.2
+        "support_distance_pct": 6.83,
+        "resistance_distance_pct": 19.23,
+        "range_position_pct": 24.9
       },
       "structural_growth": null,
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
-      "shadow_source": "Yahoo Finance",
-      "shadow_close_diff_usd": 0.0,
-      "shadow_close_diff_pct": 0.0
+      "shadow_source": "Independent close pending",
+      "shadow_close_diff_usd": null,
+      "shadow_close_diff_pct": null
     },
     {
       "ticker": "SOXL",
       "name": "Direxion Daily Semiconductor Bull 3X",
-      "trade_date": "2026-10-19",
-      "close": 98.65,
-      "change_pct": 5.32,
+      "trade_date": "2026-10-20",
+      "close": 97.55,
+      "change_pct": -1.12,
       "trend": "混在",
       "macd_state": "弱気",
-      "rsi14": 33.4,
+      "rsi14": 33.0,
       "ma_state": "50MA > 200MA",
-      "ma50": 128.55,
-      "ma200": 122.39,
-      "macd": -6.9976,
-      "macd_signal": -0.02,
+      "ma50": 127.9,
+      "ma200": 122.64,
+      "macd": -8.477,
+      "macd_signal": -1.7114,
       "levels": {
-        "support20": 93.45,
+        "support20": 91.35,
         "resistance20": 169.83,
-        "ma50": 128.55,
-        "ma200": 122.39,
+        "ma50": 127.9,
+        "ma200": 122.64,
         "low52": 28.12,
         "high52": 302.0,
-        "support_distance_pct": 5.56,
-        "resistance_distance_pct": 72.15,
-        "range_position_pct": 6.8
+        "support_distance_pct": 6.79,
+        "resistance_distance_pct": 74.1,
+        "range_position_pct": 7.9
       },
       "structural_growth": null,
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
-      "shadow_source": "Yahoo Finance",
-      "shadow_close_diff_usd": 0.0,
-      "shadow_close_diff_pct": 0.0,
+      "shadow_source": "Independent close pending",
+      "shadow_close_diff_usd": null,
+      "shadow_close_diff_pct": null,
       "soxl_stage": {
         "phase": "急落",
         "sell_stage": "撤退",
         "buy_stage": "監視",
         "market_alignment": {
-          "positive": 4,
-          "available": 4,
+          "positive": 0,
+          "available": 2,
           "symbols": {
-            "SOX": 1.61,
-            "SOXX": 1.73,
-            "SMH": 1.61,
-            "NASDAQ": 1.11
+            "SOX": -0.29,
+            "SOXX": null,
+            "SMH": null,
+            "NASDAQ": -0.02
           }
         },
         "high_warning": false,
@@ -2305,15 +2305,11 @@
     {
       "symbol": "SPX",
       "name": "S&P 500",
-      "trade_date": "2026-10-19",
-      "value": 7690.73,
-      "change_pct": 0.41,
+      "trade_date": "2026-10-20",
+      "value": 7712.57,
+      "change_pct": 0.28,
       "source": "Yahoo Finance",
       "history": [
-        {
-          "date": "2026-09-22",
-          "value": 7764.64
-        },
         {
           "date": "2026-09-23",
           "value": 7706.03
@@ -2389,21 +2385,21 @@
         {
           "date": "2026-10-19",
           "value": 7690.73
+        },
+        {
+          "date": "2026-10-20",
+          "value": 7712.57
         }
       ]
     },
     {
       "symbol": "NASDAQ",
       "name": "NASDAQ Composite",
-      "trade_date": "2026-10-19",
-      "value": 26430.89,
-      "change_pct": 1.11,
+      "trade_date": "2026-10-20",
+      "value": 26424.82,
+      "change_pct": -0.02,
       "source": "Yahoo Finance",
       "history": [
-        {
-          "date": "2026-09-22",
-          "value": 27244.28
-        },
         {
           "date": "2026-09-23",
           "value": 26936.04
@@ -2479,21 +2475,21 @@
         {
           "date": "2026-10-19",
           "value": 26430.89
+        },
+        {
+          "date": "2026-10-20",
+          "value": 26424.82
         }
       ]
     },
     {
       "symbol": "SOX",
       "name": "PHLX Semiconductor",
-      "trade_date": "2026-10-19",
-      "value": 11316.34,
-      "change_pct": 1.61,
+      "trade_date": "2026-10-20",
+      "value": 11283.81,
+      "change_pct": -0.29,
       "source": "Yahoo Finance",
       "history": [
-        {
-          "date": "2026-09-22",
-          "value": 12689.82
-        },
         {
           "date": "2026-09-23",
           "value": 12534.28
@@ -2569,21 +2565,21 @@
         {
           "date": "2026-10-19",
           "value": 11316.34
+        },
+        {
+          "date": "2026-10-20",
+          "value": 11283.81
         }
       ]
     },
     {
       "symbol": "VIX",
       "name": "Volatility Index",
-      "trade_date": "2026-10-19",
-      "value": 18.44,
-      "change_pct": -7.75,
+      "trade_date": "2026-10-20",
+      "value": 17.31,
+      "change_pct": -6.13,
       "source": "Yahoo Finance",
       "history": [
-        {
-          "date": "2026-09-22",
-          "value": 14.21
-        },
         {
           "date": "2026-09-23",
           "value": 15.18
@@ -2659,21 +2655,21 @@
         {
           "date": "2026-10-19",
           "value": 18.44
+        },
+        {
+          "date": "2026-10-20",
+          "value": 17.31
         }
       ]
     },
     {
       "symbol": "US10Y",
       "name": "米10年金利",
-      "trade_date": "2026-10-19",
-      "value": 5.136,
-      "change_pct": 0.75,
+      "trade_date": "2026-10-20",
+      "value": 5.117,
+      "change_pct": -0.37,
       "source": "Yahoo Finance",
       "history": [
-        {
-          "date": "2026-09-22",
-          "value": 4.968
-        },
         {
           "date": "2026-09-23",
           "value": 5.114
@@ -2749,308 +2745,10 @@
         {
           "date": "2026-10-19",
           "value": 5.136
-        }
-      ]
-    },
-    {
-      "symbol": "BTC",
-      "name": "Bitcoin",
-      "trade_date": "2026-10-19",
-      "value": 81853.54,
-      "change_pct": -0.2,
-      "source": "Yahoo Finance",
-      "history": [
-        {
-          "date": "2026-09-22",
-          "value": 86172.28
-        },
-        {
-          "date": "2026-09-23",
-          "value": 84383.01
-        },
-        {
-          "date": "2026-09-24",
-          "value": 84379.06
-        },
-        {
-          "date": "2026-09-25",
-          "value": 84034.92
-        },
-        {
-          "date": "2026-09-26",
-          "value": 84406.45
-        },
-        {
-          "date": "2026-09-27",
-          "value": 84458.09
-        },
-        {
-          "date": "2026-09-28",
-          "value": 83502.61
-        },
-        {
-          "date": "2026-09-29",
-          "value": 83622.43
-        },
-        {
-          "date": "2026-09-30",
-          "value": 83553.85
-        },
-        {
-          "date": "2026-10-01",
-          "value": 84853.1
-        },
-        {
-          "date": "2026-10-02",
-          "value": 84497.21
-        },
-        {
-          "date": "2026-10-03",
-          "value": 84763.58
-        },
-        {
-          "date": "2026-10-04",
-          "value": 86480.3
-        },
-        {
-          "date": "2026-10-05",
-          "value": 85786.59
-        },
-        {
-          "date": "2026-10-06",
-          "value": 85557.56
-        },
-        {
-          "date": "2026-10-07",
-          "value": 83275.93
-        },
-        {
-          "date": "2026-10-08",
-          "value": 81676.34
-        },
-        {
-          "date": "2026-10-09",
-          "value": 82546.32
-        },
-        {
-          "date": "2026-10-10",
-          "value": 82912.23
-        },
-        {
-          "date": "2026-10-11",
-          "value": 83679.47
-        },
-        {
-          "date": "2026-10-12",
-          "value": 81762.56
-        },
-        {
-          "date": "2026-10-13",
-          "value": 83095.12
-        },
-        {
-          "date": "2026-10-14",
-          "value": 81562.49
-        },
-        {
-          "date": "2026-10-15",
-          "value": 82141.46
-        },
-        {
-          "date": "2026-10-16",
-          "value": 81500.8
-        },
-        {
-          "date": "2026-10-17",
-          "value": 81382.15
-        },
-        {
-          "date": "2026-10-18",
-          "value": 82017.6
-        },
-        {
-          "date": "2026-10-19",
-          "value": 81853.54
-        }
-      ]
-    },
-    {
-      "symbol": "SOXX",
-      "name": "iShares Semiconductor ETF",
-      "trade_date": "2026-10-19",
-      "value": 501.93,
-      "change_pct": 1.73,
-      "source": "Yahoo Finance",
-      "history": [
-        {
-          "date": "2026-09-22",
-          "value": 572.78
-        },
-        {
-          "date": "2026-09-23",
-          "value": 565.72
-        },
-        {
-          "date": "2026-09-24",
-          "value": 566.07
-        },
-        {
-          "date": "2026-09-25",
-          "value": 572.68
-        },
-        {
-          "date": "2026-09-28",
-          "value": 560.79
-        },
-        {
-          "date": "2026-09-29",
-          "value": 567.44
-        },
-        {
-          "date": "2026-09-30",
-          "value": 568.64
-        },
-        {
-          "date": "2026-10-01",
-          "value": 576.33
-        },
-        {
-          "date": "2026-10-02",
-          "value": 588.9
-        },
-        {
-          "date": "2026-10-05",
-          "value": 589.51
-        },
-        {
-          "date": "2026-10-06",
-          "value": 589.45
-        },
-        {
-          "date": "2026-10-07",
-          "value": 582.82
-        },
-        {
-          "date": "2026-10-08",
-          "value": 563.28
-        },
-        {
-          "date": "2026-10-09",
-          "value": 559.4
-        },
-        {
-          "date": "2026-10-12",
-          "value": 544.85
-        },
-        {
-          "date": "2026-10-13",
-          "value": 543.9
-        },
-        {
-          "date": "2026-10-14",
-          "value": 519.42
-        },
-        {
-          "date": "2026-10-15",
-          "value": 514.71
-        },
-        {
-          "date": "2026-10-16",
-          "value": 493.39
-        },
-        {
-          "date": "2026-10-19",
-          "value": 501.93
-        }
-      ]
-    },
-    {
-      "symbol": "SMH",
-      "name": "VanEck Semiconductor ETF",
-      "trade_date": "2026-10-19",
-      "value": 548.46,
-      "change_pct": 1.61,
-      "source": "Yahoo Finance",
-      "history": [
-        {
-          "date": "2026-09-22",
-          "value": 607.46
-        },
-        {
-          "date": "2026-09-23",
-          "value": 601.41
-        },
-        {
-          "date": "2026-09-24",
-          "value": 600.52
-        },
-        {
-          "date": "2026-09-25",
-          "value": 606.56
-        },
-        {
-          "date": "2026-09-28",
-          "value": 600.01
-        },
-        {
-          "date": "2026-09-29",
-          "value": 606.9
-        },
-        {
-          "date": "2026-09-30",
-          "value": 609.0
-        },
-        {
-          "date": "2026-10-01",
-          "value": 617.81
-        },
-        {
-          "date": "2026-10-02",
-          "value": 630.6
-        },
-        {
-          "date": "2026-10-05",
-          "value": 633.9
-        },
-        {
-          "date": "2026-10-06",
-          "value": 632.5
-        },
-        {
-          "date": "2026-10-07",
-          "value": 625.03
-        },
-        {
-          "date": "2026-10-08",
-          "value": 607.27
-        },
-        {
-          "date": "2026-10-09",
-          "value": 603.33
-        },
-        {
-          "date": "2026-10-12",
-          "value": 590.99
-        },
-        {
-          "date": "2026-10-13",
-          "value": 588.12
-        },
-        {
-          "date": "2026-10-14",
-          "value": 564.74
-        },
-        {
-          "date": "2026-10-15",
-          "value": 558.84
-        },
-        {
-          "date": "2026-10-16",
-          "value": 539.79
         },
         {
-          "date": "2026-10-19",
-          "value": 548.46
+          "date": "2026-10-20",
+          "value": 5.117
         }
       ]
     }
