@@ -1,6 +1,6 @@
 {
   "schema_version": "0.2",
-  "summary": "2026-10-20 のREGULAR確定値を取得し、5銘柄のテクニカル計算を完了しました。 独立終値照合は一部確認待ちです。",
+  "summary": "2026-10-20 の確定値を維持しています。新しい米国取引日データはありません。 独立終値照合は一部確認待ちです。",
   "stocks": [
     {
       "ticker": "PLTR",
@@ -842,7 +842,7 @@
         "volume_confirmation": {
           "weight": 5,
           "score_pct": 75,
-          "volume_ratio20": 1.3
+          "volume_ratio20": 1.31
         },
         "new_high_health": {
           "grade": "B",
@@ -2266,13 +2266,13 @@
       "macd": -8.477,
       "macd_signal": -1.7114,
       "levels": {
-        "support20": 91.35,
+        "support20": 91.37,
         "resistance20": 169.83,
         "ma50": 127.9,
         "ma200": 122.64,
         "low52": 28.12,
         "high52": 302.0,
-        "support_distance_pct": 6.79,
+        "support_distance_pct": 6.76,
         "resistance_distance_pct": 74.1,
         "range_position_pct": 7.9
       },
