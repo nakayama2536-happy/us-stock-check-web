@@ -2,19 +2,6 @@
   "schema_version": "0.2",
   "records": [
     {
-      "generated_at_jst": "2026-09-22T09:54:05+09:00",
-      "us_trade_date": "2026-09-21",
-      "run_state": "HOLD",
-      "source_crosscheck": "FAIL",
-      "warnings": [],
-      "errors": [
-        "PLTR: RuntimeError: primary technical history too short: 50",
-        "LLY: RuntimeError: primary technical history too short: 50",
-        "BSY: RuntimeError: primary technical history too short: 50",
-        "SOXL: RuntimeError: primary technical history too short: 50"
-      ]
-    },
-    {
       "generated_at_jst": "2026-09-22T09:55:51+09:00",
       "us_trade_date": "2026-09-21",
       "run_state": "HOLD",
@@ -1193,6 +1180,14 @@
         "SOXX: market environment value for confirmed trade date 2026-10-21 is unavailable.",
         "SMH: market environment value for confirmed trade date 2026-10-21 is unavailable."
       ],
+      "errors": []
+    },
+    {
+      "generated_at_jst": "2026-10-22T16:47:26+09:00",
+      "us_trade_date": "2026-10-21",
+      "run_state": "NO_CHANGE",
+      "source_crosscheck": "PASS",
+      "warnings": [],
       "errors": []
     }
   ]
