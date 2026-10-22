@@ -2,20 +2,6 @@
   "schema_version": "0.2",
   "records": [
     {
-      "generated_at_jst": "2026-09-22T09:52:32+09:00",
-      "us_trade_date": "2026-09-21",
-      "run_state": "HOLD",
-      "source_crosscheck": "FAIL",
-      "warnings": [
-        "LLY: independent close is not published for 2026-09-21; technical calculation uses the confirmed primary close.",
-        "BSY: independent close is not published for 2026-09-21; technical calculation uses the confirmed primary close.",
-        "SOXL: independent close is not published for 2026-09-21; technical calculation uses the confirmed primary close."
-      ],
-      "errors": [
-        "PLTR: YFRateLimitError: Too Many Requests. Rate limited. Try after a while."
-      ]
-    },
-    {
       "generated_at_jst": "2026-09-22T09:54:05+09:00",
       "us_trade_date": "2026-09-21",
       "run_state": "HOLD",
@@ -1179,6 +1165,23 @@
       "generated_at_jst": "2026-10-22T09:06:10+09:00",
       "us_trade_date": "2026-10-21",
       "run_state": "NORMAL",
+      "source_crosscheck": "PENDING",
+      "warnings": [
+        "PLTR: independent close is not published for 2026-10-21.",
+        "LLY: independent close is not published for 2026-10-21.",
+        "BSY: independent close is not published for 2026-10-21.",
+        "MSTR: independent close is not published for 2026-10-21.",
+        "SOXL: independent close is not published for 2026-10-21.",
+        "BTC: market environment value for confirmed trade date 2026-10-21 is unavailable.",
+        "SOXX: market environment value for confirmed trade date 2026-10-21 is unavailable.",
+        "SMH: market environment value for confirmed trade date 2026-10-21 is unavailable."
+      ],
+      "errors": []
+    },
+    {
+      "generated_at_jst": "2026-10-22T10:05:25+09:00",
+      "us_trade_date": "2026-10-21",
+      "run_state": "NO_CHANGE",
       "source_crosscheck": "PENDING",
       "warnings": [
         "PLTR: independent close is not published for 2026-10-21.",
