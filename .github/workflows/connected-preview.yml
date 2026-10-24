@@ -1,0 +1,40 @@
+name: Connected preview isolation (unpublished)
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'adoption/**'
+      - '.github/workflows/connected-preview.yml'
+permissions:
+  contents: read
+jobs:
+  connected-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+      - name: Validate isolated builder and immutable delivery
+        run: node --test adoption/connected-preview.test.cjs
+      - name: Install browser test dependency
+        run: python -m pip install playwright==1.57.0
+      - name: Verify coexistence, offline recovery and storage isolation
+        run: python adoption/browser_connected.py
+      - name: Verify published files stayed byte-unchanged
+        run: git diff --exit-code -- docs/
+      - name: Preserve only public-safe test evidence
+        if: success()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: us-connected-preview-evidence
+          path: test-output-connected/
+          if-no-files-found: error
+          retention-days: 7
