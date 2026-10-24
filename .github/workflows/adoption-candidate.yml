@@ -1,0 +1,27 @@
+name: US Data-connected UI Candidate
+on:
+  pull_request:
+    branches: [main]
+    paths: ['adoption/**', 'migration/**', '.github/workflows/adoption-candidate.yml']
+permissions:
+  contents: read
+jobs:
+  candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - run: node --test adoption/delivery.test.cjs migration/worker-migration.test.cjs
+      - run: python -m pip install playwright==1.57.0
+      - run: python adoption/browser.py
+      - run: python adoption/browser_pwa.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: us-data-connected-candidate
+          path: test-output-adoption/
+          retention-days: 7
