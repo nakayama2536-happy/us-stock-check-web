@@ -27,8 +27,12 @@ jobs:
           python-version: '3.12'
       - name: Verify display-only diff and reject unsafe inputs
         run: node --test adoption/mobile-layout.test.cjs
-      - name: Install browser testing dependency
-        run: python -m pip install playwright==1.57.0
+      - name: Install browser testing dependency and Japanese rendering fonts
+        run: |
+          python -m pip install playwright==1.57.0
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends fonts-noto-cjk
+          fc-match -f '%{family}\n' ':lang=ja' | grep -q 'Noto Sans CJK'
       - name: Test compact viewport, navigation and unchanged failure handling
         env:
           PUBLIC_REVISION: ${{ github.event.pull_request.head.sha }}
