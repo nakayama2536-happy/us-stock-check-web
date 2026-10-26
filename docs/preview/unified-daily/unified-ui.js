@@ -54,7 +54,7 @@
   }
   function formatMoney(n){return "$"+Number(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});}
   function formatPct(n){return n===null||n===undefined?"—":(n>0?"+":"")+Number(n).toFixed(2)+"%";}
-  function render(status,market,legacyDigest,shortState){
+  function render(status,market,shortState){
     const stocks=Object.fromEntries(market.stocks.map(s=>[s.ticker,s]));
     const rows=TICKERS.map(t=>{
       const s=stocks[t];
@@ -69,9 +69,7 @@
     }).join("");
     return '<div class="unified-summary"><h3>5銘柄の早見</h3>'+
       '<p>市場基準日 '+escapeHTML(status.us_trade_date)+'／保存済みの参考分析。正式な売買判断ではありません。</p>'+
-      '<div class="unified-rows">'+rows+'</div>'+
-      '<details class="unified-legacy"><summary>詳細ダイジェストを表示</summary>'+
-      '<div class="unified-legacy-body">'+legacyDigest+'</div></details></div>';
+      '<div class="unified-rows">'+rows+'</div></div>';
   }
   function notice(status,commonOk,today){
     const q=status.quality||{},notes=[];

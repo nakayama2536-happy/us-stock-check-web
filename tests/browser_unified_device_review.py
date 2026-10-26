@@ -46,6 +46,7 @@ def main():
             check("production root remains current 4 tabs",True)
             page.goto(base+"preview/unified-daily/")
             expect(page.locator(".unified-row")).to_have_count(5)
+            check("duplicate detailed digest absent while common eligibility remains",page.locator("#digest .unified-legacy").count()==0 and page.locator("#digest .unified-row").count()==5 and page.locator(".unified-common-details").count()==1)
             check("five review tickers correctly ordered",[x.get_attribute("data-unified-ticker") for x in page.locator(".unified-row").all()]==["PLTR","LLY","BSY","MSTR","SOXL"])
             check("review date sourced from existing normal Public JSON",status["us_trade_date"].replace("-","/") in page.locator("#tradeDate").inner_text())
             check("review close equals normal market JSON",f"{market['stocks'][0]['close']:,.2f}" in page.locator(".unified-row").first.inner_text())
