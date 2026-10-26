@@ -8,7 +8,9 @@ on:
       - 'docs/app.js'
       - 'docs/style.css'
       - 'docs/unified-ui.js'
+      - 'docs/sw.js'
       - 'tests/unified-root.test.cjs'
+      - 'tests/sw-cache.test.cjs'
       - 'tests/browser_unified_root.py'
       - 'tests/browser_unified_migration.py'
       - 'adoption/US_UNIFIED_ROOT_CANDIDATE_20261026.md'
@@ -43,15 +45,15 @@ jobs:
         run: python tests/browser_unified_root.py
       - name: Four-tab to five-tab and rollback migration with same-origin SW
         run: python tests/browser_unified_migration.py
-      - name: Preserve service worker, daily market data, and fixed devices
+      - name: Preserve daily market data, manifest and fixed preview scopes
         run: |
           set -euo pipefail
           git fetch --depth=1 origin "$GITHUB_BASE_REF"
-          for path in docs/data docs/sw.js docs/manifest.webmanifest docs/preview/connected docs/preview/device docs/preview/s1; do
+          for path in docs/data docs/manifest.webmanifest docs/preview/connected docs/preview/device docs/preview/s1; do
             git diff --quiet FETCH_HEAD HEAD -- "$path" ||
               { echo "::error::$path changed outside UI candidate"; exit 1; }
           done
-          echo "Read-only candidate: no market, SW, preview, or manifest changes"
+          echo "Read-only candidate: no market, manifest, or fixed preview changes"
       - name: Retain fixture browser evidence only
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
