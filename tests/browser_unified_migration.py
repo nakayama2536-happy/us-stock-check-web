@@ -12,6 +12,31 @@ ROOT=Path(__file__).resolve().parents[1]
 OLD_REV="b3a1ad74254f4b234736b2f1fafb448dc29599c5"
 PREFIX="/us-stock-check-web/"
 checks=[]
+IDB_CHECK="""async()=>await new Promise(resolve=>{
+  const req=indexedDB.open('usstock-acceptance-test',1);
+  req.onerror=()=>resolve(false);
+  req.onsuccess=()=>{
+    const db=req.result,tx=db.transaction('snap','readonly'),get=tx.objectStore('snap').get('test');
+    get.onsuccess=()=>{const ok=get.result==='keep';db.close();resolve(ok);};
+    get.onerror=()=>{db.close();resolve(false);};
+  };
+})"""
+IDB_SETUP="""async()=>{
+  const db=await new Promise((resolve,reject)=>{
+    const req=indexedDB.open('usstock-acceptance-test',1);
+    req.onupgradeneeded=()=>req.result.createObjectStore('snap');
+    req.onerror=()=>reject(req.error);
+    req.onsuccess=()=>resolve(req.result);
+  });
+  await new Promise((resolve,reject)=>{
+    const tx=db.transaction('snap','readwrite');
+    tx.objectStore('snap').put('keep','test');
+    tx.oncomplete=resolve;
+    tx.onerror=()=>reject(tx.error);
+  });
+  db.close();
+  return true;
+}"""
 def check(name,value):
     if not value:raise AssertionError(name)
     checks.append(name);print("ROOT MIGRATION PASS:",name)
@@ -47,6 +72,8 @@ def main():
                 page.wait_for_function("navigator.serviceWorker.controller!==null",timeout=20000)
                 check("original daily app has 4 tabs and active root worker",True)
                 page.evaluate("""async()=>{localStorage.setItem('usstock.legacy.personal','keep');const c=await caches.open('india-other-pwa-sentinel');await c.put('/outside',new Response('unrelated'));return true;}""")
+                page.evaluate(IDB_SETUP)
+                check("original root IndexedDB acceptance marker stored",page.evaluate(IDB_CHECK))
                 page.evaluate("localStorage.setItem('usstock.activeTab','quality')")
                 state["root"]=unified
                 page.reload()
@@ -54,6 +81,7 @@ def main():
                 check("same origin upgrades from 4 tabs to the daily 5-tab root",page.locator(".bottom-nav button").count()==5)
                 check("old quality tab preference survives",page.locator("#tab-quality").is_visible())
                 check("personal localStorage key preserved",page.evaluate("localStorage.getItem('usstock.legacy.personal')")=="keep")
+                check("personal IndexedDB marker preserved during upgrade",page.evaluate(IDB_CHECK))
                 check("unrelated other-PWA cache survives",page.evaluate("async()=>await caches.has('india-other-pwa-sentinel')"))
                 page.locator("#tabbtn-overview").click()
                 expect(page.locator(".unified-row")).to_have_count(5)
@@ -63,12 +91,20 @@ def main():
                 expect(page.locator(".unified-row")).to_have_count(5,timeout=10000)
                 check("unified root offline closed-tab restart renders saved 5-stock source",True)
                 check("offline still preserves personal and other-PWA storage",page.evaluate("async()=>localStorage.getItem('usstock.legacy.personal')==='keep'&&await caches.has('india-other-pwa-sentinel')"))
+                check("offline root retains IndexedDB",page.evaluate(IDB_CHECK))
                 context.set_offline(False)
                 state["root"]=previous
                 page.reload()
                 expect(page.locator(".bottom-nav button")).to_have_count(4)
                 check("same origin rolls back to 4 tabs via normal network reload",True)
                 check("rollback preserves personal and other-PWA cache",page.evaluate("async()=>localStorage.getItem('usstock.legacy.personal')==='keep'&&await caches.has('india-other-pwa-sentinel')"))
+                check("online rollback preserves IndexedDB marker",page.evaluate(IDB_CHECK))
+                context.set_offline(True)
+                page.close();page=context.new_page()
+                page.goto(url)
+                expect(page.locator(".bottom-nav button")).to_have_count(4,timeout=10000)
+                check("closed-tab offline restart after rollback restores 4-tab shell",True)
+                check("rollback offline protects personal and other app saved data",page.evaluate("async()=>localStorage.getItem('usstock.legacy.personal')==='keep'&&await caches.has('india-other-pwa-sentinel')") and page.evaluate(IDB_CHECK))
                 context.close();browser.close()
         finally:
             server.shutdown();server.server_close()
