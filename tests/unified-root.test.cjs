@@ -12,11 +12,11 @@ test("existing current public Shadow snapshot validates without creating an acti
 });
 test("five tickers have stable explicit order and reference text",()=>{
   const {status,market}=fresh();
-  const html=ui.render(status,market,"<p>detail</p>",()=>({shortTerm:"上向き"}));
+  const html=ui.render(status,market,()=>({shortTerm:"上向き"}));
   const found=[...html.matchAll(/data-unified-ticker="([A-Z]+)"/g)].map(x=>x[1]);
   assert.deepEqual(found,ui.TICKERS);
   assert.match(html,/正式な売買判断ではありません/);
-  assert.match(html,/<details class="unified-legacy"/);
+  assert.doesNotMatch(html,/詳細ダイジェスト|unified-legacy|digest-stock/);
   assert.equal((html.match(/class="unified-row"/g)||[]).length,5);
   assert.ok(!html.includes("BUY")&&!html.includes("SELL")&&!html.includes("formal_action="));
 });
@@ -28,7 +28,7 @@ test("NO_CHANGE is a saved reference, not an incident or new current action",()=
 test("missing price trend remains unknown instead of neutral",()=>{
   const {status,market}=fresh();
   market.stocks[0].trend=null;
-  const html=ui.render(status,market,"",()=>({shortTerm:"中立"}));
+  const html=ui.render(status,market,()=>({shortTerm:"中立"}));
   assert.match(html,/参考状態未確認/);
 });
 test("missing independent Common data can only be shown with explicit warning",()=>{
@@ -83,7 +83,7 @@ test("age uses calendar days, never an assumed trading calendar",()=>{
 });
 test("ticker names are escaped and not executed",()=>{
   const f=fresh();f.market.stocks[0].name='<img src=x onerror="attack()">';
-  const html=ui.render(f.status,f.market,"",()=>({shortTerm:"上昇優勢"}));
+  const html=ui.render(f.status,f.market,()=>({shortTerm:"上昇優勢"}));
   assert.ok(html.includes("&lt;img"));
   assert.ok(!html.includes("<img"));
 });
