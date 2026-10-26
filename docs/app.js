@@ -56,7 +56,7 @@ function renderRecheckSchedule(){
   if($("backupRecheckAt"))$("backupRecheckAt").textContent=s.backup;
 }
 
-const TAB_IDS=["overview","stocks","market","quality"];
+const TAB_IDS=["overview","stocks","market","quality","manage"];
 function activateTab(tab,{scroll=true}={}){
   const next=TAB_IDS.includes(tab)?tab:"overview";
   document.querySelectorAll("[data-tab-panel]").forEach(panel=>{
@@ -495,7 +495,7 @@ function soxlPanel(s){
 }
 
 function stockCard(s){
-  return `<article class="card">
+  return `<article class="card" data-unified-stock="${fmt(s.ticker)}" tabindex="-1">
     <div class="stock-head">
       <div>
         <div class="ticker">${fmt(s.ticker)}</div>
@@ -686,6 +686,10 @@ async function main(options={}){
       getJSON("./data/common_snapshot.json").catch(()=>null)
     ]);
 
+    const unified=window.USUnified;
+    if(!unified)throw new Error("統合表示プログラムを読み込めません。");
+    const contract=unified.validate(status,market,common);
+    if(!contract.ok)throw new Error(contract.reason);
     $("version").textContent="v"+fmt(status.app_version);
 
     const stateBox=$("stateBox");
@@ -696,10 +700,12 @@ async function main(options={}){
     $("tradeDate").textContent=dateOnly(status.us_trade_date);
     $("updatedAt").textContent=jst(status.generated_at_jst);
     renderRecheckSchedule();
-    renderCommonDigest(common);
+    renderCommonDigest(contract.commonOk?common:null);
 
     $("digest").classList.remove("muted");
-    $("digest").innerHTML=digestPanel(status,market);
+    const detailOpened=Boolean(document.querySelector(".unified-legacy[open]"));
+    $("digest").innerHTML=unified.render(status,market,digestPanel(status,market),decisionState);
+    if(detailOpened){const d=$("digest").querySelector(".unified-legacy");if(d)d.open=true;}
 
     $("stocks").innerHTML=
       (market.stocks||[]).map(stockCard).join("")||
@@ -726,9 +732,14 @@ async function main(options={}){
     $("modelValidation").innerHTML=modelValidationPanel(market.model_validation,market.stocks);
 
     renderNotices(status);
+    const alert=$("unifiedNotice");
+    const warning=unified.notice(status,contract.commonOk,unified.tokyoToday());
+    if(alert){alert.textContent=warning;alert.hidden=!warning;}
     if(options.manual&&note) note.textContent=`取得完了：${jst(status.generated_at_jst)} の公開データ`;
 
   }catch(e){
+    const alert=$("unifiedNotice");
+    if(alert){alert.hidden=false;alert.textContent="新しい公開データを確認できません。前回表示は参考用です。 "+String(e.message||"読込エラー");}
     $("appState").textContent="読込エラー";
     if(note) note.textContent=e.message;
     $("quality").textContent="JSONの取得に失敗しました。";
@@ -741,6 +752,15 @@ async function main(options={}){
   }
 }
 $("refreshButton")?.addEventListener("click",()=>main({manual:true}));
+$("digest")?.addEventListener("click",event=>{
+  const row=event.target.closest("button[data-unified-ticker]");
+  if(!row)return;
+  const ticker=row.getAttribute("data-unified-ticker");
+  if(!window.USUnified?.TICKERS.includes(ticker))return;
+  activateTab("stocks",{scroll:false});
+  const card=$("stocks")?.querySelector('article[data-unified-stock="'+ticker+'"]');
+  if(card){card.scrollIntoView({block:"start",behavior:"smooth"});card.focus({preventScroll:true});}
+});
 setupTabs();
 main();
 

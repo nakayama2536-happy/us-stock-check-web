@@ -14,12 +14,12 @@
   <link rel="stylesheet" href="./style.css?v=0.9.8">
 </head>
 <body>
-  <main class="app">
+  <main class="app unified-root">
     <header class="hero" id="top">
       <div class="hero-row">
         <img class="app-icon" src="./icons/us-stock-icon.png" alt="米国株アプリ">
         <div class="hero-title">
-          <div class="eyebrow">US STOCK CHECK</div>
+          <div class="eyebrow">US STOCK CHECK · 一つの画面で確認</div>
           <h1>米国株 投資チェック</h1>
           <div id="version" class="version">v0.9.8</div>
         </div>
@@ -34,29 +34,23 @@
           <div><span>取引日</span><strong id="tradeDate">—</strong></div>
           <div><span>更新</span><strong id="updatedAt">—</strong></div>
         </div>
-        <div class="recheck-meta">
-          <div><span>次回自動確認目安</span><strong id="recheckAt">—</strong></div>
-          <div><span>予備確認目安</span><strong id="backupRecheckAt">—</strong></div>
-        </div>
-        <div class="recheck-note">06:30 / 08:00 / 11:30 JST の冗長チェック。GitHub Actionsは開始が遅れる場合があります。</div>
       </div>
-
-      <button id="refreshButton" class="refresh-button" type="button">
-        <span class="refresh-icon">↻</span> 公開データを再読込
-      </button>
-      <div id="refreshNote" class="refresh-note">公開済みの最新JSONを再読込します。バックエンド更新は実行しません。</div>
     </header>
+    <div id="unifiedNotice" class="unified-notice" role="alert" hidden></div>
+
 
     <div id="tab-overview" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-overview" data-tab-panel="overview">
+
+      <section id="overviewSection">
+        <h2>判断と5銘柄</h2>
+        <div id="digest" class="card muted">最新データを読み込み中です。</div>
+      </section>
+      <details class="app-disclosure unified-common-details"><summary>正式判断資格・共通状態の詳細</summary>
       <section id="commonSection" class="hidden">
         <h2>判断可否</h2>
         <div id="commonDigest" class="card"></div>
       </section>
-
-      <section id="overviewSection">
-        <h2>ダイジェスト</h2>
-        <div id="digest" class="card muted">最新データを読み込み中です。</div>
-      </section>
+      </details>
     </div>
 
     <div id="tab-stocks" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-stocks" data-tab-panel="stocks" hidden>
@@ -103,6 +97,23 @@
         <div id="notices" class="card notice-card"></div>
       </section>
 
+    </div>
+
+    <div id="tab-manage" class="tab-panel" role="tabpanel" aria-labelledby="tabbtn-manage" data-tab-panel="manage" hidden>
+      <section id="unifiedManageSection">
+        <h2>管理・更新</h2>
+        <div class="card unified-manage">
+          <p>現在の公開済みJSONを再取得します。取得・計算ワークフローや発注は実行しません。</p>
+          <button id="refreshButton" class="refresh-button" type="button"><span class="refresh-icon">↻</span> 公開データを再読込</button>
+          <div id="refreshNote" class="refresh-note">公開された保存値を再読込します。</div>
+          <div class="recheck-meta">
+            <div><span>次回自動確認目安</span><strong id="recheckAt">—</strong></div>
+            <div><span>予備確認目安</span><strong id="backupRecheckAt">—</strong></div>
+          </div>
+          <p class="recheck-note">06:30 / 08:00 / 11:30 JSTは予定時刻であり、取引終了・データ確定の証拠ではありません。</p>
+          <p>5タブ統合候補は通常版の既存データ4JSONだけを読み込みます。250本履歴を10月16日固定版から混在させません。</p>
+        </div>
+      </section>
       <section id="validationSection">
         <h2>モデル検証</h2>
         <div id="modelValidation" class="card muted">Point-in-Time検証データ待ちです。</div>
@@ -116,12 +127,14 @@
   </main>
 
   <nav class="bottom-nav" role="tablist" aria-label="主要画面">
-    <button id="tabbtn-overview" type="button" role="tab" aria-selected="true" aria-controls="tab-overview" data-tab="overview" class="active">概要</button>
+    <button id="tabbtn-overview" type="button" role="tab" aria-selected="true" aria-controls="tab-overview" data-tab="overview" class="active">判断</button>
     <button id="tabbtn-stocks" type="button" role="tab" aria-selected="false" aria-controls="tab-stocks" data-tab="stocks">銘柄</button>
     <button id="tabbtn-market" type="button" role="tab" aria-selected="false" aria-controls="tab-market" data-tab="market">市場</button>
     <button id="tabbtn-quality" type="button" role="tab" aria-selected="false" aria-controls="tab-quality" data-tab="quality">品質</button>
+    <button id="tabbtn-manage" type="button" role="tab" aria-selected="false" aria-controls="tab-manage" data-tab="manage">管理</button>
   </nav>
 
-  <script src="./app.js?v=0.9.8" defer></script>
+  <script src="./unified-ui.js?v=unified-candidate-1" defer></script>
+  <script src="./app.js?v=unified-candidate-1" defer></script>
 </body>
 </html>

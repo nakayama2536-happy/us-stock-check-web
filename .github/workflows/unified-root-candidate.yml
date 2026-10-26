@@ -1,0 +1,58 @@
+name: US unified daily root candidate (unpublished)
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'docs/index.html'
+      - 'docs/app.js'
+      - 'docs/style.css'
+      - 'docs/unified-ui.js'
+      - 'tests/unified-root.test.cjs'
+      - 'tests/browser_unified_root.py'
+      - 'adoption/US_UNIFIED_ROOT_CANDIDATE_20261026.md'
+      - '.github/workflows/unified-root-candidate.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  candidate-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          fetch-depth: 2
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+      - name: Static syntax and reference-only safety tests
+        run: |
+          node --check docs/unified-ui.js
+          node --check docs/app.js
+          node --test tests/unified-root.test.cjs tests/sw-cache.test.cjs
+      - name: Install pinned Chromium automation
+        run: python -m pip install playwright==1.57.0
+      - name: Browser UI daily-data and failed-update checks
+        run: python tests/browser_unified_root.py
+      - name: Preserve service worker, daily market data, and fixed devices
+        run: |
+          set -euo pipefail
+          git fetch --depth=1 origin "$GITHUB_BASE_REF"
+          for path in docs/data docs/sw.js docs/manifest.webmanifest docs/preview/connected docs/preview/device docs/preview/s1; do
+            git diff --quiet FETCH_HEAD HEAD -- "$path" ||
+              { echo "::error::$path changed outside UI candidate"; exit 1; }
+          done
+          echo "Read-only candidate: no market, SW, preview, or manifest changes"
+      - name: Retain fixture browser evidence only
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: us-unified-root-candidate-evidence
+          path: test-output-unified/report.json
+          if-no-files-found: error
+          retention-days: 7
