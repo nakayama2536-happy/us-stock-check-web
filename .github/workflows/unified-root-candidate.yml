@@ -61,5 +61,6 @@ jobs:
           path: |
             test-output-unified/report.json
             test-output-unified/migration-report.json
+            test-output-unified/*.png
           if-no-files-found: error
           retention-days: 7
