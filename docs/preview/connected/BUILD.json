@@ -1,0 +1,24 @@
+{
+  "schema": "us-connected-preview/1",
+  "scope": "/us-stock-check-web/preview/connected/",
+  "consumer_revision": "5a4b1052f7ef3327ee5594535b3ee5f875c386f9",
+  "ui_sha256": "d25dccc5413de328458a36922ede523af823d8e8113be1b6cf2e3990d2b5b264",
+  "shell_cache": "us-connected-preview-shell-d25dccc5413de328458a36922ede523af823d8e8113be1b6cf2e3990d2b5b264",
+  "data_cache": "us-connected-preview-delivery-v1",
+  "sha256": {
+    "index.html": "c02736910f9e97f37ab0cdafb482ec011749f3f7e5041ee51e33bdc0892d7ae0",
+    "assets.json": "1c649998ebf2ace9a699abd948c11ef673ad66117c4d6d10acd7867359498b47",
+    "preview-adapter.js": "3c40fb1fa86b01e4f1ce1044c853d801c807fc3384a2624652098233e82b97a5",
+    "delivery.js": "be405207f0524216026223f1f433a298b9bda6711b98c4580b82bfac18489f30",
+    "storage.js": "4df25b336da2a3d456679be31c7f72f11a188a117a86c80bdf2f75e23ef865e3",
+    "candidate.js": "13b142a0a758c6b300f6c02fb5dd4d7ec4695fed1369939c204998e9ad00fb58",
+    "sw-register.js": "6c4d6305675c1e6f4202c3a03e7417e1dbfb5b334d0f4f787b7087724c0479d5",
+    "manifest.webmanifest": "944b3f77d4153300c565a3df9cccba7f9d18e636c2d3c47084c36be4268cf253",
+    "icons/us-stock-icon.png": "07eab8629467be85452199088598fc58fd6918e77d17ee9fe8bbaf7bb9314fed",
+    "sw.js": "1b31f148e49a22fe06fc03257ead6aec2d97b9aeb76dd38bb21de1bf1e72e49b"
+  },
+  "published": false,
+  "device_pass": false,
+  "note": "UI identity only. Current market release is delivery/current.json; this build does not activate a publishing schedule.",
+  "initial_release": "2af493b55b4b7686b7c1e8dd13ab8b8f6309c1bb045945d124dcf3d4ff6b0d57"
+}
