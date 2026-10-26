@@ -3,7 +3,7 @@
   "status": "REVIEW_ONLY_NOT_ADOPTED",
   "source_repository": "nakayama2536-happy/us-stock-check-web",
   "source_pr": 48,
-  "source_head": "9baa637f58127d547f43f914708a561596b553ac",
+  "source_head": "1231823ca156fd943bc0ba3569adb970b9f8d15b",
   "normal_root_unchanged": true,
   "market_data_source": "../../data/ (existing Public root JSON only)",
   "source_readonly": true,
@@ -12,9 +12,9 @@
   "formal_engine": "NOT_IMPLEMENTED",
   "device_pass": false,
   "files": {
-    "index.html": "ec43e77a345cce41fdbdd26033993e81a57bd5ca",
-    "app.js": "3d7599360b86fe21f05a2ea3582c9e8cae5bdc98",
+    "index.html": "044cd22e180f2b4d91704995ff3ba0cc47d0aae7",
+    "app.js": "d3c9132aec9145e32577714306ccb92b98d1494e",
     "style.css": "be1218ee32d3879e51fffeae3e7e1d24feae7478",
-    "unified-ui.js": "7bb85967ed76d774c13309cbd82e81b5f87e6997"
+    "unified-ui.js": "0eafdc8727cad26d078f30f0210b674db284b421"
   }
 }

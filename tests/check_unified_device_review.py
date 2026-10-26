@@ -19,7 +19,7 @@ def verify():
     actual={p.relative_to(SITE).as_posix() for p in SITE.rglob("*") if p.is_file()}
     if actual!=FILES:raise ValueError("Unexpected review file: "+repr(actual^FILES))
     info=json.loads((SITE/"REVIEW.json").read_text())
-    if info.get("schema")!="us-unified-daily-review/1" or info.get("status")!="REVIEW_ONLY_NOT_ADOPTED" or info.get("source_pr")!=48 or info.get("source_head")!="9baa637f58127d547f43f914708a561596b553ac":
+    if info.get("schema")!="us-unified-daily-review/1" or info.get("status")!="REVIEW_ONLY_NOT_ADOPTED" or info.get("source_pr")!=48 or info.get("source_head")!="1231823ca156fd943bc0ba3569adb970b9f8d15b":
         raise ValueError("Unreviewed source identity")
     if any(info.get(k) is not value for k,value in [("normal_root_unchanged",True),("source_readonly",True),("installable",False),("service_worker_registration",False),("device_pass",False)]):
         raise ValueError("Review-only flag mismatch")
@@ -39,8 +39,10 @@ def verify():
         raise ValueError("Review preference isolation mismatch")
     if 'rel="manifest"' in index or '5タブ統合・実機確認用' not in index:
         raise ValueError("Missing review-only UX or unexpected install manifest")
-    if 'src="./unified-ui.js?v=unified-review-20261027"' not in index or 'src="./app.js?v=unified-review-20261027"' not in index:
+    if 'src="./unified-ui.js?v=unified-review-20261027-rev2"' not in index or 'src="./app.js?v=unified-review-20261027-rev2"' not in index:
         raise ValueError("Missing fixed review code references")
+    if "詳細ダイジェストを表示" in (SITE/"unified-ui.js").read_text() or ".unified-legacy" in (SITE/"unified-ui.js").read_text():
+        raise ValueError("Duplicate digest reintroduced")
     if list(SITE.rglob("*.json"))!=[SITE/"REVIEW.json"]:
         raise ValueError("Unexpected market or personal JSON copied")
     print("UNIFIED REVIEW GATE PASS: exact 5 files, approved Git blobs, Public root JSON only, no separate SW, no user record migration")
