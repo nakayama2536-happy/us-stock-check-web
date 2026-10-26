@@ -1,0 +1,46 @@
+name: Connected preview publication gate
+
+on:
+  pull_request:
+    paths:
+      - 'docs/preview/connected/**'
+      - 'tests/check_connected_publication.py'
+      - '.github/workflows/connected-publication.yml'
+      - '.github/workflows/deploy-pages.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/preview/connected/**'
+      - 'tests/check_connected_publication.py'
+      - '.github/workflows/connected-publication.yml'
+      - '.github/workflows/deploy-pages.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  publication-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Exact byte allowlist, privacy, source identity and negative tests
+        run: python tests/check_connected_publication.py
+      - name: Check published JavaScript syntax without execution
+        run: |
+          for file in docs/preview/connected/*.js; do node --check "$file"; done
+      - name: Keep the regular app and original fixed preview intact
+        run: |
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          b=Path('docs/index.html').read_bytes()
+          digest=hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+          assert digest=='d47dc1048cc5d177c8c5d819857c6f034c0715bf'
+          assert b'data-tab="manage"' not in b
+          m=json.loads(Path('docs/preview/device/delivery/current.json').read_text())
+          assert m['release']=='b88f9c8734bc69cd680187331307869295a3d67651ae86e5c062792b306aeba8'
+          print('Regular four-tab UI and original fixed-device release retained')
+          PY

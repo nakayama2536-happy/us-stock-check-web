@@ -1,0 +1,1 @@
+if(location.pathname.startsWith('/us-stock-check-web/preview/connected/')&&'serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js',{scope:'./',updateViaCache:'none'}).catch(()=>{document.getElementById('connectedState').textContent+=' / 保存用SW登録失敗';}));
