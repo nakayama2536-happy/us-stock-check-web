@@ -1,0 +1,40 @@
+name: Connected mobile SW roundtrip (unpublished)
+
+on:
+  pull_request:
+    branches: ['feature/us-mobile-overview-20261026']
+    paths:
+      - 'adoption/browser_sw_roundtrip.py'
+      - '.github/workflows/mobile-sw-roundtrip.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  sw-roundtrip:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+      - name: Install pinned browser-test dependency
+        run: python -m pip install playwright==1.57.0
+      - name: Test one-browser upgrade and rollback without deleting user areas
+        run: python adoption/browser_sw_roundtrip.py
+      - name: Confirm no published data or UI was changed
+        run: git diff --exit-code -- docs/
+      - name: Retain fixture-only evidence, never deploy
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: us-connected-sw-roundtrip-evidence
+          path: test-output-sw-roundtrip/report.json
+          if-no-files-found: error
+          retention-days: 7
