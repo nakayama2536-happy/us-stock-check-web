@@ -703,9 +703,7 @@ async function main(options={}){
     renderCommonDigest(contract.commonOk?common:null);
 
     $("digest").classList.remove("muted");
-    const detailOpened=Boolean(document.querySelector(".unified-legacy[open]"));
-    $("digest").innerHTML=unified.render(status,market,digestPanel(status,market),decisionState);
-    if(detailOpened){const d=$("digest").querySelector(".unified-legacy");if(d)d.open=true;}
+    $("digest").innerHTML=unified.render(status,market,decisionState);
 
     $("stocks").innerHTML=
       (market.stocks||[]).map(stockCard).join("")||
