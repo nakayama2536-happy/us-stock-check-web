@@ -1,7 +1,7 @@
 """Same-browser-context SW upgrade/rollback with explicit tab close/reopen.
 
 A plain reload retained the old document in earlier runs. The supported test
-procedure therefore observes activation, closes the tab, then opens it again.
+procedure observes activation, closes the tab, then opens it again.
 No unregister/cache reset is used. This is not iOS termination acceptance.
 """
 import hashlib
@@ -62,7 +62,22 @@ SNAPSHOT = """async (name) => {
   if (!(await caches.has(name))) return null;
   const cache = await caches.open(name), keys = await cache.keys();
   if (keys.length !== 1) throw Error('Expected one connected snapshot');
-  return await (await cache.match(keys[0])).text();
+  const saved = JSON.parse(await (await cache.match(keys[0])).text());
+  if (Object.keys(saved).sort().join(',') !== 'manifest,raw') throw Error('Snapshot wrapper mismatch');
+  const names = ['common_snapshot.json','market.json','ohlcv-history.json','status.json'];
+  if (Object.keys(saved.raw).sort().join(',') !== names.join(',')) throw Error('Saved file allowlist mismatch');
+  const raw = {};
+  for (const file of names) {
+    if (typeof saved.raw[file] !== 'string') throw Error('Saved raw file missing');
+    const bytes = new TextEncoder().encode(saved.raw[file]);
+    const digest = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),b=>b.toString(16).padStart(2,'0')).join('');
+    const expected = saved.manifest.files[file];
+    if (bytes.length !== expected.bytes || digest !== expected.sha256) throw Error('Saved raw byte/hash mismatch');
+    raw[file] = saved.raw[file];
+  }
+  // Promise.all completes files in varying order. Normalize ONLY mapping order;
+  // all four original file strings/bytes and their manifest digests stay exact.
+  return JSON.stringify({manifest:saved.manifest,raw});
 }"""
 SEED = """async () => {
   localStorage.setItem('usstock.roundtrip-sentinel','normal-preserved');
@@ -152,8 +167,7 @@ def main():
                     expect(page.locator('#connectedState')).to_contain_text('配信データ表示')
                     observed=hashlib.sha256(response.body()).hexdigest()
                     RELOAD_OBSERVATIONS.append({'phase':label,'expected_index_sha256':meta['sha256']['index.html'],'reload_index_sha256':observed,'reload_matched':observed==meta['sha256']['index.html']})
-                    # The required rollout procedure is close/reopen, in the SAME
-                    # context. Do not unregister a worker or clear any user data.
+                    # Close/reopen in the SAME context. No unregister or reset.
                     page.close()
                     page=context.new_page()
                     response=page.goto(url)
@@ -161,7 +175,7 @@ def main():
                     check(label+': reopened navigation uses exact target HTML',hashlib.sha256(response.body()).hexdigest()==meta['sha256']['index.html'])
                     expect(page.frame_locator('#previewFrame').locator('.usm-row')).to_have_count(count)
                     check(label+': matching UI rendered after worker activation and reopen',True)
-                    check(label+': stored data bytes and release unchanged',page.evaluate(SNAPSHOT,meta['data_cache'])==snapshot)
+                    check(label+': stored manifest and four raw file bytes unchanged',page.evaluate(SNAPSHOT,meta['data_cache'])==snapshot)
                     check(label+': normal/device/other cache and local/IDB sentinels retained',page.evaluate(PRESERVATION)==sentinels)
                     installed=page.evaluate('async()=> (await navigator.serviceWorker.getRegistrations()).map(r=>r.scope)')
                     check(label+': original normal worker registration retained',normal_scope in installed and url in installed)
@@ -184,7 +198,7 @@ def main():
                 context.close();browser.close()
         finally:
             server.shutdown();server.server_close()
-        report={'kind':'SAVED_FIXED_FIXTURE_SAME_CONTEXT_SW_ROUNDTRIP','passed':len(CHECKS),'checks':CHECKS,'test_head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'base_ui':BASE_UI,'successor_ui':MOBILE_UI,'release':manifest['release'],'market_date':'2026-10-02','old_shell':old_meta['shell_cache'],'new_shell':new_meta['shell_cache'],'changed_files':changed,'single_browser_context':True,'update_procedure':'wait for worker activation, then close/reopen tab; not iOS termination','reload_observations':RELOAD_OBSERVATIONS,'published':False,'device_pass':False,'actual_personal_records_tested':False,'market_acquisition_performed':False}
+        report={'kind':'SAVED_FIXED_FIXTURE_SAME_CONTEXT_SW_ROUNDTRIP','passed':len(CHECKS),'checks':CHECKS,'test_head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'base_ui':BASE_UI,'successor_ui':MOBILE_UI,'release':manifest['release'],'market_date':'2026-10-02','old_shell':old_meta['shell_cache'],'new_shell':new_meta['shell_cache'],'changed_files':changed,'single_browser_context':True,'update_procedure':'wait for worker activation, then close/reopen tab; not iOS termination','snapshot_comparison':'exact raw file text, byte length and SHA256; wrapper key order ignored','reload_observations':RELOAD_OBSERVATIONS,'published':False,'device_pass':False,'actual_personal_records_tested':False,'market_acquisition_performed':False}
         (evidence/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
         print('SW ROUNDTRIP RESULT:',json.dumps(report,ensure_ascii=False))
 
