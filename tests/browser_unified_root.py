@@ -59,6 +59,8 @@ def main():
             page.goto(url)
             expect(page.locator(".unified-row")).to_have_count(5)
             check("one unified root with 5 navigation tabs",page.locator(".bottom-nav button").count()==5)
+            page.screenshot(path=str(output/"root-first-view-390.png"),full_page=False)
+            page.screenshot(path=str(output/"root-overview-390-full.png"),full_page=True)
             check("five live-source tickers in fixed market-specific order",[x.get_attribute("data-unified-ticker") for x in page.locator(".unified-row").all()]==["PLTR","LLY","BSY","MSTR","SOXL"])
             check("date and price come from same current public data files",status["us_trade_date"].replace("-","/") in page.locator("#tradeDate").inner_text() and f"{market['stocks'][0]['close']:,.2f}" in page.locator(".unified-row").first.inner_text())
             check("no archive 2026-10-16 hardcoded market reference","2026/10/16" not in page.locator("#digest").inner_text())
@@ -76,6 +78,9 @@ def main():
             for width,height in [(320,700),(375,812),(390,844),(430,932),(844,390)]:
                 page.set_viewport_size({"width":width,"height":height})
                 check(f"viewport {width}x{height} has five accessible nav buttons",all(page.locator(".bottom-nav button").nth(i).bounding_box()["height"]>=44 for i in range(5)))
+                check(f"viewport {width}x{height} has no horizontal overflow",page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1"))
+                if width==844:
+                    page.screenshot(path=str(output/"root-landscape-844.png"),full_page=False)
             page.set_viewport_size({"width":390,"height":844})
             page.evaluate('localStorage.setItem("us_unrelated_personal_marker","keep");localStorage.setItem("usstock.activeTab","quality")')
             page.reload()
@@ -95,7 +100,7 @@ def main():
             context.close();browser.close()
     finally:
         server.shutdown();server.server_close()
-    report={"schema":"us-unified-root-candidate-test/1","source":"Public docs/data saved snapshot", "source_market_day":status["us_trade_date"],"generated_at_jst":status["generated_at_jst"],"checks":results,"passed":len(results),"published":False,"device_pass":False,"trading_engine_added":False,"root_migration_performed":False,"actual_user_records_tested":False}
+    report={"screenshots":["root-first-view-390.png","root-overview-390-full.png","root-landscape-844.png"],"schema":"us-unified-root-candidate-test/1","source":"Public docs/data saved snapshot", "source_market_day":status["us_trade_date"],"generated_at_jst":status["generated_at_jst"],"checks":results,"passed":len(results),"published":False,"device_pass":False,"trading_engine_added":False,"root_migration_performed":False,"actual_user_records_tested":False}
     (output/"report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n")
     print("UNIFIED ROOT REPORT:",json.dumps(report,ensure_ascii=False))
 if __name__=="__main__":main()
