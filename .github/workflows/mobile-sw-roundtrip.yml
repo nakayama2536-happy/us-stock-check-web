@@ -5,6 +5,7 @@ on:
     branches: ['feature/us-mobile-overview-20261026']
     paths:
       - 'adoption/browser_sw_roundtrip.py'
+      - 'adoption/trace_sw_roundtrip.py'
       - '.github/workflows/mobile-sw-roundtrip.yml'
 
 permissions:
@@ -28,7 +29,7 @@ jobs:
       - name: Install pinned browser-test dependency
         run: python -m pip install playwright==1.57.0
       - name: Test one-browser upgrade and rollback without deleting user areas
-        run: python adoption/browser_sw_roundtrip.py
+        run: python adoption/trace_sw_roundtrip.py
       - name: Confirm no published data or UI was changed
         run: git diff --exit-code -- docs/
       - name: Retain fixture-only evidence, never deploy
