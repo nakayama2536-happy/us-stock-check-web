@@ -142,11 +142,28 @@ def main():
 
                 def transition(folder, meta, retired, label, count):
                     state['root'] = folder
-                    page.evaluate('async()=> {const r=await navigator.serviceWorker.getRegistration();if(!r)throw Error("Missing registration");await r.update();}')
-                    page.wait_for_function('async x=>await caches.has(x.live)&&!await caches.has(x.retired)',arg={'live':meta['shell_cache'],'retired':retired},timeout=20000)
+                    page.evaluate('async()=> {const r=await navigator.serviceWorker.getRegistration();if(!r)throw Error("Missing registration");window.__previousWorker=navigator.serviceWorker.controller;await r.update();}')
+                    page.wait_for_function('''async x=>{
+                        const r=await navigator.serviceWorker.getRegistration();
+                        const c=navigator.serviceWorker.controller;
+                        return c && c!==window.__previousWorker && c.state==='activated'
+                            && r.active===c && await caches.has(x.live) && !await caches.has(x.retired);
+                    }''',arg={'live':meta['shell_cache'],'retired':retired},timeout=20000)
                     page.reload()
                     expect(page.locator('#connectedState')).to_contain_text('配信データ表示')
-                    expect(page.frame_locator('#previewFrame').locator('.usm-row')).to_have_count(count)
+                    try:
+                        expect(page.frame_locator('#previewFrame').locator('.usm-row')).to_have_count(count)
+                    except AssertionError:
+                        diagnostics=page.evaluate('''async ()=>({
+                            controller:navigator.serviceWorker.controller?.scriptURL,
+                            workerState:navigator.serviceWorker.controller?.state,
+                            registrations:(await navigator.serviceWorker.getRegistrations()).map(r=>({scope:r.scope,active:r.active?.state})),
+                            cacheNames:await caches.keys(),
+                            shellTitle:document.querySelector('header b')?.textContent,
+                            assetsHaveMobile:(await (await fetch('./assets.json')).text()).includes('mobileRowsHtml')
+                        })''')
+                        print('SW ROUNDTRIP DIAGNOSTIC:',json.dumps(diagnostics))
+                        raise
                     check(label+': matching UI rendered after worker activation', True)
                     check(label+': stored data bytes and release unchanged', page.evaluate(SNAPSHOT,meta['data_cache'])==snapshot)
                     check(label+': normal/device/other cache and local/IDB sentinels retained', page.evaluate(PRESERVATION)==sentinels)
