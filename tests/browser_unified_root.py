@@ -83,14 +83,14 @@ def main():
             check("existing tab preference and unrelated personal marker survive reload",page.evaluate('localStorage.getItem("us_unrelated_personal_marker")')=="keep")
             page.locator("#tabbtn-overview").click()
             expect(page.locator(".unified-row")).to_have_count(5)
-            baseline=page.locator("#digest").inner_text()
+            baseline=page.locator("#digest").text_content()
             shadow["bad_market"]=True
             page.locator("#tabbtn-manage").click()
             page.locator("#refreshButton").click()
             expect(page.locator("#unifiedNotice")).to_be_visible()
             expect(page.locator("#appState")).to_contain_text("読込エラー")
             check("mismatched refreshed market date fails closed", "整合" in page.locator("#unifiedNotice").inner_text())
-            check("failed refresh retains prior safe reference content",page.locator("#digest").inner_text()==baseline)
+            check("failed refresh retains prior safe reference content",page.locator("#digest").text_content()==baseline)
             check("no uncaught browser exceptions",not errors)
             context.close();browser.close()
     finally:
