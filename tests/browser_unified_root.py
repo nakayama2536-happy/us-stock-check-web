@@ -59,6 +59,8 @@ def main():
             page.goto(url)
             expect(page.locator(".unified-row")).to_have_count(5)
             check("one unified root with 5 navigation tabs",page.locator(".bottom-nav button").count()==5)
+            check("duplicate detail digest removed but five-ticker glance remains",page.locator("#digest .unified-legacy").count()==0 and page.locator("#digest .digest-stock").count()==0 and page.locator("#digest .unified-row").count()==5)
+            check("common eligibility disclosure retained",page.locator(".unified-common-details").count()==1)
             page.screenshot(path=str(output/"root-first-view-390.png"),full_page=False)
             page.screenshot(path=str(output/"root-overview-390-full.png"),full_page=True)
             check("five live-source tickers in fixed market-specific order",[x.get_attribute("data-unified-ticker") for x in page.locator(".unified-row").all()]==["PLTR","LLY","BSY","MSTR","SOXL"])
