@@ -1,0 +1,20 @@
+{
+  "schema": "us-unified-daily-review/1",
+  "status": "REVIEW_ONLY_NOT_ADOPTED",
+  "source_repository": "nakayama2536-happy/us-stock-check-web",
+  "source_pr": 48,
+  "source_head": "9baa637f58127d547f43f914708a561596b553ac",
+  "normal_root_unchanged": true,
+  "market_data_source": "../../data/ (existing Public root JSON only)",
+  "source_readonly": true,
+  "installable": false,
+  "service_worker_registration": false,
+  "formal_engine": "NOT_IMPLEMENTED",
+  "device_pass": false,
+  "files": {
+    "index.html": "ec43e77a345cce41fdbdd26033993e81a57bd5ca",
+    "app.js": "3d7599360b86fe21f05a2ea3582c9e8cae5bdc98",
+    "style.css": "be1218ee32d3879e51fffeae3e7e1d24feae7478",
+    "unified-ui.js": "7bb85967ed76d774c13309cbd82e81b5f87e6997"
+  }
+}
