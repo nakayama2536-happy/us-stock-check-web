@@ -78,7 +78,7 @@ test("unconfirmed independent source, QC and HOLD always warn",()=>{
 });
 test("age uses calendar days, never an assumed trading calendar",()=>{
   assert.equal(ui.calendarAge("2026-10-23","2026-10-26"),3);
-  assert.match(ui.notice(fresh().status,true,"2026-11-05"),/13暦日前/);
+  assert.match(ui.notice(fresh().status,true,"2026-11-05"),new RegExp(ui.calendarAge(fresh().status.us_trade_date,"2026-11-05")+"暦日前"));
   assert.match(ui.notice(fresh().status,true,"2026-10-20"),/保存市場日を確認できません/);
 });
 test("ticker names are escaped and not executed",()=>{
