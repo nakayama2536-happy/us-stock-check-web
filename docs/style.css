@@ -355,3 +355,61 @@ footer{margin-top:24px;text-align:center;color:#7b8798;font-size:11px}
 /* v0.9.7 real tabs */
 .tab-panel>section:first-child{margin-top:18px}
 .tab-panel>section+section{margin-top:18px}
+
+
+/* Future root-only 5-tab daily UI candidate. No data/cache/trade rule changes. */
+.unified-root{padding:9px 12px calc(94px + env(safe-area-inset-bottom))}
+.unified-root .hero{padding:12px 14px;border-radius:17px}
+.unified-root .hero-row{gap:10px}
+.unified-root .app-icon{width:48px;height:48px;border-radius:12px}
+.unified-root h1{font-size:21px;line-height:1.3;margin:2px 0}
+.unified-root .eyebrow{font-size:11px;letter-spacing:.035em}
+.unified-root .status-compact{margin-top:9px}
+.unified-root .status-meta{margin-top:5px}
+.unified-root .status-box strong{font-size:15px}
+.unified-root .status-meta strong{font-size:15px}
+.unified-root .status-meta span{font-size:12px}
+.unified-root section{margin-top:10px}
+.unified-root section h2{font-size:18px;margin:10px 2px}
+.unified-root .card{padding:11px 13px;border-radius:15px}
+.unified-notice{padding:10px 12px;margin-top:9px;border:1px solid #c24e49;border-radius:12px;background:#fff0ed;color:#97312d;font-size:15px;line-height:1.5}
+.unified-notice[hidden]{display:none}
+.unified-summary h3{font-size:18px;margin:0 0 5px}
+.unified-summary>p{font-size:14px;line-height:1.55;margin:3px 0 8px;color:#54657b}
+.unified-rows{display:grid;gap:0}
+.unified-row{appearance:none;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(82px,.8fr) minmax(91px,.92fr);align-items:center;gap:8px;width:100%;min-height:76px;border:0;border-bottom:1px solid #dbe4ee;background:#fff;padding:9px 0;text-align:left;font:inherit;color:#10233f}
+.unified-row:focus-visible{outline:3px solid #3579bb;outline-offset:-2px}
+.unified-row:active{background:#f1f6fc}
+.unified-name,.unified-signal,.unified-price{min-width:0}
+.unified-row b{display:block;font-size:17px;line-height:1.35;overflow-wrap:anywhere}
+.unified-name small,.unified-signal small{display:block;color:#566982;font-size:13px;line-height:1.45;overflow-wrap:anywhere}
+.unified-price{text-align:right;font-variant-numeric:tabular-nums}
+.unified-price b{white-space:nowrap;font-size:18px}
+.unified-price small{display:block;font-size:14px;line-height:1.4}
+.unified-price .up{color:#a62b2b}.unified-price .down{color:#1968a6}
+.unified-legacy{margin-top:8px}
+.unified-legacy>summary,.unified-common-details>summary{font-size:16px;min-height:44px;padding:10px 5px;color:#174d87;cursor:pointer}
+.unified-legacy-body{padding:10px 0}
+.unified-root .unified-common-details{margin-top:8px;background:#fff;border:1px solid #e1e7ee;border-radius:15px;padding:0 13px}
+.unified-common-details #commonSection{margin-top:0}
+.unified-root .unified-manage{display:grid;gap:8px}
+.unified-root .unified-manage>p{font-size:15px;line-height:1.55;margin:0}
+.unified-root .unified-manage .recheck-meta{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.unified-root .unified-manage .refresh-button{min-height:46px}
+.unified-root #stocks article:focus{outline:3px solid #3579bb;outline-offset:2px}
+.bottom-nav{grid-template-columns:repeat(5,minmax(0,1fr))}
+.bottom-nav button{min-height:48px;font-size:15px}
+@media(max-width:600px){
+  .bottom-nav button{min-height:49px;font-size:15px;padding:8px 1px}
+  .unified-row{gap:6px}
+  .unified-root .unified-manage .recheck-meta{grid-template-columns:1fr}
+}
+@media(max-width:359px){
+  .unified-root{padding-left:8px;padding-right:8px}
+  .unified-row{grid-template-columns:minmax(0,1fr) minmax(76px,.75fr) minmax(85px,.9fr);gap:4px}
+  .unified-row b{font-size:15px}.unified-price b{font-size:16px}
+}
+@media(orientation:landscape) and (max-height:500px){
+  .unified-root .hero{padding:8px 12px}
+  .bottom-nav button{min-height:44px}
+}
