@@ -5,6 +5,7 @@ const STATIC=[
   "./index.html",
   "./style.css?v=0.9.8",
   "./app.js?v=0.9.8",
+  "./unified-ui.js?v=unified-candidate-1",
   "./manifest.webmanifest",
   "./icons/us-stock-icon.png"
 ];
@@ -12,6 +13,8 @@ const STATIC=[
 const APP_SCOPE=new URL(self.registration.scope);
 const DATA_PREFIX=APP_SCOPE.pathname+"data/";
 const CACHE_BUSTER_PARAM="v";
+const DATA_FRESHNESS_NONCE="t";
+const PUBLIC_SNAPSHOT_NAMES=new Set(["status.json","market.json","common_snapshot.json","history.json"]);
 
 function inAppScope(url){
   return url.origin===APP_SCOPE.origin && url.pathname.startsWith(APP_SCOPE.pathname);
@@ -21,8 +24,13 @@ function isData(url){
 }
 function canonicalDataKey(request){
   const url=new URL(request.url);
-  // Only the documented freshness nonce is ignored. Keep all semantic query parameters.
+  // Ignore only documented freshness nonces; preserve all semantic query parameters.
   url.searchParams.delete(CACHE_BUSTER_PARAM);
+  const name=url.pathname.startsWith(DATA_PREFIX)?url.pathname.slice(DATA_PREFIX.length):"";
+  const stamp=url.searchParams.get(DATA_FRESHNESS_NONCE)||"";
+  if(PUBLIC_SNAPSHOT_NAMES.has(name)&&/^\d{13}$/.test(stamp)&&url.searchParams.getAll(DATA_FRESHNESS_NONCE).length===1){
+    url.searchParams.delete(DATA_FRESHNESS_NONCE);
+  }
   return new Request(url.href,{method:"GET",headers:request.headers});
 }
 async function ownMatch(key){

@@ -29,3 +29,40 @@ test("redirect is not cached",async()=>{const h=harness();h.setFetch(async()=>ne
 test("shell fallback uses own cache",async()=>{const h=harness();const req=new h.Req("https://example.test/us-stock-check/app.js?v=0.9.8");h.own.set(req.url,new h.Res("shell"));h.setFetch(async()=>{throw Error("offline")});const res=await h.api.networkFirstShell(req);assert.equal(res.body,"shell");assert.ok(h.opened.every(x=>x===h.api.CACHE))});
 test("cache write failure does not discard network response",async()=>{const h=harness();const original=h.api.networkFirstData; // exercised by replacing cache.put through a new VM is unnecessary; source contract guards catch.
  const res=await original(new h.Req("https://example.test/us-stock-check/data/a.json"));assert.equal(res.body,"net")});
+
+test("root dated freshness nonce is bounded to four documented public JSON files",()=>{
+ const h=harness();
+ for(const file of ["status.json","market.json","common_snapshot.json","history.json"]){
+   const input="https://example.test/us-stock-check/data/"+file+"?t=1793000000000";
+   const key=h.api.canonicalDataKey(new h.Req(input));
+   assert.equal(key.url,"https://example.test/us-stock-check/data/"+file);
+ }
+ const other=h.api.canonicalDataKey(new h.Req("https://example.test/us-stock-check/data/other.json?t=1793000000000"));
+ assert.match(other.url,/[?&]t=1793000000000/);
+});
+test("freshness normalization does not remove user filters or non-numeric t semantics",()=>{
+ const h=harness();
+ const first=h.api.canonicalDataKey(new h.Req("https://example.test/us-stock-check/data/market.json?t=1793000000000&ticker=LLY&period=90"));
+ const second=h.api.canonicalDataKey(new h.Req("https://example.test/us-stock-check/data/market.json?t=1793000001000&ticker=PLTR&period=250"));
+ assert.match(first.url,/ticker=LLY/);assert.match(second.url,/ticker=PLTR/);
+ assert.notEqual(first.url,second.url);
+ for(const query of ["t=search","t=1793000000000&t=1793000001000","t=42"]){
+  const key=h.api.canonicalDataKey(new h.Req("https://example.test/us-stock-check/data/status.json?"+query));
+  assert.match(key.url,/t=/);
+ }
+});
+test("offline revalidation with changing Date.now reuses only the exact cached snapshot",async()=>{
+ const h=harness();
+ const saved="https://example.test/us-stock-check/data/status.json?t=1793000000000";
+ await runEvent(h.handlers.fetch,{request:new h.Req(saved)});
+ assert.equal(h.stores.length,1);
+ h.setFetch(async()=>{throw Error("offline")});
+ const result=await h.api.networkFirstData(new h.Req("https://example.test/us-stock-check/data/status.json?t=1793000001000"));
+ assert.equal(result.body,"net");
+ assert.equal(h.stores[0],"https://example.test/us-stock-check/data/status.json");
+ assert.ok(h.opened.every(x=>x===h.api.CACHE));
+});
+test("new unified script is in install precache without broad app or cache deletion",()=>{
+ assert.match(source,/\.\/unified-ui\.js\?v=unified-candidate-1/);
+ assert.doesNotMatch(source,/caches\.match\(/);
+});
