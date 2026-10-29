@@ -2,14 +2,6 @@
   "schema_version": "0.2",
   "records": [
     {
-      "generated_at_jst": "2026-09-22T14:56:51+09:00",
-      "us_trade_date": "2026-09-21",
-      "run_state": "NO_CHANGE",
-      "source_crosscheck": "PASS",
-      "warnings": [],
-      "errors": []
-    },
-    {
       "generated_at_jst": "2026-09-22T15:08:16+09:00",
       "us_trade_date": "2026-09-21",
       "run_state": "NO_CHANGE",
@@ -1235,6 +1227,16 @@
         "BTC: market environment value for confirmed trade date 2026-10-28 is unavailable.",
         "SOXX: market environment value for confirmed trade date 2026-10-28 is unavailable.",
         "SMH: market environment value for confirmed trade date 2026-10-28 is unavailable."
+      ],
+      "errors": []
+    },
+    {
+      "generated_at_jst": "2026-10-29T11:00:41+09:00",
+      "us_trade_date": "2026-10-28",
+      "run_state": "NO_CHANGE",
+      "source_crosscheck": "PASS",
+      "warnings": [
+        "BTC: market environment value for confirmed trade date 2026-10-28 is unavailable."
       ],
       "errors": []
     }
