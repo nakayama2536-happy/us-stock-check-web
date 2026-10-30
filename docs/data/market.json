@@ -87,7 +87,7 @@
             "weight": 10,
             "score_pct": 50,
             "forward_pe": 103.31,
-            "peg_ratio": 1.94
+            "peg_ratio": 1.93
           },
           "price_confirmation": {
             "weight": 10,
@@ -120,7 +120,7 @@
           "fcf_growth_ttm_pct": 96.54,
           "operating_margin_ttm_pct": 42.8,
           "forward_pe": 103.31,
-          "peg_ratio": 1.94
+          "peg_ratio": 1.93
         },
         "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
         "fundamental_last_updated": "Aug 4, 2026",
@@ -821,8 +821,8 @@
           "valuation_reasonableness": {
             "weight": 10,
             "score_pct": 100,
-            "forward_pe": 31.05,
-            "peg_ratio": 1.4
+            "forward_pe": 30.7,
+            "peg_ratio": 1.48
           },
           "price_confirmation": {
             "weight": 10,
@@ -854,8 +854,8 @@
           "eps_growth_ttm_pct": 50.74,
           "fcf_growth_ttm_pct": null,
           "operating_margin_ttm_pct": 51.25,
-          "forward_pe": 31.05,
-          "peg_ratio": 1.4
+          "forward_pe": 30.7,
+          "peg_ratio": 1.48
         },
         "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
         "fundamental_last_updated": "Oct 29, 2026",
@@ -2749,6 +2749,128 @@
         {
           "date": "2026-10-29",
           "value": 4.989
+        }
+      ]
+    },
+    {
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "trade_date": "2026-10-29",
+      "value": 77775.11,
+      "change_pct": -4.3,
+      "source": "Yahoo Finance",
+      "history": [
+        {
+          "date": "2026-10-02",
+          "value": 84497.21
+        },
+        {
+          "date": "2026-10-03",
+          "value": 84763.58
+        },
+        {
+          "date": "2026-10-04",
+          "value": 86480.3
+        },
+        {
+          "date": "2026-10-05",
+          "value": 85786.59
+        },
+        {
+          "date": "2026-10-06",
+          "value": 85557.56
+        },
+        {
+          "date": "2026-10-07",
+          "value": 83275.93
+        },
+        {
+          "date": "2026-10-08",
+          "value": 81676.34
+        },
+        {
+          "date": "2026-10-09",
+          "value": 82546.32
+        },
+        {
+          "date": "2026-10-10",
+          "value": 82912.23
+        },
+        {
+          "date": "2026-10-11",
+          "value": 83679.47
+        },
+        {
+          "date": "2026-10-12",
+          "value": 81762.56
+        },
+        {
+          "date": "2026-10-13",
+          "value": 83095.12
+        },
+        {
+          "date": "2026-10-14",
+          "value": 81562.49
+        },
+        {
+          "date": "2026-10-15",
+          "value": 82141.46
+        },
+        {
+          "date": "2026-10-16",
+          "value": 81500.8
+        },
+        {
+          "date": "2026-10-17",
+          "value": 81382.15
+        },
+        {
+          "date": "2026-10-18",
+          "value": 82017.6
+        },
+        {
+          "date": "2026-10-19",
+          "value": 81853.54
+        },
+        {
+          "date": "2026-10-20",
+          "value": 82941.0
+        },
+        {
+          "date": "2026-10-21",
+          "value": 84011.97
+        },
+        {
+          "date": "2026-10-22",
+          "value": 81311.89
+        },
+        {
+          "date": "2026-10-23",
+          "value": 81074.19
+        },
+        {
+          "date": "2026-10-24",
+          "value": 80790.84
+        },
+        {
+          "date": "2026-10-25",
+          "value": 80024.01
+        },
+        {
+          "date": "2026-10-26",
+          "value": 80006.66
+        },
+        {
+          "date": "2026-10-27",
+          "value": 80805.08
+        },
+        {
+          "date": "2026-10-28",
+          "value": 81267.59
+        },
+        {
+          "date": "2026-10-29",
+          "value": 77775.11
         }
       ]
     },
