@@ -2,14 +2,6 @@
   "schema_version": "0.2",
   "records": [
     {
-      "generated_at_jst": "2026-09-22T21:43:30+09:00",
-      "us_trade_date": "2026-09-21",
-      "run_state": "NO_CHANGE",
-      "source_crosscheck": "PASS",
-      "warnings": [],
-      "errors": []
-    },
-    {
       "generated_at_jst": "2026-09-23T09:53:35+09:00",
       "us_trade_date": "2026-09-22",
       "run_state": "NORMAL",
@@ -1249,6 +1241,23 @@
       "run_state": "NO_CHANGE",
       "source_crosscheck": "PASS",
       "warnings": [],
+      "errors": []
+    },
+    {
+      "generated_at_jst": "2026-10-31T09:57:07+09:00",
+      "us_trade_date": "2026-10-30",
+      "run_state": "NORMAL",
+      "source_crosscheck": "PENDING",
+      "warnings": [
+        "PLTR: independent close is not published for 2026-10-30.",
+        "LLY: independent close is not published for 2026-10-30.",
+        "BSY: independent close is not published for 2026-10-30.",
+        "MSTR: independent close is not published for 2026-10-30.",
+        "SOXL: independent close is not published for 2026-10-30.",
+        "BTC: market environment value for confirmed trade date 2026-10-30 is unavailable.",
+        "SOXX: market environment value for confirmed trade date 2026-10-30 is unavailable.",
+        "SMH: market environment value for confirmed trade date 2026-10-30 is unavailable."
+      ],
       "errors": []
     }
   ]
