@@ -1568,7 +1568,7 @@
           "valuation_reasonableness": {
             "weight": 10,
             "score_pct": 75,
-            "forward_pe": 28.11,
+            "forward_pe": 28.13,
             "peg_ratio": 2.12
           },
           "price_confirmation": {
@@ -1601,7 +1601,7 @@
           "eps_growth_ttm_pct": 15.5,
           "fcf_growth_ttm_pct": 14.93,
           "operating_margin_ttm_pct": 25.19,
-          "forward_pe": 28.11,
+          "forward_pe": 28.13,
           "peg_ratio": 2.12
         },
         "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
