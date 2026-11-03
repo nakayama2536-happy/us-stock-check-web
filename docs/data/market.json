@@ -86,8 +86,8 @@
           "valuation_reasonableness": {
             "weight": 10,
             "score_pct": 50,
-            "forward_pe": 85.26,
-            "peg_ratio": 1.6
+            "forward_pe": 81.74,
+            "peg_ratio": 1.53
           },
           "price_confirmation": {
             "weight": 10,
@@ -119,8 +119,8 @@
           "eps_growth_ttm_pct": 228.81,
           "fcf_growth_ttm_pct": 126.0,
           "operating_margin_ttm_pct": 45.64,
-          "forward_pe": 85.26,
-          "peg_ratio": 1.6
+          "forward_pe": 81.74,
+          "peg_ratio": 1.53
         },
         "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
         "fundamental_last_updated": "Nov 2, 2026",
@@ -1589,7 +1589,7 @@
         "volume_confirmation": {
           "weight": 5,
           "score_pct": 100,
-          "volume_ratio20": 1.55
+          "volume_ratio20": 1.54
         },
         "new_high_health": {
           "grade": "N/A",
@@ -2396,7 +2396,7 @@
       "symbol": "NASDAQ",
       "name": "NASDAQ Composite",
       "trade_date": "2026-11-02",
-      "value": 25164.36,
+      "value": 25164.31,
       "change_pct": -1.07,
       "source": "Yahoo Finance",
       "history": [
@@ -2478,7 +2478,7 @@
         },
         {
           "date": "2026-11-02",
-          "value": 25164.36
+          "value": 25164.31
         }
       ]
     },
@@ -2749,6 +2749,128 @@
         {
           "date": "2026-11-02",
           "value": 4.894
+        }
+      ]
+    },
+    {
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "trade_date": "2026-11-02",
+      "value": 76677.3,
+      "change_pct": -2.01,
+      "source": "Yahoo Finance",
+      "history": [
+        {
+          "date": "2026-10-06",
+          "value": 85557.56
+        },
+        {
+          "date": "2026-10-07",
+          "value": 83275.93
+        },
+        {
+          "date": "2026-10-08",
+          "value": 81676.34
+        },
+        {
+          "date": "2026-10-09",
+          "value": 82546.32
+        },
+        {
+          "date": "2026-10-10",
+          "value": 82912.23
+        },
+        {
+          "date": "2026-10-11",
+          "value": 83679.47
+        },
+        {
+          "date": "2026-10-12",
+          "value": 81762.56
+        },
+        {
+          "date": "2026-10-13",
+          "value": 83095.12
+        },
+        {
+          "date": "2026-10-14",
+          "value": 81562.49
+        },
+        {
+          "date": "2026-10-15",
+          "value": 82141.46
+        },
+        {
+          "date": "2026-10-16",
+          "value": 81500.8
+        },
+        {
+          "date": "2026-10-17",
+          "value": 81382.15
+        },
+        {
+          "date": "2026-10-18",
+          "value": 82017.6
+        },
+        {
+          "date": "2026-10-19",
+          "value": 81853.54
+        },
+        {
+          "date": "2026-10-20",
+          "value": 82941.0
+        },
+        {
+          "date": "2026-10-21",
+          "value": 84011.97
+        },
+        {
+          "date": "2026-10-22",
+          "value": 81311.89
+        },
+        {
+          "date": "2026-10-23",
+          "value": 81074.19
+        },
+        {
+          "date": "2026-10-24",
+          "value": 80790.84
+        },
+        {
+          "date": "2026-10-25",
+          "value": 80024.01
+        },
+        {
+          "date": "2026-10-26",
+          "value": 80006.66
+        },
+        {
+          "date": "2026-10-27",
+          "value": 80805.08
+        },
+        {
+          "date": "2026-10-28",
+          "value": 81267.59
+        },
+        {
+          "date": "2026-10-29",
+          "value": 77775.11
+        },
+        {
+          "date": "2026-10-30",
+          "value": 77198.21
+        },
+        {
+          "date": "2026-10-31",
+          "value": 77434.75
+        },
+        {
+          "date": "2026-11-01",
+          "value": 78248.45
+        },
+        {
+          "date": "2026-11-02",
+          "value": 76677.3
         }
       ]
     },
