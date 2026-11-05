@@ -2,14 +2,6 @@
   "schema_version": "0.2",
   "records": [
     {
-      "generated_at_jst": "2026-09-25T19:46:37+09:00",
-      "us_trade_date": "2026-09-24",
-      "run_state": "NO_CHANGE",
-      "source_crosscheck": "PASS",
-      "warnings": [],
-      "errors": []
-    },
-    {
       "generated_at_jst": "2026-09-26T09:00:15+09:00",
       "us_trade_date": "2026-09-25",
       "run_state": "NORMAL",
@@ -1265,6 +1257,14 @@
         "LLY: close mismatch primary=1417.57 independent=1417.99 diff=0.42 rel=0.030%",
         "SOXL: close mismatch primary=66.75 independent=66.68 diff=0.07 rel=0.105%"
       ]
+    },
+    {
+      "generated_at_jst": "2026-11-05T18:40:24+09:00",
+      "us_trade_date": "2026-11-04",
+      "run_state": "NO_CHANGE",
+      "source_crosscheck": "PASS",
+      "warnings": [],
+      "errors": []
     }
   ]
 }
