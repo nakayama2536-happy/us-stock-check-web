@@ -3,27 +3,23 @@
   "app_version": "0.9.8",
   "app_state": "SHADOW",
   "app_state_ja": "Shadow検証中",
-  "run_state": "NORMAL",
+  "run_state": "HOLD",
   "us_trade_date": "2026-11-04",
-  "generated_at_jst": "2026-11-05T10:39:15+09:00",
-  "message": "Shadowデータ取得・計算を実行しました。 独立終値の一部は確認待ちです。",
+  "generated_at_jst": "2026-11-05T11:58:01+09:00",
+  "message": "Shadow検証で確認事項があります。",
   "quality": {
     "qc": "PASS",
     "session": "REGULAR",
     "completeness": "5/5",
-    "source_crosscheck": "PENDING",
+    "source_crosscheck": "FAIL",
     "trade_date_age_days": 1,
     "delivery_target_jst": "12:00"
   },
   "warnings": [
-    "PLTR: independent close is not published for 2026-11-04.",
-    "LLY: independent close is not published for 2026-11-04.",
-    "BSY: independent close is not published for 2026-11-04.",
-    "MSTR: independent close is not published for 2026-11-04.",
-    "SOXL: independent close is not published for 2026-11-04.",
-    "BTC: market environment value for confirmed trade date 2026-11-04 is unavailable.",
-    "SOXX: market environment value for confirmed trade date 2026-11-04 is unavailable.",
-    "SMH: market environment value for confirmed trade date 2026-11-04 is unavailable."
+    "BTC: market environment value for confirmed trade date 2026-11-04 is unavailable."
   ],
-  "errors": []
+  "errors": [
+    "LLY: close mismatch primary=1417.57 independent=1417.99 diff=0.42 rel=0.030%",
+    "SOXL: close mismatch primary=66.75 independent=66.68 diff=0.07 rel=0.105%"
+  ]
 }
