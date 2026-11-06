@@ -2,21 +2,6 @@
   "schema_version": "0.2",
   "records": [
     {
-      "generated_at_jst": "2026-09-26T09:00:15+09:00",
-      "us_trade_date": "2026-09-25",
-      "run_state": "NORMAL",
-      "source_crosscheck": "PENDING",
-      "warnings": [
-        "PLTR: independent close is not published for 2026-09-25.",
-        "LLY: independent close is not published for 2026-09-25.",
-        "BSY: independent close is not published for 2026-09-25.",
-        "SOXL: independent close is not published for 2026-09-25.",
-        "SOXX: market environment value for confirmed trade date 2026-09-25 is unavailable.",
-        "SMH: market environment value for confirmed trade date 2026-09-25 is unavailable."
-      ],
-      "errors": []
-    },
-    {
       "generated_at_jst": "2026-09-26T16:53:10+09:00",
       "us_trade_date": "2026-09-25",
       "run_state": "NO_CHANGE",
@@ -1264,6 +1249,23 @@
       "run_state": "NO_CHANGE",
       "source_crosscheck": "PASS",
       "warnings": [],
+      "errors": []
+    },
+    {
+      "generated_at_jst": "2026-11-06T10:42:21+09:00",
+      "us_trade_date": "2026-11-05",
+      "run_state": "NORMAL",
+      "source_crosscheck": "PENDING",
+      "warnings": [
+        "PLTR: independent close is not published for 2026-11-05.",
+        "LLY: independent close is not published for 2026-11-05.",
+        "BSY: independent close is not published for 2026-11-05.",
+        "MSTR: independent close is not published for 2026-11-05.",
+        "SOXL: independent close is not published for 2026-11-05.",
+        "BTC: market environment value for confirmed trade date 2026-11-05 is unavailable.",
+        "SOXX: market environment value for confirmed trade date 2026-11-05 is unavailable.",
+        "SMH: market environment value for confirmed trade date 2026-11-05 is unavailable."
+      ],
       "errors": []
     }
   ]
