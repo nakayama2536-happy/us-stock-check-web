@@ -2,14 +2,6 @@
   "schema_version": "0.2",
   "records": [
     {
-      "generated_at_jst": "2026-09-27T07:10:39+09:00",
-      "us_trade_date": "2026-09-25",
-      "run_state": "NO_CHANGE",
-      "source_crosscheck": "PASS",
-      "warnings": [],
-      "errors": []
-    },
-    {
       "generated_at_jst": "2026-09-27T08:44:59+09:00",
       "us_trade_date": "2026-09-25",
       "run_state": "NO_CHANGE",
@@ -1271,6 +1263,14 @@
       "errors": [
         "MSTR: close mismatch primary=129.45 independent=129.30 diff=0.15 rel=0.116%"
       ]
+    },
+    {
+      "generated_at_jst": "2026-11-06T18:34:54+09:00",
+      "us_trade_date": "2026-11-05",
+      "run_state": "NO_CHANGE",
+      "source_crosscheck": "PASS",
+      "warnings": [],
+      "errors": []
     }
   ]
 }

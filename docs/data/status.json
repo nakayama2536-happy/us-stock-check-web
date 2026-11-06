@@ -3,22 +3,18 @@
   "app_version": "0.9.8",
   "app_state": "SHADOW",
   "app_state_ja": "Shadow検証中",
-  "run_state": "HOLD",
+  "run_state": "NO_CHANGE",
   "us_trade_date": "2026-11-05",
-  "generated_at_jst": "2026-11-06T11:57:50+09:00",
-  "message": "Shadow検証で確認事項があります。",
+  "generated_at_jst": "2026-11-06T18:34:54+09:00",
+  "message": "新しい米国取引日の確定データはありません。",
   "quality": {
     "qc": "PASS",
     "session": "REGULAR",
     "completeness": "5/5",
-    "source_crosscheck": "FAIL",
+    "source_crosscheck": "PASS",
     "trade_date_age_days": 1,
     "delivery_target_jst": "12:00"
   },
-  "warnings": [
-    "BTC: market environment value for confirmed trade date 2026-11-05 is unavailable."
-  ],
-  "errors": [
-    "MSTR: close mismatch primary=129.45 independent=129.30 diff=0.15 rel=0.116%"
-  ]
+  "warnings": [],
+  "errors": []
 }
