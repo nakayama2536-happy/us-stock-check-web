@@ -86,8 +86,8 @@
           "valuation_reasonableness": {
             "weight": 10,
             "score_pct": 75,
-            "forward_pe": 70.99,
-            "peg_ratio": 1.33
+            "forward_pe": 69.79,
+            "peg_ratio": 1.19
           },
           "price_confirmation": {
             "weight": 10,
@@ -119,8 +119,8 @@
           "eps_growth_ttm_pct": 228.81,
           "fcf_growth_ttm_pct": 126.0,
           "operating_margin_ttm_pct": 45.64,
-          "forward_pe": 70.99,
-          "peg_ratio": 1.33
+          "forward_pe": 69.79,
+          "peg_ratio": 1.19
         },
         "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
         "fundamental_last_updated": "Nov 3, 2026",
@@ -566,7 +566,7 @@
           "status": "CURRENT",
           "latest_period": "2026-Q2",
           "latest_available_from": "2026-08-03",
-          "days_since_latest": 96,
+          "days_since_latest": 97,
           "review_after_days": 100,
           "review_due": false
         }
@@ -821,7 +821,7 @@
           "valuation_reasonableness": {
             "weight": 10,
             "score_pct": 100,
-            "forward_pe": 28.79,
+            "forward_pe": 28.86,
             "peg_ratio": 1.39
           },
           "price_confirmation": {
@@ -854,7 +854,7 @@
           "eps_growth_ttm_pct": 50.73,
           "fcf_growth_ttm_pct": 112.05,
           "operating_margin_ttm_pct": 51.25,
-          "forward_pe": 28.79,
+          "forward_pe": 28.86,
           "peg_ratio": 1.39
         },
         "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
@@ -1313,7 +1313,7 @@
           "status": "CURRENT",
           "latest_period": "2026-Q2",
           "latest_available_from": "2026-08-05",
-          "days_since_latest": 94,
+          "days_since_latest": 95,
           "review_after_days": 100,
           "review_due": false
         }
@@ -1569,7 +1569,7 @@
             "weight": 10,
             "score_pct": 75,
             "forward_pe": 29.98,
-            "peg_ratio": 2.26
+            "peg_ratio": 2.03
           },
           "price_confirmation": {
             "weight": 10,
@@ -1602,7 +1602,7 @@
           "fcf_growth_ttm_pct": 6.33,
           "operating_margin_ttm_pct": 26.4,
           "forward_pe": 29.98,
-          "peg_ratio": 2.26
+          "peg_ratio": 2.03
         },
         "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
         "fundamental_last_updated": "Nov 5, 2026",
@@ -2048,7 +2048,7 @@
           "status": "CURRENT",
           "latest_period": "2026-Q2",
           "latest_available_from": "2026-08-05",
-          "days_since_latest": 94,
+          "days_since_latest": 95,
           "review_after_days": 100,
           "review_due": false
         }
