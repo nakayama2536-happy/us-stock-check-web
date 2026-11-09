@@ -566,7 +566,7 @@
           "status": "CURRENT",
           "latest_period": "2026-Q2",
           "latest_available_from": "2026-08-03",
-          "days_since_latest": 97,
+          "days_since_latest": 98,
           "review_after_days": 100,
           "review_due": false
         }
@@ -1313,7 +1313,7 @@
           "status": "CURRENT",
           "latest_period": "2026-Q2",
           "latest_available_from": "2026-08-05",
-          "days_since_latest": 95,
+          "days_since_latest": 96,
           "review_after_days": 100,
           "review_due": false
         }
@@ -1568,8 +1568,8 @@
           "valuation_reasonableness": {
             "weight": 10,
             "score_pct": 75,
-            "forward_pe": 29.98,
-            "peg_ratio": 2.03
+            "forward_pe": 30.05,
+            "peg_ratio": 2.24
           },
           "price_confirmation": {
             "weight": 10,
@@ -1601,8 +1601,8 @@
           "eps_growth_ttm_pct": 22.36,
           "fcf_growth_ttm_pct": 6.33,
           "operating_margin_ttm_pct": 26.4,
-          "forward_pe": 29.98,
-          "peg_ratio": 2.03
+          "forward_pe": 30.05,
+          "peg_ratio": 2.24
         },
         "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
         "fundamental_last_updated": "Nov 5, 2026",
@@ -2048,7 +2048,7 @@
           "status": "CURRENT",
           "latest_period": "2026-Q2",
           "latest_available_from": "2026-08-05",
-          "days_since_latest": 95,
+          "days_since_latest": 96,
           "review_after_days": 100,
           "review_due": false
         }
