@@ -2,23 +2,6 @@
   "schema_version": "0.2",
   "records": [
     {
-      "generated_at_jst": "2026-10-01T09:41:27+09:00",
-      "us_trade_date": "2026-09-30",
-      "run_state": "NORMAL",
-      "source_crosscheck": "PENDING",
-      "warnings": [
-        "PLTR: independent close is not published for 2026-09-30.",
-        "LLY: independent close is not published for 2026-09-30.",
-        "BSY: independent close is not published for 2026-09-30.",
-        "MSTR: independent close is not published for 2026-09-30.",
-        "SOXL: independent close is not published for 2026-09-30.",
-        "BTC: market environment value for confirmed trade date 2026-09-30 is unavailable.",
-        "SOXX: market environment value for confirmed trade date 2026-09-30 is unavailable.",
-        "SMH: market environment value for confirmed trade date 2026-09-30 is unavailable."
-      ],
-      "errors": []
-    },
-    {
       "generated_at_jst": "2026-10-01T10:41:13+09:00",
       "us_trade_date": "2026-09-30",
       "run_state": "NO_CHANGE",
@@ -1268,6 +1251,23 @@
       "run_state": "NO_CHANGE",
       "source_crosscheck": "PASS",
       "warnings": [],
+      "errors": []
+    },
+    {
+      "generated_at_jst": "2026-11-11T10:22:31+09:00",
+      "us_trade_date": "2026-11-10",
+      "run_state": "NORMAL",
+      "source_crosscheck": "PENDING",
+      "warnings": [
+        "PLTR: independent close is not published for 2026-11-10.",
+        "LLY: independent close is not published for 2026-11-10.",
+        "BSY: independent close is not published for 2026-11-10.",
+        "MSTR: independent close is not published for 2026-11-10.",
+        "SOXL: independent close is not published for 2026-11-10.",
+        "BTC: market environment value for confirmed trade date 2026-11-10 is unavailable.",
+        "SOXX: market environment value for confirmed trade date 2026-11-10 is unavailable.",
+        "SMH: market environment value for confirmed trade date 2026-11-10 is unavailable."
+      ],
       "errors": []
     }
   ]
