@@ -2,18 +2,6 @@
   "schema_version": "0.2",
   "records": [
     {
-      "generated_at_jst": "2026-10-07T09:54:21+09:00",
-      "us_trade_date": "2026-10-06",
-      "run_state": "NORMAL",
-      "source_crosscheck": "PENDING",
-      "warnings": [
-        "PLTR: independent close is not published for 2026-10-06.",
-        "BSY: independent close is not published for 2026-10-06.",
-        "BTC: market environment value for confirmed trade date 2026-10-06 is unavailable."
-      ],
-      "errors": []
-    },
-    {
       "generated_at_jst": "2026-10-07T10:54:00+09:00",
       "us_trade_date": "2026-10-06",
       "run_state": "NO_CHANGE",
@@ -1270,6 +1258,14 @@
     },
     {
       "generated_at_jst": "2026-11-16T11:29:12+09:00",
+      "us_trade_date": "2026-11-13",
+      "run_state": "NO_CHANGE",
+      "source_crosscheck": "PASS",
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "generated_at_jst": "2026-11-16T18:57:19+09:00",
       "us_trade_date": "2026-11-13",
       "run_state": "NO_CHANGE",
       "source_crosscheck": "PASS",
