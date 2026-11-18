@@ -1,13 +1,13 @@
 {
   "schema_version": "0.2",
-  "summary": "2026-11-17 のREGULAR確定値を取得し、5銘柄のテクニカル計算を完了しました。",
+  "summary": "2026-11-17 の確定値を維持しています。新しい米国取引日データはありません。",
   "stocks": [
     {
       "ticker": "PLTR",
       "name": "Palantir Technologies",
       "trade_date": "2026-11-17",
-      "close": 156.57,
-      "change_pct": -2.38,
+      "close": 156.56,
+      "change_pct": -2.39,
       "trend": "混在",
       "macd_state": "弱気",
       "rsi14": 32.8,
@@ -24,7 +24,7 @@
         "low52": 106.37,
         "high52": 212.94,
         "support_distance_pct": 2.6,
-        "resistance_distance_pct": 29.42,
+        "resistance_distance_pct": 29.43,
         "range_position_pct": 7.9
       },
       "structural_growth": {
@@ -102,16 +102,16 @@
           "weight": 10,
           "score_pct": 50,
           "trend": "混在",
-          "distance_to_52w_high_pct": 36.0
+          "distance_to_52w_high_pct": 36.01
         },
         "volume_confirmation": {
           "weight": 5,
           "score_pct": 0,
-          "volume_ratio20": 0.69
+          "volume_ratio20": 0.72
         },
         "new_high_health": {
           "grade": "N/A",
-          "distance_to_52w_high_pct": 36.0,
+          "distance_to_52w_high_pct": 36.01,
           "basis": "52週高値から5%超離れており、新高値局面ではない"
         },
         "fundamentals": {
@@ -155,8 +155,8 @@
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
       "shadow_source": "Yahoo Finance",
-      "shadow_close_diff_usd": 0.01,
-      "shadow_close_diff_pct": 0.0064,
+      "shadow_close_diff_usd": 0.0,
+      "shadow_close_diff_pct": 0.0,
       "structural_backtest": {
         "status": "PROXY_V1",
         "ticker": "PLTR",
@@ -842,7 +842,7 @@
         "volume_confirmation": {
           "weight": 5,
           "score_pct": 25,
-          "volume_ratio20": 0.81
+          "volume_ratio20": 0.87
         },
         "new_high_health": {
           "grade": "B",
