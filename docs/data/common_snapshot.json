@@ -4,22 +4,20 @@
   "market": "US",
   "adapter_status": "PARALLEL_SHADOW",
   "market_state": {
-    "state": "UNKNOWN"
+    "state": "CONFIRMED"
   },
   "snapshot": {
     "state": "LAST_VALID"
   },
   "incident": {
-    "level": "BLOCKED",
-    "error_codes": [
-      "LLY: close mismatch primary=1352.22 independent=1351.12 diff=1.10 rel=0.081%"
-    ]
+    "level": "WARNING",
+    "error_codes": []
   },
   "data_quality": {
-    "data_state": "MISSING",
-    "qc_state": "FAIL",
+    "data_state": "PARTIAL",
+    "qc_state": "WARN",
     "completeness_pct": 100.0,
-    "source_crosscheck": "FAIL"
+    "source_crosscheck": "PENDING"
   },
   "decision_scope": "MULTI",
   "decision_items": [
@@ -136,6 +134,6 @@
   ],
   "timestamps": {
     "market_as_of": "2026-11-19",
-    "calculated_at": "2026-11-20T11:29:38+09:00"
+    "calculated_at": "2026-11-20T12:47:17+09:00"
   }
 }
