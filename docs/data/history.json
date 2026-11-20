@@ -2,16 +2,6 @@
   "schema_version": "0.2",
   "records": [
     {
-      "generated_at_jst": "2026-10-10T10:59:11+09:00",
-      "us_trade_date": "2026-10-09",
-      "run_state": "NO_CHANGE",
-      "source_crosscheck": "PASS",
-      "warnings": [
-        "BTC: market environment value for confirmed trade date 2026-10-09 is unavailable."
-      ],
-      "errors": []
-    },
-    {
       "generated_at_jst": "2026-10-10T17:42:32+09:00",
       "us_trade_date": "2026-10-09",
       "run_state": "NO_CHANGE",
@@ -1250,6 +1240,20 @@
       "source_crosscheck": "PASS",
       "warnings": [],
       "errors": []
+    },
+    {
+      "generated_at_jst": "2026-11-20T11:29:38+09:00",
+      "us_trade_date": "2026-11-19",
+      "run_state": "HOLD",
+      "source_crosscheck": "FAIL",
+      "warnings": [
+        "PLTR: independent close is not published for 2026-11-19.",
+        "BSY: independent close is not published for 2026-11-19.",
+        "BTC: market environment value for confirmed trade date 2026-11-19 is unavailable."
+      ],
+      "errors": [
+        "LLY: close mismatch primary=1352.22 independent=1351.12 diff=1.10 rel=0.081%"
+      ]
     }
   ]
 }

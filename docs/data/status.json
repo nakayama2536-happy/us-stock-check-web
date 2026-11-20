@@ -3,18 +3,24 @@
   "app_version": "0.9.8",
   "app_state": "SHADOW",
   "app_state_ja": "Shadow検証中",
-  "run_state": "NO_CHANGE",
-  "us_trade_date": "2026-11-18",
-  "generated_at_jst": "2026-11-19T19:32:36+09:00",
-  "message": "新しい米国取引日の確定データはありません。",
+  "run_state": "HOLD",
+  "us_trade_date": "2026-11-19",
+  "generated_at_jst": "2026-11-20T11:29:38+09:00",
+  "message": "Shadow検証で確認事項があります。",
   "quality": {
     "qc": "PASS",
     "session": "REGULAR",
     "completeness": "5/5",
-    "source_crosscheck": "PASS",
+    "source_crosscheck": "FAIL",
     "trade_date_age_days": 1,
     "delivery_target_jst": "12:00"
   },
-  "warnings": [],
-  "errors": []
+  "warnings": [
+    "PLTR: independent close is not published for 2026-11-19.",
+    "BSY: independent close is not published for 2026-11-19.",
+    "BTC: market environment value for confirmed trade date 2026-11-19 is unavailable."
+  ],
+  "errors": [
+    "LLY: close mismatch primary=1352.22 independent=1351.12 diff=1.10 rel=0.081%"
+  ]
 }
