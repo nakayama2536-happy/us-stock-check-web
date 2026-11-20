@@ -2,14 +2,6 @@
   "schema_version": "0.2",
   "records": [
     {
-      "generated_at_jst": "2026-10-11T09:20:40+09:00",
-      "us_trade_date": "2026-10-09",
-      "run_state": "NO_CHANGE",
-      "source_crosscheck": "PASS",
-      "warnings": [],
-      "errors": []
-    },
-    {
       "generated_at_jst": "2026-10-11T10:25:01+09:00",
       "us_trade_date": "2026-10-09",
       "run_state": "NO_CHANGE",
@@ -1257,6 +1249,14 @@
         "BSY: independent close is not published for 2026-11-19.",
         "BTC: market environment value for confirmed trade date 2026-11-19 is unavailable."
       ],
+      "errors": []
+    },
+    {
+      "generated_at_jst": "2026-11-20T19:13:48+09:00",
+      "us_trade_date": "2026-11-19",
+      "run_state": "NO_CHANGE",
+      "source_crosscheck": "PASS",
+      "warnings": [],
       "errors": []
     }
   ]

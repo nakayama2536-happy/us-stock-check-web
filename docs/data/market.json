@@ -1,6 +1,6 @@
 {
   "schema_version": "0.2",
-  "summary": "2026-11-19 の確定値を維持しています。新しい米国取引日データはありません。 独立終値照合は一部確認待ちです。",
+  "summary": "2026-11-19 の確定値を維持しています。新しい米国取引日データはありません。",
   "stocks": [
     {
       "ticker": "PLTR",
@@ -107,7 +107,7 @@
         "volume_confirmation": {
           "weight": 5,
           "score_pct": 25,
-          "volume_ratio20": 0.88
+          "volume_ratio20": 0.89
         },
         "new_high_health": {
           "grade": "N/A",
@@ -154,9 +154,9 @@
       },
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
-      "shadow_source": "Independent close pending",
-      "shadow_close_diff_usd": null,
-      "shadow_close_diff_pct": null,
+      "shadow_source": "Yahoo Finance",
+      "shadow_close_diff_usd": 0.0,
+      "shadow_close_diff_pct": 0.0,
       "structural_backtest": {
         "status": "PROXY_V1",
         "ticker": "PLTR",
@@ -164,7 +164,7 @@
         "lookahead_bias": true,
         "point_in_time_ready": false,
         "history_start": "2021-11-22",
-        "history_end": "2026-11-18",
+        "history_end": "2026-11-19",
         "observations": 50,
         "buckets": {
           "HIGH": {
@@ -1636,9 +1636,9 @@
       },
       "signal": "SHADOW",
       "primary_source": "StockAnalysis/S&P Global Market Intelligence",
-      "shadow_source": "Independent close pending",
-      "shadow_close_diff_usd": null,
-      "shadow_close_diff_pct": null,
+      "shadow_source": "Yahoo Finance",
+      "shadow_close_diff_usd": 0.0,
+      "shadow_close_diff_pct": 0.0,
       "structural_backtest": {
         "status": "PROXY_V1",
         "ticker": "BSY",
@@ -1646,7 +1646,7 @@
         "lookahead_bias": true,
         "point_in_time_ready": false,
         "history_start": "2021-11-22",
-        "history_end": "2026-11-18",
+        "history_end": "2026-11-19",
         "observations": 50,
         "buckets": {
           "HIGH": {
@@ -2749,6 +2749,128 @@
         {
           "date": "2026-11-19",
           "value": 5.052
+        }
+      ]
+    },
+    {
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "trade_date": "2026-11-19",
+      "value": 61901.82,
+      "change_pct": -1.72,
+      "source": "Yahoo Finance",
+      "history": [
+        {
+          "date": "2026-10-23",
+          "value": 81074.19
+        },
+        {
+          "date": "2026-10-24",
+          "value": 80790.84
+        },
+        {
+          "date": "2026-10-25",
+          "value": 80024.01
+        },
+        {
+          "date": "2026-10-26",
+          "value": 80006.66
+        },
+        {
+          "date": "2026-10-27",
+          "value": 80805.08
+        },
+        {
+          "date": "2026-10-28",
+          "value": 81267.59
+        },
+        {
+          "date": "2026-10-29",
+          "value": 77775.11
+        },
+        {
+          "date": "2026-10-30",
+          "value": 77198.21
+        },
+        {
+          "date": "2026-10-31",
+          "value": 77434.75
+        },
+        {
+          "date": "2026-11-01",
+          "value": 78248.45
+        },
+        {
+          "date": "2026-11-02",
+          "value": 76677.3
+        },
+        {
+          "date": "2026-11-03",
+          "value": 77345.05
+        },
+        {
+          "date": "2026-11-04",
+          "value": 80405.29
+        },
+        {
+          "date": "2026-11-05",
+          "value": 75942.12
+        },
+        {
+          "date": "2026-11-06",
+          "value": 75746.93
+        },
+        {
+          "date": "2026-11-07",
+          "value": 75747.58
+        },
+        {
+          "date": "2026-11-08",
+          "value": 74584.65
+        },
+        {
+          "date": "2026-11-09",
+          "value": 75223.15
+        },
+        {
+          "date": "2026-11-10",
+          "value": 73720.12
+        },
+        {
+          "date": "2026-11-11",
+          "value": 73964.47
+        },
+        {
+          "date": "2026-11-12",
+          "value": 71342.97
+        },
+        {
+          "date": "2026-11-13",
+          "value": 68249.27
+        },
+        {
+          "date": "2026-11-14",
+          "value": 64128.05
+        },
+        {
+          "date": "2026-11-15",
+          "value": 65305.06
+        },
+        {
+          "date": "2026-11-16",
+          "value": 64855.84
+        },
+        {
+          "date": "2026-11-17",
+          "value": 64893.95
+        },
+        {
+          "date": "2026-11-18",
+          "value": 62987.27
+        },
+        {
+          "date": "2026-11-19",
+          "value": 61901.82
         }
       ]
     },
