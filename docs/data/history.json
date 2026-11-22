@@ -2,14 +2,6 @@
   "schema_version": "0.2",
   "records": [
     {
-      "generated_at_jst": "2026-10-12T10:55:05+09:00",
-      "us_trade_date": "2026-10-09",
-      "run_state": "NO_CHANGE",
-      "source_crosscheck": "PASS",
-      "warnings": [],
-      "errors": []
-    },
-    {
       "generated_at_jst": "2026-10-12T18:29:30+09:00",
       "us_trade_date": "2026-10-09",
       "run_state": "NO_CHANGE",
@@ -1257,6 +1249,14 @@
     },
     {
       "generated_at_jst": "2026-11-21T18:59:14+09:00",
+      "us_trade_date": "2026-11-20",
+      "run_state": "NO_CHANGE",
+      "source_crosscheck": "PASS",
+      "warnings": [],
+      "errors": []
+    },
+    {
+      "generated_at_jst": "2026-11-22T10:29:36+09:00",
       "us_trade_date": "2026-11-20",
       "run_state": "NO_CHANGE",
       "source_crosscheck": "PASS",
