@@ -107,7 +107,7 @@
         "volume_confirmation": {
           "weight": 5,
           "score_pct": 100,
-          "volume_ratio20": 1.53
+          "volume_ratio20": 1.52
         },
         "new_high_health": {
           "grade": "N/A",
