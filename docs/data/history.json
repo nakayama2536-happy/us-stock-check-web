@@ -2,14 +2,6 @@
   "schema_version": "0.2",
   "records": [
     {
-      "generated_at_jst": "2026-10-16T16:22:39+09:00",
-      "us_trade_date": "2026-10-15",
-      "run_state": "NO_CHANGE",
-      "source_crosscheck": "PASS",
-      "warnings": [],
-      "errors": []
-    },
-    {
       "generated_at_jst": "2026-10-17T08:45:43+09:00",
       "us_trade_date": "2026-10-16",
       "run_state": "NORMAL",
@@ -1243,6 +1235,14 @@
       "warnings": [
         "BTC: market environment value for confirmed trade date 2026-11-24 is unavailable."
       ],
+      "errors": []
+    },
+    {
+      "generated_at_jst": "2026-11-25T20:30:13+09:00",
+      "us_trade_date": "2026-11-24",
+      "run_state": "NO_CHANGE",
+      "source_crosscheck": "PASS",
+      "warnings": [],
       "errors": []
     }
   ]
