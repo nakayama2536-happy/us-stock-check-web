@@ -1,31 +1,31 @@
 {
   "schema_version": "0.2",
-  "summary": "2026-11-24 の確定値を維持しています。新しい米国取引日データはありません。",
+  "summary": "2026-11-25 のREGULAR確定値を取得し、5銘柄のテクニカル計算を完了しました。",
   "stocks": [
     {
       "ticker": "PLTR",
       "name": "Palantir Technologies",
-      "trade_date": "2026-11-24",
-      "close": 161.18,
-      "change_pct": 1.14,
+      "trade_date": "2026-11-25",
+      "close": 163.59,
+      "change_pct": 1.5,
       "trend": "混在",
-      "macd_state": "弱気",
-      "rsi14": 43.2,
+      "macd_state": "強気",
+      "rsi14": 45.1,
       "ma_state": "50MA > 200MA",
-      "ma50": 182.75,
-      "ma200": 154.18,
-      "macd": -8.4856,
-      "macd_signal": -7.736,
+      "ma50": 182.54,
+      "ma200": 154.3,
+      "macd": -7.6905,
+      "macd_signal": -7.7269,
       "levels": {
         "support20": 142.28,
-        "resistance20": 198.74,
-        "ma50": 182.75,
-        "ma200": 154.18,
+        "resistance20": 198.51,
+        "ma50": 182.54,
+        "ma200": 154.3,
         "low52": 106.37,
         "high52": 212.94,
-        "support_distance_pct": 13.28,
-        "resistance_distance_pct": 23.3,
-        "range_position_pct": 33.5
+        "support_distance_pct": 14.98,
+        "resistance_distance_pct": 21.35,
+        "range_position_pct": 37.9
       },
       "structural_growth": {
         "ticker": "PLTR",
@@ -86,8 +86,8 @@
           "valuation_reasonableness": {
             "weight": 10,
             "score_pct": 75,
-            "forward_pe": 70.13,
-            "peg_ratio": 1.2
+            "forward_pe": 71.18,
+            "peg_ratio": 1.22
           },
           "price_confirmation": {
             "weight": 10,
@@ -102,16 +102,16 @@
           "weight": 10,
           "score_pct": 50,
           "trend": "混在",
-          "distance_to_52w_high_pct": 32.11
+          "distance_to_52w_high_pct": 30.17
         },
         "volume_confirmation": {
           "weight": 5,
           "score_pct": 25,
-          "volume_ratio20": 0.8
+          "volume_ratio20": 0.83
         },
         "new_high_health": {
           "grade": "N/A",
-          "distance_to_52w_high_pct": 32.11,
+          "distance_to_52w_high_pct": 30.17,
           "basis": "52週高値から5%超離れており、新高値局面ではない"
         },
         "fundamentals": {
@@ -119,8 +119,8 @@
           "eps_growth_ttm_pct": 228.81,
           "fcf_growth_ttm_pct": 126.0,
           "operating_margin_ttm_pct": 45.64,
-          "forward_pe": 70.13,
-          "peg_ratio": 1.2
+          "forward_pe": 71.18,
+          "peg_ratio": 1.22
         },
         "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
         "fundamental_last_updated": "Nov 3, 2026",
@@ -164,7 +164,7 @@
         "lookahead_bias": true,
         "point_in_time_ready": false,
         "history_start": "2021-11-26",
-        "history_end": "2026-11-24",
+        "history_end": "2026-11-25",
         "observations": 50,
         "buckets": {
           "HIGH": {
@@ -566,7 +566,7 @@
           "status": "REVIEW_DUE",
           "latest_period": "2026-Q2",
           "latest_available_from": "2026-08-03",
-          "days_since_latest": 114,
+          "days_since_latest": 115,
           "review_after_days": 100,
           "review_due": true
         }
@@ -740,27 +740,27 @@
     {
       "ticker": "LLY",
       "name": "Eli Lilly",
-      "trade_date": "2026-11-24",
-      "close": 1407.59,
-      "change_pct": 3.15,
+      "trade_date": "2026-11-25",
+      "close": 1392.22,
+      "change_pct": -1.09,
       "trend": "上昇",
       "macd_state": "弱気",
-      "rsi14": 59.2,
+      "rsi14": 56.2,
       "ma_state": "50MA > 200MA",
-      "ma50": 1276.87,
-      "ma200": 1121.25,
-      "macd": 28.9441,
-      "macd_signal": 40.2963,
+      "ma50": 1281.96,
+      "ma200": 1123.08,
+      "macd": 27.2714,
+      "macd_signal": 37.6913,
       "levels": {
-        "support20": 1260.34,
+        "support20": 1330.0,
         "resistance20": 1475.25,
-        "ma50": 1276.87,
-        "ma200": 1121.25,
+        "ma50": 1281.96,
+        "ma200": 1123.08,
         "low52": 850.51,
         "high52": 1475.25,
-        "support_distance_pct": 11.68,
-        "resistance_distance_pct": 4.81,
-        "range_position_pct": 68.5
+        "support_distance_pct": 4.68,
+        "resistance_distance_pct": 5.96,
+        "range_position_pct": 42.8
       },
       "structural_growth": {
         "ticker": "LLY",
@@ -821,7 +821,7 @@
           "valuation_reasonableness": {
             "weight": 10,
             "score_pct": 100,
-            "forward_pe": 29.99,
+            "forward_pe": 29.66,
             "peg_ratio": 1.44
           },
           "price_confirmation": {
@@ -837,24 +837,24 @@
           "weight": 10,
           "score_pct": 100,
           "trend": "上昇",
-          "distance_to_52w_high_pct": 4.81
+          "distance_to_52w_high_pct": 5.96
         },
         "volume_confirmation": {
           "weight": 5,
           "score_pct": 25,
-          "volume_ratio20": 0.96
+          "volume_ratio20": 0.89
         },
         "new_high_health": {
-          "grade": "B",
-          "distance_to_52w_high_pct": 4.81,
-          "basis": "価格構造・MACD・RSI・出来高によるテクニカル暫定判定"
+          "grade": "N/A",
+          "distance_to_52w_high_pct": 5.96,
+          "basis": "52週高値から5%超離れており、新高値局面ではない"
         },
         "fundamentals": {
           "revenue_growth_ttm_pct": 45.51,
           "eps_growth_ttm_pct": 50.73,
           "fcf_growth_ttm_pct": 112.05,
           "operating_margin_ttm_pct": 51.25,
-          "forward_pe": 29.99,
+          "forward_pe": 29.66,
           "peg_ratio": 1.44
         },
         "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
@@ -899,7 +899,7 @@
         "lookahead_bias": true,
         "point_in_time_ready": false,
         "history_start": "2021-11-26",
-        "history_end": "2026-11-24",
+        "history_end": "2026-11-25",
         "observations": 50,
         "buckets": {
           "HIGH": {
@@ -1313,7 +1313,7 @@
           "status": "REVIEW_DUE",
           "latest_period": "2026-Q2",
           "latest_available_from": "2026-08-05",
-          "days_since_latest": 112,
+          "days_since_latest": 113,
           "review_after_days": 100,
           "review_due": true
         }
@@ -1487,27 +1487,27 @@
     {
       "ticker": "BSY",
       "name": "Bentley Systems",
-      "trade_date": "2026-11-24",
-      "close": 42.66,
-      "change_pct": 1.84,
+      "trade_date": "2026-11-25",
+      "close": 43.31,
+      "change_pct": 1.52,
       "trend": "上昇",
       "macd_state": "弱気",
-      "rsi14": 56.4,
+      "rsi14": 59.5,
       "ma_state": "50MA > 200MA",
-      "ma50": 38.0,
-      "ma200": 34.98,
-      "macd": 1.1833,
-      "macd_signal": 1.7485,
+      "ma50": 38.24,
+      "ma200": 35.02,
+      "macd": 1.134,
+      "macd_signal": 1.6256,
       "levels": {
         "support20": 38.38,
         "resistance20": 48.17,
-        "ma50": 38.0,
-        "ma200": 34.98,
+        "ma50": 38.24,
+        "ma200": 35.02,
         "low52": 28.08,
         "high52": 48.17,
-        "support_distance_pct": 11.15,
-        "resistance_distance_pct": 12.92,
-        "range_position_pct": 43.7
+        "support_distance_pct": 12.85,
+        "resistance_distance_pct": 11.22,
+        "range_position_pct": 50.4
       },
       "structural_growth": {
         "ticker": "BSY",
@@ -1568,8 +1568,8 @@
           "valuation_reasonableness": {
             "weight": 10,
             "score_pct": 75,
-            "forward_pe": 28.84,
-            "peg_ratio": 2.15
+            "forward_pe": 29.28,
+            "peg_ratio": 2.19
           },
           "price_confirmation": {
             "weight": 10,
@@ -1584,16 +1584,16 @@
           "weight": 10,
           "score_pct": 100,
           "trend": "上昇",
-          "distance_to_52w_high_pct": 12.92
+          "distance_to_52w_high_pct": 11.22
         },
         "volume_confirmation": {
           "weight": 5,
           "score_pct": 0,
-          "volume_ratio20": 0.74
+          "volume_ratio20": 0.56
         },
         "new_high_health": {
           "grade": "N/A",
-          "distance_to_52w_high_pct": 12.92,
+          "distance_to_52w_high_pct": 11.22,
           "basis": "52週高値から5%超離れており、新高値局面ではない"
         },
         "fundamentals": {
@@ -1601,8 +1601,8 @@
           "eps_growth_ttm_pct": 22.36,
           "fcf_growth_ttm_pct": 6.33,
           "operating_margin_ttm_pct": 26.4,
-          "forward_pe": 28.84,
-          "peg_ratio": 2.15
+          "forward_pe": 29.28,
+          "peg_ratio": 2.19
         },
         "fundamental_source": "StockAnalysis / S&P Global Market Intelligence",
         "fundamental_last_updated": "Nov 5, 2026",
@@ -1646,7 +1646,7 @@
         "lookahead_bias": true,
         "point_in_time_ready": false,
         "history_start": "2021-11-26",
-        "history_end": "2026-11-24",
+        "history_end": "2026-11-25",
         "observations": 50,
         "buckets": {
           "HIGH": {
@@ -2048,7 +2048,7 @@
           "status": "REVIEW_DUE",
           "latest_period": "2026-Q2",
           "latest_available_from": "2026-08-05",
-          "days_since_latest": 112,
+          "days_since_latest": 113,
           "review_after_days": 100,
           "review_due": true
         }
@@ -2222,27 +2222,27 @@
     {
       "ticker": "MSTR",
       "name": "Strategy Inc.",
-      "trade_date": "2026-11-24",
-      "close": 77.55,
-      "change_pct": -8.12,
+      "trade_date": "2026-11-25",
+      "close": 79.96,
+      "change_pct": 3.11,
       "trend": "混在",
       "macd_state": "弱気",
-      "rsi14": 24.6,
+      "rsi14": 27.0,
       "ma_state": "50MA > 200MA",
-      "ma50": 136.82,
-      "ma200": 131.2,
-      "macd": -16.0723,
-      "macd_signal": -11.9894,
+      "ma50": 135.89,
+      "ma200": 130.94,
+      "macd": -16.3292,
+      "macd_signal": -12.8574,
       "levels": {
-        "support20": 77.32,
+        "support20": 70.37,
         "resistance20": 146.07,
-        "ma50": 136.82,
-        "ma200": 131.2,
-        "low52": 77.32,
+        "ma50": 135.89,
+        "ma200": 130.94,
+        "low52": 70.37,
         "high52": 198.4,
-        "support_distance_pct": 0.3,
-        "resistance_distance_pct": 88.36,
-        "range_position_pct": 0.3
+        "support_distance_pct": 13.63,
+        "resistance_distance_pct": 82.68,
+        "range_position_pct": 12.7
       },
       "structural_growth": null,
       "signal": "SHADOW",
@@ -2254,27 +2254,27 @@
     {
       "ticker": "SOXL",
       "name": "Direxion Daily Semiconductor Bull 3X",
-      "trade_date": "2026-11-24",
-      "close": 32.6,
-      "change_pct": -24.55,
+      "trade_date": "2026-11-25",
+      "close": 32.02,
+      "change_pct": -1.78,
       "trend": "下降",
       "macd_state": "弱気",
-      "rsi14": 33.1,
+      "rsi14": 33.0,
       "ma_state": "50MA < 200MA",
-      "ma50": 100.23,
-      "ma200": 123.47,
-      "macd": -17.2308,
-      "macd_signal": -16.8832,
+      "ma50": 98.79,
+      "ma200": 123.31,
+      "macd": -17.3098,
+      "macd_signal": -16.9685,
       "levels": {
-        "support20": 29.82,
-        "resistance20": 108.6,
-        "ma50": 100.23,
-        "ma200": 123.47,
-        "low52": 29.82,
+        "support20": 24.61,
+        "resistance20": 105.44,
+        "ma50": 98.79,
+        "ma200": 123.31,
+        "low52": 24.61,
         "high52": 302.0,
-        "support_distance_pct": 9.32,
-        "resistance_distance_pct": 233.13,
-        "range_position_pct": 3.5
+        "support_distance_pct": 30.11,
+        "resistance_distance_pct": 229.29,
+        "range_position_pct": 9.2
       },
       "structural_growth": null,
       "signal": "SHADOW",
@@ -2290,10 +2290,10 @@
           "positive": 0,
           "available": 4,
           "symbols": {
-            "SOX": -7.88,
-            "SOXX": -8.27,
-            "SMH": -7.26,
-            "NASDAQ": -1.48
+            "SOX": -0.65,
+            "SOXX": -0.5,
+            "SMH": -1.01,
+            "NASDAQ": -0.62
           }
         },
         "high_warning": false,
@@ -2305,15 +2305,11 @@
     {
       "symbol": "SPX",
       "name": "S&P 500",
-      "trade_date": "2026-11-24",
-      "value": 7201.09,
-      "change_pct": -0.5,
+      "trade_date": "2026-11-25",
+      "value": 7182.78,
+      "change_pct": -0.25,
       "source": "Yahoo Finance",
       "history": [
-        {
-          "date": "2026-10-28",
-          "value": 7743.98
-        },
         {
           "date": "2026-10-29",
           "value": 7720.39
@@ -2389,21 +2385,21 @@
         {
           "date": "2026-11-24",
           "value": 7201.09
+        },
+        {
+          "date": "2026-11-25",
+          "value": 7182.78
         }
       ]
     },
     {
       "symbol": "NASDAQ",
       "name": "NASDAQ Composite",
-      "trade_date": "2026-11-24",
-      "value": 23733.54,
-      "change_pct": -1.48,
+      "trade_date": "2026-11-25",
+      "value": 23585.8,
+      "change_pct": -0.62,
       "source": "Yahoo Finance",
       "history": [
-        {
-          "date": "2026-10-28",
-          "value": 26549.85
-        },
         {
           "date": "2026-10-29",
           "value": 26184.72
@@ -2479,21 +2475,21 @@
         {
           "date": "2026-11-24",
           "value": 23733.54
+        },
+        {
+          "date": "2026-11-25",
+          "value": 23585.8
         }
       ]
     },
     {
       "symbol": "SOX",
       "name": "PHLX Semiconductor",
-      "trade_date": "2026-11-24",
-      "value": 8832.5,
-      "change_pct": -7.88,
+      "trade_date": "2026-11-25",
+      "value": 8774.86,
+      "change_pct": -0.65,
       "source": "Yahoo Finance",
       "history": [
-        {
-          "date": "2026-10-28",
-          "value": 11684.0
-        },
         {
           "date": "2026-10-29",
           "value": 11518.2
@@ -2569,21 +2565,21 @@
         {
           "date": "2026-11-24",
           "value": 8832.5
+        },
+        {
+          "date": "2026-11-25",
+          "value": 8774.86
         }
       ]
     },
     {
       "symbol": "VIX",
       "name": "Volatility Index",
-      "trade_date": "2026-11-24",
-      "value": 26.36,
-      "change_pct": -0.98,
+      "trade_date": "2026-11-25",
+      "value": 28.29,
+      "change_pct": 7.32,
       "source": "Yahoo Finance",
       "history": [
-        {
-          "date": "2026-10-28",
-          "value": 16.91
-        },
         {
           "date": "2026-10-29",
           "value": 17.2
@@ -2659,21 +2655,21 @@
         {
           "date": "2026-11-24",
           "value": 26.36
+        },
+        {
+          "date": "2026-11-25",
+          "value": 28.29
         }
       ]
     },
     {
       "symbol": "US10Y",
       "name": "米10年金利",
-      "trade_date": "2026-11-24",
-      "value": 4.904,
-      "change_pct": -0.28,
+      "trade_date": "2026-11-25",
+      "value": 4.848,
+      "change_pct": -1.14,
       "source": "Yahoo Finance",
       "history": [
-        {
-          "date": "2026-10-28",
-          "value": 5.045
-        },
         {
           "date": "2026-10-29",
           "value": 4.989
@@ -2749,143 +2745,21 @@
         {
           "date": "2026-11-24",
           "value": 4.904
-        }
-      ]
-    },
-    {
-      "symbol": "BTC",
-      "name": "Bitcoin",
-      "trade_date": "2026-11-24",
-      "value": 59747.77,
-      "change_pct": -2.39,
-      "source": "Yahoo Finance",
-      "history": [
-        {
-          "date": "2026-10-28",
-          "value": 81267.59
         },
         {
-          "date": "2026-10-29",
-          "value": 77775.11
-        },
-        {
-          "date": "2026-10-30",
-          "value": 77198.21
-        },
-        {
-          "date": "2026-10-31",
-          "value": 77434.75
-        },
-        {
-          "date": "2026-11-01",
-          "value": 78248.45
-        },
-        {
-          "date": "2026-11-02",
-          "value": 76677.3
-        },
-        {
-          "date": "2026-11-03",
-          "value": 77345.05
-        },
-        {
-          "date": "2026-11-04",
-          "value": 80405.29
-        },
-        {
-          "date": "2026-11-05",
-          "value": 75942.12
-        },
-        {
-          "date": "2026-11-06",
-          "value": 75746.93
-        },
-        {
-          "date": "2026-11-07",
-          "value": 75747.58
-        },
-        {
-          "date": "2026-11-08",
-          "value": 74584.65
-        },
-        {
-          "date": "2026-11-09",
-          "value": 75223.15
-        },
-        {
-          "date": "2026-11-10",
-          "value": 73720.12
-        },
-        {
-          "date": "2026-11-11",
-          "value": 73964.47
-        },
-        {
-          "date": "2026-11-12",
-          "value": 71342.97
-        },
-        {
-          "date": "2026-11-13",
-          "value": 68249.27
-        },
-        {
-          "date": "2026-11-14",
-          "value": 64128.05
-        },
-        {
-          "date": "2026-11-15",
-          "value": 65305.06
-        },
-        {
-          "date": "2026-11-16",
-          "value": 64855.84
-        },
-        {
-          "date": "2026-11-17",
-          "value": 64893.95
-        },
-        {
-          "date": "2026-11-18",
-          "value": 62987.27
-        },
-        {
-          "date": "2026-11-19",
-          "value": 61901.82
-        },
-        {
-          "date": "2026-11-20",
-          "value": 58798.98
-        },
-        {
-          "date": "2026-11-21",
-          "value": 60094.09
-        },
-        {
-          "date": "2026-11-22",
-          "value": 61161.91
-        },
-        {
-          "date": "2026-11-23",
-          "value": 61210.98
-        },
-        {
-          "date": "2026-11-24",
-          "value": 59747.77
+          "date": "2026-11-25",
+          "value": 4.848
         }
       ]
     },
     {
       "symbol": "SOXX",
       "name": "iShares Semiconductor ETF",
-      "trade_date": "2026-11-24",
-      "value": 128.62,
-      "change_pct": -8.27,
+      "trade_date": "2026-11-25",
+      "value": 127.98,
+      "change_pct": -0.5,
       "source": "Yahoo Finance",
       "history": [
-        {
-          "date": "2026-10-28",
-          "value": 173.98
-        },
         {
           "date": "2026-10-29",
           "value": 171.29
@@ -2961,21 +2835,21 @@
         {
           "date": "2026-11-24",
           "value": 128.62
+        },
+        {
+          "date": "2026-11-25",
+          "value": 127.98
         }
       ]
     },
     {
       "symbol": "SMH",
       "name": "VanEck Semiconductor ETF",
-      "trade_date": "2026-11-24",
-      "value": 426.75,
-      "change_pct": -7.26,
+      "trade_date": "2026-11-25",
+      "value": 422.46,
+      "change_pct": -1.01,
       "source": "Yahoo Finance",
       "history": [
-        {
-          "date": "2026-10-28",
-          "value": 567.67
-        },
         {
           "date": "2026-10-29",
           "value": 561.67
@@ -3051,6 +2925,10 @@
         {
           "date": "2026-11-24",
           "value": 426.75
+        },
+        {
+          "date": "2026-11-25",
+          "value": 422.46
         }
       ]
     }
